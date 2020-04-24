@@ -1,0 +1,13 @@
+@import '../../../styles/variables.module';
+
+.roster {
+  border: 1px solid $grey;
+  display: grid;
+}
+
+.roster-header {
+  padding: 5px 10px;
+  display: grid;
+  grid-column-gap: 10px;
+  grid-template-columns: 30px 300px 1fr 1fr 1fr;
+}

@@ -1,0 +1,76 @@
+@import '../../../styles/variables.module';
+
+.rigbook-card {
+  // div
+  border: 1px solid $white-dark;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.vehicle-img {
+  // img
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  display: block;
+}
+
+.user-img {
+  // img
+  margin: -40px auto 0;
+  display: block;
+  height: 100px;
+  width: 100px;
+  border-radius: 100%;
+  border: 5px solid white;
+  position: relative;
+}
+
+.profile-actions-list {
+  // ul
+  margin: auto 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  justify-content: space-evenly;
+  border-top: 1px solid $white-dark;
+}
+
+.titles {
+  // div
+  text-transform: uppercase;
+}
+
+.content {
+  // div
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 10px;
+  height: 100%;
+
+  h2 {
+    margin: 0 0 10px;
+    line-height: 1;
+  }
+
+  h3 {
+    margin: 5px 0;
+    line-height: 1;
+  }
+
+  h4 {
+    margin: 5px 0;
+    line-height: 1;
+    text-transform: uppercase;
+    font-size: 14px;
+    color: $black-light;
+  }
+
+  h5 {
+    margin: auto 0 0;
+    text-transform: uppercase;
+    font-size: 12px;
+  }
+}

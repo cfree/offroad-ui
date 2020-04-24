@@ -1,0 +1,34 @@
+// colors
+$red: #ce312c;
+$red-light: #ff372d;
+$black: #393939;
+$black-light: #888888;
+$black-lighter: #182337;
+$grey: #e1e1e1;
+$grey-light: #4b5767;
+$grey-lighter: #879cb9;
+$white-dark: #ededed;
+$white: #ffffff;
+$green: #62bb47;
+
+// breakpoints
+$break-small: 480px;
+$break-medium: 720px;
+$break-large: 960px;
+$break-xl: 1800px;
+$max-width: 1000px;
+$content: 760px;
+
+// typography
+$space: 20px;
+$column-large: 30px;
+
+// shape
+$box-shadow: 0 12px 24px 0 rgba(0, 0, 0, 0.09);
+$border-radius: 3px;
+
+// fonts
+$font-default: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif; // Typekit
+$font-primary: 'Josefin Sans', 'Open Sans', 'Helvetica Neue', Helvetica, Arial,
+  sans-serif; // TypeKit
+$font-secondary: 'Merriweather', Georgia, 'Times New Roman', serif; // TypeKit

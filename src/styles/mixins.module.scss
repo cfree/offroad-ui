@@ -1,0 +1,21 @@
+// Mixins
+
+// Media Query Helpers
+@mixin breakpoint($bp, $direction: min) {
+  @media (#{$direction}-width: $bp) {
+    @content;
+  }
+}
+
+// Clearings
+@mixin clearfix {
+  &:before,
+  &:after {
+    content: '';
+    display: table;
+  }
+
+  &:after {
+    clear: both;
+  }
+}

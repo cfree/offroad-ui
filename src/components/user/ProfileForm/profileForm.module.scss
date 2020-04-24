@@ -1,0 +1,32 @@
+@import '../../../styles/variables.module';
+
+.form {
+  padding: 20px;
+  margin: 20px 0;
+  background: $white-dark;
+
+  .form-footer {
+    text-align: center;
+  }
+}
+
+.form-field {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-column-gap: 20px;
+
+  .profile-form-label {
+    text-align: right;
+  }
+
+  .profile-form-field {
+  }
+
+  [type='radio'] {
+    margin-right: 5px;
+  }
+
+  label + label {
+    margin-left: 10px;
+  }
+}

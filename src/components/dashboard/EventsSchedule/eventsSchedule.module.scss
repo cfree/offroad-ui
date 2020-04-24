@@ -1,0 +1,36 @@
+@import '../../../styles/variables.module';
+
+.events-schedule {
+  line-height: 1;
+
+  ul {
+    list-style: none;
+    padding: 0 0 10px;
+    margin: 0;
+  }
+
+  li {
+    margin: 0 0 10px;
+    padding: 0;
+    display: flex;
+
+    & > a {
+      margin-left: 10px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+  }
+
+  & > a {
+    float: right;
+  }
+}
+
+.hr {
+  // hr
+  height: 2px;
+  margin: 0 0 20px;
+  border: none;
+  background: $grey-lighter;
+}

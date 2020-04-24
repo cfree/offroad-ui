@@ -1,0 +1,15 @@
+.switch {
+  display: flex;
+
+  align-items: center;
+
+  span {
+    margin: 0 5px;
+    cursor: pointer;
+
+    button {
+      float: left;
+      cursor: pointer;
+    }
+  }
+}

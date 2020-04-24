@@ -1,0 +1,29 @@
+@import '../../../styles/variables.module.scss';
+
+.rsvp {
+  // div
+  display: inline-block;
+
+  .rsvp__attendees {
+    margin-bottom: 7px;
+    width: 250px;
+  }
+
+  .rsvp__count {
+    margin-left: 10px;
+    font-size: 1.2rem;
+    color: $black-light;
+  }
+
+  .past-rsvp__status {
+    font-size: 1.6rem;
+    font-weight: 700;
+    width: 250px;
+  }
+
+  .past-rsvp__count {
+    font-size: 1.2rem;
+    font-weight: 400;
+    margin-left: 20px;
+  }
+}

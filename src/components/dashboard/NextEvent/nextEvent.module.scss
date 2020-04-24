@@ -1,0 +1,56 @@
+@import '../../../styles/variables.module';
+
+.event-container {
+  padding-top: calc(800 / 1400 * 100%);
+  height: 0;
+  overflow: hidden;
+  background: white;
+  position: relative;
+
+  .event-heading {
+    color: white;
+  }
+
+  .event-desc {
+    color: white;
+  }
+}
+
+.event {
+  padding: 30px;
+  background-color: $grey-light;
+  background-size: cover;
+  background-position: center center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  .event-details {
+    margin: 1em 0 20px;
+    width: 50%;
+    color: white;
+
+    h3 {
+      font-size: 48px;
+      line-height: 0.85;
+      margin: 0 0 20px;
+
+      a {
+        color: white;
+        transition: 0.3s;
+
+        &:hover {
+          color: silver;
+        }
+      }
+    }
+
+    h4 {
+      font-size: 24px;
+      margin: 0;
+      line-height: 1;
+    }
+  }
+}

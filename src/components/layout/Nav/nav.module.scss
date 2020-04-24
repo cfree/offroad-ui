@@ -1,0 +1,108 @@
+@import '../../../styles/mixins.module';
+@import '../../../styles/variables.module';
+
+.nav {
+  // ul
+  @include clearfix;
+  margin: 15px 0 0 0;
+  padding: 0;
+
+  & > li {
+    list-style: none;
+    margin: 0 1px;
+    padding: 0;
+    float: left;
+
+    & > a {
+      padding: 8px 10px;
+      text-transform: uppercase;
+      color: $grey-light;
+    }
+
+    &:not(:global(.active)):not(:global(.user)):hover {
+      background: $grey-lighter;
+      border-radius: 3px;
+
+      a {
+        color: white;
+      }
+    }
+
+    &:global(.active) {
+      background: $grey-light;
+      border-radius: 3px;
+
+      a {
+        color: white;
+      }
+    }
+  }
+
+  & > :global(li.user) {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    float: left;
+    position: relative;
+  }
+
+  :global(.user-image) {
+    border-radius: 50%;
+    margin-left: 10px;
+  }
+
+  :global(.dropdown-menu) {
+    display: none;
+    position: absolute;
+    right: 0;
+    list-style: none;
+    text-align: left;
+    background: white;
+    border: 1px solid $white-dark;
+    padding: 0;
+    margin: 0;
+    border-radius: 2px;
+    padding: 10px 0;
+    width: 100px;
+    transform: opacity 0.3s;
+
+    &--open {
+      display: block;
+      z-index: 100;
+    }
+
+    &:before {
+      content: '';
+      position: absolute;
+      height: 10px;
+      width: 10px;
+      background: white;
+      border-top: 1px solid $white-dark;
+      border-right: 1px solid $white-dark;
+      transform: rotate(-45deg);
+      z-index: 1;
+      right: 10px;
+      bottom: calc(100% - 5px);
+    }
+
+    & > li {
+      padding: 0;
+      margin: 0;
+      line-height: 1;
+
+      &:hover {
+        background: $grey-lighter;
+
+        a {
+          color: white;
+        }
+      }
+
+      a {
+        color: $grey-light;
+        padding: 5px 10px;
+        display: block;
+      }
+    }
+  }
+}

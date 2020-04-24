@@ -1,0 +1,5 @@
+{
+  "prettier.requireConfig": true,
+  "prettier.configPath": ".prettierrc",
+  "prettier.semi": false
+}

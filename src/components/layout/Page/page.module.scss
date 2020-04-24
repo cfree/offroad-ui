@@ -1,0 +1,12 @@
+@import '../../../styles/variables.module';
+
+.container {
+  // main
+  max-width: $max-width;
+  margin: 0 auto 0;
+}
+
+.wrapper {
+  // div
+  padding-bottom: 50px;
+}
