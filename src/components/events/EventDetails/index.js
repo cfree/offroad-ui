@@ -8,12 +8,12 @@ import get from 'lodash/get';
 import { EVENT_QUERY } from './eventDetails.graphql';
 import {
   trailDifficulties,
-  trailConditions,
+  // trailConditions,
   DEFAULT_EVENT_SRC,
   DEFAULT_AVATAR_SMALL_SRC,
-  DEFAULT_TRAIL_SRC,
+  // DEFAULT_TRAIL_SRC,
 } from '../../../lib/constants';
-import Calendar from '../Calendar';
+// import Calendar from '../Calendar';
 import RigbookCard from '../../user/RigbookCard';
 import Rsvp from '../Rsvp';
 import Filter from '../../login/Filter';
@@ -102,7 +102,7 @@ export default class EventDetails extends Component {
                   <h2 className="event__title">{event.title}</h2>
                   {event.host.firstName && (
                     <div className="event__leader">
-                      <img src={HOST_IMAGE} height="30" />
+                      <img src={HOST_IMAGE} height="30" alt="Run Leader" />
                       Hosted by {event.host.firstName}
                     </div>
                   )}

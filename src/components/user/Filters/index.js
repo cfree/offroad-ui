@@ -9,8 +9,8 @@ import {
   titles,
 } from '../../../lib/constants';
 import { formatFilterSelect, formatFilterSelected } from '../../../lib/utils';
-import ErrorMessage from '../../utility/ErrorMessage';
-import Loading from '../../utility/Loading';
+// import ErrorMessage from '../../utility/ErrorMessage';
+// import Loading from '../../utility/Loading';
 
 import './filters.module.scss';
 

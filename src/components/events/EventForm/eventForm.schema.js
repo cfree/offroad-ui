@@ -1,5 +1,4 @@
 import * as yup from 'yup';
-import { format } from 'date-fns';
 
 export const eventSchema = yup.object().shape({
   title: yup.string().required('Title is required'),

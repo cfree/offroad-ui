@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Query } from '@apollo/react-components';
 import { Link } from 'react-router-dom';
-import get from 'lodash/get';
+// import get from 'lodash/get';
 
 import ErrorMessage from '../../utility/ErrorMessage';
 import { TRAILS_QUERY } from './trailsList.graphql.js';
@@ -16,7 +16,7 @@ import { TRAILS_QUERY } from './trailsList.graphql.js';
 //   DEFAULT_AVATAR_SMALL_SRC,
 // } from '../../../lib/constants';
 
-const TrailsList = ({}) => {
+const TrailsList = () => {
   return (
     <Query query={TRAILS_QUERY}>
       {({ loading, error, data }) => {

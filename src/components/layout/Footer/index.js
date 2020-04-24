@@ -10,7 +10,7 @@ const Footer = () => {
     <footer className={Styles.footer}>
       <img src="/img/logo.png" alt="Logo" />
       <p>{siteName}</p>
-      <p>&copy; 1986 - {format(Date.now(), 'yyyy')}</p>
+      <p>&copy; 1986 - {format(Date.now(), 'YYYY')}</p>
 
       <a
         rel="noopener noreferrer"

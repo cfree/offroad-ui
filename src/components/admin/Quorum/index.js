@@ -5,7 +5,7 @@ import parse from 'html-react-parser';
 import { Link } from 'react-router-dom';
 
 import ErrorMessage from '../../utility/ErrorMessage';
-import Button from '../../common/Button';
+// import Button from '../../common/Button';
 import {
   accountTypes,
   DEFAULT_AVATAR_SRC,

@@ -3,7 +3,8 @@ import { Mutation } from '@apollo/react-components';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 
-import { TOKEN_QUERY, RESET_MUTATION } from './resetPassword.graphql';
+// import { TOKEN_QUERY, RESET_MUTATION } from './resetPassword.graphql';
+import { RESET_MUTATION } from './resetPassword.graphql';
 import Error from '../../utility/ErrorMessage';
 
 // import Styles from './resetPassword.module.scss';

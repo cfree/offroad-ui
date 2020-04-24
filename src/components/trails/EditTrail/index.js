@@ -43,7 +43,7 @@ const EditTrail = ({ slug: existingTrailSlug }) => {
 
       setSubmitting(false);
     },
-    [],
+    [slug],
   );
 
   return (

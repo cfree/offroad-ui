@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 import { RSVP_MUTATION } from './attendeeStatus.graphql';
 import Loading from '../../utility/Loading';
-import { accountTypes as types, offices, titles } from '../../../lib/constants';
+// import { accountTypes as types, offices, titles } from '../../../lib/constants';
 
 import './attendeeStatus.module.scss';
 

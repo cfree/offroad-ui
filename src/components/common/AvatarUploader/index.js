@@ -61,7 +61,7 @@ const AvatarUploader = ({ image }) => {
       setAvatar(newAvatar);
       setOldAvatar(newAvatar);
     },
-    [uploadImage, oldAvatar, setAvatar, setOldAvatar],
+    [oldAvatar, setAvatar, setOldAvatar],
   );
 
   const deleteFile = useCallback(
@@ -75,7 +75,7 @@ const AvatarUploader = ({ image }) => {
       setAvatar(defaultImage);
       setOldAvatar();
     },
-    [oldAvatar, setAvatar, setOldAvatar, defaultImage],
+    [oldAvatar, setAvatar, setOldAvatar],
   );
 
   return (

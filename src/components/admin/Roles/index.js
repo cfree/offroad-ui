@@ -1,6 +1,5 @@
 import React, { useState, useCallback } from 'react';
 import { Query, Mutation } from '@apollo/react-components';
-import PropTypes from 'prop-types';
 import debounce from 'lodash/debounce';
 
 import {
@@ -167,7 +166,7 @@ const MemberTable = ({ allUsers }) => {
         debouncedSetUserList(allUsers);
       }
     },
-    [userList, debouncedSetUserList, setKeyword, setLoading],
+    [debouncedSetUserList, setKeyword, setLoading, allUsers],
   );
 
   return (

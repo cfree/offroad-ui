@@ -2,13 +2,13 @@ import React from 'react';
 import { Redirect, Switch, Route } from 'react-router-dom';
 
 import {
-  isAdmin,
+  // isAdmin,
   isMember,
   isAtLeastGuestMember,
   isActive,
   isAtLeastRunMaster,
   isAtLeastBoardMember,
-  isFullMember,
+  // isFullMember,
 } from '../lib/utils';
 
 import GuardedRoute from './GuardedRoute';
@@ -18,7 +18,6 @@ import DashboardPage from '../pages/private/DashboardPage';
 import DocumentsPage from '../pages/private/DocumentsPage';
 import HistoryPage from '../pages/private/HistoryPage';
 import MessagePage from '../pages/private/MessagePage';
-import RigbookPage from '../pages/private/RigbookPage';
 import RosterPage from '../pages/private/RosterPage';
 // import VotePage from '../pages/private/VotePage';
 // import ElectionsPage from '../pages/private/ElectionsPage';

@@ -12,7 +12,7 @@ import {
 import EventForm from '../EventForm';
 import ErrorMessage from '../../utility/ErrorMessage';
 import { uploadImage } from '../../../lib/utils';
-import UploadImagePreview from '../../common/UploadImagePreview';
+// import UploadImagePreview from '../../common/UploadImagePreview';
 
 class EditEvent extends Component {
   // state = {

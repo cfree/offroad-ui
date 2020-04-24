@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-import { Query, Mutation } from '@apollo/react-components';
-import PropTypes from 'prop-types';
+// import { Query, Mutation } from '@apollo/react-components';
 
-import { roles } from '../../../lib/constants';
+// import { roles } from '../../../lib/constants';
 import Filters from '../../user/Filters';
 import Roster from '../../user/Roster';
-import ErrorMessage from '../../utility/ErrorMessage';
-import Loading from '../../utility/Loading';
+// import ErrorMessage from '../../utility/ErrorMessage';
+// import Loading from '../../utility/Loading';
 
 export class MembershipList extends Component {
   state = {
