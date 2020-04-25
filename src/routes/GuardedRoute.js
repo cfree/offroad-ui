@@ -36,10 +36,6 @@ const GuardedRoute = ({
         const { myself } = data;
         const { role, accountStatus, accountType } = myself;
 
-        console.log('role', role, roleCheck(role));
-        console.log('accountStatus', accountStatus, statusCheck(accountStatus));
-        console.log('accountType', accountType, typeCheck(accountType));
-
         // Authorize
         return roleCheck(role) &&
           statusCheck(accountStatus) &&

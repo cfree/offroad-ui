@@ -3,6 +3,7 @@ import { gql } from 'apollo-boost';
 export const SETUP_NEW_EVENT_QUERY = gql`
   query SETUP_NEW_EVENT_QUERY {
     runLeaders: getRunLeaders {
+      id
       username
       firstName
       lastName
@@ -16,12 +17,13 @@ export const SETUP_NEW_EVENT_QUERY = gql`
 
 export const CREATE_EVENT_MUTATION = gql`
   mutation CREATE_EVENT_MUTATION(
+    $type: String!
     $title: String!
     $description: String
     $startTime: DateTime!
     $endTime: DateTime!
     $address: String
-    $trailDifficulty: TrailDifficulty!
+    $trailDifficulty: TrailDifficulty
     $trailNotes: String
     $rallyAddress: String
     $rallyTime: DateTime
@@ -33,6 +35,7 @@ export const CREATE_EVENT_MUTATION = gql`
   ) {
     createEvent(
       event: {
+        type: $type
         title: $title
         description: $description
         startTime: $startTime

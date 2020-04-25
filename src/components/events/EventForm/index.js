@@ -1,16 +1,16 @@
 import React from 'react';
-import { format } from 'date-fns';
+import { format, startOfToday } from 'date-fns';
 import { Formik, Field, ErrorMessage as FormikErrorMessage } from 'formik';
 
 import { eventSchema } from './eventForm.schema';
 import RichTextArea from '../../utility/RichTextArea';
 import Loading from '../../utility/Loading';
 import ErrorMessage from '../../utility/ErrorMessage';
-import { trailDifficulties } from '../../../lib/constants';
+import { eventTypes, trailDifficulties } from '../../../lib/constants';
 // import EventImageUploader from '../EventImageUploader';
 import UploadImagePreview from '../../common/UploadImagePreview';
 
-import './eventForm.module.scss';
+import Styles from './eventForm.module.scss';
 
 const EventForm = ({
   initialValues,
@@ -35,6 +35,27 @@ const EventForm = ({
           return (
             <div className="form profile-form--user">
               <form onSubmit={formikProps.handleSubmit}>
+                <div className="form-field">
+                  <label className="profile-form-label" htmlFor="type">
+                    Event Type
+                  </label>
+                  <div className="profile-form-field">
+                    <Field
+                      component="select"
+                      name="type"
+                      id="type"
+                      defaultValue={formikProps.initialValues.type}
+                    >
+                      {Object.entries(eventTypes).map((diff, idx) => (
+                        <option value={diff[0]} key={idx}>
+                          {diff[1]}
+                        </option>
+                      ))}
+                    </Field>
+                    <FormikErrorMessage name="type" component="div" />
+                  </div>
+                </div>
+
                 <div className="form-field">
                   <label className="profile-form-label" htmlFor="title">
                     Title
@@ -72,15 +93,15 @@ const EventForm = ({
                       type="date"
                       id="startDate"
                       name="startDate"
-                      min={format(new Date(), 'yyyy-mm-dd')}
+                      min={format(startOfToday(), 'YYYY-MM-DD')}
                       onChange={(e) => {
                         formikProps.setFieldValue('endDate', e.target.value);
                         formikProps.handleChange(e);
                       }}
-                    />
-                    <FormikErrorMessage name="startDate" component="div" />
-
+                    />{' '}
                     <Field type="time" id="startTime" name="startTime" />
+                    <small>Mountain Timezone</small>
+                    <FormikErrorMessage name="startDate" component="div" />
                     <FormikErrorMessage name="startTime" component="div" />
                   </div>
                 </div>
@@ -96,52 +117,45 @@ const EventForm = ({
                       name="endDate"
                       min={formikProps.values.startDate}
                     />
-                    <FormikErrorMessage name="endDate" component="div" />
 
                     <Field type="time" id="endTime" name="endTime" />
+                    <small>Mountain Timezone</small>
+                    <FormikErrorMessage name="endDate" component="div" />
                     <FormikErrorMessage name="endTime" component="div" />
                   </div>
                 </div>
 
-                <div className="form-field">
-                  <label className="profile-form-label" htmlFor="address">
-                    Address
-                  </label>
-                  <div className="profile-form-field">
-                    <Field type="text" id="address" name="address" />{' '}
-                    <small>
-                      <i>(optional)</i>
-                    </small>
-                    <FormikErrorMessage name="address" component="div" />
-                  </div>
-                </div>
-
-                <div className="form-field">
-                  <label
-                    className="profile-form-label"
-                    htmlFor="trailDifficulty"
-                  >
-                    Trail Difficulty
-                  </label>
-                  <div className="profile-form-field">
-                    <Field
-                      component="select"
-                      name="trailDifficulty"
-                      id="trailDifficulty"
-                      defaultValue={formikProps.initialValues.trailDifficulty}
+                {formikProps.values.type === 'RUN' ? (
+                  <div className="form-field">
+                    <label
+                      className="profile-form-label"
+                      htmlFor="rallyAddress"
                     >
-                      {Object.entries(trailDifficulties).map((diff, idx) => (
-                        <option value={diff[0]} key={idx}>
-                          {diff[1]}
-                        </option>
-                      ))}
-                    </Field>
-                    <FormikErrorMessage
-                      name="trailDifficulty"
-                      component="div"
-                    />
+                      Rally Place
+                    </label>
+                    <div className="profile-form-field">
+                      <Field
+                        type="text"
+                        id="rallyAddress"
+                        name="rallyAddress"
+                      />
+                      <FormikErrorMessage name="rallyAddress" component="div" />
+                    </div>
                   </div>
-                </div>
+                ) : (
+                  <div className="form-field">
+                    <label className="profile-form-label" htmlFor="address">
+                      Address
+                    </label>
+                    <div className="profile-form-field">
+                      <Field type="text" id="address" name="address" />{' '}
+                      <small>
+                        <i>(optional)</i>
+                      </small>
+                      <FormikErrorMessage name="address" component="div" />
+                    </div>
+                  </div>
+                )}
 
                 {/* <div className="form-field">
                   <label
@@ -163,16 +177,6 @@ const EventForm = ({
                     />
                   </div>
                 </div> */}
-
-                <div className="form-field">
-                  <label className="profile-form-label" htmlFor="rallyAddress">
-                    Rally Place
-                  </label>
-                  <div className="profile-form-field">
-                    <Field type="text" id="rallyAddress" name="rallyAddress" />
-                    <FormikErrorMessage name="rallyAddress" component="div" />
-                  </div>
-                </div>
 
                 <div className="form-field">
                   <label className="profile-form-label" htmlFor="rallyTime">
@@ -221,29 +225,60 @@ const EventForm = ({
                   </div>
                 </div>
 
-                <div className="form-field">
-                  <label className="profile-form-label" htmlFor="trail">
-                    Trail
-                  </label>
-                  <div className="profile-form-field">
-                    <Field
-                      component="select"
-                      name="trail"
-                      id="trail"
-                      defaultValue={formikProps.initialValues.trail}
-                    >
-                      {[{ id: 0, name: 'None' }, ...trails].map((trail) => (
-                        <option value={trail.id} key={trail.id}>
-                          {trail.name}
-                        </option>
-                      ))}
-                    </Field>
-                    <FormikErrorMessage name="trail" component="div" />
-                  </div>
-                </div>
-
-                {(!formikProps.values.trail ||
-                  formikProps.values.trail === '0') && (
+                {formikProps.values.type === 'RUN' ? (
+                  <>
+                    <div className="form-field">
+                      <label className="profile-form-label" htmlFor="trail">
+                        Trail
+                      </label>
+                      <div className="profile-form-field">
+                        <Field
+                          component="select"
+                          name="trail"
+                          id="trail"
+                          defaultValue={formikProps.initialValues.trail}
+                        >
+                          {trails.map((trail) => (
+                            <option value={trail.id} key={trail.id}>
+                              {trail.name}
+                            </option>
+                          ))}
+                        </Field>
+                        <FormikErrorMessage name="trail" component="div" />
+                      </div>
+                    </div>
+                    <div className="form-field">
+                      <label
+                        className="profile-form-label"
+                        htmlFor="trailDifficulty"
+                      >
+                        Difficulty
+                      </label>
+                      <div className="profile-form-field">
+                        <Field
+                          component="select"
+                          name="trailDifficulty"
+                          id="trailDifficulty"
+                          defaultValue={
+                            formikProps.initialValues.trailDifficulty
+                          }
+                        >
+                          {Object.entries(trailDifficulties).map(
+                            (diff, idx) => (
+                              <option value={diff[0]} key={idx}>
+                                {diff[1]}
+                              </option>
+                            ),
+                          )}
+                        </Field>
+                        <FormikErrorMessage
+                          name="trailDifficulty"
+                          component="div"
+                        />
+                      </div>
+                    </div>
+                  </>
+                ) : (
                   <div className="form-field">
                     {formikProps.values.newImage && (
                       <UploadImagePreview file={formikProps.values.newImage} />

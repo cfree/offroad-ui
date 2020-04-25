@@ -6,6 +6,7 @@ export const USER_RIG = gql`
       id
       rig {
         image {
+          id
           publicId
           url
         }

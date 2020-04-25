@@ -6,12 +6,12 @@ import { DASHBOARD_UPCOMING_EVENTS_QUERY } from './eventsSchedule.graphql';
 import Calendar from '../../events/Calendar';
 import ErrorMessage from '../../utility/ErrorMessage';
 
-import './eventsSchedule.module.scss';
+import Styles from './eventsSchedule.module.scss';
 
 const EventsSchedule = () => {
   return (
-    <div className="events-schedule">
-      <h3 className="dashboard-heading">Events Schedule</h3>
+    <div className={Styles['events-schedule']}>
+      <h3 className={Styles['dashboard-heading']}>Events Schedule</h3>
       <Query query={DASHBOARD_UPCOMING_EVENTS_QUERY}>
         {({ loading, error, data }) => {
           if (loading) {
@@ -35,13 +35,13 @@ const EventsSchedule = () => {
                       </li>
                     ))}
                   </ul>
-                  <hr className="hr" />
+                  <hr className={Styles['hr']} />
                   <Link to="/events">
                     <small>See All</small>
                   </Link>
                 </>
               ) : (
-                <p>Nothing scheduled</p>
+                <div className={Styles['nothing-scheduled']} />
               )}
             </>
           );

@@ -11,6 +11,7 @@ export const CURRENT_USER_QUERY = gql`
       accountStatus
       accountType
       avatar {
+        id
         url
         smallUrl
       }

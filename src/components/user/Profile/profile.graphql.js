@@ -10,6 +10,7 @@ export const PROFILE_QUERY = gql`
       gender
       birthdate
       avatar {
+        id
         url
       }
       joined
@@ -20,6 +21,7 @@ export const PROFILE_QUERY = gql`
       accountType
       comfortLevel
       contactInfo {
+        id
         street
         city
         state
@@ -27,6 +29,7 @@ export const PROFILE_QUERY = gql`
         phone
       }
       preferences {
+        id
         updatedAt
         emergencyContactName
         emergencyContactPhone
@@ -35,10 +38,12 @@ export const PROFILE_QUERY = gql`
       }
       rig {
         image {
+          id
           url
         }
       }
       vehicle {
+        id
         make
         model
         year

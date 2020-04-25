@@ -18,8 +18,9 @@ import RigbookCard from '../../user/RigbookCard';
 import Rsvp from '../Rsvp';
 import Filter from '../../login/Filter';
 import { isAtLeastRunMaster } from '../../../lib/utils';
+import { eventTypes } from '../../../lib/constants';
 
-import './eventDetails.module.scss';
+import Styles from './eventDetails.module.scss';
 
 export default class EventDetails extends Component {
   onMapImgError = (e) => {
@@ -85,29 +86,31 @@ export default class EventDetails extends Component {
           );
 
           return (
-            <div className="event">
+            <>
               {!isPastEvent && (
                 <Filter roleCheck={isAtLeastRunMaster}>
                   <Link to={`/event/${eventId}/edit`}>Edit</Link>
                 </Filter>
               )}
-              <div className="event__header">
-                <div className="event__calendar">{event.type || 'Run'}</div>
-                <div className="event__info">
-                  <div className="event__date">
+              <div className={Styles['event__header']}>
+                <div className={Styles['event__calendar']}>
+                  {eventTypes[event.type]}
+                </div>
+                <div className={Styles['event__info']}>
+                  <div className={Styles['event__date']}>
                     {isPastEvent
                       ? 'Past Event'
-                      : format(event.startTime, 'dddd, mmmm D, yyyy')}
+                      : format(event.startTime, 'dddd, MMMM D, YYYY')}
                   </div>
-                  <h2 className="event__title">{event.title}</h2>
+                  <h2 className={Styles['event__title']}>{event.title}</h2>
                   {event.host.firstName && (
-                    <div className="event__leader">
+                    <div className={Styles['event__leader']}>
                       <img src={HOST_IMAGE} height="30" alt="Run Leader" />
                       Hosted by {event.host.firstName}
                     </div>
                   )}
                 </div>
-                <div className="event__rsvp">
+                <div className={Styles['event__rsvp']}>
                   <Rsvp
                     userId={myself.id}
                     userStatus={userStatus()}
@@ -117,9 +120,9 @@ export default class EventDetails extends Component {
                   />
                 </div>
               </div>
-              <div className="event__details">
-                <div className="event__columns">
-                  <section className="event__section">
+              <div className={Styles['event__details']}>
+                <div className={Styles['event__columns']}>
+                  <section className={Styles['event__section']}>
                     {TRAIL_IMAGE && (
                       <img src={TRAIL_IMAGE} alt={event.trail.name} />
                     )}
@@ -127,7 +130,10 @@ export default class EventDetails extends Component {
                       <img src={EVENT_IMAGE} alt={event.title} />
                     )}
                   </section>
-                  <section className="event__section" aria-label="Description">
+                  <section
+                    className={Styles['event__section']}
+                    aria-label="Description"
+                  >
                     {parse(event.description)}
                   </section>
                   {event.trail && (
@@ -201,10 +207,15 @@ export default class EventDetails extends Component {
                       )} */}
                     </section>
                   )}
-                  <section className="event__section">
+                  <section className={Styles['event__section']}>
                     <h3>Attendees</h3>
-                    <div className="event__attendees">
-                      <RigbookCard user={event.host} />
+                    <div className={Styles['event__attendees']}>
+                      <div
+                        className={Styles['event__host']}
+                        title={event.type === 'RUN' ? 'Run Leader' : 'Host'}
+                      >
+                        <RigbookCard user={event.host} />
+                      </div>
                       {attendees
                         .filter(
                           (attendee) => attendee.member.id !== event.host.id,
@@ -215,7 +226,7 @@ export default class EventDetails extends Component {
                     </div>
                   </section>
                   {/* {isPastEvent && (
-                    <section className="event__section">
+                    <section className={Styles["event__section"]}>
                       <h3>Photos</h3>
                       <form>
                         <input type="file" />
@@ -223,7 +234,7 @@ export default class EventDetails extends Component {
                     </section>
                   )} */}
                   {event.comments && (
-                    <section className="event__section">
+                    <section className={Styles['event__section']}>
                       <h3>Comments</h3>
                       <hr />
                       <form>
@@ -231,12 +242,9 @@ export default class EventDetails extends Component {
                       </form>
                     </section>
                   )}
-                  <p className="event__section">
-                    <button>See More Events</button>
-                  </p>
                 </div>
-                <aside className="event__aside">
-                  <div className="event__aside-wrapper">
+                <aside className={Styles['event__aside']}>
+                  <div className={Styles['event__aside-wrapper']}>
                     <p>
                       <strong>Start</strong>:{' '}
                       {format(event.startTime, 'M/D/YY h:mm A')}
@@ -293,7 +301,7 @@ export default class EventDetails extends Component {
                   </div>
                 </aside>
               </div>
-            </div>
+            </>
           );
         }}
       </Query>

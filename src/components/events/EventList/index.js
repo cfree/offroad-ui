@@ -15,7 +15,7 @@ import {
   DEFAULT_AVATAR_SMALL_SRC,
 } from '../../../lib/constants';
 
-import './eventList.module.scss';
+import Styles from './eventList.module.scss';
 
 class EventList extends Component {
   state = {
@@ -53,8 +53,8 @@ class EventList extends Component {
           const { events, myself } = data;
 
           return (
-            <div className="events">
-              <ul className="events-list">
+            <div className={Styles['events']}>
+              <ul className={Styles['events-list']}>
                 <h2>{eventType} Events</h2>
                 {events.length > 0 ? (
                   events.map((event) => {
@@ -83,30 +83,30 @@ class EventList extends Component {
                     );
 
                     return (
-                      <li className="event-wrapper" key={event.id}>
-                        <div className="event">
-                          <div className="event__header">
-                            <div className="event__header-details">
-                              <div className="event-date">
+                      <li className={Styles['event-wrapper']} key={event.id}>
+                        <div className={Styles['event']}>
+                          <div className={Styles['event__header']}>
+                            <div className={Styles['event__header-details']}>
+                              <div className={Styles['event-date']}>
                                 <Link to={`/event/${event.id}`}>
                                   {format(
                                     event.startTime,
-                                    'ddd, mmm D, h:mm A',
+                                    'ddd, MMM D, h:mm A',
                                   )}
                                 </Link>
                               </div>
-                              <h2 className="event-title">
+                              <h2 className={Styles['event-title']}>
                                 <Link to={`/event/${event.id}`}>
                                   {event.title}
                                 </Link>
                               </h2>
-                              <div className="event-location">
+                              <div className={Styles['event-location']}>
                                 {event.address}
                               </div>
                             </div>
                             {TRAIL_IMAGE && (
                               <img
-                                className="event-image"
+                                className={Styles['event-image']}
                                 src={TRAIL_IMAGE}
                                 alt={event.trail.name}
                                 height="100"
@@ -115,7 +115,7 @@ class EventList extends Component {
                             )}
                             {EVENT_IMAGE && !TRAIL_IMAGE && (
                               <img
-                                className="event-image"
+                                className={Styles['event-image']}
                                 src={EVENT_IMAGE}
                                 alt={event.title}
                                 height="100"
@@ -123,14 +123,18 @@ class EventList extends Component {
                               />
                             )}
                           </div>
-                          <div className="event-details">
+                          <div className={Styles['event-details']}>
                             <div>{parse(event.description)}</div>
-                            <div className="event-meta">
+                            <div className={Styles['event-meta']}>
                               {this.state.attendees[event.id] &&
                                 this.state.attendees[event.id].length > 0 && (
-                                  <span className="event-attendees">
+                                  <span className={Styles['event-attendees']}>
                                     {event.rsvps && event.rsvps.length > 0 && (
-                                      <span className="event-attendees__avatars">
+                                      <span
+                                        className={
+                                          Styles['event-attendees__avatars']
+                                        }
+                                      >
                                         {this.getAttendees(event.id).map(
                                           (rsvp) => (
                                             <img
@@ -151,8 +155,8 @@ class EventList extends Component {
                                     attendees
                                   </span>
                                 )}
-                              <span className="event-rsvp">
-                                {/* <span className="event-comment-count">
+                              <span className={Styles['event-rsvp']}>
+                                {/* <span className={Styles["event-comment-count">
                                     12
                                   </span> */}
                                 <AttendeeStatus

@@ -50,11 +50,11 @@ class ProfileForm extends Component {
             gender: queryData.user.gender || 'MALE',
             birthdate:
               (queryData.user.birthdate &&
-                format(queryData.user.birthdate, 'yyyy-mm-dd')) ||
+                format(new Date(queryData.user.birthdate), 'YYYY-MM-DD')) ||
               null, // admin
             joined:
               (queryData.user.joined &&
-                format(queryData.user.joined, 'yyyy-mm-dd')) ||
+                format(new Date(queryData.user.joined), 'YYYY-MM-DD')) ||
               null, // admin
             phone:
               (queryData.user.contactInfo &&

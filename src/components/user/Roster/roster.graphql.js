@@ -20,10 +20,12 @@ export const MEMBERSHIP_QUERY = gql`
       firstName
       lastName
       avatar {
+        id
         smallUrl
       }
       accountType
       contactInfo {
+        id
         phone
       }
     }

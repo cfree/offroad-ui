@@ -1,0 +1,5 @@
+@import '../../../styles/utilities.module';
+
+.rigbook-nav {
+  @extend %switch-nav;
+}

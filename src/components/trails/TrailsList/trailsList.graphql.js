@@ -8,6 +8,7 @@ export const TRAILS_QUERY = gql`
       name
       description
       featuredImage {
+        id
         url
       }
       trailheadCoords
@@ -19,9 +20,11 @@ export const TRAILS_QUERY = gql`
       conditionsLastReported
       favoriteCount
       pastEvents {
+        id
         title
       }
       visitors {
+        id
         firstName
       }
     }

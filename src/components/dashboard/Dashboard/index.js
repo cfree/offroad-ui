@@ -13,51 +13,49 @@ import {
   // isNotFullMember,
   isNotLocked,
   isLocked,
+  isMember,
 } from '../../../lib/utils';
 
-import './dashboard.module.scss';
+import Styles from './dashboard.module.scss';
 
 const Dashboard = () => (
-  <div className="dashboard">
+  <div className={Styles['dashboard']}>
     <Filter statusCheck={isNotLocked}>
-      <div className="two-thirds">
-        <div className="container">
+      <div className={Styles['two-thirds']}>
+        <div className={Styles['container']}>
           <NextEvent />
         </div>
-        <div className="container">
-          <EventsSchedule />
-        </div>
       </div>
-
-      <div className="third">
-        <div className="container">
-          <Link to="/roster" className="roster-link">
+      <div className={Styles['third']}>
+        <EventsSchedule />
+      </div>
+      <Filter typeCheck={isMember}>
+        <div className={Styles['third']}>
+          <Link to="/roster" className={Styles['roster-link']}>
             Roster
           </Link>
         </div>
-        <div className="container">
-          <Link to="/history" className="history-link">
+        <div className={Styles['third']}>
+          <Link to="/history" className={Styles['history-link']}>
             Club History
           </Link>
         </div>
-        <div className="container">
-          <Link to="/documents" className="document-link">
+        <div className={Styles['third']}>
+          <Link to="/documents" className={Styles['document-link']}>
             Documents
           </Link>
         </div>
-      </div>
 
-      {/* <div className="two-thirds">
-        <div className="container">
+        {/* <div className={Styles['two-thirds']}>
           <RecentPhotos />
         </div>
 
-        <div className="container">
           <RunReports />
           <RecentCheckIns />
         </div>
       </div> */}
-      {/* <PollingPlace /> */}
+        {/* <PollingPlace /> */}
+      </Filter>
     </Filter>
     <Filter statusCheck={isLocked}>
       <p>

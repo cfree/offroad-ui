@@ -11,6 +11,7 @@ export const NEXT_EVENT_QUERY = gql`
       startTime
       description
       featuredImage {
+        id
         url
       }
       startTime
@@ -26,6 +27,7 @@ export const NEXT_EVENT_QUERY = gql`
         firstName
         lastName
         avatar {
+          id
           url
         }
       }

@@ -8,6 +8,7 @@ export const EXISTING_TRAIL_QUERY = gql`
       slug
       description
       featuredImage {
+        id
         url
       }
       trailheadCoords

@@ -1,13 +1,21 @@
 import React, { useCallback } from 'react';
-import { Route, useRouteMatch, useHistory } from 'react-router-dom';
+import {
+  Route,
+  useRouteMatch,
+  useHistory,
+  useLocation,
+} from 'react-router-dom';
 
 import Switch from '../../common/Switch';
 import Rigbook from '../Rigbook';
 import Roster from '../Roster';
 
+import Styles from './rosterIndex.module.scss';
+
 const RosterIndex = () => {
   const { push } = useHistory();
-  let { path, url } = useRouteMatch();
+  const { pathname } = useLocation();
+  const { path, url } = useRouteMatch();
   const handleClick = useCallback(
     (isRosterList) => {
       if (isRosterList) {
@@ -20,13 +28,13 @@ const RosterIndex = () => {
   );
 
   return (
-    <div>
-      <nav>
+    <div className={Styles['rigbook-index']}>
+      <nav className={Styles['rigbook-nav']}>
         <Switch
           offLabel="Rigbook"
           onLabel="List"
           onClick={handleClick}
-          onToStart={url.includes('/list')}
+          onToStart={pathname.includes('/list')}
         />
       </nav>
 

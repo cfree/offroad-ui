@@ -4,7 +4,7 @@ import { Query } from '@apollo/react-components';
 import { RIGBOOK_QUERY } from './rigbook.graphql';
 import RigbookCard from '../RigbookCard';
 
-import './rigbook.module.scss';
+import Styles from './rigbook.module.scss';
 
 const Rigbook = () => {
   return (
@@ -30,7 +30,7 @@ const Rigbook = () => {
           return (
             <>
               <h3>Officers</h3>
-              <ul className="rigbook">
+              <ul className={Styles['rigbook']}>
                 {data.president.id && (
                   <RigbookCard key={data.president.id} user={data.president} />
                 )}
@@ -49,7 +49,7 @@ const Rigbook = () => {
               </ul>
 
               <h3>Membership</h3>
-              <ul className="rigbook">
+              <ul className={Styles['rigbook']}>
                 {data.membership &&
                   data.membership.map((member) => (
                     <RigbookCard key={member.id} user={member} />

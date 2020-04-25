@@ -11,28 +11,36 @@ import {
 } from '../../../lib/constants';
 import Filter from '../../login/Filter';
 
-import './rigbookCard.module.scss';
+import Styles from './rigbookCard.module.scss';
 
-const RigbookCard = ({ user }) => {
+const RigbookCard = ({ user, titleOverride }) => {
   const RIG_SRC = get(user, 'rig.image.url', DEFAULT_RIG_SRC);
   const AVATAR_SRC = get(user, 'avatar.url', DEFAULT_AVATAR_SRC);
 
   return (
-    <div className="rigbook-card">
-      <div className="user-photos">
+    <div className={Styles['rigbook-card']}>
+      <div className={Styles['user-photos']}>
         <img
-          className="vehicle-img"
+          className={Styles['vehicle-img']}
           src={RIG_SRC}
           alt={`${user.firstName}'s Vehicle`}
         />
-        <img className="user-img" src={AVATAR_SRC} alt={user.firstName} />
+        <img
+          className={Styles['user-img']}
+          src={AVATAR_SRC}
+          alt={user.firstName}
+        />
       </div>
-      <div className="content">
+      <div className={Styles['content']}>
         <h2>
           {user.firstName} {user.lastName}
         </h2>
-        {user.office && <div className="titles">{offices[user.office]}</div>}
-        {user.titles && <div className="titles">{user.titles.join(', ')}</div>}
+        {user.office && !titleOverride && (
+          <div className={Styles['titles']}>{offices[user.office]}</div>
+        )}
+        {user.titles && !titleOverride && (
+          <div className={Styles['titles']}>{user.titles.join(', ')}</div>
+        )}
         {user.vehicle && (
           <>
             <h3>
@@ -42,11 +50,11 @@ const RigbookCard = ({ user }) => {
           </>
         )}
         <h5>
-          {getMemberType(user.accountType)}
+          {titleOverride ? titleOverride : getMemberType(user.accountType)}
           {user.joined && ` • Joined ${format(user.joined, 'yyyy')}`}
         </h5>
       </div>
-      <ul className="profile-actions-list">
+      <ul className={Styles['profile-actions-list']}>
         {user.username && (
           <>
             <li>

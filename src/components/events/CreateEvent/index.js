@@ -26,11 +26,12 @@ class CreateEvent extends Component {
           }
 
           const initialValues = {
+            type: 'RUN',
             title: '',
             description: '',
-            startDate: format(new Date(), 'yyyy-mm-dd'),
+            startDate: format(new Date(), 'yyyy-MM-DD'),
             startTime: '10:00',
-            endDate: format(new Date(), 'yyyy-mm-dd'),
+            endDate: format(new Date(), 'yyyy-MM-DD'),
             endTime: '15:00',
             address: '',
             trailDifficulty: 'UNKNOWN',
@@ -43,6 +44,8 @@ class CreateEvent extends Component {
             image: null,
             newImage: null,
           };
+
+          console.log('initialValue', format(new Date(), 'yyyy-MM-DD'));
 
           return (
             <>
@@ -108,6 +111,8 @@ class CreateEvent extends Component {
       const cloudinaryResults = await uploadImage(newImage, 'events');
       eventValues.newFeaturedImage = cloudinaryResults;
     }
+
+    console.log('eventValues', eventValues);
 
     createEvent({
       variables: eventValues,

@@ -7,6 +7,7 @@ export const UPCOMING_EVENTS_QUERY = gql`
       firstName
       lastName
       avatar {
+        id
         smallUrl
       }
     }
@@ -15,11 +16,13 @@ export const UPCOMING_EVENTS_QUERY = gql`
       title
       description
       featuredImage {
+        id
         smallUrl
       }
       startTime
       endTime
       host {
+        id
         firstName
         lastName
       }
@@ -64,11 +67,13 @@ export const PAST_EVENTS_QUERY = gql`
       title
       description
       featuredImage {
+        id
         smallUrl
       }
       startTime
       endTime
       host {
+        id
         firstName
         lastName
       }
@@ -80,6 +85,7 @@ export const PAST_EVENTS_QUERY = gql`
         name
         avgDifficulty
         featuredImage {
+          id
           smallUrl
         }
       }
@@ -89,6 +95,7 @@ export const PAST_EVENTS_QUERY = gql`
           firstName
           lastName
           avatar {
+            id
             smallUrl
           }
         }

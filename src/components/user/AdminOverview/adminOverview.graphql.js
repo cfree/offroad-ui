@@ -1,6 +1,6 @@
 import { gql } from 'apollo-boost';
 
-const ADMIN_OVERVIEW_QUERY = gql`
+export const ADMIN_OVERVIEW_QUERY = gql`
   query ADMIN_OVERVIEW_QUERY($username: String!) {
     user(username: $username) {
       id
@@ -9,6 +9,7 @@ const ADMIN_OVERVIEW_QUERY = gql`
       lastLogin
     }
     duesLastReceived: getDuesLastReceived(username: $username) {
+      id
       time
     }
     meetings: getUserEvents(username: $username, eventType: MEETING) {

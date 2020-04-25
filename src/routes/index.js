@@ -96,16 +96,16 @@ const Routes = () => {
       />
       <GuardedRoute path="/profile" component={ProfilePage} />
       <GuardedRoute
-        path="/events"
-        component={EventsPage}
-        statusCheck={isActive}
-      />
-      <GuardedRoute
         exact
         path="/event/new"
         component={CreateEventPage}
         statusCheck={isActive}
         roleCheck={isAtLeastRunMaster}
+      />
+      <GuardedRoute
+        path="/events"
+        component={EventsPage}
+        statusCheck={isActive}
       />
       <GuardedRoute
         path="/event/:id/edit"

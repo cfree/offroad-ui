@@ -14,10 +14,12 @@ export const RIGBOOK_QUERY = gql`
       firstName
       lastName
       avatar {
+        id
         url
       }
       rig {
         image {
+          id
           url
         }
       }
@@ -26,6 +28,7 @@ export const RIGBOOK_QUERY = gql`
       office
       accountType
       vehicle {
+        id
         make
         model
         year
@@ -39,10 +42,12 @@ export const RIGBOOK_QUERY = gql`
       firstName
       lastName
       avatar {
+        id
         url
       }
       rig {
         image {
+          id
           url
         }
       }
@@ -51,6 +56,7 @@ export const RIGBOOK_QUERY = gql`
       office
       accountType
       vehicle {
+        id
         make
         model
         year
@@ -64,10 +70,12 @@ export const RIGBOOK_QUERY = gql`
       firstName
       lastName
       avatar {
+        id
         url
       }
       rig {
         image {
+          id
           url
         }
       }
@@ -76,6 +84,7 @@ export const RIGBOOK_QUERY = gql`
       office
       accountType
       vehicle {
+        id
         make
         model
         year
@@ -89,10 +98,12 @@ export const RIGBOOK_QUERY = gql`
       firstName
       lastName
       avatar {
+        id
         url
       }
       rig {
         image {
+          id
           url
         }
       }
@@ -101,6 +112,7 @@ export const RIGBOOK_QUERY = gql`
       office
       accountType
       vehicle {
+        id
         make
         model
         year
@@ -114,10 +126,12 @@ export const RIGBOOK_QUERY = gql`
       firstName
       lastName
       avatar {
+        id
         url
       }
       rig {
         image {
+          id
           url
         }
       }
@@ -125,6 +139,7 @@ export const RIGBOOK_QUERY = gql`
       title
       accountType
       vehicle {
+        id
         make
         model
         year

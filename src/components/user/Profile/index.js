@@ -23,7 +23,7 @@ import {
   isAtLeastRunLeader,
 } from '../../../lib/utils';
 
-import './profile.module.scss';
+import Styles from './profile.module.scss';
 
 const Profile = ({ username }) => {
   const isSelf = username === undefined;
@@ -53,27 +53,27 @@ const Profile = ({ username }) => {
           .join(' ');
 
         return (
-          <div className="profile">
+          <div className={Styles['profile']}>
             <header>
               <div
                 aria-label={"User's Vehicle"}
-                className="user-vehicle"
+                className={Styles['user-vehicle']}
                 style={{
                   backgroundImage: `url(${RIG_SRC})`,
                 }}
               />
 
               {user ? (
-                <div className="user-header">
-                  <div className="user-demographics">
+                <div className={Styles['user-header']}>
+                  <div className={Styles['user-demographics']}>
                     <img src={AVATAR_SRC} height="130" alt="Avatar" />
-                    <div className="user-name-info">
-                      <div className="user-name">
-                        <h2 className="user-full-name">
+                    <div className={Styles['user-name-info']}>
+                      <div className={Styles['user-name']}>
+                        <h2 className={Styles['user-full-name']}>
                           {user.firstName} {user.lastName}
                         </h2>
                       </div>
-                      <ul className="user-info">
+                      <ul className={Styles['user-info']}>
                         {user.foundingMember && <li>Founding Member</li>}
                         <li>{types[user.accountType]} Member</li>
                         {(user.office || convertedTitles.length > 0) && (
@@ -83,11 +83,11 @@ const Profile = ({ username }) => {
                             )}
                           </li>
                         )}
-                        <li>Joined {format(user.joined, 'M/D/yyyy')}</li>
+                        <li>Joined {format(user.joined, 'M/D/YYYY')}</li>
                       </ul>
                     </div>
                   </div>
-                  <ul className="user-actions">
+                  <ul className={Styles['user-actions']}>
                     {isSelf && (
                       <li>
                         <Link to="/settings/profile">Edit Profile</Link>
@@ -123,7 +123,7 @@ const Profile = ({ username }) => {
 
             {user && (
               <main>
-                <div className="user-details">
+                <div className={Styles['user-details']}>
                   <div>
                     <h3>Information</h3>
 
@@ -202,7 +202,7 @@ const Profile = ({ username }) => {
                   </div>
 
                   {vehicle ? (
-                    <div className="user-garage">
+                    <div className={Styles['user-garage']}>
                       <h3>{user.firstName}'s Garage</h3>
                       <dl>
                         {vehicleInfo && (
@@ -268,8 +268,8 @@ const Profile = ({ username }) => {
                   get(user, 'trailsVisited', []).length > 0 ||
                   get(user, 'bandaids', []).length > 0 ||
                   get(user, 'runReportsLogged', []).length > 0) && (
-                  <div className="user-data">
-                    <div className="user-data__section">
+                  <div className={Styles['user-data']}>
+                    <div className={Styles['user-data__section']}>
                       <h3>Events Attended</h3>
                       {get(user, 'eventsRSVPd', []).length > 0 ? (
                         <ul>
@@ -277,7 +277,7 @@ const Profile = ({ username }) => {
                             .filter((event) => event.status === 'GOING')
                             .map((rsvp) => (
                               <li key={rsvp.event.id}>
-                                {format(rsvp.event.startTime, 'M/D/yyyy')}
+                                {format(rsvp.event.startTime, 'M/D/YYYY')}
                                 {' - '}
                                 <Link to={`/event/${rsvp.event.id}`}>
                                   {rsvp.event.title}
@@ -290,7 +290,7 @@ const Profile = ({ username }) => {
                       )}
                     </div>
 
-                    <div className="user-data__section">
+                    <div className={Styles['user-data__section']}>
                       <h3>Trails Visited</h3>
                       {get(user, 'trailsVisited', []).length > 0 ? (
                         <ul>
@@ -303,7 +303,7 @@ const Profile = ({ username }) => {
                       )}
                     </div>
 
-                    {/* <div className="user-data__section">
+                    {/* <div className={Styles["user-data__section"]}>
                       <h3>Bandaids</h3>
                       {get(user, 'bandaids', []).length > 0 ? (
                         <ul>
@@ -320,7 +320,7 @@ const Profile = ({ username }) => {
                       )}
                     </div>
                     
-                    <div className="user-data__section">
+                    <div className={Styles["user-data__section"]}>
                       <h3>Run Reports</h3>
                       {get(user, 'runReportsLogged', []).length > 0 ? (
                         <ul>
@@ -343,8 +343,8 @@ const Profile = ({ username }) => {
                   <>
                     <h3>Activity Log</h3>
                     <section>
-                      <div className="user-logs">
-                        <div className="activity-log">
+                      <div className={Styles['user-logs']}>
+                        <div className={Styles['activity-log']}>
                           {user.activityLog && user.activityLog.length > 0 ? (
                             <ul>
                               {user.activityLog

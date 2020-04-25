@@ -8,6 +8,7 @@ export const QUORUM_QUERY = gql`
       firstName
       lastName
       avatar {
+        id
         url
       }
       accountType

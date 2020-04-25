@@ -1,12 +1,20 @@
 import React, { useCallback } from 'react';
-import { Route, useRouteMatch, useHistory } from 'react-router-dom';
+import {
+  Route,
+  useRouteMatch,
+  useHistory,
+  useLocation,
+} from 'react-router-dom';
 
 import Switch from '../../common/Switch';
 import EventList from '../EventList';
 
+import Styles from './eventIndex.module.scss';
+
 const EventIndex = () => {
   const { push } = useHistory();
-  let { path, url } = useRouteMatch();
+  const { pathname } = useLocation();
+  const { path, url } = useRouteMatch();
   const handleClick = useCallback(
     (isPastEvents) => {
       if (isPastEvents) {
@@ -20,12 +28,12 @@ const EventIndex = () => {
 
   return (
     <div>
-      <nav>
+      <nav className={Styles['event-nav']}>
         <Switch
           offLabel="Upcoming"
           onLabel="Past"
           onClick={handleClick}
-          onToStart={url.includes('/past')}
+          onToStart={pathname.includes('/past')}
         />
       </nav>
 

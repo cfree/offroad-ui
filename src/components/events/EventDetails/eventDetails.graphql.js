@@ -7,13 +7,16 @@ export const EVENT_QUERY = gql`
       firstName
       lastName
       avatar {
+        id
         url
       }
     }
     event: getEvent(eventId: $eventId) {
+      type
       title
       description
       featuredImage {
+        id
         url
       }
       host {
@@ -23,11 +26,13 @@ export const EVENT_QUERY = gql`
         username
         accountType
         avatar {
+          id
           url
           smallUrl
         }
         rig {
           image {
+            id
             url
           }
         }
@@ -42,10 +47,12 @@ export const EVENT_QUERY = gql`
           username
           accountType
           avatar {
+            id
             url
           }
           rig {
             image {
+              id
               url
             }
           }
@@ -64,6 +71,7 @@ export const EVENT_QUERY = gql`
         conditionsLastReported
         favoriteCount
         featuredImage {
+          id
           url
         }
       }

@@ -6,6 +6,7 @@ export const SETUP_EXISTING_EVENT_QUERY = gql`
       title
       description
       featuredImage {
+        id
         url
         publicId
       }
@@ -14,6 +15,7 @@ export const SETUP_EXISTING_EVENT_QUERY = gql`
         firstName
         lastName
         avatar {
+          id
           smallUrl
         }
         username
@@ -49,6 +51,7 @@ export const SETUP_EXISTING_EVENT_QUERY = gql`
       rallyTime
     }
     runLeaders: getRunLeaders {
+      id
       username
       firstName
       lastName
@@ -63,12 +66,13 @@ export const SETUP_EXISTING_EVENT_QUERY = gql`
 export const EDIT_EVENT_MUTATION = gql`
   mutation EDIT_EVENT_MUTATION(
     $id: ID!
+    $type: String!
     $title: String!
     $description: String
     $startTime: DateTime!
     $endTime: DateTime!
     $address: String
-    $trailDifficulty: TrailDifficulty!
+    $trailDifficulty: TrailDifficulty
     $trailNotes: String
     $rallyAddress: String
     $rallyTime: DateTime
@@ -81,6 +85,7 @@ export const EDIT_EVENT_MUTATION = gql`
     updateEvent(
       id: $id
       event: {
+        type: $type
         title: $title
         description: $description
         startTime: $startTime

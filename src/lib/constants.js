@@ -78,7 +78,7 @@ export const migrationStatuses = {
 
 export const eventTypes = {
   RUN: 'Run',
-  COLLECTION: 'Collection of Events', // Moab, camping, etc.
+  // COLLECTION: 'Collection of Events', // Moab, camping, etc.
   FUNDRAISING: 'Fundraising', // Beer bust, etc.
   MEETING: 'Meeting',
   CLINIC: 'Clinic',

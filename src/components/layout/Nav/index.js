@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useRouteMatch } from 'react-router-dom';
 import cn from 'classnames';
 import get from 'lodash/get';
 
@@ -11,7 +11,7 @@ import { isActive, isMember, isAtLeastBoardMember } from '../../../lib/utils';
 import Styles from './nav.module.scss';
 
 const Nav = ({ router, ...props }) => {
-  let { pathname } = useLocation();
+  const { path, url: pathname } = useRouteMatch();
   const [isOpen, setIsOpen] = useState(false);
 
   const handleMouseEnter = useCallback(() => {
@@ -51,12 +51,26 @@ const Nav = ({ router, ...props }) => {
                   </li>
                   {isActive(myself.accountStatus) &&
                     isMember(myself.accountType) && (
-                      <li className={pathname === '/roster' ? 'active' : ''}>
+                      <li
+                        className={
+                          pathname === '/roster' || pathname === '/roster/list'
+                            ? 'active'
+                            : ''
+                        }
+                      >
                         <Link to="/roster">Roster</Link>
                       </li>
                     )}
                   {isActive(myself.accountStatus) && (
-                    <li className={pathname === '/events' ? 'active' : ''}>
+                    <li
+                      className={
+                        pathname === '/events' ||
+                        pathname === '/events/past' ||
+                        path === '/event/:id'
+                          ? 'active'
+                          : ''
+                      }
+                    >
                       <Link to="/events">Events</Link>
                     </li>
                   )}

@@ -6,19 +6,19 @@
   border-radius: $border-radius;
   border: 1px solid $grey;
   background: $white-dark;
+}
 
-  .date {
-    color: $red;
-    font-size: 2rem;
-    font-weight: 700;
-    line-height: 1;
-  }
+.date {
+  color: $red;
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1;
+}
 
-  .month {
-    text-transform: uppercase;
-    font-weight: 700;
-    color: $black-light;
-    font-size: 1.2rem;
-    line-height: 1;
-  }
+.month {
+  text-transform: uppercase;
+  font-weight: 700;
+  color: $black-light;
+  font-size: 1.2rem;
+  line-height: 1;
 }

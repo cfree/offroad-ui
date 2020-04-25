@@ -1,50 +1,27 @@
 @import '../../../styles/variables.module.scss';
 
-.container {
-  // div
-  .dashboard-heading {
-    margin: 0 0 20px;
-    padding-bottom: 8px;
-    line-height: 1;
-    border-bottom: 2px solid $grey-lighter;
-  }
-}
-
 .dashboard {
-  // div
   margin-top: 50px;
+  display: grid;
+  grid-column-gap: $space-large;
+  grid-row-gap: $space-large;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
 }
 
 .half {
-  // div
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-column-gap: $column-large;
-  grid-row-gap: $column-large;
-  margin-bottom: 30px;
+  grid-column-start: span 3;
 }
 
 .third {
-  // div
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-column-gap: $column-large;
-  grid-row-gap: $column-large;
-  margin-bottom: 30px;
+  grid-column-start: span 2;
 }
 
 .two-thirds {
-  // div
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  grid-column-gap: $column-large;
-  grid-row-gap: $column-large;
-  margin-bottom: 30px;
+  grid-column-start: span 4;
 }
 
 .roster-link {
-  // a
-  padding: 20px 30px;
+  padding: $space $space-large;
   font-size: 32px;
   display: block;
   color: white;
@@ -62,8 +39,8 @@
         rgba($grey-light, 0.75) 0%
       ),
       url('/img/toyota.jpg');
-    background-size: cover;
     background-position: center bottom;
+    background-size: cover;
     top: 0;
     height: 100%;
     left: 0;
@@ -81,18 +58,9 @@
 }
 
 .history-link {
-  // a
-  padding: 20px 30px;
-  font-size: 32px;
-  display: block;
-  color: white;
-  cursor: pointer;
-  transition: 0.3s;
-  position: relative;
-  overflow: hidden;
+  @extend .roster-link;
 
   &:before {
-    content: '';
     background: url('/img/club.jpg');
     background-image: linear-gradient(
         90deg,
@@ -100,37 +68,15 @@
         rgba($grey-light, 0.75) 0%
       ),
       url('/img/club.jpg');
-    background-size: cover;
     background-position: center;
-    top: 0;
-    height: 100%;
-    left: 0;
-    width: 100%;
-    position: absolute;
-    transition: 0.3s;
-    z-index: -1;
-  }
-
-  &:hover:before,
-  &:focus:before {
-    transform: scale(1.2);
-    transition: 0.3s;
+    background-size: cover;
   }
 }
 
 .document-link {
-  // a
-  padding: 20px 30px;
-  font-size: 32px;
-  display: block;
-  color: white;
-  cursor: pointer;
-  transition: 0.3s;
-  position: relative;
-  overflow: hidden;
+  @extend .roster-link;
 
   &:before {
-    content: '';
     background: url('/img/docs.jpg');
     background-image: linear-gradient(
         90deg,
@@ -138,20 +84,7 @@
         rgba($grey-light, 0.65) 0%
       ),
       url('/img/docs.jpg');
-    background-size: cover;
     background-position: center;
-    top: 0;
-    height: 100%;
-    left: 0;
-    width: 100%;
-    position: absolute;
-    transition: 0.3s;
-    z-index: -1;
-  }
-
-  &:hover:before,
-  &:focus:before {
-    transform: scale(1.2);
-    transition: 0.3s;
+    background-size: cover;
   }
 }

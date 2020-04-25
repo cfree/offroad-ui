@@ -1,13 +1,15 @@
 import React from 'react';
-import { format } from 'date-fns';
+import format from 'date-fns/format';
 
-import '.';
+import Styles from './calendar.module.scss';
 
 const Calendar = ({ date }) => {
+  const dateValue = new Date(date);
+
   return (
-    <div className="calendar" title={format(date, 'mm-dd-yyyy')}>
-      <div className="date">{format(date, 'D')}</div>
-      <div className="month">{format(date, 'mmm')}</div>
+    <div className={Styles['calendar']} title={format(dateValue, 'MM-dd-yyyy')}>
+      <div className={Styles['date']}>{format(dateValue, 'd')}</div>
+      <div className={Styles['month']}>{format(dateValue, 'MMM')}</div>
     </div>
   );
 };

@@ -9,6 +9,7 @@ export const MESSAGE_QUERY = gql`
       username
     }
     getMessageRecipients {
+      id
       username
       firstName
       lastName
