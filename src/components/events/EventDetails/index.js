@@ -29,7 +29,6 @@ export default class EventDetails extends Component {
 
   render() {
     const { id: eventId } = this.props;
-    console.log('id', eventId);
 
     return (
       <Query query={EVENT_QUERY} variables={{ eventId }}>
@@ -43,7 +42,7 @@ export default class EventDetails extends Component {
 
           const { event, myself } = data;
 
-          const isPastEvent = Date.now() > getTime(event.startTime);
+          const isPastEvent = Date.now() > getTime(new Date(event.startTime));
 
           const attendees = event.rsvps.filter(
             (rsvp) => rsvp.status === 'GOING',
@@ -100,7 +99,7 @@ export default class EventDetails extends Component {
                   <div className={Styles['event__date']}>
                     {isPastEvent
                       ? 'Past Event'
-                      : format(event.startTime, 'dddd, MMMM D, YYYY')}
+                      : format(new Date(event.startTime), 'EEEE, MMMM d, yyyy')}
                   </div>
                   <h2 className={Styles['event__title']}>{event.title}</h2>
                   {event.host.firstName && (
@@ -247,10 +246,10 @@ export default class EventDetails extends Component {
                   <div className={Styles['event__aside-wrapper']}>
                     <p>
                       <strong>Start</strong>:{' '}
-                      {format(event.startTime, 'M/D/YY h:mm A')}
+                      {format(new Date(event.startTime), 'M/d/yy h:mm a')}
                       <br />
                       <strong>End</strong>:{' '}
-                      {format(event.endTime, 'M/D/YY h:mm A')}
+                      {format(new Date(event.endTime), 'M/d/yy h:mm a')}
                     </p>
 
                     {event.rallyTime || event.rallyAddress ? (
@@ -258,7 +257,7 @@ export default class EventDetails extends Component {
                         {event.rallyTime && (
                           <>
                             <strong>Rally Time</strong>:{' '}
-                            {format(event.rallyTime, 'h:mm A')}
+                            {format(new Date(), 'h:mm a')}
                             <br />
                           </>
                         )}

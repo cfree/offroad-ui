@@ -76,7 +76,9 @@ const Nav = ({ router, ...props }) => {
                   )}
                   {isActive(myself.accountStatus) &&
                     isAtLeastBoardMember(myself.role) && (
-                      <li className={pathname === '/admin' ? 'active' : ''}>
+                      <li
+                        className={pathname.includes('/admin') ? 'active' : ''}
+                      >
                         <Link to="/admin">Admin</Link>
                       </li>
                     )}
@@ -86,14 +88,14 @@ const Nav = ({ router, ...props }) => {
                     className="user"
                   >
                     <img
-                      className="user-image"
+                      className={Styles['user-image']}
                       src={AVATAR_SRC}
                       height="30"
                       alt="Avatar"
                     />
                     <ul
-                      className={cn('dropdown-menu', {
-                        'dropdown-menu--open': isOpen,
+                      className={cn(Styles['dropdown-menu'], {
+                        [Styles['dropdown-menu--open']]: isOpen,
                       })}
                     >
                       <li className={pathname === '/profile' ? 'active' : ''}>

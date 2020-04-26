@@ -14,7 +14,6 @@ export const UPCOMING_EVENTS_QUERY = gql`
     events: getUpcomingEvents {
       id
       title
-      description
       featuredImage {
         id
         smallUrl
@@ -34,6 +33,7 @@ export const UPCOMING_EVENTS_QUERY = gql`
         name
         avgDifficulty
         featuredImage {
+          id
           smallUrl
         }
       }
@@ -43,6 +43,7 @@ export const UPCOMING_EVENTS_QUERY = gql`
           firstName
           lastName
           avatar {
+            id
             smallUrl
           }
         }
@@ -59,13 +60,13 @@ export const PAST_EVENTS_QUERY = gql`
       firstName
       lastName
       avatar {
+        id
         smallUrl
       }
     }
     events: getPastEvents {
       id
       title
-      description
       featuredImage {
         id
         smallUrl

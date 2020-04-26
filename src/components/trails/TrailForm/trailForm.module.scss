@@ -1,38 +1,21 @@
-@import '../../../styles/variables.module';
+@import '../../../styles/mixins.module';
 
 .form {
-  // div
-  padding: 20px;
-  margin: 20px 0;
-  background: $white-dark;
-
-  .form-footer {
-    text-align: center;
-  }
+  @extend %form;
 }
 
-.form-field {
-  // div
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-column-gap: 20px;
+.form-field-wrapper {
+  @extend %form-field-wrapper;
+}
 
-  .profile-form-label {
-    text-align: right;
-  }
+.trail-form-label {
+  @extend %form-label;
+}
 
-  .profile-form-field {
-  }
+.trail-form-field {
+  @extend %form-field;
+}
 
-  .profile-form-textarea {
-    background: white;
-  }
-
-  [type='radio'] {
-    margin-right: 5px;
-  }
-
-  label + label {
-    margin-left: 10px;
-  }
+.form-footer {
+  @extend %form-footer;
 }

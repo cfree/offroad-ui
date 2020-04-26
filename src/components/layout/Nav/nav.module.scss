@@ -9,30 +9,35 @@
 
   & > li {
     list-style: none;
-    margin: 0 1px;
+    margin: 4px 1px;
     padding: 0;
     float: left;
+    line-height: 1;
 
     & > a {
-      padding: 8px 10px;
+      font-family: $font-primary;
+      font-weight: 600;
+      font-size: 1.6rem;
+      line-height: 1;
+      padding: 8px 10px 5px;
       text-transform: uppercase;
       color: $grey-light;
+      transition: all 0.3s;
     }
 
     &:not(:global(.active)):not(:global(.user)):hover {
-      background: $grey-lighter;
-      border-radius: 3px;
-
       a {
+        background: $grey-lighter;
+        border-radius: 3px;
         color: white;
+        transition: all 0.3s;
       }
     }
 
     &:global(.active) {
-      background: $grey-light;
-      border-radius: 3px;
-
       a {
+        background: $grey-light;
+        border-radius: 3px;
         color: white;
       }
     }
@@ -45,63 +50,68 @@
     float: left;
     position: relative;
   }
+}
 
-  :global(.user-image) {
-    border-radius: 50%;
-    margin-left: 10px;
+.user-image {
+  border-radius: 50%;
+  margin-left: 10px;
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  right: 0;
+  list-style: none;
+  text-align: left;
+  background: white;
+  border: 1px solid $white-dark;
+  padding: 0;
+  margin: 0;
+  border-radius: 2px;
+  padding: 5px 0 0;
+  width: 100px;
+  transform: opacity 0.3s;
+
+  &--open {
+    display: block;
+    z-index: 100;
   }
 
-  :global(.dropdown-menu) {
-    display: none;
+  &:before {
+    content: '';
     position: absolute;
-    right: 0;
-    list-style: none;
-    text-align: left;
+    height: 10px;
+    width: 10px;
     background: white;
-    border: 1px solid $white-dark;
+    border-top: 1px solid $white-dark;
+    border-right: 1px solid $white-dark;
+    transform: rotate(-45deg);
+    z-index: 1;
+    right: 10px;
+    bottom: calc(100% - 5px);
+    border-bottom-left-radius: 50%;
+  }
+
+  & > li {
     padding: 0;
     margin: 0;
-    border-radius: 2px;
-    padding: 10px 0;
-    width: 100px;
-    transform: opacity 0.3s;
+    line-height: 1;
 
-    &--open {
+    a {
+      color: $grey-light;
+      padding: 10px 10px 7px;
       display: block;
-      z-index: 100;
+      text-transform: uppercase;
+      font-family: $font-primary;
+      font-size: 1.4rem;
+      transition: all 0.3s;
     }
 
-    &:before {
-      content: '';
-      position: absolute;
-      height: 10px;
-      width: 10px;
-      background: white;
-      border-top: 1px solid $white-dark;
-      border-right: 1px solid $white-dark;
-      transform: rotate(-45deg);
-      z-index: 1;
-      right: 10px;
-      bottom: calc(100% - 5px);
-    }
-
-    & > li {
-      padding: 0;
-      margin: 0;
-      line-height: 1;
-
-      &:hover {
-        background: $grey-lighter;
-
-        a {
-          color: white;
-        }
-      }
-
+    &:hover {
       a {
-        color: $grey-light;
-        padding: 5px 10px;
-        display: block;
+        color: white;
+        background: $grey-lighter;
+        transition: all 0.3s;
       }
     }
   }

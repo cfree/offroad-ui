@@ -225,13 +225,22 @@ const MemberTable = ({ allUsers }) => {
 const MemberPermissions = (props) => {
   return (
     <Query query={ALL_USERS_QUERY}>
-      {({ data, loading, error }) => (
-        <>
-          <ErrorMessage error={error} />
-          <h2>Manage Permissions</h2>
-          {data.users && <MemberTable allUsers={data.users} />}
-        </>
-      )}
+      {({ data, loading, error }) => {
+        if (loading) {
+          return <div>Loading...</div>;
+        }
+        if (error) {
+          return <div>Error: {error.message}</div>;
+        }
+
+        return (
+          <>
+            <ErrorMessage error={error} />
+            <h2>Manage Permissions</h2>
+            {data.users && <MemberTable allUsers={data.users} />}
+          </>
+        );
+      }}
     </Query>
   );
 };

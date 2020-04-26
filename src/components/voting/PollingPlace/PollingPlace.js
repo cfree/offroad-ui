@@ -83,7 +83,7 @@ export default class PollingPlace extends Component {
                           </Link>
                           <br />
                           <small>
-                            Ends: {format(election.endTime, 'M/D/YY')}
+                            Ends: {format(new Date(election.endTime), 'M/D/YY')}
                           </small>
                           {election.races && (
                             <>

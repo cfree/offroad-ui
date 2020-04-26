@@ -18,7 +18,7 @@ const LoginPage = () => {
       <Login redirect={redirect} />
       <p>
         If you have not yet signed up, you must first{' '}
-        <Link to="/signup">register for an account</Link>. To learn more about
+        <Link to="/register">register for an account</Link>. To learn more about
         the club, please{' '}
         <a href="https://4-playersofcolorado.org">visit our public site</a>.
         Thanks for visiting!

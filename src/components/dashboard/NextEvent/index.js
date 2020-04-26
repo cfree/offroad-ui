@@ -79,7 +79,7 @@ const NextEvent = () => {
           );
 
           const backgroundImage = {
-            'background-image': `linear-gradient(90deg,${rgba(
+            backgroundImage: `linear-gradient(90deg,${rgba(
               '#4b5767',
               1,
             )} 0%,${rgba('#4b5767', 0.95)} 0%,${rgba(
@@ -97,7 +97,9 @@ const NextEvent = () => {
                   <h3>
                     <Link to={`/event/${event.id}`}>{event.title}</Link>
                   </h3>
-                  <h4>{format(event.startTime, 'ddd, MMM D, h:mm A')}</h4>
+                  <h4>
+                    {format(new Date(event.startTime), 'eee, MMM d, h:mm a')}
+                  </h4>
                 </div>
                 <Mutation mutation={RSVP_MUTATION}>
                   {(setRsvp, { loading, error }) => (

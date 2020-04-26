@@ -1,5 +1,6 @@
 import React from 'react';
 import { Formik, Field, ErrorMessage as FormikErrorMessage } from 'formik';
+import cn from 'classnames';
 
 import { trailSchema } from './trailForm.schema';
 import RichTextArea from '../../utility/RichTextArea';
@@ -7,7 +8,7 @@ import Loading from '../../utility/Loading';
 import ErrorMessage from '../../utility/ErrorMessage';
 import UploadImagePreview from '../../common/UploadImagePreview';
 
-import './trailForm.module.scss';
+import Styles from './trailForm.module.scss';
 
 const createSlug = (title) => {
   return encodeURI(title.toLowerCase().replace(' ', '-').replace("'", ''));
@@ -32,13 +33,13 @@ const TrailForm = ({
       >
         {(formikProps) => {
           return (
-            <div className="form profile-form--user">
+            <div className={cn(Styles['form'], Styles['trail-form--user'])}>
               <form onSubmit={formikProps.handleSubmit}>
-                <div className="form-field">
-                  <label className="profile-form-label" htmlFor="name">
+                <div className={Styles['form-field-wrapper']}>
+                  <label className={Styles['trail-form-label']} htmlFor="name">
                     Name
                   </label>
-                  <div className="profile-form-field">
+                  <div className={Styles['trail-form-field']}>
                     <Field
                       type="text"
                       id="name"
@@ -55,11 +56,11 @@ const TrailForm = ({
                   </div>
                 </div>
 
-                <div className="form-field">
-                  <label className="profile-form-label" htmlFor="slug">
+                <div className={Styles['form-field-wrapper']}>
+                  <label className={Styles['trail-form-label']} htmlFor="slug">
                     URL Slug
                   </label>
-                  <div className="profile-form-field">
+                  <div className={Styles['trail-form-field']}>
                     <Field typ="text" id="slug" name="slug" />
                     <small>
                       Ex: 4-playersofcolorado.org/trail/
@@ -69,7 +70,7 @@ const TrailForm = ({
                   </div>
                 </div>
 
-                <div className="form-field">
+                <div className={Styles['form-field-wrapper']}>
                   {formikProps.values.newImage && (
                     <UploadImagePreview file={formikProps.values.newImage} />
                   )}
@@ -77,10 +78,13 @@ const TrailForm = ({
                   {!formikProps.values.newImage && initialValues.image && (
                     <img src={initialValues.image} alt="" width="400" />
                   )}
-                  <label className="profile-form-label" htmlFor="newImage">
+                  <label
+                    className={Styles['trail-form-label']}
+                    htmlFor="newImage"
+                  >
                     Featured Image
                   </label>
-                  <div className="profile-form-field">
+                  <div className={Styles['trail-form-field']}>
                     <Field
                       name="newImage"
                       id="newImage"
@@ -102,11 +106,14 @@ const TrailForm = ({
                   </div>
                 </div>
 
-                <div className="form-field">
-                  <label className="profile-form-label" htmlFor="description">
+                <div className={Styles['form-field-wrapper']}>
+                  <label
+                    className={Styles['trail-form-label']}
+                    htmlFor="description"
+                  >
                     Description
                   </label>
-                  <div className="profile-form-field profile-form-textarea">
+                  <div className={Styles['trail-form-field']}>
                     <Field id="description" name="description">
                       {({ field }) => (
                         <RichTextArea
@@ -119,14 +126,14 @@ const TrailForm = ({
                   </div>
                 </div>
 
-                <div className="form-field">
+                <div className={Styles['form-field-wrapper']}>
                   <label
-                    className="profile-form-label"
+                    className={Styles['trail-form-label']}
                     htmlFor="trailheadCoords"
                   >
                     Trailhead Coordinates (Longitude, Latitude)
                   </label>
-                  <div className="profile-form-field">
+                  <div className={Styles['trail-form-field']}>
                     <Field
                       type="text"
                       id="trailheadCoords"
@@ -140,17 +147,20 @@ const TrailForm = ({
                   </div>
                 </div>
 
-                <div className="form-field">
-                  <label className="profile-form-label" htmlFor="address">
+                <div className={Styles['form-field-wrapper']}>
+                  <label
+                    className={Styles['trail-form-label']}
+                    htmlFor="address"
+                  >
                     Address
                   </label>
-                  <div className="profile-form-field">
+                  <div className={Styles['trail-form-field']}>
                     <Field type="text" id="address" name="address" />
                     <FormikErrorMessage name="address" component="div" />
                   </div>
                 </div>
 
-                <div className="form-footer">
+                <div className={Styles['form-footer']}>
                   <button
                     type="submit"
                     disabled={

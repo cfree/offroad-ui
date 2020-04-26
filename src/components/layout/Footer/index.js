@@ -1,5 +1,4 @@
 import React from 'react';
-import { format } from 'date-fns';
 
 import { siteName } from '../../../lib/constants';
 
@@ -10,7 +9,7 @@ const Footer = () => {
     <footer className={Styles.footer}>
       <img src="/img/logo.png" alt="Logo" />
       <p>{siteName}</p>
-      <p>&copy; 1986 - {format(Date.now(), 'YYYY')}</p>
+      <p>&copy; 1986 - {new Date().getFullYear()}</p>
 
       <a
         rel="noopener noreferrer"

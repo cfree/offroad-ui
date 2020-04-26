@@ -1,0 +1,43 @@
+@import '../variables.module.scss';
+
+%form {
+  padding: 20px;
+  margin: 20px 0;
+  background: $white-dark;
+}
+
+%form-field-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-column-gap: 20px;
+
+  [type='radio'] {
+    margin-right: 5px;
+  }
+
+  label + label {
+    margin-left: 10px;
+  }
+}
+
+%form-label {
+  text-align: right;
+}
+
+%form-field {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-column-gap: 20px;
+
+  [type='radio'] {
+    margin-right: 5px;
+  }
+
+  label + label {
+    margin-left: 10px;
+  }
+}
+
+%form-footer {
+  text-align: center;
+}

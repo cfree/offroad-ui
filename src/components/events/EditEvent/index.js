@@ -8,6 +8,7 @@ import {
   SETUP_EXISTING_EVENT_QUERY,
   EDIT_EVENT_MUTATION,
 } from './editEvent.graphql';
+import { EVENT_QUERY } from '../EventDetails/eventDetails.graphql';
 
 import EventForm from '../EventForm';
 import ErrorMessage from '../../utility/ErrorMessage';
@@ -40,20 +41,21 @@ class EditEvent extends Component {
           }
 
           const { event } = queryData;
-          const rallyDate = format(event.startTime, 'yyyy-mm-dd');
+
           const initialValues = {
             id: existingEventId,
-            startDate: format(event.startTime, 'yyyy-mm-dd'),
-            startTime: format(event.startTime, 'HH:mm'),
-            endDate: format(event.endTime, 'yyyy-mm-dd'),
-            endTime: format(event.endTime, 'HH:mm'),
+            type: event.type,
+            startDate: format(new Date(event.startTime), 'yyyy-MM-dd'),
+            startTime: format(new Date(event.startTime), 'HH:mm'),
+            endDate: format(new Date(event.endTime), 'yyyy-MM-dd'),
+            endTime: format(new Date(event.endTime), 'HH:mm'),
             title: event.title,
             description: event.description,
             address: event.address,
             trailDifficulty: event.trailDifficulty,
             trailNotes: event.trailNotes,
             rallyAddress: event.rallyAddress,
-            rallyTime: format(`${rallyDate} ${event.rallyTime}`, 'hh:mm'),
+            rallyTime: format(new Date(event.rallyTime), 'HH:mm'),
             membersOnly: event.membersOnly,
             host: event.host.username,
             trail: (event.trail && event.trail.id) || '0',
@@ -62,10 +64,20 @@ class EditEvent extends Component {
             newImage: null,
           };
 
+          console.log('RUN TYPE', event.type);
+
           return (
             <>
               <h3>Edit Event</h3>
-              <Mutation mutation={EDIT_EVENT_MUTATION}>
+              <Mutation
+                mutation={EDIT_EVENT_MUTATION}
+                refetchQueries={[
+                  {
+                    query: EVENT_QUERY,
+                    variables: { eventId: existingEventId },
+                  },
+                ]}
+              >
                 {(
                   updateEvent,
                   {
@@ -121,6 +133,7 @@ class EditEvent extends Component {
       ...filteredValues,
       startTime: new Date(`${startDate} ${filteredValues.startTime}`),
       endTime: new Date(`${endDate} ${filteredValues.endTime}`),
+      rallyTime: new Date(`${startDate} ${filteredValues.rallyTime}`),
       featuredImage: image,
       newFeaturedImage: null,
     };

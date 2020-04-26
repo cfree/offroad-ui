@@ -1,5 +1,21 @@
+@import '../../../styles/mixins.module.scss';
+
 .form {
+  @extend %form;
 }
 
-.form-field {
+.form-field-wrapper {
+  @extend %form-field-wrapper;
+}
+
+.event-form-label {
+  @extend %form-label;
+}
+
+.event-form-field {
+  @extend %form-field;
+}
+
+.form-footer {
+  @extend %form-footer;
 }

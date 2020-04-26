@@ -130,7 +130,7 @@ class EditElection extends Component {
                     id="startDate"
                     defaultValue={
                       this.state.startTime ||
-                      format(getElection.startTime, 'yyyy-mm-dd')
+                      format(new Date(getElection.startTime), 'yyyy-mm-dd')
                     }
                     min={format(Date.now(), 'yyyy-mm-dd')}
                     onChange={this.updateState}
@@ -147,7 +147,7 @@ class EditElection extends Component {
                     id="endDate"
                     defaultValue={
                       this.state.endTime ||
-                      format(getElection.endTime, 'yyyy-mm-dd')
+                      format(new Date(getElection.endTime), 'yyyy-mm-dd')
                     }
                     onChange={this.updateState}
                     type="date"

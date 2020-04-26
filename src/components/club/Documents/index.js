@@ -35,49 +35,49 @@ const Documents = () => {
       <dl>
         <dt>November</dt>
         <dd>
-          <a href="">Minutes</a>
+          <a href="/">Minutes</a>
           <br />
-          <a href="">Newsletter</a>
+          <a href="/">Newsletter</a>
         </dd>
 
         <dt>October (Moab)</dt>
         <dd>
-          <a href="">Minutes</a>
+          <a href="/">Minutes</a>
         </dd>
 
         <dt>September</dt>
         <dd>
-          <a href="">Minutes</a>
+          <a href="/">Minutes</a>
           <br />
-          <a href="">Newsletter</a>
+          <a href="/">Newsletter</a>
         </dd>
 
         <dt>August</dt>
         <dd>
-          <a href="">Minutes</a>
+          <a href="/">Minutes</a>
           <br />
-          <a href="">Newsletter</a>
+          <a href="/">Newsletter</a>
         </dd>
 
         <dt>July</dt>
         <dd>
-          <a href="">Minutes</a>
+          <a href="/">Minutes</a>
           <br />
-          <a href="">Newsletter</a>
+          <a href="/">Newsletter</a>
         </dd>
 
         <dt>June</dt>
         <dd>
-          <a href="">Minutes</a>
+          <a href="/">Minutes</a>
           <br />
-          <a href="">Newsletter</a>
+          <a href="/">Newsletter</a>
         </dd>
 
         <dt>May</dt>
         <dd>
-          <a href="">Minutes</a>
+          <a href="/">Minutes</a>
           <br />
-          <a href="">Newsletter</a>
+          <a href="/">Newsletter</a>
         </dd>
       </dl>
     </div>

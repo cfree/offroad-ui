@@ -1,12 +1,11 @@
 import React from 'react';
+import { useParams } from 'react-router-dom';
 
 import EditEvent from '../../components/events/EditEvent';
 import Page from '../../components/layout/Page';
-import { useQueryParams } from '../../hooks/useQueryParams';
 
 const EditEventPage = () => {
-  const query = useQueryParams();
-  const { id } = query;
+  const { id } = useParams();
 
   return (
     <Page>

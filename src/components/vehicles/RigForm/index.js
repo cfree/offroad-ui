@@ -6,7 +6,7 @@ import Loading from '../../utility/Loading';
 import ErrorMessage from '../../utility/ErrorMessage';
 import { outfitLevel } from '../../../lib/constants';
 
-import './rigForm.module.scss';
+import Styles from './rigForm.module.scss';
 
 const RigForm = ({ initialValues, onSubmit, loading = '', error }) => {
   return (
@@ -19,63 +19,66 @@ const RigForm = ({ initialValues, onSubmit, loading = '', error }) => {
         }}
       >
         {(formikProps) => (
-          <div className="form profile-form--user">
+          <div className="form rig-form--user">
             <form onSubmit={formikProps.handleSubmit}>
-              <div className="form-field">
-                <label className="profile-form-label" htmlFor="year">
+              <div className={Styles['form-field']}>
+                <label className={Styles['rig-form-label']} htmlFor="year">
                   Year
                 </label>
-                <div className="profile-form-field">
+                <div className={Styles['rig-form-field']}>
                   <Field type="text" id="year" name="year" />
                   <FormikErrorMessage name="year" component="div" />
                 </div>
               </div>
 
-              <div className="form-field">
-                <label className="profile-form-label" htmlFor="make">
+              <div className={Styles['form-field']}>
+                <label className={Styles['rig-form-label']} htmlFor="make">
                   Make
                 </label>
-                <div className="profile-form-field">
+                <div className={Styles['rig-form-field']}>
                   <Field type="text" id="make" name="make" />
                   <FormikErrorMessage name="make" component="div" />
                 </div>
               </div>
 
-              <div className="form-field">
-                <label className="profile-form-label" htmlFor="model">
+              <div className={Styles['form-field']}>
+                <label className={Styles['rig-form-label']} htmlFor="model">
                   Model
                 </label>
-                <div className="profile-form-field">
+                <div className={Styles['rig-form-field']}>
                   <Field type="text" id="model" name="model" />
                   <FormikErrorMessage name="model" component="div" />
                 </div>
               </div>
 
-              <div className="form-field">
-                <label className="profile-form-label" htmlFor="trim">
+              <div className={Styles['form-field']}>
+                <label className={Styles['rig-form-label']} htmlFor="trim">
                   Trim
                 </label>
-                <div className="profile-form-field">
+                <div className={Styles['rig-form-field']}>
                   <Field type="text" id="trim" name="trim" />
                   <FormikErrorMessage name="trim" component="div" />
                 </div>
               </div>
 
-              <div className="form-field">
-                <label className="profile-form-label" htmlFor="name">
+              <div className={Styles['form-field']}>
+                <label className={Styles['rig-form-label']} htmlFor="name">
                   Name
                 </label>
-                <div className="profile-form-field">
+                <div className={Styles['rig-form-field']}>
                   <Field type="text" id="name" name="name" />
                   <FormikErrorMessage name="name" component="div" />
                 </div>
               </div>
 
-              <div className="form-field">
-                <label className="profile-form-label" htmlFor="outfitLevel">
+              <div className={Styles['form-field']}>
+                <label
+                  className={Styles['rig-form-label']}
+                  htmlFor="outfitLevel"
+                >
                   Outfit Level
                 </label>
-                <div className="profile-form-field">
+                <div className={Styles['rig-form-field']}>
                   <Field
                     component="select"
                     name="outfitLevel"
@@ -94,11 +97,11 @@ const RigForm = ({ initialValues, onSubmit, loading = '', error }) => {
                 </div>
               </div>
 
-              <div className="form-field">
-                <label className="profile-form-label" htmlFor="mods">
+              <div className={Styles['form-field']}>
+                <label className={Styles['rig-form-label']} htmlFor="mods">
                   Mods (comma separated)
                 </label>
-                <div className="profile-form-field">
+                <div className={Styles['rig-form-field']}>
                   <Field type="text" id="mods" name="mods" />
                   <FormikErrorMessage name="mods" component="div" />
                 </div>
@@ -106,7 +109,7 @@ const RigForm = ({ initialValues, onSubmit, loading = '', error }) => {
 
               {/* <Field type="checkbox" name="isDefault" /> */}
 
-              <div className="form-footer">
+              <div className={Styles['form-footer']}>
                 <button
                   type="submit"
                   disabled={

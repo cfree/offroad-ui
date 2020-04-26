@@ -1,7 +1,13 @@
 import React from 'react';
 
+import InviteMember from '../../components/admin/InviteMember';
+
 const InvitePage = () => {
-  return <div></div>;
+  return (
+    <div>
+      <InviteMember />
+    </div>
+  );
 };
 
 export default InvitePage;

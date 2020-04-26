@@ -1,12 +1,12 @@
 import React from 'react';
 
-import Quorum from '../../components/admin/Quorum';
+import MeetingsList from '../../components/admin/MeetingsList';
 import Page from '../../components/layout/Page';
 
 const AdminMeetingPage = () => {
   return (
     <Page>
-      <Quorum />
+      <MeetingsList />
     </Page>
   );
 };

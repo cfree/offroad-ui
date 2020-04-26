@@ -8,6 +8,7 @@ import {
   SETUP_NEW_EVENT_QUERY,
   CREATE_EVENT_MUTATION,
 } from './createEvent.graphql';
+// import { UPCOMING_EVENTS_QUERY } from '../EventList/eventList.graphql.js';
 
 import EventForm from '../EventForm';
 import ErrorMessage from '../../utility/ErrorMessage';
@@ -25,13 +26,15 @@ class CreateEvent extends Component {
             return <ErrorMessage error={queryError} />;
           }
 
+          const today = new Date();
+
           const initialValues = {
             type: 'RUN',
             title: '',
             description: '',
-            startDate: format(new Date(), 'yyyy-MM-DD'),
+            startDate: format(today, 'yyyy-MM-dd'),
             startTime: '10:00',
-            endDate: format(new Date(), 'yyyy-MM-DD'),
+            endDate: format(today, 'yyyy-MM-dd'),
             endTime: '15:00',
             address: '',
             trailDifficulty: 'UNKNOWN',
@@ -45,12 +48,15 @@ class CreateEvent extends Component {
             newImage: null,
           };
 
-          console.log('initialValue', format(new Date(), 'yyyy-MM-DD'));
+          console.log('initialValue', format(today, 'yyyy-MM-dd'));
 
           return (
             <>
               <h3>Create New Event</h3>
-              <Mutation mutation={CREATE_EVENT_MUTATION}>
+              <Mutation
+                mutation={CREATE_EVENT_MUTATION}
+                refetchQueries={['UPCOMING_EVENTS_QUERY']}
+              >
                 {(
                   createEvent,
                   {
@@ -103,6 +109,7 @@ class CreateEvent extends Component {
       ...filteredValues,
       startTime: new Date(`${startDate} ${filteredValues.startTime}`),
       endTime: new Date(`${endDate} ${filteredValues.endTime}`),
+      rallyTime: new Date(`${startDate} ${filteredValues.rallyTime}`),
       featuredImage: image,
       newFeaturedImage: null,
     };

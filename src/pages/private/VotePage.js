@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { addDays } from 'date-fns';
+// import { addDays } from 'date-fns';
 import PollingPlace from '../../components/voting/PollingPlace';
 import Election from '../../components/voting/Election';
 import Gate from '../../components/login/Gate';

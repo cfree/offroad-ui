@@ -8,6 +8,7 @@ import { userSchema } from './signupForm.schema';
 import Loading from '../../utility/Loading';
 import ErrorMessage from '../../utility/ErrorMessage';
 import { dateEighteenYearsAgo } from '../../../utilities/dates';
+import Button from '../../common/Button';
 
 import Styles from './signupForm.module.scss';
 
@@ -24,7 +25,7 @@ const SignupForm = () => {
 
   return (
     <>
-      <h2>Sign up for an account</h2>
+      <h2>Sign Up for an Account</h2>
       <Mutation mutation={SIGNUP_MUTATION}>
         {(
           signUp,
@@ -51,11 +52,11 @@ const SignupForm = () => {
               {(formikProps) => (
                 <div className={`${Styles['form']} profile-form--user`}>
                   <form onSubmit={formikProps.handleSubmit}>
-                    <div className={Styles['form-field']}>
-                      <label className="profile-form-label" htmlFor="email">
+                    <div className={Styles['form-field-wrapper']}>
+                      <label className={Styles['form-label']} htmlFor="email">
                         Email
                       </label>
-                      <div className="profile-form-field">
+                      <div className={Styles['form-field']}>
                         <Field
                           type="email"
                           onChange={formikProps.handleChange}
@@ -66,11 +67,14 @@ const SignupForm = () => {
                       </div>
                     </div>
 
-                    <div className={Styles['form-field']}>
-                      <label className="profile-form-label" htmlFor="firstName">
+                    <div className={Styles['form-field-wrapper']}>
+                      <label
+                        className={Styles['form-label']}
+                        htmlFor="firstName"
+                      >
                         First Name
                       </label>
-                      <div className="profile-form-field">
+                      <div className={Styles['form-field']}>
                         <Field
                           type="text"
                           onChange={formikProps.handleChange}
@@ -81,11 +85,14 @@ const SignupForm = () => {
                       </div>
                     </div>
 
-                    <div className={Styles['form-field']}>
-                      <label className="profile-form-label" htmlFor="lastName">
+                    <div className={Styles['form-field-wrapper']}>
+                      <label
+                        className={Styles['form-label']}
+                        htmlFor="lastName"
+                      >
                         Last Name
                       </label>
-                      <div className="profile-form-field">
+                      <div className={Styles['form-field']}>
                         <Field
                           type="text"
                           onChange={formikProps.handleChange}
@@ -96,11 +103,11 @@ const SignupForm = () => {
                       </div>
                     </div>
 
-                    <div className={Styles['form-field']}>
-                      <label className="profile-form-label" htmlFor="gender">
+                    <div className={Styles['form-field-wrapper']}>
+                      <label className={Styles['form-label']} htmlFor="gender">
                         Gender
                       </label>
-                      <div className="profile-form-field">
+                      <div className={Styles['form-field']}>
                         <Field component="select" name="gender" id="gender">
                           <option value="MALE">Male</option>
                           <option value="FEMALE">Female</option>
@@ -111,11 +118,14 @@ const SignupForm = () => {
                       </div>
                     </div>
 
-                    <div className={Styles['form-field']}>
-                      <label className="profile-form-label" htmlFor="birthdate">
+                    <div className={Styles['form-field-wrapper']}>
+                      <label
+                        className={Styles['form-label']}
+                        htmlFor="birthdate"
+                      >
                         Birthdate
                       </label>
-                      <div className="profile-form-field">
+                      <div className={Styles['form-field']}>
                         <Field
                           type="date"
                           id="birthdate"
@@ -126,11 +136,14 @@ const SignupForm = () => {
                       </div>
                     </div>
 
-                    <div className={Styles['form-field']}>
-                      <label className="profile-form-label" htmlFor="username">
+                    <div className={Styles['form-field-wrapper']}>
+                      <label
+                        className={Styles['form-label']}
+                        htmlFor="username"
+                      >
                         Username
                       </label>
-                      <div className="profile-form-field">
+                      <div className={Styles['form-field']}>
                         <Field
                           type="text"
                           onChange={formikProps.handleChange}
@@ -141,11 +154,14 @@ const SignupForm = () => {
                       </div>
                     </div>
 
-                    <div className={Styles['form-field']}>
-                      <label className="profile-form-label" htmlFor="password">
+                    <div className={Styles['form-field-wrapper']}>
+                      <label
+                        className={Styles['form-label']}
+                        htmlFor="password"
+                      >
                         Password
                       </label>
-                      <div className="profile-form-field">
+                      <div className={Styles['form-field']}>
                         <Field
                           type="password"
                           onChange={formikProps.handleChange}
@@ -156,8 +172,8 @@ const SignupForm = () => {
                       </div>
                     </div>
 
-                    <div className="form-footer">
-                      <button
+                    <div className={Styles['form-footer']}>
+                      <Button
                         type="submit"
                         disabled={
                           !formikProps.dirty ||
@@ -167,7 +183,7 @@ const SignupForm = () => {
                         }
                       >
                         Sign Up
-                      </button>
+                      </Button>
                       <Loading loading={mutationLoading} />
                       <ErrorMessage error={mutationError} />
                     </div>

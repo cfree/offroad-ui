@@ -1,18 +1,13 @@
 import React from 'react';
 
 import MemberPermissions from '../../components/admin/Roles';
-import Gate from '../../components/login/Gate';
-import { isAdmin, isActive } from '../../lib/utils';
+import Page from '../../components/layout/Page';
 
 const AdminPermissionsPage = () => {
   return (
-    <Gate
-      roleCheck={isAdmin}
-      statusCheck={isActive}
-      redirect="/admin-permissions"
-    >
+    <Page>
       <MemberPermissions />
-    </Gate>
+    </Page>
   );
 };
 

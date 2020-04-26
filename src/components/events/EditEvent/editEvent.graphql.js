@@ -3,6 +3,7 @@ import { gql } from 'apollo-boost';
 export const SETUP_EXISTING_EVENT_QUERY = gql`
   query SETUP_EXISTING_EVENT_QUERY($eventId: ID!) {
     event: getEvent(eventId: $eventId) {
+      type
       title
       description
       featuredImage {
@@ -28,6 +29,7 @@ export const SETUP_EXISTING_EVENT_QUERY = gql`
           firstName
           lastName
           avatar {
+            id
             smallUrl
           }
         }

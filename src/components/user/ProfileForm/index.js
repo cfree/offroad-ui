@@ -3,6 +3,7 @@ import { Query, Mutation } from '@apollo/react-components';
 import { Formik, Field, ErrorMessage as FormikErrorMessage } from 'formik';
 import { format } from 'date-fns';
 import get from 'lodash/get';
+import cn from 'classnames';
 
 import {
   SELF_PROFILE_QUERY,
@@ -18,7 +19,7 @@ import { states, DEFAULT_AVATAR_SRC } from '../../../lib/constants';
 import { formatPhone } from '../../../lib/utils';
 import { dateEighteenYearsAgo } from '../../../utilities/dates';
 
-import './profileForm.module.scss';
+import Styles from './profileForm.module.scss';
 
 class ProfileForm extends Component {
   state = {
@@ -50,11 +51,11 @@ class ProfileForm extends Component {
             gender: queryData.user.gender || 'MALE',
             birthdate:
               (queryData.user.birthdate &&
-                format(new Date(queryData.user.birthdate), 'YYYY-MM-DD')) ||
+                format(new Date(queryData.user.birthdate), 'yyyy-MM-dd')) ||
               null, // admin
             joined:
               (queryData.user.joined &&
-                format(new Date(queryData.user.joined), 'YYYY-MM-DD')) ||
+                format(new Date(queryData.user.joined), 'yyyy-MM-dd')) ||
               null, // admin
             phone:
               (queryData.user.contactInfo &&
@@ -161,16 +162,21 @@ class ProfileForm extends Component {
                       );
                     }}
                     render={(formikProps) => (
-                      <div className="form profile-form--user">
+                      <div
+                        className={cn(
+                          Styles['form'],
+                          Styles['profile-form--user'],
+                        )}
+                      >
                         <form onSubmit={formikProps.handleSubmit}>
-                          <div className="form-field">
+                          <div className={Styles['form-field']}>
                             <label
-                              className="profile-form-label"
+                              className={Styles['profile-form-label']}
                               htmlFor="firstName"
                             >
                               First Name
                             </label>
-                            <div className="profile-form-field">
+                            <div className={Styles['profile-form-field']}>
                               <Field
                                 type="text"
                                 onChange={formikProps.handleChange}
@@ -184,14 +190,14 @@ class ProfileForm extends Component {
                             </div>
                           </div>
 
-                          <div className="form-field">
+                          <div className={Styles['form-field']}>
                             <label
-                              className="profile-form-label"
+                              className={Styles['profile-form-label']}
                               htmlFor="lastName"
                             >
                               Last Name
                             </label>
-                            <div className="profile-form-field">
+                            <div className={Styles['profile-form-field']}>
                               <Field
                                 type="text"
                                 onChange={formikProps.handleChange}
@@ -205,14 +211,14 @@ class ProfileForm extends Component {
                             </div>
                           </div>
 
-                          <div className="form-field">
+                          <div className={Styles['form-field']}>
                             <label
-                              className="profile-form-label"
+                              className={Styles['profile-form-label']}
                               htmlFor="username"
                             >
                               Username
                             </label>
-                            <div className="profile-form-field">
+                            <div className={Styles['profile-form-field']}>
                               <Field
                                 type="text"
                                 onChange={formikProps.handleChange}
@@ -227,14 +233,14 @@ class ProfileForm extends Component {
                             </div>
                           </div>
 
-                          <div className="form-field">
+                          <div className={Styles['form-field']}>
                             <label
-                              className="profile-form-label"
+                              className={Styles['profile-form-label']}
                               htmlFor="gender"
                             >
                               Gender
                             </label>
-                            <div className="profile-form-field">
+                            <div className={Styles['profile-form-field']}>
                               <Field
                                 component="select"
                                 name="gender"
@@ -254,14 +260,14 @@ class ProfileForm extends Component {
                             </div>
                           </div>
 
-                          <div className="form-field">
+                          <div className={Styles['form-field']}>
                             <label
-                              className="profile-form-label"
+                              className={Styles['profile-form-label']}
                               htmlFor="birthdate"
                             >
                               Birthdate
                             </label>
-                            <div className="profile-form-field">
+                            <div className={Styles['profile-form-field']}>
                               <Field
                                 type="date"
                                 id="birthdate"
@@ -277,14 +283,14 @@ class ProfileForm extends Component {
                           </div>
 
                           {
-                            <div className="form-field">
+                            <div className={Styles['form-field']}>
                               <label
-                                className="profile-form-label"
+                                className={Styles['profile-form-label']}
                                 htmlFor="joined"
                               >
                                 Date Joined
                               </label>
-                              <div className="profile-form-field">
+                              <div className={Styles['profile-form-field']}>
                                 <Field
                                   type="date"
                                   id="joined"
@@ -300,14 +306,14 @@ class ProfileForm extends Component {
                             </div>
                           }
 
-                          <div className="form-field">
+                          <div className={Styles['form-field']}>
                             <label
-                              className="profile-form-label"
+                              className={Styles['profile-form-label']}
                               htmlFor="phone"
                             >
                               Phone Number
                             </label>
-                            <div className="profile-form-field">
+                            <div className={Styles['profile-form-field']}>
                               <Field
                                 type="text"
                                 inputMode="numeric"
@@ -322,11 +328,11 @@ class ProfileForm extends Component {
                             </div>
                           </div>
 
-                          <div className="form-field">
-                            <div className="profile-form-label">
+                          <div className={Styles['form-field']}>
+                            <div className={Styles['profile-form-label']}>
                               Display phone number in profile?
                             </div>
-                            <div className="profile-form-field">
+                            <div className={Styles['profile-form-field']}>
                               <label htmlFor="showPhoneNumberYes">
                                 <Field
                                   type="radio"
@@ -358,14 +364,14 @@ class ProfileForm extends Component {
                             </div>
                           </div>
 
-                          <div className="form-field">
+                          <div className={Styles['form-field']}>
                             <label
-                              className="profile-form-label"
+                              className={Styles['profile-form-label']}
                               htmlFor="street"
                             >
                               Street Address
                             </label>
-                            <div className="profile-form-field">
+                            <div className={Styles['profile-form-field']}>
                               <Field type="text" id="street" name="street" />
                               <FormikErrorMessage
                                 name="street"
@@ -374,27 +380,27 @@ class ProfileForm extends Component {
                             </div>
                           </div>
 
-                          <div className="form-field">
+                          <div className={Styles['form-field']}>
                             <label
-                              className="profile-form-label"
+                              className={Styles['profile-form-label']}
                               htmlFor="city"
                             >
                               City
                             </label>
-                            <div className="profile-form-field">
+                            <div className={Styles['profile-form-field']}>
                               <Field type="text" id="city" name="city" />
                               <FormikErrorMessage name="city" component="div" />
                             </div>
                           </div>
 
-                          <div className="form-field">
+                          <div className={Styles['form-field']}>
                             <label
-                              className="profile-form-label"
+                              className={Styles['profile-form-label']}
                               htmlFor="state"
                             >
                               State
                             </label>
-                            <div className="profile-form-field">
+                            <div className={Styles['profile-form-field']}>
                               <Field component="select" id="state" name="state">
                                 {Object.entries(states).map(
                                   ([abbrev, state]) => (
@@ -411,11 +417,14 @@ class ProfileForm extends Component {
                             </div>
                           </div>
 
-                          <div className="form-field">
-                            <label className="profile-form-label" htmlFor="zip">
+                          <div className={Styles['form-field']}>
+                            <label
+                              className={Styles['profile-form-label']}
+                              htmlFor="zip"
+                            >
                               Zip Code
                             </label>
-                            <div className="profile-form-field">
+                            <div className={Styles['profile-form-field']}>
                               <Field
                                 type="text"
                                 placeholder="ex: 80206"
@@ -427,14 +436,14 @@ class ProfileForm extends Component {
                             </div>
                           </div>
 
-                          <div className="form-field">
+                          <div className={Styles['form-field']}>
                             <label
-                              className="profile-form-label"
+                              className={Styles['profile-form-label']}
                               htmlFor="emergencyContactName"
                             >
                               Emergency Contact Name
                             </label>
-                            <div className="profile-form-field">
+                            <div className={Styles['profile-form-field']}>
                               <Field
                                 type="text"
                                 id="emergencyContactName"
@@ -447,14 +456,14 @@ class ProfileForm extends Component {
                             </div>
                           </div>
 
-                          <div className="form-field">
+                          <div className={Styles['form-field']}>
                             <label
-                              className="profile-form-label"
+                              className={Styles['profile-form-label']}
                               htmlFor="emergencyContactPhone"
                             >
                               Emergency Contact Phone Number
                             </label>
-                            <div className="profile-form-field">
+                            <div className={Styles['profile-form-field']}>
                               <Field
                                 type="text"
                                 inputMode="numeric"
@@ -469,7 +478,7 @@ class ProfileForm extends Component {
                             </div>
                           </div>
 
-                          <div className="form-footer">
+                          <div className={Styles['form-footer']}>
                             <button
                               type="submit"
                               disabled={

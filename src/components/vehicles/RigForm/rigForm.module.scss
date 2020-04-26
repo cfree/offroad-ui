@@ -1,32 +1,11 @@
-@import '../../../styles/variables.module';
+@import '../../../styles/mixins.module';
 
 .form {
-  // div
-  padding: 20px;
-  margin: 20px 0;
-  background: $white-dark;
-
-  .form-footer {
-    text-align: center;
-  }
+  @extend %form;
 }
 
 .form-field {
-  // div
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-column-gap: 20px;
-
-  .profile-form-label {
-    text-align: right;
-  }
-
-  .profile-form-field {
-  }
-
-  .profile-form-textarea {
-    background: white;
-  }
+  @extend %form-field-wrapper;
 
   [type='radio'] {
     margin-right: 5px;
@@ -35,4 +14,16 @@
   label + label {
     margin-left: 10px;
   }
+}
+
+.rig-form-label {
+  @extend %form-label;
+}
+
+.rig-form-field {
+  @extend %form-field;
+}
+
+.form-footer {
+  @extend %form-footer;
 }

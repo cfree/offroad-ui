@@ -12,16 +12,18 @@ $white: #ffffff;
 $green: #62bb47;
 
 // breakpoints
-$break-small: 480px;
-$break-medium: 720px;
-$break-large: 960px;
-$break-xl: 1800px;
+$bp-sm: 480px;
+$bp-md: 720px;
+$bp-lg: 960px;
+$bp-xl: 1800px;
 $max-width: 1000px;
 $content: 760px;
 
 // typography
 $space: 20px;
 $space-large: 30px;
+$content-vertical-padding: 110px;
+$footer-height: 190px;
 
 // shape
 $box-shadow: 0 12px 24px 0 rgba(0, 0, 0, 0.09);
@@ -32,3 +34,4 @@ $font-default: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif; // T
 $font-primary: 'Josefin Sans', 'Open Sans', 'Helvetica Neue', Helvetica, Arial,
   sans-serif; // TypeKit
 $font-secondary: 'Merriweather', Georgia, 'Times New Roman', serif; // TypeKit
+$font-icons: '4players'; // Fontastic.me

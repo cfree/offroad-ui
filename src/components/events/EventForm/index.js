@@ -1,6 +1,7 @@
 import React from 'react';
 import { format, startOfToday } from 'date-fns';
 import { Formik, Field, ErrorMessage as FormikErrorMessage } from 'formik';
+import cn from 'classnames';
 
 import { eventSchema } from './eventForm.schema';
 import RichTextArea from '../../utility/RichTextArea';
@@ -33,13 +34,13 @@ const EventForm = ({
       >
         {(formikProps) => {
           return (
-            <div className="form profile-form--user">
+            <div className={cn(Styles['form'], Styles['event-form--user'])}>
               <form onSubmit={formikProps.handleSubmit}>
-                <div className="form-field">
-                  <label className="profile-form-label" htmlFor="type">
+                <div className={Styles['form-field-wrapper']}>
+                  <label className={Styles['event-form-label']} htmlFor="type">
                     Event Type
                   </label>
-                  <div className="profile-form-field">
+                  <div className={Styles['event-form-field']}>
                     <Field
                       component="select"
                       name="type"
@@ -56,21 +57,24 @@ const EventForm = ({
                   </div>
                 </div>
 
-                <div className="form-field">
-                  <label className="profile-form-label" htmlFor="title">
+                <div className={Styles['form-field-wrapper']}>
+                  <label className={Styles['event-form-label']} htmlFor="title">
                     Title
                   </label>
-                  <div className="profile-form-field">
+                  <div className={Styles['event-form-field']}>
                     <Field type="text" id="title" name="title" />
                     <FormikErrorMessage name="title" component="div" />
                   </div>
                 </div>
 
-                <div className="form-field">
-                  <label className="profile-form-label" htmlFor="description">
+                <div className={Styles['form-field-wrapper']}>
+                  <label
+                    className={Styles['event-form-label']}
+                    htmlFor="description"
+                  >
                     Description
                   </label>
-                  <div className="profile-form-field">
+                  <div className={Styles['event-form-field']}>
                     <Field id="description" name="description">
                       {({ field }) => (
                         <RichTextArea
@@ -84,16 +88,19 @@ const EventForm = ({
                   </div>
                 </div>
 
-                <div className="form-field">
-                  <label className="profile-form-label" htmlFor="startDate">
+                <div className={Styles['form-field-wrapper']}>
+                  <label
+                    className={Styles['event-form-label']}
+                    htmlFor="startDate"
+                  >
                     Start Date
                   </label>
-                  <div className="profile-form-field">
+                  <div className={Styles['event-form-field']}>
                     <Field
                       type="date"
                       id="startDate"
                       name="startDate"
-                      min={format(startOfToday(), 'YYYY-MM-DD')}
+                      min={format(startOfToday(), 'yyyy-MM-dd')}
                       onChange={(e) => {
                         formikProps.setFieldValue('endDate', e.target.value);
                         formikProps.handleChange(e);
@@ -106,11 +113,14 @@ const EventForm = ({
                   </div>
                 </div>
 
-                <div className="form-field">
-                  <label className="profile-form-label" htmlFor="endTime">
+                <div className={Styles['form-field-wrapper']}>
+                  <label
+                    className={Styles['event-form-label']}
+                    htmlFor="endTime"
+                  >
                     End Date
                   </label>
-                  <div className="profile-form-field">
+                  <div className={Styles['event-form-field']}>
                     <Field
                       type="date"
                       id="endDate"
@@ -126,14 +136,14 @@ const EventForm = ({
                 </div>
 
                 {formikProps.values.type === 'RUN' ? (
-                  <div className="form-field">
+                  <div className={Styles['form-field-wrapper']}>
                     <label
-                      className="profile-form-label"
+                      className={Styles['event-form-label']}
                       htmlFor="rallyAddress"
                     >
                       Rally Place
                     </label>
-                    <div className="profile-form-field">
+                    <div className={Styles['event-form-field']}>
                       <Field
                         type="text"
                         id="rallyAddress"
@@ -143,11 +153,14 @@ const EventForm = ({
                     </div>
                   </div>
                 ) : (
-                  <div className="form-field">
-                    <label className="profile-form-label" htmlFor="address">
+                  <div className={Styles['form-field-wrapper']}>
+                    <label
+                      className={Styles['event-form-label']}
+                      htmlFor="address"
+                    >
                       Address
                     </label>
-                    <div className="profile-form-field">
+                    <div className={Styles['event-form-field']}>
                       <Field type="text" id="address" name="address" />{' '}
                       <small>
                         <i>(optional)</i>
@@ -157,14 +170,14 @@ const EventForm = ({
                   </div>
                 )}
 
-                {/* <div className="form-field">
+                {/* <div className={Styles['form-field-wrapper']}>
                   <label
-                    className="profile-form-label"
+                    className={Styles['event-form-label']}
                     htmlFor="trailNotes"
                   >
                     Trail Notes
                   </label>
-                  <div className="profile-form-field">
+                  <div className={Styles['event-form-field']}>
                     <Field
                       type="text"
                       onChange={formikProps.handleChange}
@@ -178,21 +191,27 @@ const EventForm = ({
                   </div>
                 </div> */}
 
-                <div className="form-field">
-                  <label className="profile-form-label" htmlFor="rallyTime">
+                <div className={Styles['form-field-wrapper']}>
+                  <label
+                    className={Styles['event-form-label']}
+                    htmlFor="rallyTime"
+                  >
                     Rally Time
                   </label>
-                  <div className="profile-form-field">
+                  <div className={Styles['event-form-field']}>
                     <Field type="time" id="rallyTime" name="rallyTime" />
                     <FormikErrorMessage name="rallyTime" component="div" />
                   </div>
                 </div>
 
-                <div className="form-field">
-                  <label className="profile-form-label" htmlFor="membersOnly">
+                <div className={Styles['form-field-wrapper']}>
+                  <label
+                    className={Styles['event-form-label']}
+                    htmlFor="membersOnly"
+                  >
                     Members Only?
                   </label>
-                  <div className="profile-form-field">
+                  <div className={Styles['event-form-field']}>
                     <Field
                       type="checkbox"
                       id="membersOnly"
@@ -203,11 +222,11 @@ const EventForm = ({
                   </div>
                 </div>
 
-                <div className="form-field">
-                  <label className="profile-form-label" htmlFor="host">
+                <div className={Styles['form-field-wrapper']}>
+                  <label className={Styles['event-form-label']} htmlFor="host">
                     Run Leader
                   </label>
-                  <div className="profile-form-field">
+                  <div className={Styles['event-form-field']}>
                     <Field
                       component="select"
                       name="host"
@@ -227,11 +246,14 @@ const EventForm = ({
 
                 {formikProps.values.type === 'RUN' ? (
                   <>
-                    <div className="form-field">
-                      <label className="profile-form-label" htmlFor="trail">
+                    <div className={Styles['form-field-wrapper']}>
+                      <label
+                        className={Styles['event-form-label']}
+                        htmlFor="trail"
+                      >
                         Trail
                       </label>
-                      <div className="profile-form-field">
+                      <div className={Styles['event-form-field']}>
                         <Field
                           component="select"
                           name="trail"
@@ -247,14 +269,14 @@ const EventForm = ({
                         <FormikErrorMessage name="trail" component="div" />
                       </div>
                     </div>
-                    <div className="form-field">
+                    <div className={Styles['form-field-wrapper']}>
                       <label
-                        className="profile-form-label"
+                        className={Styles['event-form-label']}
                         htmlFor="trailDifficulty"
                       >
                         Difficulty
                       </label>
-                      <div className="profile-form-field">
+                      <div className={Styles['event-form-field']}>
                         <Field
                           component="select"
                           name="trailDifficulty"
@@ -279,7 +301,7 @@ const EventForm = ({
                     </div>
                   </>
                 ) : (
-                  <div className="form-field">
+                  <div className={Styles['form-field-wrapper']}>
                     {formikProps.values.newImage && (
                       <UploadImagePreview file={formikProps.values.newImage} />
                     )}
@@ -287,10 +309,13 @@ const EventForm = ({
                     {!formikProps.values.newImage && initialValues.image && (
                       <img src={initialValues.image} alt="" width="400" />
                     )}
-                    <label className="profile-form-label" htmlFor="newImage">
+                    <label
+                      className={Styles['event-form-label']}
+                      htmlFor="newImage"
+                    >
                       Featured Image
                     </label>
-                    <div className="profile-form-field">
+                    <div className={Styles['event-form-field']}>
                       <Field
                         name="newImage"
                         id="newImage"
@@ -313,7 +338,7 @@ const EventForm = ({
                   </div>
                 )}
 
-                <div className="form-footer">
+                <div className={Styles['form-footer']}>
                   <button
                     type="submit"
                     disabled={

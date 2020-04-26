@@ -51,7 +51,7 @@ const RigbookCard = ({ user, titleOverride }) => {
         )}
         <h5>
           {titleOverride ? titleOverride : getMemberType(user.accountType)}
-          {user.joined && ` • Joined ${format(user.joined, 'yyyy')}`}
+          {user.joined && ` • Joined ${format(new Date(user.joined), 'yyyy')}`}
         </h5>
       </div>
       <ul className={Styles['profile-actions-list']}>

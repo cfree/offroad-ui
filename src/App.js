@@ -9,7 +9,6 @@ import 'typeface-open-sans';
 import 'typeface-merriweather';
 import 'typeface-josefin-sans';
 
-// TODO
 import './styles/global.module.scss';
 
 import Routes from './routes';

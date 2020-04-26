@@ -28,31 +28,39 @@ const AdminOverview = ({ member }) => {
               </li>
               <li>
                 <strong>Last login:</strong>{' '}
-                {user.lastLogin && format(user.lastLogin, 'm-d-yyyy')}
+                {user.lastLogin && format(new Date(user.lastLogin), 'm-d-yyyy')}
               </li>
               <li>
                 <strong>Runs attended:</strong> {runs.length || '0'}{' '}
                 {runs.length > 0 && (
-                  <>{`last: ${format(runs[0].startTime, 'm-d-yyyy')}`}</>
+                  <>{`last: ${format(
+                    new Date(runs[0].startTime),
+                    'm-d-yyyy',
+                  )}`}</>
                 )}
               </li>
               <li>
                 <strong>Meetings attended:</strong> {meetings.length || '0'}{' '}
                 {meetings.length > 0 && (
-                  <>{`last: ${format(meetings[0].startTime, 'm-d-yyyy')}`}</>
+                  <>{`last: ${format(
+                    new Date(meetings[0].startTime),
+                    'm-d-yyyy',
+                  )}`}</>
                 )}
               </li>
               {user.joined ? (
                 <>
                   <li>
                     <strong>Date joined:</strong>{' '}
-                    {user.joined ? format(user.joined, 'm-d-yyyy') : 'n/a'}
+                    {user.joined
+                      ? format(new Date(user.joined), 'm-d-yyyy')
+                      : 'n/a'}
                   </li>
 
                   <li>
                     <strong>Dues last received:</strong>{' '}
                     {duesLastReceived &&
-                      format(duesLastReceived.time, 'm-d-yyyy')}
+                      format(new Date(duesLastReceived.time), 'm-d-yyyy')}
                   </li>
                 </>
               ) : (

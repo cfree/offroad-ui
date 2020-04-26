@@ -63,7 +63,7 @@ const Login = () => {
         <button type="submit">Login</button>
         <Loading loading={loading} />
         <br />
-        <Link to="/password-reset">Forgot password?</Link>
+        <Link to="/reset-password">Forgot password?</Link>
       </fieldset>
     </form>
   );

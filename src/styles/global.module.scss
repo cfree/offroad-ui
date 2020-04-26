@@ -1,9 +1,19 @@
-@import './variables.module';
+@import './variables.module.scss';
 
 :global {
   html {
     box-sizing: border-box;
-    font-size: 10px;
+    font-family: $font-default;
+    /* Root for rems
+      62.5% takes 16px (browser default size for medium text) down to 10px
+      ref: http://clagnut.com/blog/348/ */
+    font-size: 62.5%;
+    -webkit-font-smoothing: antialiased;
+    line-height: 1;
+
+    @media only screen and (max-width: $bp-sm) {
+      font-size: 100%;
+    }
   }
 
   *,
@@ -13,16 +23,70 @@
   }
 
   body {
+    background: $white;
     padding: 0;
     margin: 0;
-    font-size: 1.5rem;
-    line-height: 2;
-    font-family: Helvetica, Arial, sans-serif;
+    word-wrap: break-word;
+    font-kerning: normal;
+    -moz-font-feature-settings: 'kern', 'liga', 'clig', 'calt';
+    -ms-font-feature-settings: 'kern', 'liga', 'clig', 'calt';
+    -webkit-font-feature-settings: 'kern', 'liga', 'clig', 'calt';
+    font-feature-settings: 'kern', 'liga', 'clig', 'calt';
+    color: $black-lighter;
+    font-size: 16px;
+    font-size: 1.6rem;
+    line-height: 1.2;
+
+    @media (min-width: $bp-md) {
+      font-size: 20px;
+      font-size: 2rem;
+    }
   }
 
   a {
     text-decoration: none;
     color: $red;
+    background-color: transparent;
+    -webkit-text-decoration-skip: objects;
+    transition: color 0.3s;
+  }
+
+  a:active,
+  a:hover {
+    outline-width: 0;
+    color: $red-light;
+  }
+
+  .notFoundPage {
+    background-size: cover;
+    background-position: center bottom;
+    height: 100%;
+    left: 0;
+    padding-top: 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+
+    @media (min-width: $bp-md) {
+      background-position: center;
+      padding-top: $content-vertical-padding;
+    }
+
+    &:before {
+      background: $grey-light;
+      content: '';
+      height: 100%;
+      left: 0;
+      opacity: 0.5;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: -1;
+    }
+
+    body {
+      background: transparent;
+    }
   }
 
   @font-face {

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Query } from '@apollo/react-components';
 import { format } from 'date-fns';
 import { Link } from 'react-router-dom';
-import parse from 'html-react-parser';
 import get from 'lodash/get';
 
 import {
@@ -90,8 +89,8 @@ class EventList extends Component {
                               <div className={Styles['event-date']}>
                                 <Link to={`/event/${event.id}`}>
                                   {format(
-                                    event.startTime,
-                                    'ddd, MMM D, h:mm A',
+                                    new Date(event.startTime),
+                                    'eee, MMM d, h:mm a',
                                   )}
                                 </Link>
                               </div>
@@ -124,7 +123,6 @@ class EventList extends Component {
                             )}
                           </div>
                           <div className={Styles['event-details']}>
-                            <div>{parse(event.description)}</div>
                             <div className={Styles['event-meta']}>
                               {this.state.attendees[event.id] &&
                                 this.state.attendees[event.id].length > 0 && (

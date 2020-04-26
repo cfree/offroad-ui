@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, useRouteMatch } from 'react-router-dom';
 
 import { isActive, isAtLeastBoardMember } from '../lib/utils';
 
@@ -9,49 +9,58 @@ import DashboardPage from '../pages/admin/DashboardPage';
 import PermissionsPage from '../pages/admin/PermissionsPage';
 import RosterPage from '../pages/admin/RosterPage';
 import MeetingPage from '../pages/admin/MeetingPage';
+import MeetingsPage from '../pages/admin/MeetingsPage';
 import TrailsPage from '../pages/admin/TrailsPage';
 import InvitePage from '../pages/admin/InvitePage';
 
 const AdminRoutes = () => {
+  const { path } = useRouteMatch();
+
   return (
     <Switch>
+      <Route path={`${path}/`} exact component={DashboardPage} />
       {/* <Route
-        path="/admin/events"
+        path={`${path}/admin/events"
         component={EventsPage}
         statusCheck={isActive}
         roleCheck={isAtLeastBoardMember}
       /> */}
       <Route
-        path="/admin/permissions"
+        path={`${path}/permissions`}
         component={PermissionsPage}
         statusCheck={isActive}
         roleCheck={isAtLeastBoardMember}
       />
       <Route
-        path="/admin/roster"
+        path={`${path}/roster`}
         component={RosterPage}
         statusCheck={isActive}
         roleCheck={isAtLeastBoardMember}
       />
       <Route
-        path="/admin/meeting"
+        path={`${path}/meeting`}
         component={MeetingPage}
         statusCheck={isActive}
         roleCheck={isAtLeastBoardMember}
       />
       <Route
-        path="/admin/trails"
+        path={`${path}/meetings`}
+        component={MeetingsPage}
+        statusCheck={isActive}
+        roleCheck={isAtLeastBoardMember}
+      />
+      <Route
+        path={`${path}/trails`}
         component={TrailsPage}
         statusCheck={isActive}
         roleCheck={isAtLeastBoardMember}
       />
       <Route
-        path="/admin/invite"
+        path={`${path}/invite`}
         component={InvitePage}
         statusCheck={isActive}
         roleCheck={isAtLeastBoardMember}
       />
-      <Route path="/" exact component={DashboardPage} />
     </Switch>
   );
 };

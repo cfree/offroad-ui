@@ -2,6 +2,8 @@ import React, { FC, useState, useCallback } from 'react';
 import { Helmet } from 'react-helmet';
 import ReactQuill from 'react-quill';
 
+import Styles from './richTextArea.module.scss';
+
 interface RichTextAreaProps {
   onChange?: (text: string) => void;
   defaultText?: string;
@@ -30,7 +32,9 @@ const RichTextArea: FC<RichTextAreaProps> = ({
       <Helmet>
         <link rel="stylesheet" href="//cdn.quilljs.com/1.2.6/quill.snow.css" />
       </Helmet>
-      <ReactQuill value={text} onChange={handleChange} />
+      <div className={Styles['rich-text']}>
+        <ReactQuill value={text} onChange={handleChange} />
+      </div>
     </>
   );
 };

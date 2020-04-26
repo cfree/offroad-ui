@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Query, Mutation } from '@apollo/react-components';
 import { Formik, Field, ErrorMessage as FormikErrorMessage } from 'formik';
+import cn from 'classnames';
 
 import {
   MEMBER_ADMIN_PROFILE_QUERY,
@@ -17,7 +18,7 @@ import {
   accountTypes,
 } from '../../../lib/constants';
 
-import './adminProfileForm.module.scss';
+import Styles from './adminProfileForm.module.scss';
 
 class AdminProfileForm extends Component {
   state = {
@@ -89,13 +90,21 @@ class AdminProfileForm extends Component {
                     );
                   }}
                   render={(formikProps) => (
-                    <div className="form profile-form--user">
+                    <div
+                      className={cn(
+                        Styles['form'],
+                        Styles['profile-form--user'],
+                      )}
+                    >
                       <form onSubmit={formikProps.handleSubmit}>
-                        <div className="form-field">
-                          <label className="profile-form-label" htmlFor="title">
+                        <div className={Styles['form-field-wrapper']}>
+                          <label
+                            className={Styles['profile-form-label']}
+                            htmlFor="title"
+                          >
                             Title
                           </label>
-                          <div className="profile-form-field">
+                          <div className={Styles['profile-form-field']}>
                             <Field
                               component="select"
                               name="title"
@@ -113,11 +122,11 @@ class AdminProfileForm extends Component {
                           </div>
                         </div>
 
-                        <div className="form-field">
-                          <div className="profile-form-label">
+                        <div className={Styles['form-field-wrapper']}>
+                          <div className={Styles['profile-form-label']}>
                             Is Charter Member?
                           </div>
-                          <div className="profile-form-field">
+                          <div className={Styles['profile-form-field']}>
                             <label htmlFor="isCharterMemberYes">
                               <Field
                                 type="radio"
@@ -149,11 +158,11 @@ class AdminProfileForm extends Component {
                           </div>
                         </div>
 
-                        {/* <div className="form-field">
-                          <div className="profile-form-label">
+                        {/* <div className={Styles['form-field-wrapper']}>
+                          <div className={Styles['profile-form-label']}>
                             Is On Sponsor List? (4wd.com, etc.)
                           </div>
-                          <div className="profile-form-field">
+                          <div className={Styles['profile-form-field']}>
                             <label htmlFor="isOnSponsorList">
                               <Field
                                 type="radio"
@@ -185,14 +194,14 @@ class AdminProfileForm extends Component {
                           </div>
                         </div> */}
 
-                        <div className="form-field">
+                        <div className={Styles['form-field-wrapper']}>
                           <label
-                            className="profile-form-label"
+                            className={Styles['profile-form-label']}
                             htmlFor="office"
                           >
                             Office
                           </label>
-                          <div className="profile-form-field">
+                          <div className={Styles['profile-form-field']}>
                             <Field
                               component="select"
                               name="office"
@@ -210,11 +219,14 @@ class AdminProfileForm extends Component {
                           </div>
                         </div>
 
-                        <div className="form-field">
-                          <label className="profile-form-label" htmlFor="role">
+                        <div className={Styles['form-field-wrapper']}>
+                          <label
+                            className={Styles['profile-form-label']}
+                            htmlFor="role"
+                          >
                             Role
                           </label>
-                          <div className="profile-form-field">
+                          <div className={Styles['profile-form-field']}>
                             <Field
                               component="select"
                               name="role"
@@ -231,14 +243,14 @@ class AdminProfileForm extends Component {
                           </div>
                         </div>
 
-                        <div className="form-field">
+                        <div className={Styles['form-field-wrapper']}>
                           <label
-                            className="profile-form-label"
+                            className={Styles['profile-form-label']}
                             htmlFor="accountStatus"
                           >
                             Account Status
                           </label>
-                          <div className="profile-form-field">
+                          <div className={Styles['profile-form-field']}>
                             <Field
                               component="select"
                               name="accountStatus"
@@ -260,14 +272,14 @@ class AdminProfileForm extends Component {
                           </div>
                         </div>
 
-                        <div className="form-field">
+                        <div className={Styles['form-field-wrapper']}>
                           <label
-                            className="profile-form-label"
+                            className={Styles['profile-form-label']}
                             htmlFor="accountType"
                           >
                             Account Type
                           </label>
-                          <div className="profile-form-field">
+                          <div className={Styles['profile-form-field']}>
                             <Field
                               component="select"
                               name="accountType"
@@ -289,7 +301,7 @@ class AdminProfileForm extends Component {
                           </div>
                         </div>
 
-                        <div className="form-footer">
+                        <div className={Styles['form-footer']}>
                           <button
                             type="submit"
                             disabled={

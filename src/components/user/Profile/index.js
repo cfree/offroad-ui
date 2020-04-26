@@ -59,7 +59,7 @@ const Profile = ({ username }) => {
                 aria-label={"User's Vehicle"}
                 className={Styles['user-vehicle']}
                 style={{
-                  backgroundImage: `url(${RIG_SRC})`,
+                  'background-image': `url(${RIG_SRC})`,
                 }}
               />
 
@@ -83,7 +83,9 @@ const Profile = ({ username }) => {
                             )}
                           </li>
                         )}
-                        <li>Joined {format(user.joined, 'M/D/YYYY')}</li>
+                        <li>
+                          Joined {format(new Date(user.joined), 'm/d/yyyy')}
+                        </li>
                       </ul>
                     </div>
                   </div>
@@ -141,7 +143,10 @@ const Profile = ({ username }) => {
                         <Filter role={isAtLeastBoardMember}>
                           <dt>Age</dt>
                           <dd>
-                            {differenceInYears(new Date(), user.birthdate)}
+                            {differenceInYears(
+                              new Date(),
+                              new Date(user.birthdate),
+                            )}
                           </dd>
                         </Filter>
                       )}
@@ -277,7 +282,10 @@ const Profile = ({ username }) => {
                             .filter((event) => event.status === 'GOING')
                             .map((rsvp) => (
                               <li key={rsvp.event.id}>
-                                {format(rsvp.event.startTime, 'M/D/YYYY')}
+                                {format(
+                                  new Date(rsvp.event.startTime),
+                                  'm/d/yyyy',
+                                )}
                                 {' - '}
                                 <Link to={`/event/${rsvp.event.id}`}>
                                   {rsvp.event.title}
@@ -309,7 +317,7 @@ const Profile = ({ username }) => {
                         <ul>
                           {user.bandaids.map(bandaid => (
                             <li key={bandaid.id}>
-                              {format(bandaid.occurred, 'M/D/yyyy')}
+                              {format(new Date(bandaid.occurred), 'm/d/yyyy')}
                               {' '}
                               {bandaid.name}
                             </li>
@@ -326,7 +334,7 @@ const Profile = ({ username }) => {
                         <ul>
                           {user.runReportsLogged.map(report => (
                             <li key={report.id}>
-                              {format(report.reportFiled, 'M/D/yyyy')}
+                              {format(new Date(report.reportFiled), 'm/d/yyyy')}
                               {' '}
                               {report.title}
                             </li>

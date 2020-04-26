@@ -28,9 +28,9 @@ const SUBMIT_ELECTION_MUTATION = gql`
 
 const CreateElection = () => {
   const [title, setTitle] = useState('');
-  const [startTime, setStartTime] = useState(format(Date.now(), 'yyyy-mm-dd'));
+  const [startTime, setStartTime] = useState(format(Date.now(), 'yyyy-MM-dd'));
   const [endTime, setEndTime] = useState(
-    format(addWeeks(Date.now(), 2), 'yyyy-mm-dd'),
+    format(addWeeks(Date.now(), 2), 'yyyy-MM-dd'),
   );
   const [races, setRaces] = useState([]);
   const history = useHistory();
@@ -52,7 +52,7 @@ const CreateElection = () => {
       };
       submission(submit);
     },
-    [location],
+    [history],
   );
 
   return (

@@ -1,12 +1,12 @@
 @import '../../../styles/variables.module';
 
 .container {
-  // main
   max-width: $max-width;
   margin: 0 auto 0;
 }
 
 .wrapper {
-  // div
+  position: relative;
   padding-bottom: 50px;
+  min-height: calc(100vh - #{$footer-height});
 }
