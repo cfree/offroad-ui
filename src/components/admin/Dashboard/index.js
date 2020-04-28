@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 // import AtAGlance from '../AtAGlance';
 // import PollingPlace from '../../voting/PollingPlace';
 import Filter from '../../login/Filter';
-import { isAdmin, isNotLocked } from '../../../lib/utils';
+import { isAdmin, isActive } from '../../../lib/utils';
 
 const Dashboard = () => (
   <>
@@ -15,7 +15,7 @@ const Dashboard = () => (
     <div>
       <h3>Tools</h3>
       <ul>
-        <Filter roleCheck={isAdmin} statusCheck={isNotLocked}>
+        <Filter roleCheck={isAdmin} statusCheck={isActive}>
           <li>
             <Link to="/admin/permissions">Permissions</Link>
           </li>
@@ -24,13 +24,10 @@ const Dashboard = () => (
           <Link to="/admin/roster">Membership List</Link>
         </li>
         <li>
-          <Link to="/admin/trails">Trails</Link>
-        </li>
-        <li>
-          <Link to="/admin/meeting">Meeting Quorum</Link>
-        </li>
-        <li>
           <Link to="/admin/meetings">Meetings</Link>
+        </li>
+        <li>
+          <Link to="/admin/trails">Trails</Link>
         </li>
         <li>
           <Link to="/admin/invite">Invite a Member</Link>

@@ -1,12 +1,19 @@
 @import '../../../styles/variables.module';
 @import '../../../styles/utilities.module';
+@import '../../../styles/mixins.module';
 
 .dashboard-heading {
   @extend %dashboard-heading;
 }
 
 .events-schedule {
+  @include clearfix;
   line-height: 1;
+  margin-bottom: $space;
+
+  @include breakpoint($bp-lg) {
+    margin-bottom: 0;
+  }
 
   ul {
     list-style: none;

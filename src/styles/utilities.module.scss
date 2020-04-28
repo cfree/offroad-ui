@@ -1,4 +1,5 @@
-@import './variables.module.scss';
+@import './variables.module';
+@import './partials/form';
 
 // Reusable styles to be composed
 %dashboard-heading {

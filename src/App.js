@@ -11,6 +11,7 @@ import 'typeface-josefin-sans';
 
 import './styles/global.module.scss';
 
+import { ViewportProvider } from './hooks/useViewport';
 import Routes from './routes';
 import { endpoint } from './lib/constants';
 
@@ -25,7 +26,9 @@ const App = () => {
     <ApolloProvider client={client}>
       <ApolloHooksProvider client={client}>
         <BrowserRouter>
-          <Routes />
+          <ViewportProvider>
+            <Routes />
+          </ViewportProvider>
         </BrowserRouter>
       </ApolloHooksProvider>
     </ApolloProvider>

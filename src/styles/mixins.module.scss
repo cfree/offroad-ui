@@ -1,5 +1,4 @@
 @import './variables.module.scss';
-@import './partials/form';
 
 @mixin breakpoint($bp, $direction: min) {
   @media (#{$direction}-width: $bp) {
@@ -78,4 +77,16 @@
   background-size: contain, 25%;
   border-top: 1px solid $black-lighter;
   border-bottom: 1px solid $black-lighter;
+}
+
+@mixin icon {
+  font-family: '4players' !important;
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }

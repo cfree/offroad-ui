@@ -10,7 +10,10 @@
   padding: 20px;
   text-align: center;
   line-height: 1.5;
-  height: $footer-height;
+
+  @include breakpoint($bp-md) {
+    height: $footer-height;
+  }
 
   img {
     border-radius: 8px;

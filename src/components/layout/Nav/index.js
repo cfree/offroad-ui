@@ -10,7 +10,7 @@ import { isActive, isMember, isAtLeastBoardMember } from '../../../lib/utils';
 
 import Styles from './nav.module.scss';
 
-const Nav = ({ router, ...props }) => {
+const Nav = ({ openMobileNav, router, ...props }) => {
   const { path, url: pathname } = useRouteMatch();
   const [isOpen, setIsOpen] = useState(false);
 
@@ -22,100 +22,111 @@ const Nav = ({ router, ...props }) => {
     setIsOpen(false);
   }, [setIsOpen]);
 
+  const navClasses = cn(Styles['nav-list'], {
+    [Styles['mobile-nav-list--open']]: openMobileNav,
+  });
+
   return (
-    <nav>
-      <ul className={Styles['nav']}>
-        <User>
-          {({ error, loading, data }) => {
-            if (error) {
-              console.error(error);
-            }
+    <>
+      <nav className={Styles['nav']}>
+        <ul className={navClasses}>
+          <User>
+            {({ error, loading, data }) => {
+              if (error) {
+                console.error(error);
+              }
 
-            if (!data) {
-              return null;
-            }
+              if (!data) {
+                return null;
+              }
 
-            const { myself } = data;
+              const { myself } = data;
 
-            const AVATAR_SRC = get(
-              myself,
-              'avatar.smallUrl',
-              DEFAULT_AVATAR_SMALL_SRC,
-            );
+              const AVATAR_SRC = get(
+                myself,
+                'avatar.smallUrl',
+                DEFAULT_AVATAR_SMALL_SRC,
+              );
 
-            return (
-              myself && (
-                <>
-                  <li className={pathname === '/' ? 'active' : ''}>
-                    <Link to="/">Dashboard</Link>
-                  </li>
-                  {isActive(myself.accountStatus) &&
-                    isMember(myself.accountType) && (
+              return (
+                myself && (
+                  <>
+                    <li className={pathname === '/' ? 'active' : ''}>
+                      <Link to="/">Dashboard</Link>
+                    </li>
+                    {isActive(myself.accountStatus) &&
+                      isMember(myself.accountType) && (
+                        <li
+                          className={
+                            pathname === '/roster' ||
+                            pathname === '/roster/list'
+                              ? 'active'
+                              : ''
+                          }
+                        >
+                          <Link to="/roster">Roster</Link>
+                        </li>
+                      )}
+                    {isActive(myself.accountStatus) && (
                       <li
                         className={
-                          pathname === '/roster' || pathname === '/roster/list'
+                          pathname === '/events' ||
+                          pathname === '/events/past' ||
+                          path === '/event/:id'
                             ? 'active'
                             : ''
                         }
                       >
-                        <Link to="/roster">Roster</Link>
+                        <Link to="/events">Events</Link>
                       </li>
                     )}
-                  {isActive(myself.accountStatus) && (
+                    {isActive(myself.accountStatus) &&
+                      isAtLeastBoardMember(myself.role) && (
+                        <li
+                          className={
+                            pathname.includes('/admin') ? 'active' : ''
+                          }
+                        >
+                          <Link to="/admin">Admin</Link>
+                        </li>
+                      )}
                     <li
-                      className={
-                        pathname === '/events' ||
-                        pathname === '/events/past' ||
-                        path === '/event/:id'
-                          ? 'active'
-                          : ''
-                      }
+                      onMouseEnter={handleMouseEnter}
+                      onMouseLeave={handleMouseLeave}
+                      className="user"
                     >
-                      <Link to="/events">Events</Link>
-                    </li>
-                  )}
-                  {isActive(myself.accountStatus) &&
-                    isAtLeastBoardMember(myself.role) && (
-                      <li
-                        className={pathname.includes('/admin') ? 'active' : ''}
+                      <img
+                        className={Styles['user-image']}
+                        src={AVATAR_SRC}
+                        height="30"
+                        alt="Avatar"
+                      />
+                      <ul
+                        className={cn(Styles['dropdown-menu'], {
+                          [Styles['dropdown-menu--open']]: isOpen,
+                        })}
                       >
-                        <Link to="/admin">Admin</Link>
-                      </li>
-                    )}
-                  <li
-                    onMouseEnter={handleMouseEnter}
-                    onMouseLeave={handleMouseLeave}
-                    className="user"
-                  >
-                    <img
-                      className={Styles['user-image']}
-                      src={AVATAR_SRC}
-                      height="30"
-                      alt="Avatar"
-                    />
-                    <ul
-                      className={cn(Styles['dropdown-menu'], {
-                        [Styles['dropdown-menu--open']]: isOpen,
-                      })}
-                    >
-                      <li className={pathname === '/profile' ? 'active' : ''}>
-                        <Link to="/profile">Profile</Link>
-                      </li>
-                      <li className={pathname === '/settings' ? 'active' : ''}>
-                        <Link to="/settings/account">Account</Link>
-                      </li>
-                      <li>
-                        <Logout />
-                      </li>
-                    </ul>
-                  </li>
-                </>
-              )
-            );
-          }}
-        </User>
-      </ul>
-    </nav>
+                        <li className={pathname === '/profile' ? 'active' : ''}>
+                          <Link to="/profile">Profile</Link>
+                        </li>
+                        <li
+                          className={pathname === '/settings' ? 'active' : ''}
+                        >
+                          <Link to="/settings/account">Account</Link>
+                        </li>
+                        <li>
+                          <Logout />
+                        </li>
+                      </ul>
+                    </li>
+                  </>
+                )
+              );
+            }}
+          </User>
+        </ul>
+      </nav>
+    </>
   );
 };
 

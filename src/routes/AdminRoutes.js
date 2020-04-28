@@ -38,7 +38,19 @@ const AdminRoutes = () => {
         roleCheck={isAtLeastBoardMember}
       />
       <Route
-        path={`${path}/meeting`}
+        path={`${path}/meeting/new`}
+        component={MeetingPage}
+        statusCheck={isActive}
+        roleCheck={isAtLeastBoardMember}
+      />
+      <Route
+        path={`${path}/meeting/:id/edit`}
+        component={MeetingPage}
+        statusCheck={isActive}
+        roleCheck={isAtLeastBoardMember}
+      />
+      <Route
+        path={`${path}/meeting/:id`}
         component={MeetingPage}
         statusCheck={isActive}
         roleCheck={isAtLeastBoardMember}

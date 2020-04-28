@@ -1,12 +1,29 @@
 @import '../../../styles/variables.module';
+@import '../../../styles/mixins.module';
 
 .container {
-  max-width: $max-width;
-  margin: 0 auto 0;
+  padding: 0 ($space / 2);
+
+  @include breakpoint($bp-sm) {
+    padding: 0 $space;
+  }
+
+  @include breakpoint($max-width) {
+    margin: 0 auto;
+    max-width: $max-width;
+  }
+
+  @include breakpoint($bp-xl) {
+    padding: 0;
+  }
 }
 
 .wrapper {
   position: relative;
-  padding-bottom: 50px;
-  min-height: calc(100vh - #{$footer-height});
+  padding-bottom: $space;
+
+  @include breakpoint($bp-md) {
+    padding-bottom: 50px;
+    min-height: calc(100vh - #{$footer-height});
+  }
 }
