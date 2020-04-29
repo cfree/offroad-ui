@@ -3,12 +3,14 @@
 @import '../../../styles/utilities.module';
 
 .dashboard {
-  @include breakpoint($bp-sm) {
-    margin-top: $space;
+  margin-top: calc(7px + (#{$space / 2}));
+
+  @include breakpoint($bp-md) {
+    margin-top: calc(7px + #{$space});
   }
 
   @include breakpoint($bp-lg) {
-    margin-top: ($space * 2);
+    margin-top: calc(7px + (#{$space * 2}));
     display: grid;
     grid-column-gap: $space-large;
     grid-row-gap: $space-large;

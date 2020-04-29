@@ -12,7 +12,11 @@
   overflow: hidden;
   background: white;
   position: relative;
-  margin: 0 0 $space;
+  margin: 0 0 ($space / 2);
+
+  @include breakpoint($bp-md) {
+    margin: 0 0 $space;
+  }
 
   @include breakpoint($bp-lg) {
     margin: 0;
@@ -28,7 +32,6 @@
 }
 
 .event {
-  padding: 30px;
   background-color: $grey-light;
   background-size: cover;
   background-position: center center;
@@ -37,17 +40,45 @@
   left: 0;
   width: 100%;
   height: 100%;
+  padding: $space / 2;
+
+  @include breakpoint($bp-sm) {
+    padding: $space;
+  }
+
+  @include breakpoint($bp-md) {
+    padding: 30px;
+  }
 }
 
 .event-details {
-  margin: 1em 0 20px;
-  width: 70%;
+  margin: 1em 0 ($space / 2);
+  width: 100%;
   color: white;
 
+  @include breakpoint($bp-sm) {
+    margin: 1em 0 $space;
+    width: 70%;
+  }
+
+  // @include breakpoint($bp-md) {
+  //   width: 70%;
+  // }
+
   h3 {
-    font-size: 48px;
-    line-height: 0.85;
-    margin: 0 0 20px;
+    font-size: 1.8rem;
+    line-height: 0.9;
+    margin: 0 0 ($space / 2);
+
+    @include breakpoint($bp-sm) {
+      font-size: 2.4rem;
+      margin: 0 0 $space;
+    }
+
+    @include breakpoint($bp-md) {
+      font-size: 4.8rem;
+      line-height: 0.85;
+    }
 
     a {
       color: white;
@@ -60,9 +91,17 @@
   }
 
   h4 {
-    font-size: 24px;
+    font-size: 1.4rem;
     margin: 0;
     line-height: 1;
+
+    @include breakpoint($bp-sm) {
+      font-size: 1.8rem;
+    }
+
+    @include breakpoint($bp-md) {
+      font-size: 2.4rem;
+    }
   }
 }
 

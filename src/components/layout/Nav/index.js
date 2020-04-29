@@ -102,7 +102,7 @@ const Nav = ({ openMobileNav, router, ...props }) => {
                         alt="Avatar"
                       />
                       <ul
-                        className={cn(Styles['dropdown-menu'], {
+                        className={cn({
                           [Styles['dropdown-menu--open']]: isOpen,
                         })}
                       >

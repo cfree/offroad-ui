@@ -1,12 +1,18 @@
 @import './variables.module';
+@import './mixins.module';
 @import './partials/form';
 
 // Reusable styles to be composed
 %dashboard-heading {
-  margin: 0 0 $space;
-  padding-bottom: 8px;
+  margin: 0 0 ($space / 2);
+  padding-bottom: 4px;
   line-height: 1;
   border-bottom: 2px solid $grey-lighter;
+
+  @include breakpoint($bp-md) {
+    padding-bottom: 8px;
+    margin: 0 0 $space;
+  }
 }
 
 %nothing-scheduled {

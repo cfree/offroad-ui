@@ -9,7 +9,11 @@
 .events-schedule {
   @include clearfix;
   line-height: 1;
-  margin-bottom: $space;
+  margin-bottom: $space / 2;
+
+  @include breakpoint($bp-md) {
+    margin-bottom: $space;
+  }
 
   @include breakpoint($bp-lg) {
     margin-bottom: 0;
@@ -17,8 +21,12 @@
 
   ul {
     list-style: none;
-    padding: 0 0 10px;
+    padding: 0;
     margin: 0;
+
+    @include breakpoint($bp-md) {
+      padding: 0 0 10px;
+    }
   }
 
   li {
@@ -40,11 +48,14 @@
 }
 
 .hr {
-  // hr
   height: 2px;
-  margin: 0 0 20px;
+  margin: 0 0 $space / 2;
   border: none;
   background: $grey-lighter;
+
+  @include breakpoint($bp-md) {
+    margin: 0 0 $space;
+  }
 }
 
 .nothing-scheduled {
