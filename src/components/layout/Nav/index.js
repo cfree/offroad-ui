@@ -12,15 +12,15 @@ import Styles from './nav.module.scss';
 
 const Nav = ({ openMobileNav, router, ...props }) => {
   const { path, url: pathname } = useRouteMatch();
-  const [isOpen, setIsOpen] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const handleMouseEnter = useCallback(() => {
-    setIsOpen(true);
-  }, [setIsOpen]);
+    setIsDropdownOpen(true);
+  }, [setIsDropdownOpen]);
 
   const handleMouseLeave = useCallback(() => {
-    setIsOpen(false);
-  }, [setIsOpen]);
+    setIsDropdownOpen(false);
+  }, [setIsDropdownOpen]);
 
   const navClasses = cn(Styles['nav-list'], {
     [Styles['mobile-nav-list--open']]: openMobileNav,
@@ -90,22 +90,14 @@ const Nav = ({ openMobileNav, router, ...props }) => {
                           <Link to="/admin">Admin</Link>
                         </li>
                       )}
-                    <li
-                      onMouseEnter={handleMouseEnter}
-                      onMouseLeave={handleMouseLeave}
-                      className="user"
-                    >
+                    <li className={Styles['nav-user']}>
                       <img
                         className={Styles['user-image']}
                         src={AVATAR_SRC}
                         height="30"
                         alt="Avatar"
                       />
-                      <ul
-                        className={cn({
-                          [Styles['dropdown-menu--open']]: isOpen,
-                        })}
-                      >
+                      <ul>
                         <li className={pathname === '/profile' ? 'active' : ''}>
                           <Link to="/profile">Profile</Link>
                         </li>

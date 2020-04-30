@@ -5,6 +5,7 @@ import { Redirect, useLocation, Link } from 'react-router-dom';
 import { LOGIN_MUTATION } from './login.graphql';
 import Loading from '../../utility/Loading';
 import ErrorMessage from '../../utility/ErrorMessage';
+import Button from '../../common/Button';
 
 import Styles from './login.module.scss';
 
@@ -39,9 +40,14 @@ const Login = () => {
     <form className={Styles['form']} onSubmit={handleSubmit}>
       <h3>Login</h3>
       <ErrorMessage error={error} />
-      <fieldset disabled={loading} aria-busy={loading}>
+      <fieldset
+        disabled={loading}
+        aria-busy={loading}
+        className={Styles['fieldset']}
+      >
         <label htmlFor="username">
           <input
+            className={Styles['field']}
             type="username"
             id="username"
             name="username"
@@ -52,6 +58,7 @@ const Login = () => {
         </label>
         <label htmlFor="password">
           <input
+            className={Styles['field']}
             type="password"
             id="password"
             name="password"
@@ -60,10 +67,17 @@ const Login = () => {
             value={password}
           />
         </label>
-        <button type="submit">Login</button>
-        <Loading loading={loading} />
-        <br />
-        <Link to="/reset-password">Forgot password?</Link>
+        <footer>
+          <span>
+            <Button ghost type="submit">
+              Login
+            </Button>
+            <Loading loading={loading} />
+          </span>
+          <Link className={Styles['forgot-password-link']} to="/reset-password">
+            Forgot password?
+          </Link>
+        </footer>
       </fieldset>
     </form>
   );

@@ -88,7 +88,7 @@
         rgba($grey-light, 0.75) 0%
       ),
       url('/img/toyota.jpg');
-    background-position: center 75%;
+    background-position: center;
     background-size: cover;
   }
 
@@ -108,7 +108,7 @@
         rgba($grey-light, 0.75) 0%
       ),
       url('/img/club.jpg');
-    background-position: center 43%;
+    background-position: center 15%;
     background-size: cover;
 
     @include breakpoint($bp-lg) {

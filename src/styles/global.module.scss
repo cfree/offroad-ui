@@ -10,10 +10,6 @@
     font-size: 62.5%;
     -webkit-font-smoothing: antialiased;
     line-height: 1;
-
-    @media only screen and (max-width: $bp-sm) {
-      font-size: 100%;
-    }
   }
 
   *,

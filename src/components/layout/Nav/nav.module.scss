@@ -22,6 +22,7 @@
     background: $grey-light;
     color: $white;
     padding: $space;
+    font-size: 2.2rem;
 
     &:hover,
     &:active {
@@ -60,7 +61,7 @@
       }
 
       &:not(:global(.active)):not(:global(.user)):hover {
-        a {
+        & > a {
           background: $grey-lighter;
           border-radius: 3px;
           color: white;
@@ -69,7 +70,7 @@
       }
 
       &:global(.active) {
-        a {
+        & > a {
           background: $grey-light;
           border-radius: 3px;
           color: white;
@@ -77,14 +78,18 @@
       }
     }
 
-    & > :global(li.user) {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-      float: left;
-      position: relative;
-    }
+    // & > :global(li.user) {
+    //   list-style: none;
+    //   margin: 0;
+    //   padding: 0;
+    //   float: left;
+    //   position: relative;
+    // }
   }
+}
+
+.nav-user {
+  position: relative;
 
   ul {
     margin: 0;
@@ -98,17 +103,10 @@
       text-align: left;
       background: white;
       border: 1px solid $white-dark;
-      padding: 0;
-      margin: 0;
       border-radius: 2px;
       padding: 5px 0 0;
       width: 100px;
       transform: opacity 0.3s;
-
-      &--open {
-        display: block;
-        z-index: 100;
-      }
 
       &:before {
         content: '';
@@ -131,6 +129,7 @@
         line-height: 1;
 
         a {
+          background: none;
           color: $grey-light;
           padding: 10px 10px 7px;
           display: block;
@@ -150,13 +149,14 @@
       }
     }
   }
+
+  &:hover ul {
+    display: block;
+    z-index: 100;
+  }
 }
 
 .mobile-nav-list--open {
-  display: block;
-}
-
-.mobile-active {
   display: block;
 }
 
@@ -167,6 +167,6 @@
     display: inline-block;
     border-radius: 50%;
     margin-left: 10px;
-    margin-top: 3px;
+    // margin-top: 3px;
   }
 }

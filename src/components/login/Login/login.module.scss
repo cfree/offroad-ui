@@ -1,5 +1,56 @@
+@import '../../../styles/variables.module';
+@import '../../../styles/mixins.module';
+
 .form {
-} // form
+  width: 100%;
+
+  a {
+    color: $white;
+    text-decoration: underline;
+
+    &:hover {
+      color: $silver;
+    }
+  }
+
+  footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    span {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+}
+
+.fieldset {
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+label {
+  display: block;
+  margin-top: $space;
+
+  & + label {
+    margin-bottom: $space;
+  }
+}
+
+.field {
+  width: 100%;
+  padding: $space / 2;
+  box-shadow: 0;
+  border: none;
+}
+
+.forgot-password-link {
+  font-size: 1.4rem;
+}
 
 .error {
 } // div

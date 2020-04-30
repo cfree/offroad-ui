@@ -9,6 +9,7 @@ import 'typeface-open-sans';
 import 'typeface-merriweather';
 import 'typeface-josefin-sans';
 
+import 'normalize.css';
 import './styles/global.module.scss';
 
 import { ViewportProvider } from './hooks/useViewport';

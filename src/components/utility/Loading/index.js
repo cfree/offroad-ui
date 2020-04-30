@@ -1,11 +1,15 @@
 import React from 'react';
 
-import './loading.module.scss';
+import Styles from './loading.module.scss';
 
 const Loading = ({ loading }) => {
   return (
     loading && (
-      <img className="loading" src="/img/loading.png" alt="Loading..." />
+      <img
+        className={Styles['loading']}
+        src="/img/loading.png"
+        alt="Loading..."
+      />
     )
   );
 };
