@@ -1,0 +1,170 @@
+@import '../../../styles/utilities.module';
+@import '../../../styles/mixins.module';
+@import '../../../styles/variables.module';
+
+header {
+  margin: 0 auto;
+}
+
+.user-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.user-vehicle {
+  height: 370px; // todo
+  width: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  border: 1px solid $grey-light;
+  margin-top: 5px;
+
+  @include breakpoint($bp-sm) {
+    height: 370px; // todo
+  }
+
+  @include breakpoint($bp-md) {
+    height: 370px;
+  }
+}
+
+.user-demographics {
+  // width: 60%;
+  width: 100%;
+  display: flex;
+
+  @include breakpoint($bp-md) {
+    padding: ($space / 2) $space;
+  }
+
+  img {
+    margin: -30px 20px 15px;
+    border-radius: 50%;
+    border: 1px solid $grey-light;
+    box-shadow: 0 0 0 5px $white;
+  }
+}
+
+.user-name-info {
+}
+
+.user-name {
+  margin: 25px 0 2px;
+}
+
+.user-full-name {
+  margin: 0;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.user-info {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 1.1rem;
+
+  li {
+    display: inline-block;
+    margin: 0 0 0 5px;
+    padding: 0;
+
+    &:before {
+      margin-right: 5px;
+      content: '\2022';
+    }
+
+    &:first-child {
+      margin-left: 0;
+
+      &:before {
+        margin-right: 0;
+        content: '';
+      }
+    }
+  }
+}
+
+.user-actions {
+  margin: 25px 20px 0 auto;
+  padding: 0;
+  list-style: none;
+
+  li {
+    margin: 0 0 0 10px;
+    display: inline-block;
+    line-height: 1;
+
+    &:first-child {
+      margin-left: 0;
+    }
+
+    a {
+      line-height: 1;
+      color: $white;
+      background: $red;
+      font-size: 12px;
+      padding: 5px 10px;
+      transition: background 0.3s;
+
+      &:hover {
+        background: $red-light;
+      }
+    }
+  }
+}
+
+nav {
+  margin: 0 0 ($space / 2);
+
+  @include breakpoint($bp-md) {
+    margin: 0 0 $space;
+  }
+
+  ul {
+    padding: 0;
+    margin: 0;
+    display: flex;
+    border-bottom: 1px solid $grey;
+  }
+
+  li {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    display: inline-block;
+  }
+
+  a {
+    display: block;
+    padding: 5px ($space / 2);
+
+    @include breakpoint($bp-md) {
+      padding: ($space / 2) $space;
+    }
+  }
+}
+
+.active {
+  border: 1px solid $grey;
+  border-bottom: none;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  color: $grey-light;
+  position: relative;
+
+  &:after {
+    content: '';
+    background: $white;
+    height: 1px;
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    right: 0;
+  }
+
+  &:hover {
+    color: $grey-light;
+  }
+}

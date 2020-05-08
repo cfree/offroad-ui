@@ -1,13 +1,13 @@
 import React from 'react';
 
 import Quorum from '../../components/admin/Quorum';
-import Page from '../../components/layout/Page';
+import PageLayout from '../../components/layout/PageLayout';
 
 const AdminMeetingPage = () => {
   return (
-    <Page>
+    <PageLayout>
       <Quorum />
-    </Page>
+    </PageLayout>
   );
 };
 

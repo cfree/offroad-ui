@@ -101,7 +101,10 @@ const NextEvent = () => {
                     {format(new Date(event.startTime), 'eee, MMM d, h:mm a')}
                   </h4>
                 </div>
-                <Mutation mutation={RSVP_MUTATION}>
+                <Mutation
+                  mutation={RSVP_MUTATION}
+                  refetchQueries={['UPCOMING_EVENTS_QUERY']}
+                >
                   {(setRsvp, { loading, error }) => (
                     <>
                       <Button

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 
-import Page from '../../components/layout/Page';
+import EventPageLayout from '../../components/layout/EventPageLayout';
 import EventDetails from '../../components/events/EventDetails';
 
 const EventPage = () => {
@@ -9,9 +9,9 @@ const EventPage = () => {
   const { id } = params;
 
   return (
-    <Page>
+    <EventPageLayout>
       <EventDetails id={id} />
-    </Page>
+    </EventPageLayout>
   );
 };
 

@@ -1,13 +1,13 @@
 import React from 'react';
 
-import EventIndex from '../../components/events/EventIndex';
-import Page from '../../components/layout/Page';
+import EventsIndex from '../../components/events/EventsIndex';
+import PageLayout from '../../components/layout/PageLayout';
 
 const EventsPage = () => {
   return (
-    <Page>
-      <EventIndex />
-    </Page>
+    <PageLayout>
+      <EventsIndex />
+    </PageLayout>
   );
 };
 

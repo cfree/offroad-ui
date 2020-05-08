@@ -17,6 +17,7 @@ import {
   accountStatuses,
   accountTypes,
 } from '../../../lib/constants';
+import FormErrorMessage from '../../utility/FormErrorMessage';
 
 import Styles from './adminProfileForm.module.scss';
 
@@ -118,7 +119,10 @@ class AdminProfileForm extends Component {
                                 </option>
                               ))}
                             </Field>
-                            <FormikErrorMessage name="title" component="div" />
+                            <FormikErrorMessage
+                              name="title"
+                              component={FormErrorMessage}
+                            />
                           </div>
                         </div>
 
@@ -153,7 +157,7 @@ class AdminProfileForm extends Component {
                             </label>
                             <FormikErrorMessage
                               name="isCharterMember"
-                              component="div"
+                              component={FormErrorMessage}
                             />
                           </div>
                         </div>
@@ -189,7 +193,7 @@ class AdminProfileForm extends Component {
                             </label>
                             <FormikErrorMessage
                               name="isOnSponsorList"
-                              component="div"
+                              component={FormErrorMessage}
                             />
                           </div>
                         </div> */}
@@ -215,7 +219,10 @@ class AdminProfileForm extends Component {
                                 </option>
                               ))}
                             </Field>
-                            <FormikErrorMessage name="office" component="div" />
+                            <FormikErrorMessage
+                              name="office"
+                              component={FormErrorMessage}
+                            />
                           </div>
                         </div>
 
@@ -239,7 +246,10 @@ class AdminProfileForm extends Component {
                                 </option>
                               ))}
                             </Field>
-                            <FormikErrorMessage name="role" component="div" />
+                            <FormikErrorMessage
+                              name="role"
+                              component={FormErrorMessage}
+                            />
                           </div>
                         </div>
 
@@ -267,7 +277,7 @@ class AdminProfileForm extends Component {
                             </Field>
                             <FormikErrorMessage
                               name="accountStatus"
-                              component="div"
+                              component={FormErrorMessage}
                             />
                           </div>
                         </div>
@@ -296,7 +306,7 @@ class AdminProfileForm extends Component {
                             </Field>
                             <FormikErrorMessage
                               name="accountType"
-                              component="div"
+                              component={FormErrorMessage}
                             />
                           </div>
                         </div>

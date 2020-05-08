@@ -29,5 +29,9 @@
 %switch-nav {
   display: flex;
   justify-content: flex-end;
-  margin: $space;
+  margin: $space / 2;
+
+  @include breakpoint($bp-md) {
+    margin: $space;
+  }
 }

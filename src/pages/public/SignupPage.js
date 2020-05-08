@@ -1,12 +1,12 @@
 import React from 'react';
 
 import SignupForm from '../../components/login/SignupForm';
-import Page from '../../components/layout/Page';
+import PageLayout from '../../components/layout/PageLayout';
 
 const SignupPage = () => (
-  <Page>
+  <PageLayout>
     <SignupForm />
-  </Page>
+  </PageLayout>
 );
 
 export default SignupPage;

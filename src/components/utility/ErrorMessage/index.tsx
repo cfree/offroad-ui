@@ -1,6 +1,6 @@
 import React from 'react';
 
-import './errorMessage.module.scss';
+import Styles from './errorMessage.module.scss';
 
 interface ErrorMessageProps {
   error: any;
@@ -14,7 +14,7 @@ const ErrorMessage = ({ error }: ErrorMessageProps) => {
     error.networkError.result.errors.length
   ) {
     return error.networkError.result.errors.map((error: any, i: number) => (
-      <div className="error" key={i}>
+      <div className={Styles['error']} key={i}>
         <p data-test="graphql-error">
           <strong>Shoot!</strong>
           {error.message.replace('GraphQL error: ', '')}
@@ -23,7 +23,7 @@ const ErrorMessage = ({ error }: ErrorMessageProps) => {
     ));
   }
   return (
-    <div className="error">
+    <div className={Styles['error']}>
       <p data-test="graphql-error">
         <strong>Shoot!</strong>
         {error.message.replace('GraphQL error: ', '')}

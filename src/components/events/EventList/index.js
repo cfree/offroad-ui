@@ -94,11 +94,11 @@ class EventList extends Component {
                                   )}
                                 </Link>
                               </div>
-                              <h2 className={Styles['event-title']}>
+                              <h3 className={Styles['event-title']}>
                                 <Link to={`/event/${event.id}`}>
                                   {event.title}
                                 </Link>
-                              </h2>
+                              </h3>
                               <div className={Styles['event-location']}>
                                 {event.address}
                               </div>
@@ -149,8 +149,20 @@ class EventList extends Component {
                                         )}
                                       </span>
                                     )}
-                                    {this.state.attendees[event.id].length}{' '}
-                                    attendees
+                                    <span
+                                      className={
+                                        Styles['event-attendees__count']
+                                      }
+                                    >
+                                      <span
+                                        className={
+                                          Styles['event-attendees__number']
+                                        }
+                                      >
+                                        {this.state.attendees[event.id].length}
+                                      </span>{' '}
+                                      attendees
+                                    </span>
                                   </span>
                                 )}
                               <span className={Styles['event-rsvp']}>

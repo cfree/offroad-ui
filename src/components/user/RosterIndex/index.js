@@ -32,7 +32,9 @@ const RosterIndex = () => {
       <nav className={Styles['rigbook-nav']}>
         <Switch
           offLabel="Rigbook"
+          offIcon="rigbook"
           onLabel="List"
+          onIcon="list"
           onClick={handleClick}
           onToStart={pathname.includes('/list')}
         />

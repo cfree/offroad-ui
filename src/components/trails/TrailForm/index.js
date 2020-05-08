@@ -6,6 +6,7 @@ import { trailSchema } from './trailForm.schema';
 import RichTextArea from '../../utility/RichTextArea';
 import Loading from '../../utility/Loading';
 import ErrorMessage from '../../utility/ErrorMessage';
+import FormErrorMessage from '../../utility/FormErrorMessage';
 import UploadImagePreview from '../../common/UploadImagePreview';
 
 import Styles from './trailForm.module.scss';
@@ -52,7 +53,10 @@ const TrailForm = ({
                         formikProps.handleChange(e);
                       }}
                     />
-                    <FormikErrorMessage name="name" component="div" />
+                    <FormikErrorMessage
+                      name="name"
+                      component={FormErrorMessage}
+                    />
                   </div>
                 </div>
 
@@ -66,7 +70,10 @@ const TrailForm = ({
                       Ex: 4-playersofcolorado.org/trail/
                       <strong>{formikProps.values.slug}</strong>
                     </small>
-                    <FormikErrorMessage name="slug" component="div" />
+                    <FormikErrorMessage
+                      name="slug"
+                      component={FormErrorMessage}
+                    />
                   </div>
                 </div>
 
@@ -102,7 +109,10 @@ const TrailForm = ({
                         />
                       )}
                     />
-                    <FormikErrorMessage name="newImage" component="div" />
+                    <FormikErrorMessage
+                      name="newImage"
+                      component={FormErrorMessage}
+                    />
                   </div>
                 </div>
 
@@ -142,7 +152,7 @@ const TrailForm = ({
                     />
                     <FormikErrorMessage
                       name="trailheadCoords"
-                      component="div"
+                      component={FormErrorMessage}
                     />
                   </div>
                 </div>
@@ -156,7 +166,10 @@ const TrailForm = ({
                   </label>
                   <div className={Styles['trail-form-field']}>
                     <Field type="text" id="address" name="address" />
-                    <FormikErrorMessage name="address" component="div" />
+                    <FormikErrorMessage
+                      name="address"
+                      component={FormErrorMessage}
+                    />
                   </div>
                 </div>
 

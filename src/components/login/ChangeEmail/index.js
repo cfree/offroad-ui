@@ -3,7 +3,7 @@ import { Query, Mutation } from '@apollo/react-components';
 
 import { CHANGE_EMAIL_MUTATION } from './changeEmail.graphql';
 import Loading from '../../utility/Loading';
-import { CURRENT_USER_QUERY } from '../../user/User/user.graphql';
+import { CURRENT_USER_QUERY } from '../../../hooks/useUser/useUser.graphql';
 // import Form from './styles/Form';
 import Error from '../../utility/ErrorMessage';
 

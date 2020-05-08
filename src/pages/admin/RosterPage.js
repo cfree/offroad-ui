@@ -1,13 +1,13 @@
 import React from 'react';
 
 import MembershipList from '../../components/admin/MembershipList';
-import Page from '../../components/layout/Page';
+import PageLayout from '../../components/layout/PageLayout';
 
 const AdminRosterPage = () => {
   return (
-    <Page>
+    <PageLayout>
       <MembershipList />
-    </Page>
+    </PageLayout>
   );
 };
 

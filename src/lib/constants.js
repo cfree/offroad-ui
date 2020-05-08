@@ -147,17 +147,17 @@ export const membershipLogMessageTypes = [
 //   GUEST_RESTRICTED: () => 'Attended 3 runs',
 // };
 
-export const activityLogMessages = {
-  EVENT_ATTENDED: ({ title, type }) => `Attended "${title}" ${type}`,
-  RUN_LEAD: ({ title }) => `Led "${title}" run`,
-  EVENT_REVIEW_SUBMITTED: ({ title, type }) =>
-    `Wrote a review for "${title}" ${type}`,
-  RUN_REPORT_SUBMITTED: ({ title, type }) =>
-    `Wrote a Run Report for "${title}" ${type}`,
-  GALLERY_PHOTO_SUBMITTED: ({ title }) => `Added a photo to "${title}" gallery`,
-  GALLERY_PHOTOS_SUBMITTED: ({ title }) => `Added photos to "${title}" gallery`,
-  PROFILE_PHOTO_SUBMITTED: () => 'Added a new profile photo',
-  RIGBOOK_PHOTO_SUBMITTED: () => 'Added a new Rigbook photo',
-  // COMMENTED: '',
-  MEMBERSHIP_GRANTED: () => 'Became a Full Member',
-};
+// export const activityLogMessages = {
+//   EVENT_ATTENDED: ({ title, type }) => `Attended "${title}" ${type}`,
+//   RUN_LEAD: ({ title }) => `Led "${title}" run`,
+//   EVENT_REVIEW_SUBMITTED: ({ title, type }) =>
+//     `Wrote a review for "${title}" ${type}`,
+//   RUN_REPORT_SUBMITTED: ({ title, type }) =>
+//     `Wrote a Run Report for "${title}" ${type}`,
+//   GALLERY_PHOTO_SUBMITTED: ({ title }) => `Added a photo to "${title}" gallery`,
+//   GALLERY_PHOTOS_SUBMITTED: ({ title }) => `Added photos to "${title}" gallery`,
+//   PROFILE_PHOTO_SUBMITTED: () => 'Added a new profile photo',
+//   RIGBOOK_PHOTO_SUBMITTED: () => 'Added a new Rigbook photo',
+//   // COMMENTED: '',
+//   MEMBERSHIP_GRANTED: () => 'Became a Full Member',
+// };

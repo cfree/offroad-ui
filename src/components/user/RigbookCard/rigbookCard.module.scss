@@ -1,7 +1,7 @@
 @import '../../../styles/variables.module';
+@import '../../../styles/mixins.module';
 
 .rigbook-card {
-  // div
   border: 1px solid $white-dark;
   text-align: center;
   display: flex;
@@ -9,68 +9,115 @@
 }
 
 .vehicle-img {
-  // img
   width: 100%;
-  height: 150px;
+  height: auto;
   object-fit: cover;
   display: block;
+
+  @include breakpoint($bp-sm) {
+    height: 150px;
+  }
 }
 
 .user-img {
-  // img
-  margin: -40px auto 0;
+  margin: -25px auto 0;
   display: block;
-  height: 100px;
-  width: 100px;
+  height: 50px;
+  width: 50px;
   border-radius: 100%;
-  border: 5px solid white;
+  // border: 3px solid white;
+  border: 1px solid $grey-light;
+  box-shadow: 0 0 0 3px $white;
   position: relative;
-}
 
-.profile-actions-list {
-  // ul
-  margin: auto 0 0;
-  padding: 0;
-  list-style: none;
-  display: flex;
-  justify-content: space-evenly;
-  border-top: 1px solid $white-dark;
+  @include breakpoint($bp-sm) {
+    height: 75px;
+    width: 75px;
+    margin: -30px auto 0;
+    box-shadow: 0 0 0 4px $white;
+  }
+
+  @include breakpoint($bp-md) {
+    height: 100px;
+    width: 100px;
+    margin: -40px auto 0;
+    box-shadow: 0 0 0 5px $white;
+  }
 }
 
 .titles {
-  // div
   text-transform: uppercase;
 }
 
 .content {
-  // div
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 10px;
+  padding: ($space / 2);
   height: 100%;
 
+  @include breakpoint($bp-sm) {
+  }
+
   h2 {
-    margin: 0 0 10px;
+    margin: 0 0 5px;
     line-height: 1;
+    font-size: 1.8rem;
+
+    @include breakpoint($bp-sm) {
+      margin: 0 0 ($space / 2);
+      font-size: 2.4rem;
+    }
   }
 
   h3 {
-    margin: 5px 0;
+    margin: ($space / 2) 0 3px;
     line-height: 1;
+    font-size: 1.2rem;
+
+    @include breakpoint($bp-sm) {
+      margin: $space 0 5px;
+      font-size: 1.8rem;
+    }
   }
 
   h4 {
-    margin: 5px 0;
+    margin: 3px 0 ($space / 2);
     line-height: 1;
     text-transform: uppercase;
-    font-size: 14px;
+    font-size: 1.1rem;
     color: $black-light;
+
+    @include breakpoint($bp-sm) {
+      margin: 5px 0 $space;
+      font-size: 1.4rem;
+    }
   }
 
   h5 {
     margin: auto 0 0;
     text-transform: uppercase;
-    font-size: 12px;
+    font-size: 1rem;
+
+    @include breakpoint($bp-sm) {
+      font-size: 1.2rem;
+    }
+  }
+}
+
+.profile-actions-list {
+  margin: auto 0 0;
+  padding: ($space / 2) 0 7px;
+  list-style: none;
+  display: flex;
+  justify-content: space-evenly;
+  border-top: 1px solid $white-dark;
+  font-size: 1rem;
+  text-transform: uppercase;
+  font-weight: 600;
+
+  @include breakpoint($bp-sm) {
+    padding: ($space / 2) 0 7px;
+    font-size: 1.4rem;
   }
 }

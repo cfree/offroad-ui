@@ -1,13 +1,13 @@
 import React from 'react';
 
-import Page from '../../components/layout/Page';
+import PageLayout from '../../components/layout/PageLayout';
 import AdminDashboard from '../../components/admin/Dashboard';
 
 const AdminDashboardPage = () => {
   return (
-    <Page>
+    <PageLayout>
       <AdminDashboard />
-    </Page>
+    </PageLayout>
   );
 };
 

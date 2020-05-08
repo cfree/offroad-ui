@@ -1,7 +1,7 @@
 import React from 'react';
 import { Query } from '@apollo/react-components';
 
-import { CURRENT_USER_QUERY } from '../user/User/user.graphql';
+import { CURRENT_USER_QUERY } from '../../hooks/useUser/useUser.graphql';
 
 const Filter = ({
   children,

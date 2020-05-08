@@ -1,11 +1,14 @@
 import React from 'react';
+import cn from 'classnames';
 
 import Styles from './icon.module.scss';
 
-const Icon = ({ icon, children }) => {
+const Icon = ({ icon, className, children, ...props }) => {
+  const classNames = cn(Styles['icon'], Styles[`icon-${icon}`], className);
+
   return (
-    <i className={Styles['icon']}>
-      <span className={Styles[`icon-${icon}`]}>{children}</span>
+    <i className={classNames} title={children} aria-label={children} {...props}>
+      {children}
     </i>
   );
 };

@@ -1,13 +1,13 @@
 import React from 'react';
 
 import CreateEvent from '../../components/events/CreateEvent';
-import Page from '../../components/layout/Page';
+import PageLayout from '../../components/layout/PageLayout';
 
 const CreateEventPage = () => {
   return (
-    <Page>
+    <PageLayout>
       <CreateEvent />
-    </Page>
+    </PageLayout>
   );
 };
 

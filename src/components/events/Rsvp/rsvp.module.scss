@@ -1,29 +1,157 @@
 @import '../../../styles/variables.module.scss';
+@import '../../../styles/mixins.module.scss';
 
 .rsvp {
-  // div
-  display: inline-block;
-
-  .rsvp__attendees {
-    margin-bottom: 7px;
-    width: 250px;
+  &__attendees {
+    @include breakpoint($bp-md) {
+      margin-bottom: 7px;
+    }
   }
 
-  .rsvp__count {
+  &__count {
     margin-left: 10px;
     font-size: 1.2rem;
     color: $black-light;
   }
 
-  .past-rsvp__status {
-    font-size: 1.6rem;
-    font-weight: 700;
-    width: 250px;
+  &__status--upcoming {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: $space;
+
+    @include breakpoint($bp-md) {
+      flex-direction: column;
+      align-items: start;
+      margin-bottom: 0;
+    }
   }
 
-  .past-rsvp__count {
+  &__status--past {
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin-bottom: $space;
+
+    @include breakpoint($bp-md) {
+      margin-bottom: 0;
+    }
+  }
+
+  &__count--past {
     font-size: 1.2rem;
     font-weight: 400;
     margin-left: 20px;
+  }
+
+  &__button {
+    border: none;
+    box-shadow: none;
+    background: none;
+    cursor: pointer;
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+    border-radius: 50%;
+    overflow: hidden;
+  }
+}
+
+%rsvp-icon {
+  font-size: 4rem;
+  line-height: 40px;
+  width: 40px;
+  height: 40px;
+}
+
+.icon {
+  @extend %rsvp-icon;
+
+  &--disabled {
+    cursor: not-allowed;
+
+    &:before,
+    &:hover:before {
+      transition: color 0.3s;
+      color: $grey;
+    }
+  }
+
+  &-yes {
+    @extend %rsvp-icon;
+
+    &:before {
+      transition: color 0.3s;
+      color: $grey-light;
+    }
+
+    &:hover:before {
+      transition: color 0.3s;
+      color: $success;
+    }
+
+    &--selected {
+      @extend %rsvp-icon;
+
+      cursor: not-allowed;
+
+      &:before {
+        transition: color 0.3s;
+        color: $success;
+      }
+    }
+
+    &--not-selected {
+      @extend %rsvp-icon;
+      cursor: pointer;
+
+      &:before {
+        transition: color 0.3s;
+        color: $grey;
+      }
+
+      &:hover:before {
+        transition: color 0.3s;
+        color: $success;
+      }
+    }
+  }
+
+  &-no {
+    @extend %rsvp-icon;
+
+    &:before {
+      transition: color 0.3s;
+      color: $grey-light;
+    }
+
+    &:hover:before {
+      transition: color 0.3s;
+      color: $failure;
+    }
+
+    &--selected {
+      cursor: not-allowed;
+
+      &:before {
+        transition: color 0.3s;
+        color: $failure;
+      }
+    }
+
+    &--not-selected {
+      @extend %rsvp-icon;
+      cursor: pointer;
+
+      &:before {
+        transition: color 0.3s;
+        color: $grey;
+      }
+
+      &:hover:before {
+        transition: color 0.3s;
+        color: $failure;
+      }
+    }
   }
 }

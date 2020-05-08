@@ -21,33 +21,37 @@ export class Roster extends Component {
     const { filters } = this.props;
 
     return (
-      <Query query={MEMBERSHIP_QUERY} variables={filters}>
-        {({ loading, error, data }) => {
-          if (loading) {
-            return <div>Loading...</div>;
-          }
-          if (error) {
-            return <div>Error: {error.message}</div>;
-          }
+      <>
+        <h2>Roster</h2>
+        <Query query={MEMBERSHIP_QUERY} variables={filters}>
+          {({ loading, error, data }) => {
+            if (loading) {
+              return <div>Loading...</div>;
+            }
+            if (error) {
+              return <div>Error: {error.message}</div>;
+            }
 
-          return (
-            <div className={Styles['roster']}>
-              <div className={Styles['roster-header']}>
-                <span />
-                <strong>Name</strong>
-                <strong>Account Type</strong>
-                <strong>Phone</strong>
-                <span />
-                <span />
-                <span />
-              </div>
-              {data.users.map((user) => (
-                <RosterCard key={user.id} user={user} />
-              ))}
-            </div>
-          );
-        }}
-      </Query>
+            return (
+              <table className={Styles['roster']}>
+                <thead className={Styles['roster-header']}>
+                  <tr>
+                    <th />
+                    <th>Name</th>
+                    <th>Account Type</th>
+                    <th>Phone</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {data.users.map((user) => (
+                    <RosterCard key={user.id} user={user} />
+                  ))}
+                </tbody>
+              </table>
+            );
+          }}
+        </Query>
+      </>
     );
   }
 }

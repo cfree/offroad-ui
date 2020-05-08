@@ -1,13 +1,13 @@
 import React from 'react';
 
 import Documents from '../../components/club/Documents';
-import Page from '../../components/layout/Page';
+import PageLayout from '../../components/layout/PageLayout';
 
 const DocumentsPage = () => {
   return (
-    <Page>
+    <PageLayout>
       <Documents />
-    </Page>
+    </PageLayout>
   );
 };
 

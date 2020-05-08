@@ -35,9 +35,6 @@ const RigbookCard = ({ user, titleOverride }) => {
         <h2>
           {user.firstName} {user.lastName}
         </h2>
-        {user.office && !titleOverride && (
-          <div className={Styles['titles']}>{offices[user.office]}</div>
-        )}
         {user.titles && !titleOverride && (
           <div className={Styles['titles']}>{user.titles.join(', ')}</div>
         )}
@@ -50,6 +47,9 @@ const RigbookCard = ({ user, titleOverride }) => {
           </>
         )}
         <h5>
+          {user.office && !titleOverride && (
+            <div className={Styles['titles']}>{offices[user.office]}</div>
+          )}
           {titleOverride ? titleOverride : getMemberType(user.accountType)}
           {user.joined && ` • Joined ${format(new Date(user.joined), 'yyyy')}`}
         </h5>

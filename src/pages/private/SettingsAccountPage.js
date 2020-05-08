@@ -1,13 +1,13 @@
 import React from 'react';
 
 import EditAccount from '../../components/user/EditAccount';
-import Page from '../../components/layout/Page';
+import PageLayout from '../../components/layout/PageLayout';
 
 const SettingsAccountPage = () => {
   return (
-    <Page>
+    <PageLayout>
       <EditAccount />
-    </Page>
+    </PageLayout>
   );
 };
 

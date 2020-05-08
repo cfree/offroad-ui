@@ -1,4 +1,9 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
+
+import Button from '../../../components/common/Button';
+
+import Styles from './errorBoundary.module.scss';
 
 class ErrorBoundary extends React.Component {
   constructor(props) {
@@ -17,13 +22,24 @@ class ErrorBoundary extends React.Component {
   }
 
   render() {
+    const { history } = this.props;
+
     if (this.state.hasError) {
       // You can render any custom fallback UI
-      return <h1>Something went wrong.</h1>;
+      return (
+        <div className={Styles['error']}>
+          <div className={Styles['error-msg']}>
+            <h2>Uh Oh...</h2>
+            <p>Something went wrong. Try again?</p>
+            <Button onClick={() => history.goBack()}>Back</Button>
+            <Button onClick={() => history.push('/')}>Home</Button>
+          </div>
+        </div>
+      );
     }
 
     return this.props.children;
   }
 }
 
-export default ErrorBoundary;
+export default withRouter(ErrorBoundary);

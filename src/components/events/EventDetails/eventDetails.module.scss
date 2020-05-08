@@ -1,31 +1,73 @@
 @import '../../../styles/variables.module';
+@import '../../../styles/mixins.module';
 
 .event__header {
-  padding: 20px 40px 40px;
-  position: relative;
-  display: flex;
-  /* justify-content: space-between; */
+  margin-bottom: $space;
+
+  @include breakpoint($bp-md) {
+    margin-bottom: 0;
+  }
 }
 
-.event__calendar {
-  width: 45px;
-  padding-top: 7px;
+%event-icon {
+  font-size: 2.4rem;
+  line-height: 24px;
+  width: 24px;
+  height: 24px;
 }
 
-.event__info {
-  margin: 0 40px 0 20px;
+.event-type__icon {
+  &--run {
+    @extend %event-icon;
+    color: $grey-light;
+  }
+
+  &--social {
+    @extend %event-icon;
+    color: $grey-light;
+  }
+
+  &--fundraising {
+    @extend %event-icon;
+    color: $grey-light;
+  }
+
+  &--collection {
+    @extend %event-icon;
+    color: $grey-light;
+  }
+
+  &--meeting {
+    @extend %event-icon;
+    color: $grey-light;
+  }
+
+  &--clinic {
+    @extend %event-icon;
+    color: $grey-light;
+  }
 }
 
 .event__date {
   color: $black-light;
+  margin-bottom: $space / 2;
+
+  small {
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-left: 10px;
+  }
 }
 
 .event__title {
-  margin: 0 0 20px;
+  margin: 0 0 ($space / 2);
   line-height: 1;
 }
 
 .event__leader {
+  display: flex;
+  align-items: center;
+
   img {
     float: left;
     margin-right: 10px;
@@ -35,45 +77,97 @@
 }
 
 .event__rsvp {
-  margin: 10px 0 0 auto;
+  display: flex;
+  align-items: center;
+
+  @include breakpoint($bp-md) {
+    display: flex;
+    align-items: center;
+  }
 }
 
 .event__details {
-  padding: 40px;
-  position: relative;
-  display: grid;
-  grid-column-gap: 40px;
-  grid-template-columns: 2fr 250px;
-  border-top: 5px solid $grey-light;
-}
-
-.event__columns {
-  /* background: ${({ theme }) => theme.colors.grey};
-  border: 1px solid ${({ theme }) => theme.colors.grey_lighter};
-  border-radius: ${({ theme }) => theme.shape.borderRadius}; */
+  @include breakpoint($bp-md) {
+  }
 }
 
 .event__aside {
-  /* padding: 20px; */
-  /* background: ${({ theme }) => theme.colors.grey};
-  border: 1px solid ${({ theme }) => theme.colors.grey_lighter};
-  border-radius: ${({ theme }) => theme.shape.borderRadius}; */
+  @include breakpoint($bp-md) {
+    grid-column: 2;
+    grid-row: 2;
+  }
 }
 
 .event__aside-wrapper {
-  position: sticky;
   top: 20px;
+  font-size: 1.6rem;
+  margin-bottom: $space / 2;
+
+  @include breakpoint($bp-sm) {
+    display: flex;
+    grid-template-columns: 30px auto;
+    justify-content: space-between;
+  }
+
+  @include breakpoint($bp-md) {
+    display: block;
+    position: sticky;
+  }
+
+  dl {
+    display: grid;
+    grid-template-columns: 30px auto;
+    grid-column-gap: 10px;
+    grid-row-gap: 10px;
+  }
+
+  dt {
+    text-align: center;
+  }
+
+  dd {
+    padding-top: 2px;
+  }
+
+  small {
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+
+  p {
+    margin-top: 0;
+    text-align: right;
+
+    @include breakpoint($bp-sm) {
+      max-width: 50%;
+    }
+
+    @include breakpoint($bp-md) {
+      max-width: 100%;
+    }
+  }
+
+  img {
+    width: 100%;
+    height: auto;
+  }
 }
 
 .event__section {
+  padding: 0;
+
   img {
     max-width: 100%;
     height: auto;
   }
   /* padding: 20px; */
 
-  & + .event__section {
-    margin-top: 20px;
+  & + & {
+    margin-top: $space / 2;
+
+    @include breakpoint($bp-sm) {
+      margin-top: $space;
+    }
   }
 }
 
@@ -83,7 +177,19 @@
 
 .event__attendees {
   display: grid;
-  grid-column-gap: 20px;
-  grid-row-gap: 20px;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: ($space / 2);
+  grid-template-columns: repeat(2, 1fr);
+
+  @include breakpoint($bp-sm) {
+    grid-gap: $space;
+  }
+
+  @include breakpoint($bp-md) {
+    grid-template-columns: repeat(2, minmax(230px, 1fr));
+  }
+
+  @include breakpoint($max-width) {
+    grid-gap: $space;
+    grid-template-columns: repeat(3, minmax(230px, 1fr));
+  }
 }

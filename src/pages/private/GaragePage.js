@@ -1,10 +1,10 @@
 import React from 'react';
 
-import Page from '../../components/layout/Page';
+import PageLayout from '../../components/layout/PageLayout';
 
 const GaragePage = () => {
   return (
-    <Page>
+    <PageLayout>
       <p>
         Vehicle Information:
         <br />
@@ -19,7 +19,7 @@ const GaragePage = () => {
         <br />
         {/* Select primary vehicle: */}
       </p>
-    </Page>
+    </PageLayout>
   );
 };
 

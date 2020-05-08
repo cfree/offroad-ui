@@ -1,13 +1,13 @@
 import React from 'react';
 
 import EditProfile from '../../components/user/EditProfile';
-import Page from '../../components/layout/Page';
+import PageLayout from '../../components/layout/PageLayout';
 
 const SettingsProfilePage = () => {
   return (
-    <Page>
+    <PageLayout>
       <EditProfile />
-    </Page>
+    </PageLayout>
   );
 };
 

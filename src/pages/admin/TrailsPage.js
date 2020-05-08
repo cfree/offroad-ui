@@ -1,13 +1,13 @@
 import React from 'react';
 
-import Page from '../../components/layout/Page';
+import PageLayout from '../../components/layout/PageLayout';
 import TrailsList from '../../components/trails/TrailsList';
 
 const AdminTrailsPage = ({ query }) => {
   return (
-    <Page>
+    <PageLayout>
       <TrailsList />
-    </Page>
+    </PageLayout>
   );
 };
 

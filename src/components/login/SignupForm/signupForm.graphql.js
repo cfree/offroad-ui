@@ -1,5 +1,16 @@
 import { gql } from 'apollo-boost';
 
+export const REGISTRATION_QUERY = gql`
+  query REGISTRATION_QUERY($token: String!) {
+    getRegistration(token: $token) {
+      id
+      email
+      firstName
+      lastName
+    }
+  }
+`;
+
 export const SIGNUP_MUTATION = gql`
   mutation SIGNUP_MUTATION(
     $email: String!
@@ -19,9 +30,7 @@ export const SIGNUP_MUTATION = gql`
       gender: $gender
       birthdate: $birthdate
     ) {
-      id
-      email
-      firstName
+      message
     }
   }
 `;

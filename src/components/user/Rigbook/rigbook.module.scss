@@ -1,7 +1,22 @@
+@import '../../../styles/variables.module';
+@import '../../../styles/mixins.module';
+
 .rigbook {
   padding: 0;
   margin: 0;
   display: grid;
-  grid-template-columns: repeat(4, minmax(200px, 1fr));
-  grid-gap: 10px;
+  grid-gap: ($space / 2);
+  grid-template-columns: repeat(2, 1fr);
+
+  @include breakpoint($bp-sm) {
+  }
+
+  @include breakpoint($bp-md) {
+    grid-template-columns: repeat(3, minmax(230px, 1fr));
+  }
+
+  @include breakpoint($max-width) {
+    grid-gap: $space;
+    grid-template-columns: repeat(4, minmax(230px, 1fr));
+  }
 }

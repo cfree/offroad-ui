@@ -2,15 +2,15 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 
 import EditProfile from '../../components/user/EditProfile';
-import Page from '../../components/layout/Page';
+import PageLayout from '../../components/layout/PageLayout';
 
 const ProfileEditPage = () => {
   const { member } = useParams();
 
   return (
-    <Page>
+    <PageLayout>
       <EditProfile member={member} />
-    </Page>
+    </PageLayout>
   );
 };
 

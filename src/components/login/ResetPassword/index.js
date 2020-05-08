@@ -1,81 +1,147 @@
-import React, { Component } from 'react';
-import { Mutation } from '@apollo/react-components';
-import PropTypes from 'prop-types';
-import { withRouter } from 'react-router-dom';
+import React, { useState, useCallback } from 'react';
+import { useMutation } from '@apollo/react-hooks';
+import { useHistory } from 'react-router-dom';
+import { Formik, Field, ErrorMessage as FormikErrorMessage } from 'formik';
+import * as yup from 'yup';
 
-// import { TOKEN_QUERY, RESET_MUTATION } from './resetPassword.graphql';
 import { RESET_MUTATION } from './resetPassword.graphql';
-import Error from '../../utility/ErrorMessage';
+import Loading from '../../utility/Loading';
+import ErrorMessage from '../../utility/ErrorMessage';
+import FormErrorMessage from '../../utility/FormErrorMessage';
+import SuccessMessage from '../../utility/SuccessMessage';
+import Button from '../../common/Button';
+import Captcha from '../../common/Captcha';
 
-// import Styles from './resetPassword.module.scss';
+import Styles from './resetPassword.module.scss';
 
-class ResetPassword extends Component {
-  static propTypes = {
-    token: PropTypes.string.isRequired,
-  };
-  static defaultProps = {
-    token: '',
-  };
-  state = {
-    password: '',
-    confirmPassword: '',
-  };
-  saveToState = (e) => {
-    this.setState({ [e.target.name]: e.target.value });
-  };
+const resetSchema = yup.object().shape({
+  password: yup.string().min(8).max(100).required(),
+  confirmPassword: yup
+    .string()
+    .required('confirm password is a required field')
+    .oneOf([yup.ref('password'), null], 'passwords must match'),
+});
 
-  render() {
-    // console.log('token', token);
-    return (
-      <Mutation
-        mutation={RESET_MUTATION}
-        variables={{
-          resetToken: this.props.token,
-          password: this.state.password,
-          confirmPassword: this.state.confirmPassword,
-        }}
-        refetchQueries={['CURRENT_USER_QUERY']}
-      >
-        {(resetPassword, { error, loading, called }) => (
-          <form
-            className="form"
-            method="post"
-            onSubmit={async (e) => {
-              e.preventDefault();
-              await resetPassword();
-              this.props.history.push('/');
-            }}
-          >
-            <fieldset disabled={loading} aria-busy={loading}>
-              <h2>Reset your password</h2>
-              {called && !error && <p>One moment...</p>}
-              <Error error={error} />
-              <label htmlFor="password">
-                <input
-                  type="password"
-                  name="password"
-                  placeholder="Password"
-                  value={this.state.password}
-                  onChange={this.saveToState}
-                />
-              </label>
-              <label htmlFor="confirmPassword">
-                <input
-                  type="password"
-                  name="confirmPassword"
-                  placeholder="Confirm Password"
-                  value={this.state.confirmPassword}
-                  onChange={this.saveToState}
-                />
-              </label>
+const ResetPassword = ({ token }) => {
+  const [validRecaptcha, setValidRecaptcha] = useState(false);
+  const [
+    resetPassword,
+    { error: mutationError, loading: mutationLoading, data: mutationData },
+  ] = useMutation(RESET_MUTATION, {
+    refetchQueries: ['CURRENT_USER_QUERY'],
+  });
+  const history = useHistory();
+  const handleCaptchaChange = useCallback(
+    (isValid) => {
+      setValidRecaptcha(isValid);
+    },
+    [setValidRecaptcha],
+  );
 
-              <button type="submit">Reset</button>
-            </fieldset>
-          </form>
-        )}
-      </Mutation>
-    );
-  }
-}
+  return (
+    <>
+      <h2>Reset Your Password</h2>
 
-export default withRouter(ResetPassword);
+      {mutationData && mutationData.resetPassword ? (
+        <SuccessMessage message={mutationData.resetPassword.message} />
+      ) : (
+        <Formik
+          initialValues={{
+            password: '',
+            confirmPassword: '',
+            resetToken: token,
+          }}
+          validationSchema={resetSchema}
+          onSubmit={async (
+            { password, confirmPassword, resetToken },
+            { setSubmitting },
+          ) => {
+            setSubmitting(true);
+            await resetPassword({
+              variables: {
+                password,
+                confirmPassword,
+                resetToken,
+              },
+            });
+            setSubmitting(false);
+            history.push('/');
+          }}
+        >
+          {(formikProps) => (
+            <div className={Styles['form']}>
+              <form onSubmit={formikProps.handleSubmit}>
+                <div className={Styles['form-field-wrapper']}>
+                  <label className={Styles['form-label']} htmlFor="password">
+                    Password
+                  </label>
+                  <div className={Styles['form-field']}>
+                    <Field
+                      type="password"
+                      onChange={formikProps.handleChange}
+                      id="password"
+                      name="password"
+                    />
+                    <FormikErrorMessage
+                      name="password"
+                      component={FormErrorMessage}
+                    />
+                  </div>
+                </div>
+
+                <div className={Styles['form-field-wrapper']}>
+                  <label
+                    className={Styles['form-label']}
+                    htmlFor="confirmPassword"
+                  >
+                    Confirm Password
+                  </label>
+                  <div className={Styles['form-field']}>
+                    <Field
+                      type="password"
+                      onChange={formikProps.handleChange}
+                      id="confirmPassword"
+                      name="confirmPassword"
+                    />
+                    <FormikErrorMessage
+                      name="confirmPassword"
+                      component={FormErrorMessage}
+                    />
+                  </div>
+                </div>
+
+                <div className={Styles['form-field-wrapper']}>
+                  <div />
+                  <div>
+                    <Field type="hidden" id="token" name="token" />
+
+                    <div className={Styles['recaptcha']}>
+                      <Captcha onChange={handleCaptchaChange} />
+                    </div>
+
+                    <Button
+                      type="submit"
+                      disabled={
+                        !formikProps.dirty ||
+                        !formikProps.isValid ||
+                        formikProps.isSubmitting ||
+                        mutationLoading ||
+                        !validRecaptcha
+                      }
+                    >
+                      Reset
+                    </Button>
+                    <Loading loading={mutationLoading} />
+                    <ErrorMessage error={mutationError} />
+                  </div>
+                </div>
+              </form>
+            </div>
+          )}
+        </Formik>
+      )}
+    </>
+  );
+};
+
+export default ResetPassword;

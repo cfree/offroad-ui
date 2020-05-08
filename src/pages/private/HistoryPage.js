@@ -1,13 +1,13 @@
 import React from 'react';
 
-import Page from '../../components/layout/Page';
+import PageLayout from '../../components/layout/PageLayout';
 import History from '../../components/club/History';
 
 const HistoryPage = () => {
   return (
-    <Page>
+    <PageLayout>
       <History />
-    </Page>
+    </PageLayout>
   );
 };
 

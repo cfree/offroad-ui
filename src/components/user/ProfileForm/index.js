@@ -14,6 +14,7 @@ import { userSchema } from './profileForm.schema';
 import AvatarUploader from '../../common/AvatarUploader';
 // import RigUploader from '../../common/RigUploader';
 import ErrorMessage from '../../utility/ErrorMessage';
+import FormErrorMessage from '../../utility/FormErrorMessage';
 import Loading from '../../utility/Loading';
 import { states, DEFAULT_AVATAR_SRC } from '../../../lib/constants';
 import { formatPhone } from '../../../lib/utils';
@@ -169,7 +170,7 @@ class ProfileForm extends Component {
                         )}
                       >
                         <form onSubmit={formikProps.handleSubmit}>
-                          <div className={Styles['form-field']}>
+                          <div className={Styles['form-field-wrapper']}>
                             <label
                               className={Styles['profile-form-label']}
                               htmlFor="firstName"
@@ -185,12 +186,12 @@ class ProfileForm extends Component {
                               />
                               <FormikErrorMessage
                                 name="firstName"
-                                component="div"
+                                component={FormErrorMessage}
                               />
                             </div>
                           </div>
 
-                          <div className={Styles['form-field']}>
+                          <div className={Styles['form-field-wrapper']}>
                             <label
                               className={Styles['profile-form-label']}
                               htmlFor="lastName"
@@ -206,12 +207,12 @@ class ProfileForm extends Component {
                               />
                               <FormikErrorMessage
                                 name="lastName"
-                                component="div"
+                                component={FormErrorMessage}
                               />
                             </div>
                           </div>
 
-                          <div className={Styles['form-field']}>
+                          <div className={Styles['form-field-wrapper']}>
                             <label
                               className={Styles['profile-form-label']}
                               htmlFor="username"
@@ -228,12 +229,12 @@ class ProfileForm extends Component {
                               />
                               <FormikErrorMessage
                                 name="username"
-                                component="div"
+                                component={FormErrorMessage}
                               />
                             </div>
                           </div>
 
-                          <div className={Styles['form-field']}>
+                          <div className={Styles['form-field-wrapper']}>
                             <label
                               className={Styles['profile-form-label']}
                               htmlFor="gender"
@@ -255,12 +256,12 @@ class ProfileForm extends Component {
                               </Field>
                               <FormikErrorMessage
                                 name="gender"
-                                component="div"
+                                component={FormErrorMessage}
                               />
                             </div>
                           </div>
 
-                          <div className={Styles['form-field']}>
+                          <div className={Styles['form-field-wrapper']}>
                             <label
                               className={Styles['profile-form-label']}
                               htmlFor="birthdate"
@@ -277,13 +278,13 @@ class ProfileForm extends Component {
                               />
                               <FormikErrorMessage
                                 name="birthdate"
-                                component="div"
+                                component={FormErrorMessage}
                               />
                             </div>
                           </div>
 
                           {
-                            <div className={Styles['form-field']}>
+                            <div className={Styles['form-field-wrapper']}>
                               <label
                                 className={Styles['profile-form-label']}
                                 htmlFor="joined"
@@ -300,13 +301,13 @@ class ProfileForm extends Component {
                                 />
                                 <FormikErrorMessage
                                   name="joined"
-                                  component="div"
+                                  component={FormErrorMessage}
                                 />
                               </div>
                             </div>
                           }
 
-                          <div className={Styles['form-field']}>
+                          <div className={Styles['form-field-wrapper']}>
                             <label
                               className={Styles['profile-form-label']}
                               htmlFor="phone"
@@ -323,17 +324,25 @@ class ProfileForm extends Component {
                               />
                               <FormikErrorMessage
                                 name="phone"
-                                component="div"
+                                component={FormErrorMessage}
                               />
                             </div>
                           </div>
 
-                          <div className={Styles['form-field']}>
+                          <div className={Styles['form-field-wrapper']}>
                             <div className={Styles['profile-form-label']}>
                               Display phone number in profile?
                             </div>
-                            <div className={Styles['profile-form-field']}>
-                              <label htmlFor="showPhoneNumberYes">
+                            <div
+                              className={cn(
+                                Styles['profile-form-field'],
+                                Styles['profile-radio-field'],
+                              )}
+                            >
+                              <label
+                                className={Styles['profile-radio-label']}
+                                htmlFor="showPhoneNumberYes"
+                              >
                                 <Field
                                   type="radio"
                                   id="showPhoneNumberYes"
@@ -345,7 +354,10 @@ class ProfileForm extends Component {
                                 />
                                 Yes
                               </label>
-                              <label htmlFor="showPhoneNumberNo">
+                              <label
+                                className={Styles['profile-radio-label']}
+                                htmlFor="showPhoneNumberNo"
+                              >
                                 <Field
                                   type="radio"
                                   id="showPhoneNumberNo"
@@ -359,12 +371,12 @@ class ProfileForm extends Component {
                               </label>
                               <FormikErrorMessage
                                 name="showPhoneNumber"
-                                component="div"
+                                component={FormErrorMessage}
                               />
                             </div>
                           </div>
 
-                          <div className={Styles['form-field']}>
+                          <div className={Styles['form-field-wrapper']}>
                             <label
                               className={Styles['profile-form-label']}
                               htmlFor="street"
@@ -375,12 +387,12 @@ class ProfileForm extends Component {
                               <Field type="text" id="street" name="street" />
                               <FormikErrorMessage
                                 name="street"
-                                component="div"
+                                component={FormErrorMessage}
                               />
                             </div>
                           </div>
 
-                          <div className={Styles['form-field']}>
+                          <div className={Styles['form-field-wrapper']}>
                             <label
                               className={Styles['profile-form-label']}
                               htmlFor="city"
@@ -389,11 +401,14 @@ class ProfileForm extends Component {
                             </label>
                             <div className={Styles['profile-form-field']}>
                               <Field type="text" id="city" name="city" />
-                              <FormikErrorMessage name="city" component="div" />
+                              <FormikErrorMessage
+                                name="city"
+                                component={FormErrorMessage}
+                              />
                             </div>
                           </div>
 
-                          <div className={Styles['form-field']}>
+                          <div className={Styles['form-field-wrapper']}>
                             <label
                               className={Styles['profile-form-label']}
                               htmlFor="state"
@@ -412,12 +427,12 @@ class ProfileForm extends Component {
                               </Field>
                               <FormikErrorMessage
                                 name="state"
-                                component="div"
+                                component={FormErrorMessage}
                               />
                             </div>
                           </div>
 
-                          <div className={Styles['form-field']}>
+                          <div className={Styles['form-field-wrapper']}>
                             <label
                               className={Styles['profile-form-label']}
                               htmlFor="zip"
@@ -432,11 +447,14 @@ class ProfileForm extends Component {
                                 id="zip"
                                 name="zip"
                               />
-                              <FormikErrorMessage name="zip" component="div" />
+                              <FormikErrorMessage
+                                name="zip"
+                                component={FormErrorMessage}
+                              />
                             </div>
                           </div>
 
-                          <div className={Styles['form-field']}>
+                          <div className={Styles['form-field-wrapper']}>
                             <label
                               className={Styles['profile-form-label']}
                               htmlFor="emergencyContactName"
@@ -451,12 +469,12 @@ class ProfileForm extends Component {
                               />
                               <FormikErrorMessage
                                 name="emergencyContactName"
-                                component="div"
+                                component={FormErrorMessage}
                               />
                             </div>
                           </div>
 
-                          <div className={Styles['form-field']}>
+                          <div className={Styles['form-field-wrapper']}>
                             <label
                               className={Styles['profile-form-label']}
                               htmlFor="emergencyContactPhone"
@@ -473,7 +491,7 @@ class ProfileForm extends Component {
                               />
                               <FormikErrorMessage
                                 name="emergencyContactPhone"
-                                component="div"
+                                component={FormErrorMessage}
                               />
                             </div>
                           </div>

@@ -5,7 +5,14 @@ import Icon from '../../common/Icon';
 
 import Styles from './switch.module.scss';
 
-const Switch = ({ offLabel, onLabel, onClick, onToStart = false }) => {
+const Switch = ({
+  offLabel,
+  offIcon,
+  onLabel,
+  onIcon,
+  onClick,
+  onToStart = false,
+}) => {
   const [isChecked, setIsChecked] = useState(onToStart);
   const handleClick = useCallback(() => {
     setIsChecked(!isChecked);
@@ -14,11 +21,23 @@ const Switch = ({ offLabel, onLabel, onClick, onToStart = false }) => {
 
   return (
     <div className={Styles['switch']}>
-      <Icon icon="off">{offLabel}</Icon>
+      {offIcon ? (
+        <Icon icon={offIcon} className={Styles['icon--off']}>
+          {offLabel}
+        </Icon>
+      ) : (
+        offLabel
+      )}
       <span onClick={handleClick}>
         <RebassSwitch checked={isChecked} />
       </span>
-      <Icon icon="on">{onLabel}</Icon>
+      {onIcon ? (
+        <Icon icon={onIcon} className={Styles['icon--on']}>
+          {onLabel}
+        </Icon>
+      ) : (
+        onLabel
+      )}
     </div>
   );
 };

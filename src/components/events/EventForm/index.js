@@ -7,6 +7,7 @@ import { eventSchema } from './eventForm.schema';
 import RichTextArea from '../../utility/RichTextArea';
 import Loading from '../../utility/Loading';
 import ErrorMessage from '../../utility/ErrorMessage';
+import FormErrorMessage from '../../utility/FormErrorMessage';
 import { eventTypes, trailDifficulties } from '../../../lib/constants';
 // import EventImageUploader from '../EventImageUploader';
 import UploadImagePreview from '../../common/UploadImagePreview';
@@ -53,7 +54,10 @@ const EventForm = ({
                         </option>
                       ))}
                     </Field>
-                    <FormikErrorMessage name="type" component="div" />
+                    <FormikErrorMessage
+                      name="type"
+                      component={FormErrorMessage}
+                    />
                   </div>
                 </div>
 
@@ -63,7 +67,10 @@ const EventForm = ({
                   </label>
                   <div className={Styles['event-form-field']}>
                     <Field type="text" id="title" name="title" />
-                    <FormikErrorMessage name="title" component="div" />
+                    <FormikErrorMessage
+                      name="title"
+                      component={FormErrorMessage}
+                    />
                   </div>
                 </div>
 
@@ -84,7 +91,10 @@ const EventForm = ({
                         />
                       )}
                     </Field>
-                    <FormikErrorMessage name="description" component="div" />
+                    <FormikErrorMessage
+                      name="description"
+                      component={FormErrorMessage}
+                    />
                   </div>
                 </div>
 
@@ -108,8 +118,14 @@ const EventForm = ({
                     />{' '}
                     <Field type="time" id="startTime" name="startTime" />
                     <small>Mountain Timezone</small>
-                    <FormikErrorMessage name="startDate" component="div" />
-                    <FormikErrorMessage name="startTime" component="div" />
+                    <FormikErrorMessage
+                      name="startDate"
+                      component={FormErrorMessage}
+                    />
+                    <FormikErrorMessage
+                      name="startTime"
+                      component={FormErrorMessage}
+                    />
                   </div>
                 </div>
 
@@ -130,8 +146,14 @@ const EventForm = ({
 
                     <Field type="time" id="endTime" name="endTime" />
                     <small>Mountain Timezone</small>
-                    <FormikErrorMessage name="endDate" component="div" />
-                    <FormikErrorMessage name="endTime" component="div" />
+                    <FormikErrorMessage
+                      name="endDate"
+                      component={FormErrorMessage}
+                    />
+                    <FormikErrorMessage
+                      name="endTime"
+                      component={FormErrorMessage}
+                    />
                   </div>
                 </div>
 
@@ -149,7 +171,10 @@ const EventForm = ({
                         id="rallyAddress"
                         name="rallyAddress"
                       />
-                      <FormikErrorMessage name="rallyAddress" component="div" />
+                      <FormikErrorMessage
+                        name="rallyAddress"
+                        component={FormErrorMessage}
+                      />
                     </div>
                   </div>
                 ) : (
@@ -165,7 +190,10 @@ const EventForm = ({
                       <small>
                         <i>(optional)</i>
                       </small>
-                      <FormikErrorMessage name="address" component="div" />
+                      <FormikErrorMessage
+                        name="address"
+                        component={FormErrorMessage}
+                      />
                     </div>
                   </div>
                 )}
@@ -186,7 +214,7 @@ const EventForm = ({
                     />
                     <FormikErrorMessage
                       name="trailNotes"
-                      component="div"
+                      component={FormErrorMessage}
                     />
                   </div>
                 </div> */}
@@ -200,7 +228,10 @@ const EventForm = ({
                   </label>
                   <div className={Styles['event-form-field']}>
                     <Field type="time" id="rallyTime" name="rallyTime" />
-                    <FormikErrorMessage name="rallyTime" component="div" />
+                    <FormikErrorMessage
+                      name="rallyTime"
+                      component={FormErrorMessage}
+                    />
                   </div>
                 </div>
 
@@ -218,7 +249,10 @@ const EventForm = ({
                       name="membersOnly"
                       value={true}
                     />
-                    <FormikErrorMessage name="membersOnly" component="div" />
+                    <FormikErrorMessage
+                      name="membersOnly"
+                      component={FormErrorMessage}
+                    />
                   </div>
                 </div>
 
@@ -240,7 +274,10 @@ const EventForm = ({
                         </option>
                       ))}
                     </Field>
-                    <FormikErrorMessage name="host" component="div" />
+                    <FormikErrorMessage
+                      name="host"
+                      component={FormErrorMessage}
+                    />
                   </div>
                 </div>
 
@@ -266,7 +303,10 @@ const EventForm = ({
                             </option>
                           ))}
                         </Field>
-                        <FormikErrorMessage name="trail" component="div" />
+                        <FormikErrorMessage
+                          name="trail"
+                          component={FormErrorMessage}
+                        />
                       </div>
                     </div>
                     <div className={Styles['form-field-wrapper']}>
@@ -295,7 +335,7 @@ const EventForm = ({
                         </Field>
                         <FormikErrorMessage
                           name="trailDifficulty"
-                          component="div"
+                          component={FormErrorMessage}
                         />
                       </div>
                     </div>
@@ -333,7 +373,10 @@ const EventForm = ({
                           />
                         )}
                       />
-                      <FormikErrorMessage name="newImage" component="div" />
+                      <FormikErrorMessage
+                        name="newImage"
+                        component={FormErrorMessage}
+                      />
                     </div>
                   </div>
                 )}

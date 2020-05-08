@@ -46,6 +46,16 @@
     border-color: black;
   }
 
+  &:disabled {
+    color: $silver;
+    background: $grey;
+    border-color: $grey;
+
+    &:hover {
+      color: $silver;
+    }
+  }
+
   &--ghost {
     border: 2px solid white;
     border-radius: 0;
@@ -81,6 +91,18 @@
       color: black;
       background: white;
       border-color: white;
+    }
+
+    &:disabled {
+      color: $grey-light;
+      background: $grey-lighter;
+      border-color: $grey-lighter;
+
+      &:hover {
+        color: $grey-light;
+        background: $grey-lighter;
+        border-color: $grey-lighter;
+      }
     }
   }
 }

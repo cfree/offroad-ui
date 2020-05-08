@@ -1,13 +1,13 @@
 import React from 'react';
 
 import CreateTrail from '../../components/trails/CreateTrail';
-import Page from '../../components/layout/Page';
+import PageLayout from '../../components/layout/PageLayout';
 
 const EditTrailPage = () => {
   return (
-    <Page>
+    <PageLayout>
       <CreateTrail />
-    </Page>
+    </PageLayout>
   );
 };
 

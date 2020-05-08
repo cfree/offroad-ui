@@ -2,7 +2,7 @@ import React from 'react';
 import { Query } from '@apollo/react-components';
 import { Link, Redirect } from 'react-router-dom';
 
-import { CURRENT_USER_QUERY } from '../user/User/user.graphql';
+import { CURRENT_USER_QUERY } from '../../hooks/useUser/useUser.graphql';
 
 const Gate = ({
   roleCheck = (role) => role,

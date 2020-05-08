@@ -18,12 +18,15 @@ import {
 
 import Styles from './dashboard.module.scss';
 
+const SampleError = () => {};
+
 const Dashboard = () => (
   <div className={Styles['dashboard']}>
     <Filter statusCheck={isNotLocked}>
       <div className={Styles['two-thirds']}>
         <div className={Styles['container']}>
           <NextEvent />
+          <SampleError />
         </div>
       </div>
       <div className={Styles['third']}>

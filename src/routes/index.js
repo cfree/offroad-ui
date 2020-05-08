@@ -3,6 +3,7 @@ import { Redirect, Switch, Route } from 'react-router-dom';
 
 import {
   // isAdmin,
+  // isSelf,
   isMember,
   isAtLeastGuestMember,
   isActive,
@@ -21,7 +22,6 @@ import MessagePage from '../pages/private/MessagePage';
 import RosterPage from '../pages/private/RosterPage';
 // import VotePage from '../pages/private/VotePage';
 // import ElectionsPage from '../pages/private/ElectionsPage';
-// import GaragePage from '../pages/private/GaragePage';
 import TrailsPage from '../pages/admin/TrailsPage';
 import ProfilePage from '../pages/private/ProfilePage';
 import EventsPage from '../pages/private/EventsPage';
@@ -39,7 +39,8 @@ import CreateTrailPage from '../pages/admin/CreateTrailPage';
 // Public
 import LoginPage from '../pages/public/LoginPage';
 import RegisterPage from '../pages/public/RegisterPage';
-import ResetPasswordPage from '../pages/public/ResetPasswordPage';
+import SignupPage from '../pages/public/SignupPage';
+import ForgotPasswordPage from '../pages/public/ForgotPasswordPage';
 // Util
 import UnauthorizedPage from '../pages/util/UnauthorizedPage';
 import ErrorPage from '../pages/util/ErrorPage';
@@ -82,19 +83,20 @@ const Routes = () => {
         component={VotePage}
         typeCheck={isFullMember}
       /> */}
-      <GuardedRoute
-        path="/profile/:username/edit"
-        component={EditProfilePage}
+      <GuardedRoute exact path="/profile/edit" component={EditProfilePage} />
+      {/* <GuardedRoute
+        exact
+        path="/profile/garage/edit"
+        component={EditGarage}
+        typeCheck={isActive}
         statusCheck={isActive}
-        roleCheck={isAtLeastBoardMember}
-      />
+      /> */}
       <GuardedRoute
         path="/profile/:username"
         component={ProfilePage}
         typeCheck={isMember}
         statusCheck={isActive}
       />
-      <GuardedRoute path="/profile" component={ProfilePage} />
       <GuardedRoute
         exact
         path="/event/new"
@@ -118,11 +120,6 @@ const Routes = () => {
         component={EventPage}
         statusCheck={isActive}
       />
-      {/* <GuardedRoute
-        path="/garage"
-        component={GaragePage}
-        statusCheck={isActive}
-      /> */}
       <GuardedRoute path="/settings/profile" component={SettingsProfilePage} />
       <GuardedRoute path="/settings/garage" component={SettingsGaragePage} />
       <GuardedRoute path="/settings/account" component={SettingsAccountPage} />
@@ -157,8 +154,9 @@ const Routes = () => {
       />
       <Redirect from="/registration" to="/register" />
       <Route path="/register" component={RegisterPage} />
+      <Route path="/signup" component={SignupPage} />
       <Route path="/login" component={LoginPage} />
-      <Route path="/reset-password" component={ResetPasswordPage} />
+      <Route path="/forgot-password" component={ForgotPasswordPage} />
       <Route path="/unauthorized" component={UnauthorizedPage} />
       <Route path="*" component={ErrorPage} />
     </Switch>

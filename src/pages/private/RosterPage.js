@@ -1,13 +1,13 @@
 import React from 'react';
 
 import RosterIndex from '../../components/user/RosterIndex';
-import Page from '../../components/layout/Page';
+import PageLayout from '../../components/layout/PageLayout';
 
 const RosterPage = () => {
   return (
-    <Page>
+    <PageLayout>
       <RosterIndex />
-    </Page>
+    </PageLayout>
   );
 };
 

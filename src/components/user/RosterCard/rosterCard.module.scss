@@ -1,27 +1,21 @@
 @import '../../../styles/variables.module';
+@import '../../../styles/mixins.module';
 
 .roster-card {
-  padding: 5px 10px;
-  display: grid;
-  grid-column-gap: 10px;
-  grid-template-columns: 30px 300px 1fr 1fr 1fr;
-
   &:nth-child(even) {
     background: $white-dark;
   }
+}
 
-  :global(.member__img) {
+.member__img {
+  height: 30px;
+  width: 30px;
+  border-radius: 100%;
+  border: 1px solid black;
+  position: relative;
+  vertical-align: middle;
+
+  @include breakpoint($bp-sm) {
     margin: 0 auto;
-    height: 30px;
-    width: 30px;
-    border-radius: 100%;
-    border: 1px solid black;
-    position: relative;
-    vertical-align: middle;
-  }
-
-  :global(.member__actions) {
-    display: flex;
-    justify-content: space-between;
   }
 }

@@ -25,7 +25,7 @@ const Button = ({
     [Styles['button']]: !ghost,
     [Styles['button--ghost']]: ghost,
     [Styles['selected']]: selected,
-    [Styles['disabled']]: selected,
+    [Styles['disabled']]: disabled || selected,
   });
 
   const btnComponent = href ? (
@@ -34,7 +34,7 @@ const Button = ({
     </a>
   ) : (
     <button
-      disabled={selected}
+      disabled={disabled || selected}
       onClick={handleClick}
       className={classes}
       {...rest}

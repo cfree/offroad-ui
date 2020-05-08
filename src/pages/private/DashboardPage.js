@@ -1,12 +1,12 @@
 import React from 'react';
 
-import Page from '../../components/layout/Page';
+import PageLayout from '../../components/layout/PageLayout';
 import Dashboard from '../../components/dashboard/Dashboard';
 
 const DashboardPage = () => (
-  <Page>
+  <PageLayout>
     <Dashboard />
-  </Page>
+  </PageLayout>
 );
 
 export default DashboardPage;

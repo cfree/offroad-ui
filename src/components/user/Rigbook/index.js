@@ -29,6 +29,7 @@ const Rigbook = () => {
 
           return (
             <>
+              <h2>Roster</h2>
               <h3>Officers</h3>
               <ul className={Styles['rigbook']}>
                 {data.president.id && (

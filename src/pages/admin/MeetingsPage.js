@@ -1,13 +1,13 @@
 import React from 'react';
 
 import MeetingsList from '../../components/admin/MeetingsList';
-import Page from '../../components/layout/Page';
+import PageLayout from '../../components/layout/PageLayout';
 
 const AdminMeetingPage = () => {
   return (
-    <Page>
+    <PageLayout>
       <MeetingsList />
-    </Page>
+    </PageLayout>
   );
 };
 

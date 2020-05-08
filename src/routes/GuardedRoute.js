@@ -3,7 +3,8 @@ import { Route, Redirect } from 'react-router-dom';
 import { useQuery } from '@apollo/react-hooks';
 import get from 'lodash/get';
 
-import { CURRENT_USER_QUERY } from '../components/user/User/user.graphql';
+import { CURRENT_USER_QUERY } from '../hooks/useUser/useUser.graphql';
+import Spinner from '../components/utility/Spinner';
 
 const Unauthorized = () => {
   return <Redirect to="/unauthorized" />;
@@ -21,7 +22,7 @@ const GuardedRoute = ({
   const { loading, data } = useQuery(CURRENT_USER_QUERY);
 
   if (loading) {
-    return 'spinner';
+    return <Spinner />;
   }
 
   return (

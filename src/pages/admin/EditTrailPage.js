@@ -2,15 +2,15 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 
 import EditTrail from '../../components/trails/EditTrail';
-import Page from '../../components/layout/Page';
+import PageLayout from '../../components/layout/PageLayout';
 
 const EditTrailPage = () => {
   const { slug } = useParams();
 
   return (
-    <Page>
+    <PageLayout>
       <EditTrail slug={slug} />
-    </Page>
+    </PageLayout>
   );
 };
 

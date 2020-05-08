@@ -1,13 +1,13 @@
 import React from 'react';
 
 import MemberPermissions from '../../components/admin/Roles';
-import Page from '../../components/layout/Page';
+import PageLayout from '../../components/layout/PageLayout';
 
 const AdminPermissionsPage = () => {
   return (
-    <Page>
+    <PageLayout>
       <MemberPermissions />
-    </Page>
+    </PageLayout>
   );
 };
 

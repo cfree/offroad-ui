@@ -1,70 +1,167 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { Mutation } from '@apollo/react-components';
+import React, { useState, useCallback } from 'react';
+import { useMutation } from '@apollo/react-hooks';
+import cn from 'classnames';
 
 import { RSVP_MUTATION } from './rsvp.graphql';
-import Loading from '../../utility/Loading';
+import { EVENT_QUERY } from '../EventDetails/eventDetails.graphql';
+import Icon from '../../common/Icon';
 
-import './rsvp.module.scss';
+import Styles from './rsvp.module.scss';
 
-export default class Rsvp extends Component {
-  state = {
-    status: this.props.userStatus,
-    attendeeCount: this.props.attendeeCount,
-    isPastEvent: this.props.pastEvent,
-  };
+// interface RsvpProps {
+//   userStatus: string;
+//   attendeeCount: number;
+//   userId: string;
+//   eventId: string;
+//   pastEvent: boolean;
+// }
 
-  static propTypes = {
-    userStatus: PropTypes.string,
-    attendeeCount: PropTypes.number,
-    userId: PropTypes.string,
-    eventId: PropTypes.string,
-    pastEvent: PropTypes.bool,
-  };
+const Rsvp = ({ userStatus, attendeeCount, userId, eventId, pastEvent }) => {
+  const [localUserStatus, setLocalUserStatus] = useState(userStatus);
+  const [localAttendeeCount, setLocalAttendeeCount] = useState(attendeeCount);
+  const [setRsvp, { loading, error }] = useMutation(RSVP_MUTATION, {
+    refetchQueries: [
+      {
+        query: EVENT_QUERY,
+        variables: { eventId },
+      },
+    ],
+  });
 
-  handleClick = (status, callback) => {
-    this.setState((state) => {
-      let count;
+  const handleYesClick = useCallback(() => {
+    if (localUserStatus === 'GOING') {
+      return;
+    }
 
-      if (state.status === this.props.userStatus) {
-        // Has not RSVPd
-        switch (status) {
-          case 'GOING':
-            count = ++state.attendeeCount;
-            break;
-          case 'CANT_GO':
-          case 'MAYBE':
-            count = --state.attendeeCount;
-            break;
-          default:
-            count = state.attendeeCount;
-        }
-      } else {
-        // Has RSVPd
-        if (
-          state.status === 'GOING' &&
-          (status === 'MAYBE' || status === 'CANT_GO')
-        ) {
-          count = --state.attendeeCount;
-        } else if (
-          (state.status === 'MAYBE' || state.status === 'CANT_GO') &&
-          status === 'GOING'
-        ) {
-          count = ++state.attendeeCount;
-        } else {
-          count = state.attendeeCount;
-        }
+    const set = async () => {
+      await setRsvp({
+        variables: {
+          rsvp: {
+            userId,
+            eventId,
+            status: 'GOING',
+          },
+        },
+      });
+
+      setLocalUserStatus('GOING');
+      setLocalAttendeeCount(localAttendeeCount + 1);
+    };
+
+    set();
+  }, [
+    localUserStatus,
+    localAttendeeCount,
+    setLocalUserStatus,
+    setLocalAttendeeCount,
+    setRsvp,
+    userId,
+    eventId,
+  ]);
+
+  const handleNoClick = useCallback(() => {
+    if (localUserStatus === 'CANT_GO') {
+      return;
+    }
+
+    console.log('userStatus', userStatus);
+
+    const set = async () => {
+      await setRsvp({
+        variables: {
+          rsvp: {
+            userId,
+            eventId,
+            status: 'CANT_GO',
+          },
+        },
+      });
+
+      // If original RSVP === null, record RSVP but don't count as attendee
+      if (localUserStatus !== 'NONE') {
+        setLocalAttendeeCount(localAttendeeCount - 1);
       }
 
-      return {
-        status,
-        attendeeCount: count,
-      };
-    }, callback);
-  };
+      setLocalUserStatus('CANT_GO');
+    };
 
-  getPastRsvpText = () => {
-    switch (this.state.status) {
+    set();
+  }, [
+    localUserStatus,
+    localAttendeeCount,
+    userStatus,
+    setLocalUserStatus,
+    setLocalAttendeeCount,
+    setRsvp,
+    userId,
+    eventId,
+  ]);
+
+  // const handleNoClick = useCallback((status, callback) => {
+  //   let count;
+
+  //   // console.log('state status', state.status);
+  //   // console.log('userStatus props', this.props.userStatus);
+
+  //   if (localUserStatus === userStatus) {
+  //     // Has not RSVPd
+  //     switch (status) {
+  //       case 'GOING':
+  //         count = ++state.attendeeCount;
+  //         break;
+  //       case 'CANT_GO':
+  //       case 'MAYBE':
+  //         count = --state.attendeeCount;
+  //         break;
+  //       default:
+  //         count = state.attendeeCount;
+  //     }
+  //   } else {
+  //     // Has RSVPd
+  //     // switch (status) {
+  //     //   case 'CANT_GO':
+  //     //   case 'MAYBE':
+  //     //     count = --state.attendeeCount;
+  //     //     break;
+  //     //   case 'GOING':
+  //     //   default:
+  //     //     count = state.attendeeCount;
+  //     // }
+
+  //     if (
+  //       localUserStatus === 'GOING' &&
+  //       (status === 'MAYBE' || status === 'CANT_GO')
+  //     ) {
+  //       count = --state.attendeeCount;
+  //     } else if (
+  //       (localUserStatus === 'MAYBE' || localUserStatus === 'CANT_GO') &&
+  //       status === 'GOING'
+  //     ) {
+  //       count = ++state.attendeeCount;
+  //     } else {
+  //       count = state.attendeeCount;
+  //     }
+  //   }
+
+  //   return {
+  //     status,
+  //     attendeeCount: count,
+  //   };
+
+  //   setUserLocalState();
+  //   setRsvp({
+  //     variables: {
+  //       rsvp: {
+  //         userId: userId,
+  //         eventId: eventId,
+  //         status: localUserStatus,
+  //       },
+  //     },
+  //   });
+  // }, []);
+
+  const getPastRsvpText = useCallback(() => {
+    switch (localUserStatus) {
       case 'GOING':
         return `You went`;
       case 'MAYBE':
@@ -72,21 +169,21 @@ export default class Rsvp extends Component {
       default:
         return `You didn't go`;
     }
-  };
+  }, [localUserStatus]);
 
-  getPastCountText = () => {
-    switch (this.state.attendeeCount) {
+  const getPastCountText = useCallback(() => {
+    switch (localAttendeeCount) {
       case 0:
         return `Nobody went`;
       case 1:
         return `1 person went`;
       default:
-        return `${this.state.attendeeCount} people went`;
+        return `${localAttendeeCount} people went`;
     }
-  };
+  }, [localAttendeeCount]);
 
-  getRsvpText = () => {
-    switch (this.state.status) {
+  const getRsvpText = useCallback(() => {
+    switch (localUserStatus) {
       case 'GOING':
         return `You're going`;
       case 'MAYBE':
@@ -96,65 +193,68 @@ export default class Rsvp extends Component {
       default:
         return 'Are you going?';
     }
-  };
+  }, [localUserStatus]);
 
-  render() {
-    return (
-      <Mutation
-        mutation={RSVP_MUTATION}
-        variables={{
-          rsvp: {
-            userId: this.props.userId,
-            eventId: this.props.eventId,
-            status: this.state.status,
-          },
-        }}
-      >
-        {(setRsvp, { loading, error }) => {
-          return (
-            <div className="rsvp">
-              {this.state.isPastEvent ? (
-                <div className="past-rsvp__status">
-                  {this.getPastRsvpText()}{' '}
-                  <span className="past-rsvp__count">
-                    {this.getPastCountText()}
-                  </span>
-                </div>
-              ) : (
-                <>
-                  <div className="rsvp__attendees">
-                    {this.getRsvpText()}
-                    <span className="rsvp__count">
-                      {this.state.attendeeCount} going
-                    </span>
-                  </div>
-                  <button
-                    disabled={loading || this.state.status === 'GOING'}
-                    onClick={() => this.handleClick('GOING', setRsvp)}
-                  >
-                    Yes
-                  </button>
-                  {/* <button
+  const yesDisabled = loading || localUserStatus === 'GOING';
+  const noDisabled = loading || localUserStatus === 'CANT_GO';
+
+  const yesIconClasses = cn({
+    [Styles['icon-yes']]: localUserStatus === 'NONE',
+    [Styles['icon-yes--selected']]: localUserStatus === 'GOING',
+    [Styles['icon-yes--not-selected']]: localUserStatus === 'CANT_GO',
+    [Styles['icon--disabled']]: loading,
+  });
+
+  const noIconClasses = cn({
+    [Styles['icon-no']]: localUserStatus === 'NONE',
+    [Styles['icon-no--selected']]: localUserStatus === 'CANT_GO',
+    [Styles['icon-no--not-selected']]: localUserStatus === 'GOING',
+    [Styles['icon--disabled']]: loading,
+  });
+
+  return pastEvent ? (
+    <div className={Styles['rsvp__status--past']}>
+      {getPastRsvpText()}{' '}
+      <span className={Styles['rsvp__count--past']}>{getPastCountText()}</span>
+    </div>
+  ) : (
+    <div className={Styles['rsvp__status--upcoming']}>
+      <div className={Styles['rsvp__attendees']}>
+        {getRsvpText()}
+        <span className={Styles['rsvp__count']}>
+          {localAttendeeCount} going
+        </span>
+      </div>
+      <div className={Styles['rsvp__actions']}>
+        <button
+          className={Styles['rsvp__button']}
+          disabled={yesDisabled}
+          onClick={handleYesClick}
+        >
+          <Icon icon="success" className={yesIconClasses}>
+            Yes
+          </Icon>
+        </button>
+        {/* <button
                     disabled={
-                      loading || this.state.status === 'MAYBE'
+                      loading || localUserStatus === 'MAYBE'
                     }
-                    onClick={() => this.handleClick('MAYBE', setRsvp)}
+                    onClick={() => handleClick('MAYBE', setRsvp)}
                   >
                     Maybe
                   </button> */}
-                  <button
-                    disabled={loading || this.state.status === 'CANT_GO'}
-                    onClick={() => this.handleClick('CANT_GO', setRsvp)}
-                  >
-                    No
-                  </button>
-                  <Loading loading={loading} />
-                </>
-              )}
-            </div>
-          );
-        }}
-      </Mutation>
-    );
-  }
-}
+        <button
+          className={Styles['rsvp__button']}
+          disabled={noDisabled}
+          onClick={handleNoClick}
+        >
+          <Icon icon="fail" className={noIconClasses}>
+            No
+          </Icon>
+        </button>
+      </div>
+    </div>
+  );
+};
+
+export default Rsvp;

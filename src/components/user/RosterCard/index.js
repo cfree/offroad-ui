@@ -16,25 +16,24 @@ const RosterCard = ({ user }) => {
   const phone = get(user, 'contactInfo.phone', '');
 
   return (
-    <div className={Styles['roster-card']}>
-      <img
-        className="member__img"
-        src={(user.avatar && user.avatar.smallUrl) || DEFAULT_AVATAR_SMALL_SRC}
-        alt={user.firstName}
-      />
-      <span>
-        {user.firstName} {user.lastName}
-      </span>
-      <span>{getMemberType(user.accountType)}</span>
-      {phone && <span>{getPhoneNumber(phone)}</span>}
-      <span className="member__actions">
-        <Link to={`/message/?to=${user.username}`}>Message</Link>
-        <Link to={`/profile/${user.username}`}>View</Link>
-        <Filter roleCheck={isAtLeastBoardMember}>
-          <Link to={`/admin-profile/${user.username}`}>Edit</Link>
-        </Filter>
-      </span>
-    </div>
+    <tr className={Styles['roster-card']}>
+      <td>
+        <img
+          className={Styles['member__img']}
+          src={
+            (user.avatar && user.avatar.smallUrl) || DEFAULT_AVATAR_SMALL_SRC
+          }
+          alt={user.firstName}
+        />
+      </td>
+      <td>
+        <Link to={`/profile/${user.username}`}>
+          {user.firstName} {user.lastName}
+        </Link>
+      </td>
+      <td>{getMemberType(user.accountType)}</td>
+      <td>{phone && getPhoneNumber(phone)}</td>
+    </tr>
   );
 };
 

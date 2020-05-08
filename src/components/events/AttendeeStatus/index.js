@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import { Mutation } from '@apollo/react-components';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
+import cn from 'classnames';
 
+import Icon from '../../common/Icon';
 import { RSVP_MUTATION } from './attendeeStatus.graphql';
 import Loading from '../../utility/Loading';
-// import { accountTypes as types, offices, titles } from '../../../lib/constants';
+import { rsvpStatuses, pastRsvpStatuses } from '../../../lib/constants';
 
-import './attendeeStatus.module.scss';
+import Styles from './attendeeStatus.module.scss';
 
 export default class AttendeeStatus extends Component {
   getUserRSVPStatus = (eventId, myself) => {
@@ -35,19 +37,83 @@ export default class AttendeeStatus extends Component {
   };
 
   showStatus = (status) => {
-    if (!this.props.isUpcoming) {
+    if (this.props.isUpcoming) {
       switch (status) {
         case 'GOING':
-          return 'WENT';
+          return rsvpStatuses[status];
         case 'MAYBE':
         case 'CANT_GO':
-          return null;
         default:
-          return status;
+          return rsvpStatuses['CANT_GO'];
+      }
+    } else {
+      switch (status) {
+        case 'GOING':
+          return pastRsvpStatuses[status];
+        case 'MAYBE':
+        case 'CANT_GO':
+        default:
+          return pastRsvpStatuses['CANT_GO'];
       }
     }
+  };
 
-    return status;
+  showIcon = (status) => {
+    if (this.props.isUpcoming) {
+      switch (status) {
+        case 'GOING':
+          return (
+            <Icon
+              className={Styles['attendee-status-icon--going']}
+              icon="success"
+            >
+              {rsvpStatuses[status]}
+            </Icon>
+          );
+        case 'MAYBE':
+          return (
+            <Icon
+              className={Styles['attendee-status-icon--maybe']}
+              icon="unknown"
+            >
+              {rsvpStatuses[status]}
+            </Icon>
+          );
+        case 'CANT_GO':
+        default:
+          return (
+            <Icon
+              className={Styles['attendee-status-icon--not-going']}
+              icon="fail"
+            >
+              {rsvpStatuses[status]}
+            </Icon>
+          );
+      }
+    } else {
+      switch (status) {
+        case 'GOING':
+          return (
+            <Icon
+              className={Styles['attendee-status-icon--going']}
+              icon="success"
+            >
+              {pastRsvpStatuses[status]}
+            </Icon>
+          );
+        case 'MAYBE':
+        case 'CANT_GO':
+        default:
+          return (
+            <Icon
+              className={Styles['attendee-status-icon--not-going']}
+              icon="fail"
+            >
+              {pastRsvpStatuses['CANT_GO']}
+            </Icon>
+          );
+      }
+    }
   };
 
   render() {
@@ -71,19 +137,22 @@ export default class AttendeeStatus extends Component {
           return (
             <>
               {status || !this.props.isUpcoming ? (
-                <>
-                  {this.showStatus(status) !== null ? (
-                    <Link to={`/event/${this.props.eventId}`}>
-                      {this.showStatus(status)}
-                    </Link>
-                  ) : null}
-                </>
+                <span className={Styles['attendee-status']}>
+                  <span>{this.showStatus(status)}</span>
+                  {this.showIcon(status)}
+                </span>
               ) : (
                 <button
+                  className={Styles['button']}
                   disabled={loading}
                   onClick={() => this.updateAttendees(setRSVP)}
                 >
-                  Attend
+                  <Icon
+                    className={Styles['attendee-status--icon']}
+                    icon="success"
+                  >
+                    Attend
+                  </Icon>
                 </button>
               )}
               <Loading loading={loading} />

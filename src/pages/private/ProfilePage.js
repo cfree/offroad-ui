@@ -1,14 +1,14 @@
 import React from 'react';
 
-import Page from '../../components/layout/Page';
-import Profile from '../../components/user/Profile';
-import { useQueryParams } from '../../hooks/useQueryParams';
+import PageLayout from '../../components/layout/PageLayout';
+import ProfileIndex from '../../components/user/ProfileIndex';
 
 const ProfilePage = () => {
-  const query = useQueryParams();
-  const { user } = query;
-
-  return <Page>{query.user ? <Profile username={user} /> : <Profile />}</Page>;
+  return (
+    <PageLayout>
+      <ProfileIndex />
+    </PageLayout>
+  );
 };
 
 export default ProfilePage;

@@ -1,13 +1,13 @@
 import React from 'react';
 
 import EditGarage from '../../components/vehicles/EditGarage';
-import Page from '../../components/layout/Page';
+import PageLayout from '../../components/layout/PageLayout';
 
 const SettingsGaragePage = () => {
   return (
-    <Page>
+    <PageLayout>
       <EditGarage />
-    </Page>
+    </PageLayout>
   );
 };
 

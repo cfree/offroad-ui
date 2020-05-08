@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Message from '../../components/user/Message';
-import Page from '../../components/layout/Page';
+import PageLayout from '../../components/layout/PageLayout';
 import { useQueryParams } from '../../hooks/useQueryParams';
 
 const MessagePage = () => {
@@ -9,9 +9,9 @@ const MessagePage = () => {
   const { to } = query;
 
   return (
-    <Page>
+    <PageLayout>
       <Message recipients={to} />
-    </Page>
+    </PageLayout>
   );
 };
 

@@ -10,7 +10,6 @@
   }
 
   @include breakpoint($bp-lg) {
-    margin-top: calc(7px + (#{$space * 2}));
     display: grid;
     grid-column-gap: $space-large;
     grid-row-gap: $space-large;

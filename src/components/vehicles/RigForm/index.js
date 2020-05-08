@@ -4,6 +4,7 @@ import { Formik, Field, ErrorMessage as FormikErrorMessage } from 'formik';
 import { rigSchema } from './rigForm.schema';
 import Loading from '../../utility/Loading';
 import ErrorMessage from '../../utility/ErrorMessage';
+import FormErrorMessage from '../../utility/FormErrorMessage';
 import { outfitLevel } from '../../../lib/constants';
 
 import Styles from './rigForm.module.scss';
@@ -27,7 +28,10 @@ const RigForm = ({ initialValues, onSubmit, loading = '', error }) => {
                 </label>
                 <div className={Styles['rig-form-field']}>
                   <Field type="text" id="year" name="year" />
-                  <FormikErrorMessage name="year" component="div" />
+                  <FormikErrorMessage
+                    name="year"
+                    component={FormErrorMessage}
+                  />
                 </div>
               </div>
 
@@ -37,7 +41,10 @@ const RigForm = ({ initialValues, onSubmit, loading = '', error }) => {
                 </label>
                 <div className={Styles['rig-form-field']}>
                   <Field type="text" id="make" name="make" />
-                  <FormikErrorMessage name="make" component="div" />
+                  <FormikErrorMessage
+                    name="make"
+                    component={FormErrorMessage}
+                  />
                 </div>
               </div>
 
@@ -47,7 +54,10 @@ const RigForm = ({ initialValues, onSubmit, loading = '', error }) => {
                 </label>
                 <div className={Styles['rig-form-field']}>
                   <Field type="text" id="model" name="model" />
-                  <FormikErrorMessage name="model" component="div" />
+                  <FormikErrorMessage
+                    name="model"
+                    component={FormErrorMessage}
+                  />
                 </div>
               </div>
 
@@ -57,7 +67,10 @@ const RigForm = ({ initialValues, onSubmit, loading = '', error }) => {
                 </label>
                 <div className={Styles['rig-form-field']}>
                   <Field type="text" id="trim" name="trim" />
-                  <FormikErrorMessage name="trim" component="div" />
+                  <FormikErrorMessage
+                    name="trim"
+                    component={FormErrorMessage}
+                  />
                 </div>
               </div>
 
@@ -67,7 +80,10 @@ const RigForm = ({ initialValues, onSubmit, loading = '', error }) => {
                 </label>
                 <div className={Styles['rig-form-field']}>
                   <Field type="text" id="name" name="name" />
-                  <FormikErrorMessage name="name" component="div" />
+                  <FormikErrorMessage
+                    name="name"
+                    component={FormErrorMessage}
+                  />
                 </div>
               </div>
 
@@ -93,7 +109,10 @@ const RigForm = ({ initialValues, onSubmit, loading = '', error }) => {
                       ),
                     )}
                   </Field>
-                  <FormikErrorMessage name="outfitLevel" component="div" />
+                  <FormikErrorMessage
+                    name="outfitLevel"
+                    component={FormErrorMessage}
+                  />
                 </div>
               </div>
 
@@ -103,7 +122,10 @@ const RigForm = ({ initialValues, onSubmit, loading = '', error }) => {
                 </label>
                 <div className={Styles['rig-form-field']}>
                   <Field type="text" id="mods" name="mods" />
-                  <FormikErrorMessage name="mods" component="div" />
+                  <FormikErrorMessage
+                    name="mods"
+                    component={FormErrorMessage}
+                  />
                 </div>
               </div>
 
