@@ -1,12 +1,6 @@
 @import '../../../styles/variables.module';
 @import '../../../styles/mixins.module';
 
-.roster-card {
-  &:nth-child(even) {
-    background: $white-dark;
-  }
-}
-
 .member__img {
   height: 30px;
   width: 30px;

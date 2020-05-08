@@ -1,9 +1,8 @@
 import React from 'react';
 import get from 'lodash/get';
 import format from 'date-fns/format';
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { useQuery } from '@apollo/react-hooks';
-import cn from 'classnames';
 
 import { PROFILE_HEADER_QUERY } from './profileHeader.graphql';
 import {
@@ -19,6 +18,7 @@ import {
   isAtLeastRunLeader,
 } from '../../../lib/utils';
 import Filter from '../../login/Filter';
+import Tabs from '../../common/Tabs';
 
 import Styles from './profileHeader.module.scss';
 
@@ -37,24 +37,9 @@ const ProfileHeader = ({ username, isSelf }) => {
   }
 
   const { user } = data;
-  console.log('routematch', pathname);
-
   const convertedTitles = get(titles, 'user.title', []);
   const RIG_SRC = get(user, 'rig.image.url', DEFAULT_RIG_SRC);
   const AVATAR_SRC = get(user, 'avatar.url', DEFAULT_AVATAR_SRC);
-
-  const detailsLink = cn({
-    [Styles['active']]:
-      !pathname.includes('/garage') && !pathname.includes('/activity'),
-  });
-
-  const garageLink = cn({
-    [Styles['active']]: pathname.includes('/garage'),
-  });
-
-  const activityLink = cn({
-    [Styles['active']]: pathname.includes('/activity'),
-  });
 
   return (
     <>
@@ -118,25 +103,29 @@ const ProfileHeader = ({ username, isSelf }) => {
         )}
       </header>
 
-      <nav>
-        <ul>
-          <li>
-            <Link className={detailsLink} to={`/profile/${username}`}>
-              Details
-            </Link>
-          </li>
-          <li>
-            <Link className={garageLink} to={`/profile/${username}/garage`}>
-              Garage
-            </Link>
-          </li>
-          <li>
-            <Link className={activityLink} to={`/profile/${username}/activity`}>
-              Activity
-            </Link>
-          </li>
-        </ul>
-      </nav>
+      <div className={Styles['nav']}>
+        <Tabs
+          tabs={[
+            {
+              link: `/profile/${username}`,
+              title: 'Details',
+              activeStyles:
+                !pathname.includes('/garage') &&
+                !pathname.includes('/activity'),
+            },
+            {
+              link: `/profile/${username}/garage`,
+              title: 'Garage',
+              activeStyles: pathname.includes('/garage'),
+            },
+            {
+              link: `/profile/${username}/activity`,
+              title: 'Activity',
+              activeStyles: pathname.includes('/activity'),
+            },
+          ]}
+        />
+      </div>
     </>
   );
 };

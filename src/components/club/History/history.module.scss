@@ -1,0 +1,16 @@
+@import '../../../styles/variables.module';
+@import '../../../styles/mixins.module';
+@import '../../../styles/utilities.module';
+
+.img {
+  @include alignright;
+}
+
+.map {
+  @include alignright;
+}
+
+.table {
+  @extend %table;
+  margin: $space 0;
+}
