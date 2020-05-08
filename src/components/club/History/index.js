@@ -149,7 +149,7 @@ const History = () => {
 &sspn=5.361017,8.009033&vpsrc=6&ie=UTF8&ll=39.729164,-105.636289&spn=0.041455,0.062571&t=m&z=14"
         >
           <img
-            src={`https://maps.googleapis.com/maps/api/staticmap?zoom=12&size=400x300&maptype=roadmap&markers=size:mid%7Ccolor:red%7C|39.729161,-105.636254&key=AIzaSyAie-ayIGiyLigZAn11DI0II1_OBprtF24`}
+            src={`https://maps.googleapis.com/maps/api/staticmap?zoom=12&size=400x300&maptype=roadmap&markers=size:mid%7Ccolor:red%7C|39.729161,-105.636254&key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`}
             alt="Map"
             className={Styles['map']}
           />

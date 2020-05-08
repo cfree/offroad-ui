@@ -19,6 +19,7 @@ import Loading from '../../utility/Loading';
 import { states, DEFAULT_AVATAR_SRC } from '../../../lib/constants';
 import { formatPhone } from '../../../lib/utils';
 import { dateEighteenYearsAgo } from '../../../utilities/dates';
+import Button from '../../common/Button';
 
 import Styles from './profileForm.module.scss';
 
@@ -63,11 +64,6 @@ class ProfileForm extends Component {
                 queryData.user.contactInfo.phone &&
                 formatPhone(queryData.user.contactInfo.phone)) ||
               '',
-            showPhoneNumber:
-              queryData.user.preferences &&
-              !queryData.user.preferences.showPhoneNumber
-                ? 'no'
-                : 'yes',
             street:
               (queryData.user.contactInfo &&
                 queryData.user.contactInfo.street) ||
@@ -330,53 +326,6 @@ class ProfileForm extends Component {
                           </div>
 
                           <div className={Styles['form-field-wrapper']}>
-                            <div className={Styles['profile-form-label']}>
-                              Display phone number in profile?
-                            </div>
-                            <div
-                              className={cn(
-                                Styles['profile-form-field'],
-                                Styles['profile-radio-field'],
-                              )}
-                            >
-                              <label
-                                className={Styles['profile-radio-label']}
-                                htmlFor="showPhoneNumberYes"
-                              >
-                                <Field
-                                  type="radio"
-                                  id="showPhoneNumberYes"
-                                  name="showPhoneNumber"
-                                  value="yes"
-                                  checked={
-                                    formikProps.values.showPhoneNumber === 'yes'
-                                  }
-                                />
-                                Yes
-                              </label>
-                              <label
-                                className={Styles['profile-radio-label']}
-                                htmlFor="showPhoneNumberNo"
-                              >
-                                <Field
-                                  type="radio"
-                                  id="showPhoneNumberNo"
-                                  name="showPhoneNumber"
-                                  value="no"
-                                  checked={
-                                    formikProps.values.showPhoneNumber === 'no'
-                                  }
-                                />
-                                No
-                              </label>
-                              <FormikErrorMessage
-                                name="showPhoneNumber"
-                                component={FormErrorMessage}
-                              />
-                            </div>
-                          </div>
-
-                          <div className={Styles['form-field-wrapper']}>
                             <label
                               className={Styles['profile-form-label']}
                               htmlFor="street"
@@ -496,22 +445,25 @@ class ProfileForm extends Component {
                             </div>
                           </div>
 
-                          <div className={Styles['form-footer']}>
-                            <button
-                              type="submit"
-                              disabled={
-                                !formikProps.dirty ||
-                                !formikProps.isValid ||
-                                formikProps.isSubmitting ||
-                                mutationLoading
-                              }
-                            >
-                              Submit
-                            </button>
-                            <Loading loading={mutationLoading} />
-                            <ErrorMessage error={mutationError} />
-                            {mutationData &&
-                              mutationData.updateUserProfileSettings.message}
+                          <div className={Styles['form-field-wrapper']}>
+                            <div />
+                            <div>
+                              <Button
+                                type="submit"
+                                disabled={
+                                  !formikProps.dirty ||
+                                  !formikProps.isValid ||
+                                  formikProps.isSubmitting ||
+                                  mutationLoading
+                                }
+                              >
+                                Submit
+                              </Button>
+                              <Loading loading={mutationLoading} />
+                              <ErrorMessage error={mutationError} />
+                              {mutationData &&
+                                mutationData.updateUserProfileSettings.message}
+                            </div>
                           </div>
                         </form>
                       </div>

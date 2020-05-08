@@ -10,8 +10,7 @@ const Captcha = ({ onChange }) => {
     onChange(false);
   }, [onChange]);
 
-  // const recaptchaSiteKey = process.env.RECAPTCHA_SITE_KEY;
-  const recaptchaSiteKey = '6LcEi_MUAAAAAAuJpRWbPCpZawwGIKRdFyKwU6QM';
+  const recaptchaSiteKey = process.env.REACT_APP_RECAPTCHA_SITE_KEY;
 
   return (
     <ReCAPTCHA

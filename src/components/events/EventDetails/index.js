@@ -230,7 +230,7 @@ export default class EventDetails extends Component {
                         <img
                           width="250"
                           height="100"
-                          src={`https://maps.googleapis.com/maps/api/staticmap?zoom=8&size=500x200&maptype=roadmap&markers=size:mid%7Ccolor:red%7C&center=${encodedAddress}&key=AIzaSyDwKWxOQTDbqunf8Apw0ye_3RAFo3rf25c`}
+                          src={`https://maps.googleapis.com/maps/api/staticmap?zoom=8&size=500x200&maptype=roadmap&markers=size:mid%7Ccolor:red%7C&center=${encodedAddress}&key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`}
                           alt={`${event.title} map`}
                           onError={this.onMapImgError}
                         />

@@ -14,10 +14,9 @@ import './styles/global.module.scss';
 
 import { ViewportProvider } from './hooks/useViewport';
 import Routes from './routes';
-import { endpoint } from './lib/constants';
 
 const client = new ApolloClient({
-  uri: process.env.NODE_ENV === 'development' ? endpoint : process.env.SITE_API,
+  uri: process.env.REACT_APP_SITE_API,
   credentials: 'include',
   // cache: new InMemoryCache(),
 });

@@ -29,7 +29,6 @@ export const MEMBER_PROFILE_QUERY = gql`
         emergencyContactName
         emergencyContactPhone
         photoPermissions
-        showPhoneNumber
       }
     }
   }
@@ -64,7 +63,6 @@ export const SELF_PROFILE_QUERY = gql`
         emergencyContactName
         emergencyContactPhone
         photoPermissions
-        showPhoneNumber
       }
     }
   }
@@ -88,7 +86,6 @@ export const USER_UPDATE_PROFILE_MUTATION = gql`
     $preferencesId: ID
     $emergencyContactName: String!
     $emergencyContactPhone: String!
-    $showPhoneNumber: Boolean!
   ) {
     updateUserProfileSettings(
       data: {
@@ -107,7 +104,6 @@ export const USER_UPDATE_PROFILE_MUTATION = gql`
         preferencesId: $preferencesId
         emergencyContactName: $emergencyContactName
         emergencyContactPhone: $emergencyContactPhone
-        showPhoneNumber: $showPhoneNumber
       }
       id: $id
     ) {

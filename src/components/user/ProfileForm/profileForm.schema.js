@@ -18,7 +18,6 @@ export const userSchema = yup.object().shape({
       'Use proper format: 303-555-5555',
     )
     .required('Phone number is required'),
-  showPhoneNumber: yup.string().required(),
   street: yup.string().required('Street is required'),
   city: yup.string().required('City is required'),
   state: yup.string(),
