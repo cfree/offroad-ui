@@ -1,8 +1,9 @@
-import React, { useState, useCallback } from 'react';
-import { useMutation } from '@apollo/react-hooks';
-import { Redirect, useLocation, Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useMutation, useApolloClient } from '@apollo/react-hooks';
+import { useHistory, useLocation, Link } from 'react-router-dom';
 
 import { LOGIN_MUTATION } from './login.graphql';
+import { CURRENT_USER_QUERY } from '../../../hooks/useUser/useUser.graphql';
 import Loading from '../../utility/Loading';
 import ErrorMessage from '../../utility/ErrorMessage';
 import Button from '../../common/Button';
@@ -10,34 +11,33 @@ import Button from '../../common/Button';
 import Styles from './login.module.scss';
 
 const Login = () => {
+  const client = useApolloClient();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const location = useLocation();
+  const history = useHistory();
   const [login, { error, loading, data }] = useMutation(LOGIN_MUTATION);
   const { from } = location.state || { from: '/' };
 
-  const handleSubmit = useCallback(
-    (e) => {
-      e.preventDefault();
-
-      const submit = async () => {
-        await login({
-          variables: { username, password },
-          refetchQueries: ['CURRENT_USER_QUERY'],
-        });
-      };
-
-      submit();
-    },
-    [username, password, login],
-  );
-
-  if (data && data.login) {
-    return <Redirect to={from} />;
-  }
+  useEffect(() => {
+    if (data && data.login.message) {
+      history.push(from);
+    }
+  }, [data, history, from]);
 
   return (
-    <form className={Styles['form']} onSubmit={handleSubmit}>
+    <form
+      className={Styles['form']}
+      onSubmit={async (e) => {
+        e.preventDefault();
+        await client.clearStore();
+        await login({
+          variables: { username, password },
+          refetchQueries: [{ query: CURRENT_USER_QUERY }],
+          awaitRefetchQueries: true,
+        });
+      }}
+    >
       <h3>Login</h3>
       <ErrorMessage error={error} />
       <fieldset
@@ -74,7 +74,10 @@ const Login = () => {
             </Button>
             <Loading loading={loading} />
           </span>
-          <Link className={Styles['forgot-password-link']} to="/reset-password">
+          <Link
+            className={Styles['forgot-password-link']}
+            to="/forgot-password"
+          >
             Forgot password?
           </Link>
         </footer>

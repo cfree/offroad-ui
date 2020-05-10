@@ -1,10 +1,19 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useRef } from 'react';
 import { Mutation } from '@apollo/react-components';
 
 import { UPDATE_AVATAR, DELETE_AVATAR } from './avatarUploader.graphql';
+// Refetch
+import { CURRENT_USER_QUERY } from '../../../hooks/useUser/useUser.graphql';
+import { RIGBOOK_QUERY } from '../../user/Rigbook/rigbook.graphql';
+import { PROFILE_HEADER_QUERY } from '../../user/ProfileHeader/profileHeader.graphql';
+
 import ErrorMessage from '../../utility/ErrorMessage';
 import Loading from '../../utility/Loading';
 import { getUploadLocation } from '../../../lib/utils';
+import Button from '../Button';
+import Icon from '../Icon';
+
+import Styles from './avatarUploader.module.scss';
 
 const uploadImage = async (file) => {
   const data = new FormData();
@@ -30,6 +39,7 @@ const defaultImage = {
 };
 
 const AvatarUploader = ({ image }) => {
+  const inputEl = useRef(null);
   const initialImage = {
     id: (image && image.id) || defaultImage.id,
     publicId: (image && image.publicId) || defaultImage.publicId,
@@ -38,10 +48,16 @@ const AvatarUploader = ({ image }) => {
   };
   const [avatar, setAvatar] = useState(initialImage);
   const [oldAvatar, setOldAvatar] = useState(image ? initialImage : null);
+  const [uploading, setUploading] = useState(false);
+
+  const handleFileUpload = useCallback(() => {
+    inputEl.current.click();
+  }, [inputEl]);
 
   const uploadFile = useCallback(
     async (e, callback) => {
       const files = e.target.files;
+      setUploading(true);
       const uploadResults = await uploadImage(files[0]);
       const newAvatar = {
         publicId: uploadResults.public_id,
@@ -56,12 +72,27 @@ const AvatarUploader = ({ image }) => {
             new: newAvatar,
           },
         },
+        refetchQueries: [
+          {
+            query: CURRENT_USER_QUERY,
+          },
+          {
+            query: RIGBOOK_QUERY,
+          },
+          {
+            query: PROFILE_HEADER_QUERY,
+            variables: {
+              username: 'self',
+            },
+          },
+        ],
       });
 
       setAvatar(newAvatar);
       setOldAvatar(newAvatar);
+      setUploading(false);
     },
-    [oldAvatar, setAvatar, setOldAvatar],
+    [oldAvatar, setAvatar, setOldAvatar, setUploading],
   );
 
   const deleteFile = useCallback(
@@ -79,30 +110,57 @@ const AvatarUploader = ({ image }) => {
   );
 
   return (
-    <>
-      Upload avatar (cropped to 200 x 200)
-      <Mutation mutation={UPDATE_AVATAR}>
-        {(updateAvatar, { error, loading, data }) => {
-          return (
-            <>
-              <input
-                type="file"
-                id="file"
-                name="file"
-                placeholder="Upload an image"
-                required
-                onChange={(e) => uploadFile(e, updateAvatar)}
-                key={Date.now()}
-              />
-              {loading && <Loading loading={loading} />}
-              {error && <ErrorMessage error={error} />}
-              {avatar.url && data && data.updateAvatar.message}
-              {avatar.url && <img width="100" src={avatar.url} alt="Avatar" />}
-            </>
-          );
-        }}
-      </Mutation>
-      {avatar.url && (
+    <div className={Styles['uploader']}>
+      <div className={Styles['uploader-contents']}>
+        <img
+          className={Styles['img']}
+          width="100"
+          src={avatar.url || '/img/default-user.jpg'}
+          alt="Avatar"
+        />
+
+        <Mutation mutation={UPDATE_AVATAR}>
+          {(updateAvatar, { error, loading, data }) => {
+            return (
+              <div className={Styles['uploader-input']}>
+                <div>
+                  <h4>Change Your Avatar</h4>
+                  <Button
+                    className={Styles['upload-button']}
+                    onClick={handleFileUpload}
+                  >
+                    Choose File
+                  </Button>
+                  {(loading || uploading) && <Loading loading={loading} />}
+                  {avatar.url && data && (
+                    <small>
+                      {data.updateAvatar.message}
+                      <Icon className={Styles['icon']} icon="success" />
+                    </small>
+                  )}
+                  <input
+                    ref={inputEl}
+                    className={Styles['input']}
+                    type="file"
+                    id="file"
+                    name="file"
+                    accept="image/png,image/jpeg,image/gif"
+                    placeholder="Upload an image"
+                    required
+                    onChange={(e) => uploadFile(e, updateAvatar)}
+                    key={Date.now()}
+                  />
+                </div>
+                <small className={Styles['reqs']}>
+                  JPG, GIF, or PNG. At least 400 x 400.
+                </small>
+                {error && <ErrorMessage error={error} />}
+              </div>
+            );
+          }}
+        </Mutation>
+      </div>
+      {/* {avatar.url && (
         <Mutation mutation={DELETE_AVATAR}>
           {(deleteAvatar, { error, loading, data }) => {
             return (
@@ -119,8 +177,8 @@ const AvatarUploader = ({ image }) => {
             );
           }}
         </Mutation>
-      )}
-    </>
+      )} */}
+    </div>
   );
 };
 

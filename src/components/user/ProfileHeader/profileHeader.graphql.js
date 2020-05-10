@@ -6,9 +6,6 @@ export const PROFILE_HEADER_QUERY = gql`
       id
       firstName
       lastName
-      # email
-      # gender
-      # birthdate
       avatar {
         id
         url

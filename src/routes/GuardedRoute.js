@@ -1,9 +1,7 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
-import { useQuery } from '@apollo/react-hooks';
-import get from 'lodash/get';
 
-import { CURRENT_USER_QUERY } from '../hooks/useUser/useUser.graphql';
+import useUser from '../hooks/useUser';
 import Spinner from '../components/utility/Spinner';
 
 const Unauthorized = () => {
@@ -19,9 +17,9 @@ const GuardedRoute = ({
   fallback: Fallback = Unauthorized,
   ...rest
 }) => {
-  const { loading, data } = useQuery(CURRENT_USER_QUERY);
+  const { loading, data } = useUser();
 
-  if (loading) {
+  if (loading || !data) {
     return <Spinner />;
   }
 
@@ -30,7 +28,7 @@ const GuardedRoute = ({
       path={path}
       render={(props) => {
         // Authenticate
-        if (!get(data, 'myself.username')) {
+        if (!data.myself) {
           return <Redirect to="/login" />;
         }
 

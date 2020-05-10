@@ -27,9 +27,7 @@ import ProfilePage from '../pages/private/ProfilePage';
 import EventsPage from '../pages/private/EventsPage';
 import EventPage from '../pages/private/EventPage';
 // import TrailPage from '../pages/private/TrailPage';
-import SettingsGaragePage from '../pages/private/SettingsGaragePage';
-import SettingsProfilePage from '../pages/private/SettingsProfilePage';
-import SettingsAccountPage from '../pages/private/SettingsAccountPage';
+import SettingsPage from '../pages/private/SettingsPage';
 // Admin
 import EditProfilePage from '../pages/admin/EditProfilePage';
 import EditEventPage from '../pages/admin/EditEventPage';
@@ -84,13 +82,6 @@ const Routes = () => {
         typeCheck={isFullMember}
       /> */}
       <GuardedRoute exact path="/profile/edit" component={EditProfilePage} />
-      {/* <GuardedRoute
-        exact
-        path="/profile/garage/edit"
-        component={EditGarage}
-        typeCheck={isActive}
-        statusCheck={isActive}
-      /> */}
       <GuardedRoute
         path="/profile/:username"
         component={ProfilePage}
@@ -120,9 +111,7 @@ const Routes = () => {
         component={EventPage}
         statusCheck={isActive}
       />
-      <GuardedRoute path="/settings/profile" component={SettingsProfilePage} />
-      <GuardedRoute path="/settings/garage" component={SettingsGaragePage} />
-      <GuardedRoute path="/settings/account" component={SettingsAccountPage} />
+      <GuardedRoute path="/settings" component={SettingsPage} />
       <GuardedRoute
         path="/trails"
         component={TrailsPage}

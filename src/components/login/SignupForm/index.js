@@ -68,7 +68,7 @@ const SignupForm = () => {
           validationSchema={userSchema}
           onSubmit={async (values, { setSubmitting }) => {
             setSubmitting(true);
-            await signUp(values);
+            await signUp({ variables: values });
             setSubmitting(false);
           }}
         >

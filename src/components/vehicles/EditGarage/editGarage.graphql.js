@@ -28,9 +28,9 @@ export const USER_RIG = gql`
 export const USER_UPDATE_RIG_MUTATION = gql`
   mutation USER_UPDATE_RIG_MUTATION(
     $id: ID
-    $year: Int!
-    $make: String!
-    $model: String!
+    $year: Int
+    $make: String
+    $model: String
     $trim: String
     $name: String
     $outfitLevel: OutfitLevel

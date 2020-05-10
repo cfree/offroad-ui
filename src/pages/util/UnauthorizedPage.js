@@ -1,7 +1,9 @@
 import React from 'react';
 
+import Unauthorized from '../../components/login/Unauthorized';
+
 const UnauthorizedPage = () => {
-  return <div>Not today, Satan</div>;
+  return <Unauthorized />;
 };
 
 export default UnauthorizedPage;

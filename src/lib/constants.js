@@ -52,6 +52,7 @@ export const titles = {
   WEBMASTER: 'Webmaster',
   CHARTER_MEMBER: 'Charter Member',
   HISTORIAN: 'Historian',
+  // RUNMASTER: 'Runmaster',
 };
 
 export const trailDifficulties = {
@@ -106,9 +107,8 @@ export const outfitLevel = {
 export const DEFAULT_AVATAR_SRC = '/img/default-user.jpg';
 export const DEFAULT_AVATAR_SMALL_SRC = '/img/default-user.jpg';
 export const DEFAULT_RIG_SRC = '/img/default-vehicle.jpg';
-export const DEFAULT_EVENT_SRC =
-  'https://s3.us-west-2.amazonaws.com/images-prod.trailsoffroad.com/trails/299/highlights/resized_2017-08-11_12.30.25-2_3.jpg';
-export const DEFAULT_EVENT_SMALL_SRC = 'https://placekitten.com/150/100';
+export const DEFAULT_EVENT_SRC = '/img/default-event.jpg';
+export const DEFAULT_EVENT_SMALL_SRC = '/img/default-event-sm.jpg';
 export const DEFAULT_TRAIL_SRC = 'https://placekitten.com/700/400';
 export const DEFAULT_TRAIL_SMALL_SRC = 'https://placekitten.com/150/100';
 

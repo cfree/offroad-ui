@@ -127,6 +127,11 @@
 
   dd {
     padding-top: 2px;
+    margin-bottom: $space / 2;
+
+    @include breakpoint($bp-xl) {
+      margin-bottom: $space;
+    }
   }
 
   small {

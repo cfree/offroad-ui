@@ -1,36 +1,32 @@
 import React from 'react';
-import { Query } from '@apollo/react-components';
+import { useQuery } from '@apollo/react-hooks';
 
 import { CURRENT_USER_QUERY } from '../../hooks/useUser/useUser.graphql';
 
 const Filter = ({
   children,
-  roleCheck = (role) => role,
-  statusCheck = (status) => status,
-  typeCheck = (type) => type,
+  roleCheck = (role) => true,
+  statusCheck = (status) => true,
+  typeCheck = (type) => true,
 }) => {
-  return (
-    <Query query={CURRENT_USER_QUERY}>
-      {({ data, error, loading }) => {
-        if (loading) {
-          return <p>Loading...</p>;
-        }
+  const { data, error, loading } = useQuery(CURRENT_USER_QUERY);
 
-        // Improper role and status
-        if (
-          data &&
-          data.myself &&
-          roleCheck(data.myself.role) &&
-          statusCheck(data.myself.accountStatus) &&
-          typeCheck(data.myself.accountType)
-        ) {
-          return children;
-        }
+  if (loading) {
+    return <p>Loading...</p>;
+  }
 
-        return null;
-      }}
-    </Query>
-  );
+  // Improper role and status
+  if (
+    data &&
+    data.myself &&
+    roleCheck(data.myself.role) &&
+    statusCheck(data.myself.accountStatus) &&
+    typeCheck(data.myself.accountType)
+  ) {
+    return children;
+  }
+
+  return null;
 };
 
 export default Filter;

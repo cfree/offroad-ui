@@ -9,16 +9,7 @@ import Styles from './rigbook.module.scss';
 const Rigbook = () => {
   return (
     <div>
-      <Query
-        query={RIGBOOK_QUERY}
-        variables={{
-          president: 'PRESIDENT',
-          vicePresident: 'VICE_PRESIDENT',
-          secretary: 'SECRETARY',
-          treasurer: 'TREASURER',
-        }}
-        refetchQueries={['RIGBOOK_QUERY']}
-      >
+      <Query query={RIGBOOK_QUERY}>
         {({ loading, error, data }) => {
           if (loading) {
             return <div>Loading...</div>;

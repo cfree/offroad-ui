@@ -118,6 +118,8 @@ export const isAtLeastGuestMember = (type) => {
   return ['GUEST', 'EMERITUS', 'ASSOCIATE', 'FULL'].includes(type);
 };
 
+export const isDeceasedMember = (type) => type === 'DECEASED';
+
 export const formatPhone = (phoneNum) => {
   const phone = phoneNum.toString();
   const areaCode = phone.substring(0, 3);
@@ -133,6 +135,9 @@ export const isNotActive = (status) => !isActive(status);
 
 export const isPastDue = (status) => status === 'PAST_DUE';
 export const isNotPastDue = (status) => !isPastDue(status);
+
+export const isActiveOrPastDue = (status) =>
+  status === 'ACTIVE' || status === 'PAST_DUE';
 
 export const isDelinquent = (status) => status === 'DELINQUENT';
 export const isNotDelinquent = (status) => !isDelinquent(status);

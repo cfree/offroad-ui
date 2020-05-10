@@ -3,7 +3,11 @@ import { useMutation } from '@apollo/react-hooks';
 import cn from 'classnames';
 
 import { RSVP_MUTATION } from './rsvp.graphql';
+// Refetch
 import { EVENT_QUERY } from '../EventDetails/eventDetails.graphql';
+import { UPCOMING_EVENTS_QUERY } from '../EventList/eventList.graphql';
+import { NEXT_EVENT_QUERY } from '../../dashboard/NextEvent/nextEvent.graphql';
+
 import Icon from '../../common/Icon';
 
 import Styles from './rsvp.module.scss';
@@ -19,14 +23,7 @@ import Styles from './rsvp.module.scss';
 const Rsvp = ({ userStatus, attendeeCount, userId, eventId, pastEvent }) => {
   const [localUserStatus, setLocalUserStatus] = useState(userStatus);
   const [localAttendeeCount, setLocalAttendeeCount] = useState(attendeeCount);
-  const [setRsvp, { loading, error }] = useMutation(RSVP_MUTATION, {
-    refetchQueries: [
-      {
-        query: EVENT_QUERY,
-        variables: { eventId },
-      },
-    ],
-  });
+  const [setRsvp, { loading, error }] = useMutation(RSVP_MUTATION);
 
   const handleYesClick = useCallback(() => {
     if (localUserStatus === 'GOING') {
@@ -42,6 +39,18 @@ const Rsvp = ({ userStatus, attendeeCount, userId, eventId, pastEvent }) => {
             status: 'GOING',
           },
         },
+        refetchQueries: [
+          {
+            query: EVENT_QUERY,
+            variables: { eventId },
+          },
+          {
+            query: UPCOMING_EVENTS_QUERY,
+          },
+          {
+            query: NEXT_EVENT_QUERY,
+          },
+        ],
       });
 
       setLocalUserStatus('GOING');
@@ -75,6 +84,15 @@ const Rsvp = ({ userStatus, attendeeCount, userId, eventId, pastEvent }) => {
             status: 'CANT_GO',
           },
         },
+        refetchQueries: [
+          {
+            query: EVENT_QUERY,
+            variables: { eventId },
+          },
+          {
+            query: UPCOMING_EVENTS_QUERY,
+          },
+        ],
       });
 
       // If original RSVP === null, record RSVP but don't count as attendee

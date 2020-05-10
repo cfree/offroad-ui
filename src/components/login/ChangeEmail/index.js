@@ -1,82 +1,91 @@
-import React, { Component } from 'react';
-import { Query, Mutation } from '@apollo/react-components';
+import React from 'react';
+import { useMutation } from '@apollo/react-hooks';
+import { Formik, Field, ErrorMessage as FormikErrorMessage } from 'formik';
+import * as yup from 'yup';
 
 import { CHANGE_EMAIL_MUTATION } from './changeEmail.graphql';
 import Loading from '../../utility/Loading';
-import { CURRENT_USER_QUERY } from '../../../hooks/useUser/useUser.graphql';
-// import Form from './styles/Form';
-import Error from '../../utility/ErrorMessage';
+import SuccessMessage from '../../utility/SuccessMessage';
+import ErrorMessage from '../../utility/ErrorMessage';
+import FormErrorMessage from '../../utility/FormErrorMessage';
+import Button from '../../common/Button';
 
-import './changeEmail.module.scss';
+import Styles from './changeEmail.module.scss';
 
-class ChangeEmail extends Component {
-  state = {
-    email: '',
-  };
-  saveToState = (e) => {
-    this.setState({ [e.target.name]: e.target.value });
-  };
+const emailSchema = yup.object().shape({
+  email: yup.string().email().required(),
+});
 
-  render() {
-    // console.log('token', token);
-    return (
-      <Query query={CURRENT_USER_QUERY}>
-        {({ error: queryError, loading: queryLoading, data: queryData }) => {
-          if (queryError) {
-            return <p>{queryError}</p>;
-          }
+const ChangeEmail = ({ email }) => {
+  const [changeEmail, { error, loading, data }] = useMutation(
+    CHANGE_EMAIL_MUTATION,
+    {
+      refetchQueries: ['CURRENT_USER_QUERY'],
+    },
+  );
 
-          if (queryLoading) {
-            return <p>One moment...</p>;
-          }
+  return (
+    <div className={Styles['change-email']}>
+      <h3>Change your email address</h3>
 
-          return (
-            <Mutation
-              mutation={CHANGE_EMAIL_MUTATION}
-              variables={{
-                email: this.state.email,
-              }}
-              refetchQueries={['CURRENT_USER_QUERY']}
-            >
-              {(changeEmail, { error, loading, data }) => {
-                return (
-                  <form
-                    className="form"
-                    method="post"
-                    onSubmit={async (e) => {
-                      e.preventDefault();
-                      await changeEmail();
-                    }}
-                  >
-                    <fieldset disabled={loading} aria-busy={loading}>
-                      <h2>Change your email address</h2>
-                      {loading && <p>One moment...</p>}
-                      {data && data.changeEmail && (
-                        <p>{data.changeEmail.message}</p>
-                      )}
-                      <Error error={error} />
-                      <label htmlFor="email">
-                        <input
-                          type="email"
-                          name="email"
-                          placeholder="Email"
-                          defaultValue={queryData.myself.email}
-                          required
-                          onChange={this.saveToState}
-                        />
-                      </label>
-                      <Loading loading={loading} />
-                      <button type="submit">Change</button>
-                    </fieldset>
-                  </form>
-                );
-              }}
-            </Mutation>
-          );
+      {data && data.changeEmail && (
+        <SuccessMessage message={data.changeEmail.message} />
+      )}
+
+      <Formik
+        initialValues={{ email }}
+        validationSchema={emailSchema}
+        onSubmit={async (values, { setSubmitting }) => {
+          setSubmitting(true);
+          await changeEmail({ variables: values });
+          setSubmitting(false);
         }}
-      </Query>
-    );
-  }
-}
+      >
+        {(formikProps) => (
+          <div className={`${Styles['form']} profile-form--user`}>
+            <form onSubmit={formikProps.handleSubmit}>
+              <div className={Styles['form-field-wrapper']}>
+                <label className={Styles['form-label']} htmlFor="email">
+                  Email
+                </label>
+                <div className={Styles['form-field']}>
+                  <Field
+                    type="email"
+                    onChange={formikProps.handleChange}
+                    id="email"
+                    name="email"
+                  />
+                  <FormikErrorMessage
+                    name="email"
+                    component={FormErrorMessage}
+                  />
+                </div>
+              </div>
+
+              <div className={Styles['form-field-wrapper']}>
+                <div />
+                <div>
+                  <Button
+                    type="submit"
+                    disabled={
+                      !formikProps.dirty ||
+                      !formikProps.isValid ||
+                      formikProps.isSubmitting ||
+                      loading
+                    }
+                  >
+                    Change
+                  </Button>
+                  <Loading loading={loading} />
+                  <ErrorMessage error={error} />
+                </div>
+              </div>
+            </form>
+          </div>
+        )}
+      </Formik>
+    </div>
+  );
+};
 
 export default ChangeEmail;

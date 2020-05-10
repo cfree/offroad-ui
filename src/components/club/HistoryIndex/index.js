@@ -1,5 +1,11 @@
 import React from 'react';
-import { Switch, Route, useRouteMatch, useLocation } from 'react-router-dom';
+import {
+  Switch,
+  Redirect,
+  Route,
+  useRouteMatch,
+  useLocation,
+} from 'react-router-dom';
 
 import History from '../History';
 import Officers from '../Officers';
@@ -47,6 +53,7 @@ const ProfileIndex = () => {
         <Route exact path={path}>
           <History />
         </Route>
+        <Redirect from="*" to="/404" />
       </Switch>
     </div>
   );

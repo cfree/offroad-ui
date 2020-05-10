@@ -109,19 +109,6 @@ class ProfileForm extends Component {
                 />
               )}
 
-              {/* {isSelf ? (
-                <RigUploader image={queryData.user.rig} />
-              ) : (
-                <img
-                  src={
-                    (queryData.user.rig && queryData.user.rig.url) ||
-                    DEFAULT_RIG_SRC
-                  }
-                  width="660"
-                  alt="Rig"
-                />
-              )} */}
-
               <Mutation
                 mutation={USER_UPDATE_PROFILE_MUTATION}
                 variables={this.state.userForm}
@@ -457,7 +444,7 @@ class ProfileForm extends Component {
                                   mutationLoading
                                 }
                               >
-                                Submit
+                                Update
                               </Button>
                               <Loading loading={mutationLoading} />
                               <ErrorMessage error={mutationError} />

@@ -1,5 +1,11 @@
 import React from 'react';
-import { Switch, Route, useRouteMatch, useParams } from 'react-router-dom';
+import {
+  Switch,
+  Redirect,
+  Route,
+  useRouteMatch,
+  useParams,
+} from 'react-router-dom';
 
 import Profile from '../Profile';
 import Activity from '../Activity';
@@ -40,6 +46,7 @@ const ProfileIndex = () => {
         <Route exact path={path}>
           <Profile username={username} isSelf={isSelf} />
         </Route>
+        <Redirect from="*" to="/404" />
       </Switch>
     </div>
   );

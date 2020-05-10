@@ -76,7 +76,15 @@ const Garage = ({ username, isSelf }) => {
           </dl>
         </div>
       ) : (
-        <div>No vehicle found. Add something to your garage.</div>
+        <p>
+          No vehicle found.
+          <br />
+          {isSelf && (
+            <>
+              <Link to="/settings/garage">Add something</Link> to your garage.
+            </>
+          )}
+        </p>
       )}
     </>
   );

@@ -23,7 +23,7 @@
 
     @include breakpoint($bp-md) {
       flex-direction: column;
-      align-items: start;
+      align-items: flex-start;
       margin-bottom: 0;
     }
   }
@@ -92,7 +92,6 @@
 
     &--selected {
       @extend %rsvp-icon;
-
       cursor: not-allowed;
 
       &:before {
@@ -131,6 +130,7 @@
     }
 
     &--selected {
+      @extend %rsvp-icon;
       cursor: not-allowed;
 
       &:before {

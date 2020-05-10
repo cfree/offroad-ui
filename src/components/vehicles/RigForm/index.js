@@ -6,12 +6,13 @@ import Loading from '../../utility/Loading';
 import ErrorMessage from '../../utility/ErrorMessage';
 import FormErrorMessage from '../../utility/FormErrorMessage';
 import { outfitLevel } from '../../../lib/constants';
+import Button from '../../common/Button';
 
 import Styles from './rigForm.module.scss';
 
 const RigForm = ({ initialValues, onSubmit, loading = '', error }) => {
   return (
-    <div>
+    <>
       <Formik
         initialValues={initialValues}
         validate={rigSchema}
@@ -20,7 +21,7 @@ const RigForm = ({ initialValues, onSubmit, loading = '', error }) => {
         }}
       >
         {(formikProps) => (
-          <div className="form rig-form--user">
+          <div className={Styles['form']}>
             <form onSubmit={formikProps.handleSubmit}>
               <div className={Styles['form-field']}>
                 <label className={Styles['rig-form-label']} htmlFor="year">
@@ -131,25 +132,30 @@ const RigForm = ({ initialValues, onSubmit, loading = '', error }) => {
 
               {/* <Field type="checkbox" name="isDefault" /> */}
 
-              <div className={Styles['form-footer']}>
-                <button
-                  type="submit"
-                  disabled={
-                    Object.keys(formikProps.errors).length > 0 ||
-                    formikProps.isSubmitting ||
-                    loading
-                  }
-                >
-                  Update
-                </button>
-                <Loading loading={loading} />
-                <ErrorMessage error={error} />
+              <div className={Styles['form-field']}>
+                <div />
+
+                <div>
+                  <Button
+                    type="submit"
+                    disabled={
+                      !formikProps.dirty ||
+                      !formikProps.isValid ||
+                      formikProps.isSubmitting ||
+                      loading
+                    }
+                  >
+                    Update
+                  </Button>
+                  <Loading loading={loading} />
+                  <ErrorMessage error={error} />
+                </div>
               </div>
             </form>
           </div>
         )}
       </Formik>
-    </div>
+    </>
   );
 };
 

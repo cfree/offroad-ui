@@ -15,7 +15,7 @@ const Tabs = ({ tabs }) => {
     <nav className={Styles['tabs']}>
       <ul>
         {tabs.map((tab, index) => (
-          <li>
+          <li key={index}>
             <Link className={tabStyles[index]} to={tab.link}>
               {tab.title}
             </Link>

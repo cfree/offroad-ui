@@ -1,13 +1,8 @@
 import { gql } from 'apollo-boost';
 
 export const RIGBOOK_QUERY = gql`
-  query RIGBOOK_QUERY(
-    $president: Office!
-    $vicePresident: Office!
-    $secretary: Office!
-    $treasurer: Office!
-  ) {
-    president: getOfficer(office: $president) {
+  query RIGBOOK_QUERY {
+    president: getOfficer(office: PRESIDENT) {
       username
       id
       email
@@ -35,7 +30,7 @@ export const RIGBOOK_QUERY = gql`
         trim
       }
     }
-    vicePresident: getOfficer(office: $vicePresident) {
+    vicePresident: getOfficer(office: VICE_PRESIDENT) {
       username
       id
       email
@@ -63,7 +58,7 @@ export const RIGBOOK_QUERY = gql`
         trim
       }
     }
-    secretary: getOfficer(office: $secretary) {
+    secretary: getOfficer(office: SECRETARY) {
       username
       id
       email
@@ -91,7 +86,7 @@ export const RIGBOOK_QUERY = gql`
         trim
       }
     }
-    treasurer: getOfficer(office: $treasurer) {
+    treasurer: getOfficer(office: TREASURER) {
       username
       id
       email

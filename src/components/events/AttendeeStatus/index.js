@@ -3,8 +3,13 @@ import { Mutation } from '@apollo/react-components';
 // import { Link } from 'react-router-dom';
 import cn from 'classnames';
 
-import Icon from '../../common/Icon';
 import { RSVP_MUTATION } from './attendeeStatus.graphql';
+// Refetch
+import { EVENT_QUERY } from '../EventDetails/eventDetails.graphql';
+import { UPCOMING_EVENTS_QUERY } from '../EventList/eventList.graphql';
+import { NEXT_EVENT_QUERY } from '../../dashboard/NextEvent/nextEvent.graphql';
+
+import Icon from '../../common/Icon';
 import Loading from '../../utility/Loading';
 import { rsvpStatuses, pastRsvpStatuses } from '../../../lib/constants';
 
@@ -127,6 +132,18 @@ export default class AttendeeStatus extends Component {
             status: 'GOING',
           },
         }}
+        refetchQueries={[
+          {
+            query: EVENT_QUERY,
+            variables: { eventId: this.props.eventId },
+          },
+          {
+            query: UPCOMING_EVENTS_QUERY,
+          },
+          {
+            query: NEXT_EVENT_QUERY,
+          },
+        ]}
       >
         {(setRSVP, { loading }) => {
           const status = this.getUserRSVPStatus(
