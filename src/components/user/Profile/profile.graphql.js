@@ -4,6 +4,9 @@ export const PROFILE_QUERY = gql`
   query PROFILE_QUERY($username: String) {
     user(username: $username) {
       id
+      username
+      firstName
+      lastName
       email
       gender
       birthdate

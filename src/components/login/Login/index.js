@@ -3,7 +3,9 @@ import { useMutation, useApolloClient } from '@apollo/react-hooks';
 import { useHistory, useLocation, Link } from 'react-router-dom';
 
 import { LOGIN_MUTATION } from './login.graphql';
+// Refetch
 import { CURRENT_USER_QUERY } from '../../../hooks/useUser/useUser.graphql';
+
 import Loading from '../../utility/Loading';
 import ErrorMessage from '../../utility/ErrorMessage';
 import Button from '../../common/Button';

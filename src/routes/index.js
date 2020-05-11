@@ -29,7 +29,7 @@ import EventPage from '../pages/private/EventPage';
 // import TrailPage from '../pages/private/TrailPage';
 import SettingsPage from '../pages/private/SettingsPage';
 // Admin
-import EditProfilePage from '../pages/admin/EditProfilePage';
+// import EditProfilePage from '../pages/admin/EditProfilePage';
 import EditEventPage from '../pages/admin/EditEventPage';
 import EditTrailPage from '../pages/admin/EditTrailPage';
 import CreateEventPage from '../pages/admin/CreateEventPage';
@@ -81,12 +81,13 @@ const Routes = () => {
         component={VotePage}
         typeCheck={isFullMember}
       /> */}
-      <GuardedRoute exact path="/profile/edit" component={EditProfilePage} />
+      {/* <GuardedRoute exact path="/profile/edit" component={EditProfilePage} /> */}
       <GuardedRoute
         path="/profile/:username"
         component={ProfilePage}
         typeCheck={isMember}
         statusCheck={isActive}
+        selfCheck
       />
       <GuardedRoute
         exact

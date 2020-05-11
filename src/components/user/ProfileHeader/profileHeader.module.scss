@@ -9,10 +9,15 @@ header {
 .user-header {
   display: flex;
   justify-content: space-between;
+  margin-bottom: $space / 2;
+
+  @include breakpoint($bp-sm) {
+    margin-bottom: 0;
+  }
 }
 
 .user-vehicle {
-  height: 370px; // todo
+  height: 175px; // todo
   width: 100%;
   background-size: cover;
   background-repeat: no-repeat;
@@ -21,7 +26,7 @@ header {
   margin-top: 5px;
 
   @include breakpoint($bp-sm) {
-    height: 370px; // todo
+    height: 225px; // todo
   }
 
   @include breakpoint($bp-md) {
@@ -30,7 +35,7 @@ header {
 }
 
 .user-demographics {
-  // width: 60%;
+  // width: 60%; // Without actions to the right
   width: 100%;
   display: flex;
 
@@ -39,10 +44,25 @@ header {
   }
 
   img {
-    margin: -30px 20px 15px;
     border-radius: 50%;
     border: 1px solid $grey-light;
-    box-shadow: 0 0 0 5px $white;
+    box-shadow: 0 0 0 2px $white;
+    margin: -10px 10px 5px;
+    height: 50px;
+    width: 50px;
+
+    @include breakpoint($bp-sm) {
+      margin: -20px 20px 10px;
+      height: 80px;
+      width: 80px;
+    }
+
+    @include breakpoint($bp-md) {
+      box-shadow: 0 0 0 5px $white;
+      margin: -30px 20px 15px;
+      height: 130px;
+      width: 130px;
+    }
   }
 }
 
@@ -50,7 +70,18 @@ header {
 }
 
 .user-name {
-  margin: 25px 0 2px;
+  margin: 5px 0 2px;
+  font-size: 1rem;
+
+  @include breakpoint($bp-sm) {
+    margin: 15px 0 2px;
+    font-size: 1.3rem;
+  }
+
+  @include breakpoint($bp-md) {
+    margin: 25px 0 2px;
+    font-size: 1.6rem;
+  }
 }
 
 .user-full-name {

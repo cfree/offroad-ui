@@ -63,7 +63,7 @@ const Profile = ({ username, isSelf }) => {
                   </Filter>
                 )}
 
-                {user.email && (isSelf || isAtLeastRunLeader(user.role)) && (
+                {user.email && (
                   <>
                     <dt>Email</dt>
                     <dd>
@@ -73,9 +73,7 @@ const Profile = ({ username, isSelf }) => {
                 )}
 
                 {get(user, 'contactInfo.phone') &&
-                  (get(user, 'contactInfo.showPhoneNumber', true) ||
-                    isSelf ||
-                    isAtLeastRunLeader(user.role)) && (
+                  get(user, 'contactInfo.showPhoneNumber', true) && (
                     <>
                       <dt>Phone</dt>
                       <dd>{getPhoneNumber(user.contactInfo.phone)}</dd>
@@ -85,62 +83,72 @@ const Profile = ({ username, isSelf }) => {
                 {get(user, 'contactInfo.street') &&
                   get(user, 'contactInfo.city') &&
                   get(user, 'contactInfo.state') &&
-                  get(user, 'contactInfo.zip') &&
-                  (isSelf || isAtLeastBoardMember(user.role)) && (
-                    <>
-                      <dt>Address</dt>
-                      <dd>
-                        <address>
-                          {user.contactInfo.street}
-                          <br />
-                          {user.contactInfo.city}, {user.contactInfo.state}{' '}
-                          {user.contactInfo.zip}
-                        </address>
-                      </dd>
-                    </>
+                  get(user, 'contactInfo.zip') && (
+                    <Filter
+                      selfCheck={user.username}
+                      roleCheck={isAtLeastRunLeader}
+                    >
+                      <>
+                        <dt>Address</dt>
+                        <dd>
+                          <address>
+                            {user.contactInfo.street}
+                            <br />
+                            {user.contactInfo.city}, {user.contactInfo.state}{' '}
+                            {user.contactInfo.zip}
+                          </address>
+                        </dd>
+                      </>
+                    </Filter>
                   )}
 
                 {get(user, 'preferences.emergencyContactName') &&
-                  get(user, 'preferences.emergencyContactPhone') &&
-                  (isSelf || isAtLeastRunLeader(user.role)) && (
-                    <>
-                      <dt>Emergency Contact</dt>
-                      <dd>
-                        {user.preferences.emergencyContactName}{' '}
-                        <small>
-                          {getPhoneNumber(
-                            user.preferences.emergencyContactPhone,
-                          )}
-                        </small>
-                      </dd>
-                    </>
+                  get(user, 'preferences.emergencyContactPhone') && (
+                    <Filter
+                      selfCheck={user.username}
+                      roleCheck={isAtLeastRunLeader}
+                    >
+                      <>
+                        <dt>Emergency Contact</dt>
+                        <dd>
+                          {user.preferences.emergencyContactName}{' '}
+                          <small>
+                            {getPhoneNumber(
+                              user.preferences.emergencyContactPhone,
+                            )}
+                          </small>
+                        </dd>
+                      </>
+                    </Filter>
                   )}
               </dl>
             </div>
           </div>
 
           {(user.comfortLevel || get(user, 'preferences.photoPermissions')) && (
-            <div>
-              <h3>Preferences</h3>
-              <dl>
-                {user.comfortLevel && (
-                  <>
-                    <dt>Comfort Level</dt>
-                    <dd>{user.comfortLevel}</dd>
-                  </>
-                )}
-
-                {get(user, 'preferences.photoPermissions') &&
-                  (isSelf || isAtLeastRunLeader(user.role)) && (
+            <Filter selfCheck={user.username} roleCheck={isAtLeastRunLeader}>
+              <div>
+                <h3>Preferences</h3>
+                <dl>
+                  {user.comfortLevel && (
                     <>
-                      <dt>Okay to be in photos?</dt>
-                      <dd>
-                        {user.preferences.photoPermissions ? 'Yes' : 'No'}
-                      </dd>
+                      <dt>Comfort Level</dt>
+                      <dd>{user.comfortLevel}</dd>
                     </>
                   )}
-              </dl>
-            </div>
+
+                  {get(user, 'preferences.photoPermissions') &&
+                    (isSelf || isAtLeastRunLeader(user.role)) && (
+                      <>
+                        <dt>Okay to be in photos?</dt>
+                        <dd>
+                          {user.preferences.photoPermissions ? 'Yes' : 'No'}
+                        </dd>
+                      </>
+                    )}
+                </dl>
+              </div>
+            </Filter>
           )}
         </main>
       )}

@@ -13,7 +13,7 @@ import Captcha from '../../common/Captcha';
 
 import Styles from './registerForm.module.scss';
 
-const RegisterForm = () => {
+const RegisterForm = ({ source = 'website' }) => {
   const [validRecaptcha, setValidRecaptcha] = useState(false);
   const [register, { error, loading, data }] = useMutation(REGISTER_MUTATION);
 
@@ -22,7 +22,7 @@ const RegisterForm = () => {
     lastName: '',
     email: '',
     confirmEmail: '',
-    source: 'website',
+    source,
   };
 
   const handleCaptchaChange = useCallback(

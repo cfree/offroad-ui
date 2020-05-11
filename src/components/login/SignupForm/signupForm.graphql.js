@@ -20,6 +20,7 @@ export const SIGNUP_MUTATION = gql`
     $username: String!
     $gender: Gender!
     $birthdate: DateTime!
+    $token: String!
   ) {
     signUp(
       email: $email
@@ -29,6 +30,7 @@ export const SIGNUP_MUTATION = gql`
       username: $username
       gender: $gender
       birthdate: $birthdate
+      token: $token
     ) {
       message
     }

@@ -19,34 +19,35 @@ import {
 import Styles from './dashboard.module.scss';
 
 const Dashboard = () => (
-  <div className={Styles['dashboard']}>
+  <div>
     <Filter statusCheck={isNotLocked}>
-      <div className={Styles['two-thirds']}>
-        <div className={Styles['container']}>
-          <NextEvent />
-        </div>
-      </div>
-      <div className={Styles['third']}>
-        <EventsSchedule />
-      </div>
-      <Filter typeCheck={isMember}>
-        <div className={Styles['third']}>
-          <Link to="/roster" className={Styles['roster-link']}>
-            Roster
-          </Link>
+      <div className={Styles['dashboard']}>
+        <div className={Styles['two-thirds']}>
+          <div className={Styles['container']}>
+            <NextEvent />
+          </div>
         </div>
         <div className={Styles['third']}>
-          <Link to="/history" className={Styles['history-link']}>
-            Club History
-          </Link>
+          <EventsSchedule />
         </div>
-        <div className={Styles['third']}>
-          <Link to="/documents" className={Styles['document-link']}>
-            Documents
-          </Link>
-        </div>
+        <Filter typeCheck={isMember}>
+          <div className={Styles['third']}>
+            <Link to="/roster" className={Styles['roster-link']}>
+              Roster
+            </Link>
+          </div>
+          <div className={Styles['third']}>
+            <Link to="/history" className={Styles['history-link']}>
+              Club History
+            </Link>
+          </div>
+          <div className={Styles['third']}>
+            <Link to="/documents" className={Styles['document-link']}>
+              Documents
+            </Link>
+          </div>
 
-        {/* <div className={Styles['two-thirds']}>
+          {/* <div className={Styles['two-thirds']}>
           <RecentPhotos />
         </div>
 
@@ -54,15 +55,19 @@ const Dashboard = () => (
           <RecentCheckIns />
         </div>
       </div> */}
-        {/* <PollingPlace /> */}
-      </Filter>
+          {/* <PollingPlace /> */}
+        </Filter>
+      </div>
     </Filter>
     <Filter statusCheck={isLocked}>
-      <p>
-        Your account is being reviewed. To expedite this process,{' '}
-        <Link to="/settings/profile">fill out your profile</Link> and{' '}
-        <Link to="/settings/garage">add your rig</Link>.
-      </p>
+      <>
+        <h2>Welcome!</h2>
+        <p>
+          Your account is being reviewed. To expedite this process,{' '}
+          <Link to="/settings/profile">fill out your profile</Link> and{' '}
+          <Link to="/settings/garage">add your rig</Link>.
+        </p>
+      </>
     </Filter>
   </div>
 );

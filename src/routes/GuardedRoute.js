@@ -14,6 +14,7 @@ const GuardedRoute = ({
   roleCheck = () => true,
   statusCheck = () => true,
   typeCheck = () => true,
+  selfCheck,
   fallback: Fallback = Unauthorized,
   ...rest
 }) => {
@@ -32,11 +33,18 @@ const GuardedRoute = ({
           return <Redirect to="/login" />;
         }
 
+        // Authorize
         const { myself } = data;
         const { role, accountStatus, accountType } = myself;
 
-        // Authorize
-        return roleCheck(role) &&
+        // Can view if self
+        if (selfCheck) {
+          return <Component {...props} />;
+        }
+
+        // Only view if checks pass
+        return !selfCheck &&
+          roleCheck(role) &&
           statusCheck(accountStatus) &&
           typeCheck(accountType) ? (
           <Component {...props} />

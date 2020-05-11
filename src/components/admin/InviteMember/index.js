@@ -1,9 +1,13 @@
 import React from 'react';
 
+import RegisterForm from '../../login/RegisterForm';
+
 const InviteMember = () => {
   return (
     <div>
-      <h2>Invite a Member</h2>
+      <h2>Invite A New Member</h2>
+
+      <RegisterForm source="admin" />
     </div>
   );
 };

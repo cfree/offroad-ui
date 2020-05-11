@@ -36,7 +36,7 @@ export const MEMBER_PROFILE_QUERY = gql`
 
 export const SELF_PROFILE_QUERY = gql`
   query SELF_PROFILE_QUERY {
-    user {
+    user: myself {
       id
       firstName
       lastName

@@ -7,7 +7,6 @@ interface SuccessMessageProps {
 }
 
 const SuccessMessage: FC<SuccessMessageProps> = ({ message }) => {
-  console.log('message', message);
   if (!message) return null;
 
   return (

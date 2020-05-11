@@ -14,6 +14,7 @@ import { userSchema } from './profileForm.schema';
 import AvatarUploader from '../../common/AvatarUploader';
 // import RigUploader from '../../common/RigUploader';
 import ErrorMessage from '../../utility/ErrorMessage';
+import SuccessMessage from '../../utility/SuccessMessage';
 import FormErrorMessage from '../../utility/FormErrorMessage';
 import Loading from '../../utility/Loading';
 import { states, DEFAULT_AVATAR_SRC } from '../../../lib/constants';
@@ -54,10 +55,6 @@ class ProfileForm extends Component {
             birthdate:
               (queryData.user.birthdate &&
                 format(new Date(queryData.user.birthdate), 'yyyy-MM-dd')) ||
-              null, // admin
-            joined:
-              (queryData.user.joined &&
-                format(new Date(queryData.user.joined), 'yyyy-MM-dd')) ||
               null, // admin
             phone:
               (queryData.user.contactInfo &&
@@ -266,7 +263,7 @@ class ProfileForm extends Component {
                             </div>
                           </div>
 
-                          {
+                          {queryData.user.joined && (
                             <div className={Styles['form-field-wrapper']}>
                               <label
                                 className={Styles['profile-form-label']}
@@ -288,7 +285,7 @@ class ProfileForm extends Component {
                                 />
                               </div>
                             </div>
-                          }
+                          )}
 
                           <div className={Styles['form-field-wrapper']}>
                             <label
@@ -448,8 +445,14 @@ class ProfileForm extends Component {
                               </Button>
                               <Loading loading={mutationLoading} />
                               <ErrorMessage error={mutationError} />
-                              {mutationData &&
-                                mutationData.updateUserProfileSettings.message}
+                              {mutationData && (
+                                <SuccessMessage
+                                  message={
+                                    mutationData.updateUserProfileSettings
+                                      .message
+                                  }
+                                />
+                              )}
                             </div>
                           </div>
                         </form>

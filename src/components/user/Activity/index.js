@@ -44,7 +44,7 @@ const Activity = ({ username, isSelf }) => {
                 ))}
             </ul>
           ) : (
-            <span>No events found...</span>
+            <span>None</span>
           )}
         </div>
         <div className={Styles['user-data__section']}>
@@ -56,7 +56,7 @@ const Activity = ({ username, isSelf }) => {
               ))}
             </ul>
           ) : (
-            <span>No trails found...</span>
+            <span>None</span>
           )}
         </div>
         {/* <div className={Styles["user-data__section"]}>
@@ -110,7 +110,7 @@ const Activity = ({ username, isSelf }) => {
                     ))}
                 </ul>
               ) : (
-                <span>No items found...</span>
+                <span>None</span>
               )}
             </div>
           </div>

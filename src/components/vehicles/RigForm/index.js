@@ -3,6 +3,7 @@ import { Formik, Field, ErrorMessage as FormikErrorMessage } from 'formik';
 
 import { rigSchema } from './rigForm.schema';
 import Loading from '../../utility/Loading';
+import SuccessMessage from '../../utility/SuccessMessage';
 import ErrorMessage from '../../utility/ErrorMessage';
 import FormErrorMessage from '../../utility/FormErrorMessage';
 import { outfitLevel } from '../../../lib/constants';
@@ -10,7 +11,13 @@ import Button from '../../common/Button';
 
 import Styles from './rigForm.module.scss';
 
-const RigForm = ({ initialValues, onSubmit, loading = '', error }) => {
+const RigForm = ({
+  initialValues,
+  onSubmit,
+  loading = '',
+  error,
+  successMessage,
+}) => {
   return (
     <>
       <Formik
@@ -149,6 +156,9 @@ const RigForm = ({ initialValues, onSubmit, loading = '', error }) => {
                   </Button>
                   <Loading loading={loading} />
                   <ErrorMessage error={error} />
+                  {successMessage && (
+                    <SuccessMessage message={successMessage} />
+                  )}
                 </div>
               </div>
             </form>

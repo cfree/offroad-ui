@@ -12,6 +12,7 @@ import MeetingPage from '../pages/admin/MeetingPage';
 import MeetingsPage from '../pages/admin/MeetingsPage';
 import TrailsPage from '../pages/admin/TrailsPage';
 import InvitePage from '../pages/admin/InvitePage';
+import ErrorPage from '../pages/util/ErrorPage';
 
 const AdminRoutes = () => {
   const { path } = useRouteMatch();
@@ -73,6 +74,7 @@ const AdminRoutes = () => {
         statusCheck={isActive}
         roleCheck={isAtLeastBoardMember}
       />
+      <Route path="*" component={ErrorPage} />
     </Switch>
   );
 };

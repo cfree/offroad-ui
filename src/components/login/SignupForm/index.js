@@ -1,8 +1,12 @@
 import React from 'react';
 import { useQuery, useMutation } from '@apollo/react-hooks';
 import { Formik, Field, ErrorMessage as FormikErrorMessage } from 'formik';
+import { Link } from 'react-router-dom';
 
 import { REGISTRATION_QUERY, SIGNUP_MUTATION } from './signupForm.graphql';
+// Refetch
+import { CURRENT_USER_QUERY } from '../../../hooks/useUser/useUser.graphql';
+
 import { userSchema } from './signupForm.schema';
 import Loading from '../../utility/Loading';
 import SuccessMessage from '../../utility/SuccessMessage';
@@ -52,7 +56,12 @@ const SignupForm = () => {
       <h2>Sign Up for a Guest Account</h2>
 
       {mutationData && mutationData.signUp && (
-        <SuccessMessage message={mutationData.signUp.message} />
+        <>
+          <SuccessMessage message={mutationData.signUp.message} />
+          <p>
+            Click <Link to="/login">here</Link> to login.
+          </p>
+        </>
       )}
       {queryData && queryData.getRegistration && (
         <Formik
@@ -68,7 +77,11 @@ const SignupForm = () => {
           validationSchema={userSchema}
           onSubmit={async (values, { setSubmitting }) => {
             setSubmitting(true);
-            await signUp({ variables: values });
+            await signUp({
+              variables: values,
+              refetchQueries: [{ query: CURRENT_USER_QUERY }],
+              awaitRefetchQueries: true,
+            });
             setSubmitting(false);
           }}
         >

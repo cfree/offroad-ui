@@ -21,6 +21,7 @@ import Filter from '../../login/Filter';
 import { isAtLeastRunMaster } from '../../../lib/utils';
 import { eventTypes } from '../../../lib/constants';
 import Icon from '../../common/Icon';
+import ErrorMessage from '../../utility/ErrorMessage';
 
 import Styles from './eventDetails.module.scss';
 
@@ -81,7 +82,7 @@ export default class EventDetails extends Component {
             return <div>Loading...</div>;
           }
           if (error) {
-            return <div>Error: {error.message}</div>;
+            return <ErrorMessage error={error} />;
           }
 
           const { event, myself } = data;

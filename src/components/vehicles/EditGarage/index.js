@@ -77,8 +77,8 @@ const EditGarage = () => {
                       }
                       loading={mutationLoading}
                       error={mutationError}
+                      successMessage={successMessage}
                     />
-                    {successMessage && <p>{successMessage}.</p>}
                   </>
                 );
               }}

@@ -73,7 +73,9 @@ const ProfileHeader = ({ username, isSelf }) => {
                       {[offices[user.office], ...convertedTitles].join(', ')}
                     </li>
                   )}
-                  <li>Joined {format(new Date(user.joined), 'M/d/yyyy')}</li>
+                  {user.joined && (
+                    <li>Joined {format(new Date(user.joined), 'M/d/yyyy')}</li>
+                  )}
                 </ul>
               </div>
             </div>

@@ -1,6 +1,8 @@
 import React, { useCallback } from 'react';
 import {
+  Switch as RouterSwitch,
   Route,
+  Redirect,
   useRouteMatch,
   useHistory,
   useLocation,
@@ -40,8 +42,13 @@ const RosterIndex = () => {
         />
       </nav>
 
-      <Route exact path={path} component={Rigbook} />
-      <Route path={`${path}/list`} component={Roster} />
+      <RouterSwitch>
+        <Route path={`${path}/list`} component={Roster} />
+        <Route exact path={path} component={Rigbook} />
+        <Route path="*">
+          <Redirect to="/404" />
+        </Route>
+      </RouterSwitch>
     </div>
   );
 };
