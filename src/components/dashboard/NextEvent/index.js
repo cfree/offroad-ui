@@ -115,14 +115,16 @@ const NextEvent = () => {
             ghost
             selected={hasRSVPd && isAttendingNextEvent}
           >
-            Attending
+            {hasRSVPd && isAttendingNextEvent ? 'Attending' : 'Attend'}
           </Button>
           <Button
             onClick={() => submitRsvp(false, event.id, myself.id, setRsvp)}
             ghost
             selected={hasRSVPd && !isAttendingNextEvent}
           >
-            Not Attending
+            {hasRSVPd && !isAttendingNextEvent
+              ? 'Not Attending'
+              : "Won't Attend"}
           </Button>
           <Loading loading={loading} />
         </div>

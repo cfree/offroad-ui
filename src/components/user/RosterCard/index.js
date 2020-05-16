@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import get from 'lodash/get';
+import cn from 'classnames';
 
 import {
   getMemberType,
@@ -12,11 +13,12 @@ import Filter from '../../login/Filter';
 
 import Styles from './rosterCard.module.scss';
 
-const RosterCard = ({ user }) => {
+const RosterCard = ({ user, className }) => {
+  const classes = cn(Styles['roster-card'], className);
   const phone = get(user, 'contactInfo.phone', '');
 
   return (
-    <tr className={Styles['roster-card']}>
+    <tr className={classes}>
       <td>
         <img
           className={Styles['member__img']}

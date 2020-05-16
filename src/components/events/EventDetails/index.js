@@ -338,12 +338,10 @@ export default class EventDetails extends Component {
                   <h3>Attendees</h3>
 
                   <div className={Styles['event__attendees']}>
-                    <div
-                      className={cn(Styles['event__host'])}
-                      title={event.type === 'RUN' ? 'Run Leader' : 'Host'}
-                    >
-                      <RigbookCard user={event.host} />
-                    </div>
+                    <RigbookCard
+                      user={event.host}
+                      className={Styles['event__host']}
+                    />
                     {attendees
                       .filter(
                         (attendee) => attendee.member.id !== event.host.id,

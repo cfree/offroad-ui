@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { format } from 'date-fns';
 import get from 'lodash/get';
+import cn from 'classnames';
 
 import { getMemberType, isAtLeastRunLeader } from '../../../lib/utils';
 import {
@@ -13,12 +14,13 @@ import Filter from '../../login/Filter';
 
 import Styles from './rigbookCard.module.scss';
 
-const RigbookCard = ({ user, titleOverride }) => {
+const RigbookCard = ({ user, titleOverride, className }) => {
+  const classes = cn(Styles['rigbook-card'], className);
   const RIG_SRC = get(user, 'rig.image.url', DEFAULT_RIG_SRC);
   const AVATAR_SRC = get(user, 'avatar.url', DEFAULT_AVATAR_SRC);
 
   return (
-    <div className={Styles['rigbook-card']}>
+    <div className={classes}>
       <div className={Styles['user-photos']}>
         <img
           className={Styles['vehicle-img']}

@@ -44,7 +44,11 @@ export class Roster extends Component {
                 </thead>
                 <tbody>
                   {data.users.map((user) => (
-                    <RosterCard key={user.id} user={user} />
+                    <RosterCard
+                      key={user.id}
+                      user={user}
+                      className={Styles['roster-card']}
+                    />
                   ))}
                 </tbody>
               </table>
