@@ -61,8 +61,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint --ext .js,.jsx,.ts,.tsx src --color",
-    "format": "prettier --write src/**/*.{ts,tsx,scss,css,json}",
-    "postinstall": "npm run build"
+    "format": "prettier --write src/**/*.{ts,tsx,scss,css,json}"
   },
   "main": "server.js",
   "eslintConfig": {
