@@ -27,7 +27,6 @@
     "classnames": "^2.2.6",
     "date-fns": "^2.12.0",
     "dotenv": "^8.2.0",
-    "express": "^4.17.1",
     "formik": "^1.5.8",
     "graphql": "^14.6.0",
     "graphql-tag": "^2.10.3",
@@ -46,6 +45,7 @@
     "react-select": "^3.1.0",
     "react-transition-group": "^4.3.0",
     "rebass": "^2.3.4",
+    "serve": "^11.3.0",
     "typeface-josefin-sans": "0.0.75",
     "typeface-merriweather": "0.0.72",
     "typeface-open-sans": "0.0.75",
@@ -56,14 +56,15 @@
     "yup": "^0.28.3"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "serve -s build",
+    "dev": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint --ext .js,.jsx,.ts,.tsx src --color",
-    "format": "prettier --write src/**/*.{ts,tsx,scss,css,json}"
+    "format": "prettier --write src/**/*.{ts,tsx,scss,css,json}",
+    "heroku-postbuild": "npm run build"
   },
-  "main": "server.js",
   "eslintConfig": {
     "extends": "react-app"
   },
