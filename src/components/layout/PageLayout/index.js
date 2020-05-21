@@ -9,7 +9,6 @@ import Styles from './pageLayout.module.scss';
 
 const PageLayout = ({ children }) => (
   <>
-    <Meta />
     <div className={Styles['wrapper']}>
       <ErrorBoundary>
         <Header />
