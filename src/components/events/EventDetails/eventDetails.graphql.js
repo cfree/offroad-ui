@@ -71,6 +71,7 @@ export const EVENT_QUERY = gql`
         currentConditions
         conditionsLastReported
         favoriteCount
+        trailheadCoords
         featuredImage {
           id
           url
