@@ -30,12 +30,12 @@ import Styles from './dashboard.module.scss';
 
 const Dashboard = () => (
   <div>
-    <Filter typeCheck={isNotInactive}>
+    <Filter statusCheck={isNotInactive}>
       <Filter statusCheck={isNotLimited}>
         <Filter statusCheck={wasNotRemoved}>
           <Filter statusCheck={hasNotResigned}>
             <Filter statusCheck={isNotLocked}>
-              <Filter statusCheck={isNotDeceasedMember}>
+              <Filter typeCheck={isNotDeceasedMember}>
                 <div className={Styles['dashboard']}>
                   <Filter statusCheck={isNotDelinquent}>
                     <div className={Styles['two-thirds']}>

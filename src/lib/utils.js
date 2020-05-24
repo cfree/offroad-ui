@@ -119,7 +119,7 @@ export const isAtLeastGuestMember = (type) => {
 };
 
 export const isDeceasedMember = (type) => type === 'DECEASED';
-export const isNotDeceasedMember = (type) => type === 'DECEASED';
+export const isNotDeceasedMember = (type) => !isDeceasedMember(type);
 
 export const formatPhone = (phoneNum) => {
   const phone = phoneNum.toString();
@@ -159,10 +159,19 @@ export const isLocked = (status) => status === 'LOCKED';
 export const isNotLocked = (status) => !isLocked(status);
 
 // Cloudinary upload presets
-export const getUploadLocation = (appendage) =>
-  process.env.NODE_ENV === 'development'
-    ? `dev_${appendage}`
-    : `prod_${appendage}`;
+export const getUploadLocation = (appendage) => {
+  const env = process.env.STAGING_ENV || process.env.NODE_ENV;
+
+  switch (env) {
+    case 'development':
+      return `dev_${appendage}`;
+    case 'staging':
+      return `staging_${appendage}`;
+    case 'production':
+    default:
+      return `prod_${appendage}`;
+  }
+};
 
 export const uploadImage = async (file, location) => {
   const data = new FormData();
