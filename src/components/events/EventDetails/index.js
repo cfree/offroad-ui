@@ -137,6 +137,7 @@ export default class EventDetails extends Component {
           );
 
           const TRAIL_IMAGE = get(event, 'trail.featuredImage.url');
+          console.log('TRAIL_IMAGE', TRAIL_IMAGE);
 
           const HOST_IMAGE = get(
             event,
