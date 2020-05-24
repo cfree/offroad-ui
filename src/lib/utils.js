@@ -119,6 +119,7 @@ export const isAtLeastGuestMember = (type) => {
 };
 
 export const isDeceasedMember = (type) => type === 'DECEASED';
+export const isNotDeceasedMember = (type) => type === 'DECEASED';
 
 export const formatPhone = (phoneNum) => {
   const phone = phoneNum.toString();

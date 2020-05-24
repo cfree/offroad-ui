@@ -1,27 +1,33 @@
-import React, { useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 import { Mutation } from '@apollo/react-components';
 import get from 'lodash/get';
 import { Link } from 'react-router-dom';
 
 import { CREATE_TRAIL_MUTATION } from './createTrail.graphql';
+import TrailImageUploader from '../TrailImageUploader';
 
-import EventForm from '../TrailForm';
+import TrailForm from '../TrailForm';
 // import ErrorMessage from '../../utility/ErrorMessage';
 
 const CreateTrail = () => {
+  const [image, setImage] = useState({
+    publicId: null,
+    url: null,
+    smallUrl: null,
+  });
+
   const initialValues = {
     name: '',
     slug: '',
     description: '',
-    featuredImage: '',
     trailheadCoords: '',
     address: '',
-    image: null,
-    newImage: null,
   };
 
   const handleSubmit = useCallback(
-    ({ image, newImage, ...filteredValues }, setSubmitting, createEvent) => {
+    (filteredValues, setSubmitting, createTrail) => {
+      setSubmitting(true);
+
       const trailValues = {
         ...Object.entries(filteredValues).reduce(
           (acc, value) => ({
@@ -31,23 +37,24 @@ const CreateTrail = () => {
           {},
         ),
         featuredImage: null,
-        newFeaturedImage: newImage,
+        newFeaturedImage: image,
       };
-      console.log('values', trailValues);
-      setSubmitting(true);
-      createEvent({
+
+      createTrail({
         variables: {
           trail: trailValues,
         },
       });
+
       setSubmitting(false);
     },
-    [],
+    [image],
   );
 
   return (
     <>
       <h3>Create New Trail</h3>
+      <TrailImageUploader onUpload={setImage} />
       <Mutation mutation={CREATE_TRAIL_MUTATION}>
         {(
           createTrail,
@@ -61,7 +68,7 @@ const CreateTrail = () => {
 
           return (
             <>
-              <EventForm
+              <TrailForm
                 initialValues={initialValues}
                 onSubmit={(values, setSubmitting) =>
                   handleSubmit(values, setSubmitting, createTrail)
@@ -72,7 +79,7 @@ const CreateTrail = () => {
               />
               {successMessage && (
                 <p>
-                  {successMessage}. <Link to="/admin-trails">View trails</Link>.
+                  {successMessage}. <Link to="/admin/trails">View trails</Link>.
                 </p>
               )}
             </>

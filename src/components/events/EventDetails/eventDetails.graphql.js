@@ -39,6 +39,7 @@ export const EVENT_QUERY = gql`
       }
       startTime
       endTime
+      trailDifficulty
       rsvps {
         member {
           id

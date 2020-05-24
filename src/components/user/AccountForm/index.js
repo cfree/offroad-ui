@@ -1,7 +1,7 @@
 import React from 'react';
 // import { Formik, Field, ErrorMessage, Form } from 'formik';
 import { useQuery } from '@apollo/react-hooks';
-import format from 'date-fns/format';
+import { format } from 'date-fns';
 
 import { ACCOUNT_FORM_QUERY } from './accountForm.graphql.js';
 // import Switch from '../../common/Switch';
@@ -47,7 +47,22 @@ const AccountForm = ({ token = null }) => {
   }
 
   const { myself, logItems } = queryData;
-  const { accountType, accountStatus, email } = myself;
+  const { accountType, accountStatus, email, eventsRSVPd } = myself;
+
+  let runsAttended = 0;
+  let meetingsAttended = 0;
+
+  if (eventsRSVPd.length && eventsRSVPd.length > 0) {
+    runsAttended = eventsRSVPd
+      .filter((rsvp) => rsvp.status === 'GOING')
+      .filter((rsvp) => rsvp.event.type === 'RUN')
+      .filter((rsvp) => new Date(rsvp.event.startTime) < new Date()).length;
+
+    meetingsAttended = eventsRSVPd
+      .filter((rsvp) => rsvp.status === 'GOING')
+      .filter((rsvp) => rsvp.event.type === 'MEETING')
+      .filter((rsvp) => new Date(rsvp.event.startTime) < new Date()).length;
+  }
 
   return (
     <div className={Styles['account-form']}>
@@ -87,7 +102,7 @@ const AccountForm = ({ token = null }) => {
                     {/* <h3>Past Due</h3> */}
                     Happy New Year! It's {new Date().getFullYear()} and that
                     means it's time to pay your membership dues. Please pay
-                    before March 31st to remain on the membership roster.
+                    before March 31st to remain on the membership roster.{' '}
                     <a
                       href="http://www.paypal.me/4playersco/20.91"
                       target="_blank"
@@ -112,8 +127,8 @@ const AccountForm = ({ token = null }) => {
                   </h4>
                   <p>
                     {/* <h3>Lapsed</h3> */}
-                    We had to suspend your account because your membership dues
-                    had not been received by March 31st. If you would like to
+                    Your account has been suspended because your membership dues
+                    were not been received by March 31st. If you would like to
                     reactivate your membership, send the{' '}
                     <a href="mailto:board@4-playersofcolorado.org">Board</a> a
                     quick email.
@@ -194,11 +209,50 @@ const AccountForm = ({ token = null }) => {
                   <p>
                     {/* <h3>Guest</h3> */}
                     You are a guest.
-                    <br /> Runs Attended: 2 <br />
-                    Meetings Attended: 0<br />
-                    You must attend 1 run and run regular meeting before you are
-                    eligible for membership. If you have any questions, please
-                    contact the{' '}
+                  </p>
+
+                  <p>
+                    Runs Attended: {runsAttended} <br />
+                    Meetings Attended: {meetingsAttended}
+                  </p>
+
+                  <p>
+                    You must attend 1 run and 1 run regular meeting before you
+                    are eligible for membership.
+                  </p>
+
+                  <p>
+                    If you have any questions, please contact the{' '}
+                    <a href="mailto:board@4-playersofcolorado.org">Board</a>.
+                  </p>
+                </>
+              </Filter>
+
+              <Filter typeCheck={isGuestMember} statusCheck={isInactive}>
+                <>
+                  <h4>
+                    {accountTypes[accountType]} Member{' '}
+                    <Badge className={Styles['badge']} type="neutral">
+                      {accountStatuses[accountStatus]}
+                    </Badge>
+                  </h4>
+                  <p>
+                    {/* <h3>Guest</h3> */}
+                    You are a guest.
+                  </p>
+
+                  <p>
+                    Runs Attended: {runsAttended} <br />
+                    Meetings Attended: {meetingsAttended}
+                  </p>
+
+                  <p>
+                    You must attend 1 run and 1 run regular meeting before you
+                    are eligible for membership.
+                  </p>
+
+                  <p>
+                    If you have any questions, please contact the{' '}
                     <a href="mailto:board@4-playersofcolorado.org">Board</a>.
                   </p>
                 </>
@@ -214,15 +268,26 @@ const AccountForm = ({ token = null }) => {
                   </h4>
                   <p>
                     {/* <h3>Limited</h3> */}
-                    You are a guest. Runs Attended: 3{' '}
-                    <small>
-                      You are allowed to attend 3 runs before we ask that you
-                      become a member
-                    </small>
-                    Meetings Attended: 1 Congratulations! You are eligible for
-                    membership. If you have any questions, please contact the
-                    <a href="mailto:board@4-playersofcolorado.org">Board</a>.
+                    You are a guest.
                   </p>
+
+                  <p>
+                    Runs Attended: {runsAttended} <br />
+                    Meetings Attended: {meetingsAttended}
+                  </p>
+
+                  <p>
+                    As a guest, you are allowed to attend 3 runs before we ask
+                    that you become a member.
+                  </p>
+
+                  {runsAttended >= 1 && meetingsAttended >= 1 && (
+                    <p>
+                      Congratulations! You are eligible for membership. If you
+                      have any questions, please contact the
+                      <a href="mailto:board@4-playersofcolorado.org">Board</a>.
+                    </p>
+                  )}
                 </>
               </Filter>
 

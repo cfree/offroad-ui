@@ -1,24 +1,19 @@
 import React, { useState, useCallback, useRef } from 'react';
 import { useMutation } from '@apollo/react-hooks';
 
-import { UPDATE_RIG, DELETE_RIG } from './rigUploader.graphql.js';
-// Refetch
-import { CURRENT_USER_QUERY } from '../../../hooks/useUser/useUser.graphql';
-import { RIGBOOK_QUERY } from '../../user/Rigbook/rigbook.graphql';
-import { PROFILE_HEADER_QUERY } from '../../user/ProfileHeader/profileHeader.graphql';
-
+import { UPDATE_TRAIL } from './trailImageUploader.graphql.js';
 import ErrorMessage from '../../utility/ErrorMessage';
 import Loading from '../../utility/Loading';
 import { getUploadLocation } from '../../../lib/utils';
 import Button from '../../common/Button';
 import Icon from '../../common/Icon';
 
-import Styles from './rigUploader.module.scss';
+import Styles from './trailImageUploader.module.scss';
 
 const uploadImage = async (file) => {
   const data = new FormData();
   data.append('file', file);
-  data.append('upload_preset', getUploadLocation('rigs'));
+  data.append('upload_preset', getUploadLocation('trails'));
 
   const res = await fetch(
     'https://api.cloudinary.com/v1_1/fourplayers/image/upload',
@@ -31,97 +26,75 @@ const uploadImage = async (file) => {
   return res.json();
 };
 
-const defaultRig = {
-  id: null,
+const defaultTrail = {
   publicId: null,
   url: null,
   smallUrl: null,
 };
 
-const RigUploader = ({ image, isGuest }) => {
+const TrailUploader = ({ image, onUpload, trailId }) => {
   const inputEl = useRef(null);
-  const initialImage = {
-    id: (image && image.id) || defaultRig.id,
-    publicId: (image && image.publicId) || defaultRig.publicId,
-    url: (image && image.url) || defaultRig.url,
-    smallUrl: (image && image.smallUrl) || defaultRig.smallUrl,
-  };
-  const [rig, setRig] = useState(initialImage);
-  const [oldRig, setOldRig] = useState(image ? initialImage : null);
+  const [trail, setTrail] = useState(defaultTrail);
   const [uploading, setUploading] = useState(false);
+  const [uploadComplete, setUploadComplete] = useState(false);
 
   const [
-    updateRig,
+    updateTrail,
     { error: updateError, loading: updateLoading, data: updateData },
-  ] = useMutation(UPDATE_RIG);
-  // const [
-  //   deleteRig,
-  //   { error: deleteError, loading: deleteLoading },
-  // ] = useMutation(DELETE_RIG);
+  ] = useMutation(UPDATE_TRAIL);
 
   const handleFileUpload = useCallback(() => {
     inputEl.current.click();
   }, [inputEl]);
 
   const uploadFile = useCallback(
-    async (e, callback) => {
+    async (e) => {
       const files = e.target.files;
+
+      setUploadComplete(false);
       setUploading(true);
+
       const uploadResults = await uploadImage(files[0]);
-      const newRig = {
+
+      const newTrail = {
         publicId: uploadResults.public_id,
         url: uploadResults.secure_url,
         smallUrl: uploadResults.eager[0].secure_url,
       };
 
-      const refetchQueries = [
-        {
-          query: CURRENT_USER_QUERY,
-        },
-        {
-          query: PROFILE_HEADER_QUERY,
+      if (onUpload) {
+        // Pass to parent component
+        onUpload(newTrail);
+      } else {
+        // Handle the mutation itself
+        updateTrail({
           variables: {
-            username: 'self',
+            id: trailId,
+            image: newTrail,
           },
-        },
-      ];
-
-      if (!isGuest) {
-        refetchQueries.push({
-          query: RIGBOOK_QUERY,
         });
       }
 
-      callback({
-        variables: {
-          data: {
-            old: oldRig,
-            new: newRig,
-          },
-        },
-        refetchQueries,
-      });
-
-      setRig(newRig);
-      setOldRig(newRig);
+      setTrail(newTrail);
       setUploading(false);
+      setUploadComplete(true);
     },
-    [oldRig, setRig, setOldRig],
+    [setTrail, setUploading, setUploadComplete, onUpload, updateTrail, trailId],
   );
 
-  const deleteFile = useCallback(
-    async (callback) => {
-      callback({
-        variables: {
-          rig: oldRig,
-        },
-      });
+  // const deleteFile = useCallback(
+  //   async (callback) => {
+  //     callback({
+  //       variables: {
+  //         rig: oldTrail,
+  //       },
+  //     });
 
-      setRig(defaultRig);
-      setOldRig(null);
-    },
-    [oldRig, setRig, setOldRig],
-  );
+  //     setTrail(defaultTrail);
+  //     setOldTrail(null);
+  //   },
+  //   [oldTrail, setTrail, setOldTrail],
+  // );
 
   return (
     <div className={Styles['uploader']}>
@@ -129,24 +102,22 @@ const RigUploader = ({ image, isGuest }) => {
         <img
           className={Styles['img']}
           width="330"
-          src={rig.url || '/img/default-vehicle.jpg'}
-          alt="Rig"
+          src={trail.url || image || '/img/default-event.jpg'}
+          alt="Trail"
         />
         <div className={Styles['uploader-input']}>
           <div>
-            <h4>Change Your Rig Photo</h4>
+            <h4>Change Your Trail Photo</h4>
             <Button
               className={Styles['upload-button']}
               onClick={handleFileUpload}
             >
               Choose File
             </Button>
-            {(updateLoading || uploading) && (
-              <Loading loading={updateLoading} />
-            )}
-            {rig.url && updateData && (
+            {(uploading || updateLoading) && <Loading loading={uploading} />}
+            {trail.url && uploadComplete && updateData && (
               <small>
-                {updateData.updateRig.message}
+                {updateData.updateTrailImage.message}
                 <Icon className={Styles['icon']} icon="success" />
               </small>
             )}
@@ -159,23 +130,21 @@ const RigUploader = ({ image, isGuest }) => {
               accept="image/png,image/jpeg,image/gif"
               placeholder="Upload an image"
               required
-              onChange={(e) => uploadFile(e, updateRig)}
+              onChange={uploadFile}
               key={Date.now()}
             />
           </div>
           <small className={Styles['reqs']}>
-            JPG, GIF, or PNG. At least 2640 x 1760.
-            <br />
-            Side profile preferred.
+            JPG, GIF, or PNG. At least 1440 x 810.
           </small>
           <ErrorMessage error={updateError} />
         </div>
       </div>
-      {/* {rig.url && (
+      {/* {trail.url && (
         <>
           <button
             disabled={deleteLoading}
-            onClick={() => deleteFile(deleteRig)}
+            onClick={() => deleteFile(deleteTrail)}
           >
             Delete image
           </button>
@@ -187,4 +156,4 @@ const RigUploader = ({ image, isGuest }) => {
   );
 };
 
-export default RigUploader;
+export default TrailUploader;

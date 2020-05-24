@@ -4,7 +4,6 @@ export const trailSchema = yup.object().shape({
   name: yup.string().required('Name is required'),
   slug: yup.string().required('Slug is required'),
   description: yup.string().nullable(),
-  featuredImage: yup.string().nullable(),
   trailheadCoords: yup.string().nullable(),
   address: yup.string().nullable(),
 });

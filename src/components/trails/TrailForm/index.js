@@ -7,7 +7,6 @@ import RichTextArea from '../../utility/RichTextArea';
 import Loading from '../../utility/Loading';
 import ErrorMessage from '../../utility/ErrorMessage';
 import FormErrorMessage from '../../utility/FormErrorMessage';
-import UploadImagePreview from '../../common/UploadImagePreview';
 
 import Styles from './trailForm.module.scss';
 
@@ -72,45 +71,6 @@ const TrailForm = ({
                     </small>
                     <FormikErrorMessage
                       name="slug"
-                      component={FormErrorMessage}
-                    />
-                  </div>
-                </div>
-
-                <div className={Styles['form-field-wrapper']}>
-                  {formikProps.values.newImage && (
-                    <UploadImagePreview file={formikProps.values.newImage} />
-                  )}
-
-                  {!formikProps.values.newImage && initialValues.image && (
-                    <img src={initialValues.image} alt="" width="400" />
-                  )}
-                  <label
-                    className={Styles['trail-form-label']}
-                    htmlFor="newImage"
-                  >
-                    Featured Image
-                  </label>
-                  <div className={Styles['trail-form-field']}>
-                    <Field
-                      name="newImage"
-                      id="newImage"
-                      component={({ field, form }) => (
-                        <input
-                          id="file"
-                          name="file"
-                          type="file"
-                          onChange={(event) => {
-                            form.setFieldValue(
-                              'newImage',
-                              event.currentTarget.files[0],
-                            );
-                          }}
-                        />
-                      )}
-                    />
-                    <FormikErrorMessage
-                      name="newImage"
                       component={FormErrorMessage}
                     />
                   </div>

@@ -17,7 +17,11 @@ import ErrorMessage from '../../utility/ErrorMessage';
 import SuccessMessage from '../../utility/SuccessMessage';
 import FormErrorMessage from '../../utility/FormErrorMessage';
 import Loading from '../../utility/Loading';
-import { states, DEFAULT_AVATAR_SRC } from '../../../lib/constants';
+import {
+  states,
+  DEFAULT_AVATAR_SRC,
+  trailDifficulties,
+} from '../../../lib/constants';
 import { formatPhone } from '../../../lib/utils';
 import { dateEighteenYearsAgo } from '../../../utilities/dates';
 import Button from '../../common/Button';
@@ -45,6 +49,11 @@ class ProfileForm extends Component {
           }
 
           const { isAdmin = false } = this.props;
+          const { user } = queryData;
+          const isGuest =
+            user.accountType === 'GUEST' ||
+            (user.accountStatus !== 'ACTIVE' &&
+              user.accountStatus !== 'PAST_DUE');
 
           const userFormValues = {
             id: queryData.user.id,
@@ -55,6 +64,10 @@ class ProfileForm extends Component {
             birthdate:
               (queryData.user.birthdate &&
                 format(new Date(queryData.user.birthdate), 'yyyy-MM-dd')) ||
+              null, // admin
+            joined:
+              (queryData.user.joined &&
+                format(new Date(queryData.user.joined), 'yyyy-MM-dd')) ||
               null, // admin
             phone:
               (queryData.user.contactInfo &&
@@ -88,12 +101,16 @@ class ProfileForm extends Component {
                   queryData.user.preferences.emergencyContactPhone,
                 )) ||
               '',
+            comfortLevel: queryData.user.comfortLevel || 'UNKNOWN',
           };
 
           return (
             <>
               {isSelf ? (
-                <AvatarUploader image={queryData.user.avatar} />
+                <AvatarUploader
+                  image={queryData.user.avatar}
+                  isGuest={isGuest}
+                />
               ) : (
                 <img
                   src={
@@ -424,6 +441,34 @@ class ProfileForm extends Component {
                               />
                               <FormikErrorMessage
                                 name="emergencyContactPhone"
+                                component={FormErrorMessage}
+                              />
+                            </div>
+                          </div>
+
+                          <div className={Styles['form-field-wrapper']}>
+                            <label
+                              className={Styles['profile-form-label']}
+                              htmlFor="comfortLevel"
+                            >
+                              Trail Comfort Level
+                            </label>
+                            <div className={Styles['profile-form-field']}>
+                              <Field
+                                component="select"
+                                name="comfortLevel"
+                                id="comfortLevel"
+                              >
+                                {Object.keys(trailDifficulties).map(
+                                  (difficulty, i) => (
+                                    <option key={i} value={difficulty}>
+                                      {trailDifficulties[difficulty]}
+                                    </option>
+                                  ),
+                                )}
+                              </Field>
+                              <FormikErrorMessage
+                                name="comfortLevel"
                                 component={FormErrorMessage}
                               />
                             </div>

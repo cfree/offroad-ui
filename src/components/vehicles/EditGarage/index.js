@@ -39,6 +39,11 @@ const EditGarage = () => {
         }
 
         const { vehicle } = queryData.user;
+        const { user } = queryData;
+        const isGuest =
+          user.accountType === 'GUEST' ||
+          (user.accountStatus !== 'ACTIVE' &&
+            user.accountStatus !== 'PAST_DUE');
 
         const initialValues = {
           id: get(vehicle, 'id', 0),
@@ -53,7 +58,10 @@ const EditGarage = () => {
 
         return (
           <>
-            <RigUploader image={get(queryData, 'user.rig.image')} />
+            <RigUploader
+              image={get(queryData, 'user.rig.image')}
+              isGuest={isGuest}
+            />
             <Mutation mutation={USER_UPDATE_RIG_MUTATION}>
               {(
                 userUpdateRig,

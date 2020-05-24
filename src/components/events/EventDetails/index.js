@@ -22,8 +22,23 @@ import { isAtLeastRunMaster } from '../../../lib/utils';
 import { eventTypes } from '../../../lib/constants';
 import Icon from '../../common/Icon';
 import ErrorMessage from '../../utility/ErrorMessage';
+import Badge from '../../common/Badge';
 
 import Styles from './eventDetails.module.scss';
+
+const getBadgeType = (difficulty) => {
+  switch (difficulty) {
+    case 'BEGINNER':
+      return 'success';
+    case 'INTERMEDIATE':
+      return 'caution';
+    case 'ADVANCED':
+      return 'fail';
+    case 'UNKNOWN':
+    default:
+      return 'neutral';
+  }
+};
 
 export default class EventDetails extends Component {
   onMapImgError = (e) => {
@@ -261,33 +276,35 @@ export default class EventDetails extends Component {
                   className={Styles['event__section']}
                   aria-label="Description"
                 >
-                  {parse(event.description)}
+                  {event.type === 'RUN' && (
+                    <>
+                      <h3>Run Leader Notes</h3>
+                      {event.trailDifficulty && (
+                        <>
+                          <strong>Difficulty</strong>:{' '}
+                          <Badge type={getBadgeType(event.trailDifficulty)}>
+                            {trailDifficulties[event.trailDifficulty]}
+                          </Badge>
+                        </>
+                      )}
+                    </>
+                  )}
+                  {event.description && parse(event.description)}
                 </section>
                 {event.trail && (
                   <section>
-                    <h3>Trail Information</h3>
-                    <h5>{event.trail.name}</h5>
-                    {parse(event.trail.description)}
-
-                    {/* <button id={event.trail.id}>
-                      {event.trail.name}
-                      </button> */}
-                    {(event.trailDifficulty || event.trailNotes) && (
+                    {event.trail.description && (
                       <>
-                        <h4>Run Leader Notes</h4>
+                        <h3>Trail Information</h3>
+                        {parse(event.trail.description)}
+                      </>
+                    )}
+
+                    {event.trailNotes && (
+                      <>
+                        <h3>Run Leader Notes</h3>
                         <p>
-                          {event.trailDifficulty && (
-                            <>
-                              <strong>Difficulty</strong>:{' '}
-                              {trailDifficulties[event.trailDifficulty]}
-                              <br />
-                            </>
-                          )}
-                          {event.trailNotes && (
-                            <>
-                              <strong>Comments</strong>: {event.trailNotes}
-                            </>
-                          )}
+                          <strong>Comments</strong>: {event.trailNotes}
                         </p>
                       </>
                     )}

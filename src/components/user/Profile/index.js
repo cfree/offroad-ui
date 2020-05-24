@@ -12,6 +12,7 @@ import {
   isAtLeastBoardMember,
   isAtLeastRunLeader,
 } from '../../../lib/utils';
+import { trailDifficulties } from '../../../lib/constants';
 
 import Styles from './profile.module.scss';
 
@@ -133,7 +134,7 @@ const Profile = ({ username, isSelf }) => {
                   {user.comfortLevel && (
                     <>
                       <dt>Comfort Level</dt>
-                      <dd>{user.comfortLevel}</dd>
+                      <dd>{trailDifficulties[user.comfortLevel]}</dd>
                     </>
                   )}
 

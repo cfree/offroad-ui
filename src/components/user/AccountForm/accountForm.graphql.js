@@ -7,12 +7,22 @@ export const ACCOUNT_FORM_QUERY = gql`
       email
       accountType
       accountStatus
+      eventsRSVPd {
+        id
+        status
+        event {
+          id
+          type
+          startTime
+        }
+      }
     }
     logItems: getMembershipLogItems(username: "self", messageCode: DUES_PAID) {
       id
       time
       message
     }
+
     # notifications: getEmailNotificationsStatus {
     #   id
     #   status

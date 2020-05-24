@@ -10,7 +10,6 @@ export const PROFILE_QUERY = gql`
       email
       gender
       birthdate
-      comfortLevel
       contactInfo {
         id
         street
@@ -26,6 +25,7 @@ export const PROFILE_QUERY = gql`
         emergencyContactPhone
         photoPermissions
       }
+      comfortLevel
     }
   }
 `;

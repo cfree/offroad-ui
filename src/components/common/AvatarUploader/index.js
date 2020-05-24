@@ -38,7 +38,7 @@ const defaultImage = {
   smallUrl: null,
 };
 
-const AvatarUploader = ({ image }) => {
+const AvatarUploader = ({ image, isGuest }) => {
   const inputEl = useRef(null);
   const initialImage = {
     id: (image && image.id) || defaultImage.id,
@@ -65,6 +65,24 @@ const AvatarUploader = ({ image }) => {
         smallUrl: uploadResults.eager[0].secure_url,
       };
 
+      const refetchQueries = [
+        {
+          query: CURRENT_USER_QUERY,
+        },
+        {
+          query: PROFILE_HEADER_QUERY,
+          variables: {
+            username: 'self',
+          },
+        },
+      ];
+
+      if (!isGuest) {
+        refetchQueries.push({
+          query: RIGBOOK_QUERY,
+        });
+      }
+
       callback({
         variables: {
           data: {
@@ -72,27 +90,14 @@ const AvatarUploader = ({ image }) => {
             new: newAvatar,
           },
         },
-        refetchQueries: [
-          {
-            query: CURRENT_USER_QUERY,
-          },
-          {
-            query: RIGBOOK_QUERY,
-          },
-          {
-            query: PROFILE_HEADER_QUERY,
-            variables: {
-              username: 'self',
-            },
-          },
-        ],
+        refetchQueries,
       });
 
       setAvatar(newAvatar);
       setOldAvatar(newAvatar);
       setUploading(false);
     },
-    [oldAvatar, setAvatar, setOldAvatar, setUploading],
+    [oldAvatar, setAvatar, setOldAvatar, setUploading, isGuest],
   );
 
   const deleteFile = useCallback(

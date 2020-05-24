@@ -7,6 +7,7 @@ import {
   isMember,
   isAtLeastGuestMember,
   isActive,
+  isActiveOrPastDue,
   isAtLeastRunMaster,
   isAtLeastBoardMember,
   // isFullMember,
@@ -51,24 +52,24 @@ const Routes = () => {
         path="/documents"
         component={DocumentsPage}
         typeCheck={isMember}
-        statusCheck={isActive}
+        statusCheck={isActiveOrPastDue}
       />
       <GuardedRoute
         path="/history"
         component={HistoryPage}
         typeCheck={isMember}
-        statusCheck={isActive}
+        statusCheck={isActiveOrPastDue}
       />
-      <GuardedRoute
+      {/* <GuardedRoute
         path="/message"
         component={MessagePage}
         typeCheck={isAtLeastGuestMember}
-      />
+      /> */}
       <GuardedRoute
         path="/roster"
         component={RosterPage}
         typeCheck={isMember}
-        statusCheck={isActive}
+        statusCheck={isActiveOrPastDue}
       />
       {/* <GuardedRoute
         path="/elections"
@@ -86,14 +87,14 @@ const Routes = () => {
         path="/profile/:username"
         component={ProfilePage}
         typeCheck={isMember}
-        statusCheck={isActive}
+        statusCheck={isActiveOrPastDue}
         selfCheck
       />
       <GuardedRoute
         exact
         path="/event/new"
         component={CreateEventPage}
-        statusCheck={isActive}
+        statusCheck={isActiveOrPastDue}
         roleCheck={isAtLeastRunMaster}
       />
       <GuardedRoute
@@ -104,42 +105,43 @@ const Routes = () => {
       <GuardedRoute
         path="/event/:id/edit"
         component={EditEventPage}
-        statusCheck={isActive}
+        statusCheck={isActiveOrPastDue}
         roleCheck={isAtLeastRunMaster}
       />
       <GuardedRoute
         path="/event/:id"
         component={EventPage}
-        statusCheck={isActive}
+        statusCheck={isActiveOrPastDue}
       />
       <GuardedRoute path="/settings" component={SettingsPage} />
       <GuardedRoute
         path="/trails"
         component={TrailsPage}
         roleCheck={isAtLeastRunMaster}
+        statusCheck={isActiveOrPastDue}
       />
       <GuardedRoute
         exact
         path="/trail/new"
         component={CreateTrailPage}
-        statusCheck={isActive}
+        statusCheck={isActiveOrPastDue}
         roleCheck={isAtLeastRunMaster}
       />
       <GuardedRoute
         path="/trail/:slug/edit"
         component={EditTrailPage}
-        statusCheck={isActive}
+        statusCheck={isActiveOrPastDue}
         roleCheck={isAtLeastRunMaster}
       />
       {/* <GuardedRoute
         path="/trail/:slug"
         component={TrailPage}
-        statusCheck={isActive}
+        statusCheck={isActiveOrPastDue}
       /> */}
       <GuardedRoute
         path="/admin"
         component={AdminRoutes}
-        statusCheck={isActive}
+        statusCheck={isActiveOrPastDue}
         roleCheck={isAtLeastBoardMember}
       />
       <Redirect from="/registration" to="/register" />

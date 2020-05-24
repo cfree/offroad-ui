@@ -30,6 +30,7 @@ export const MEMBER_PROFILE_QUERY = gql`
         emergencyContactPhone
         photoPermissions
       }
+      comfortLevel
     }
   }
 `;
@@ -38,6 +39,8 @@ export const SELF_PROFILE_QUERY = gql`
   query SELF_PROFILE_QUERY {
     user: myself {
       id
+      accountType
+      accountStatus
       firstName
       lastName
       username
@@ -64,6 +67,7 @@ export const SELF_PROFILE_QUERY = gql`
         emergencyContactPhone
         photoPermissions
       }
+      comfortLevel
     }
   }
 `;
@@ -86,6 +90,7 @@ export const USER_UPDATE_PROFILE_MUTATION = gql`
     $preferencesId: ID
     $emergencyContactName: String!
     $emergencyContactPhone: String!
+    $comfortLevel: TrailDifficulty
   ) {
     updateUserProfileSettings(
       data: {
@@ -104,6 +109,7 @@ export const USER_UPDATE_PROFILE_MUTATION = gql`
         preferencesId: $preferencesId
         emergencyContactName: $emergencyContactName
         emergencyContactPhone: $emergencyContactPhone
+        comfortLevel: $comfortLevel
       }
       id: $id
     ) {

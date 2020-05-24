@@ -10,7 +10,7 @@ export const userSchema = yup.object().shape({
     .date()
     .max(dateEighteenYearsAgo, 'You must be 18 years old to join')
     .required('Birthdate is required'),
-  joined: yup.date().max(new Date()),
+  joined: yup.date().max(new Date()).nullable(),
   phone: yup
     .string()
     .matches(
@@ -38,4 +38,5 @@ export const userSchema = yup.object().shape({
       'Use proper format: 303-555-5555',
     )
     .required('Emergency contact phone number is required'),
+  comfortLevel: yup.string(),
 });
