@@ -11,6 +11,7 @@ import RosterPage from '../pages/admin/RosterPage';
 import MeetingPage from '../pages/admin/MeetingPage';
 import MeetingsPage from '../pages/admin/MeetingsPage';
 import TrailsPage from '../pages/admin/TrailsPage';
+import UnlockPage from '../pages/admin/UnlockPage';
 import InvitePage from '../pages/admin/InvitePage';
 import ErrorPage from '../pages/util/ErrorPage';
 
@@ -65,6 +66,12 @@ const AdminRoutes = () => {
       <Route
         path={`${path}/trails`}
         component={TrailsPage}
+        statusCheck={isActive}
+        roleCheck={isAtLeastBoardMember}
+      />
+      <Route
+        path={`${path}/unlock`}
+        component={UnlockPage}
         statusCheck={isActive}
         roleCheck={isAtLeastBoardMember}
       />

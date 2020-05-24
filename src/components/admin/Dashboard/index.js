@@ -30,6 +30,9 @@ const Dashboard = () => (
           <Link to="/admin/trails">Trails</Link>
         </li>
         <li>
+          <Link to="/admin/unlock">Locked New Accounts</Link>
+        </li>
+        <li>
           <Link to="/admin/invite">Invite a Member</Link>
         </li>
         {/* <li>

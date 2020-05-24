@@ -104,6 +104,13 @@ export const outfitLevel = {
   STOCK: 'Stock',
 };
 
+export const genders = {
+  MALE: 'Male',
+  FEMALE: 'Female',
+  UNDISCLOSED: 'Undisclosed',
+  OTHER: 'Other',
+};
+
 export const DEFAULT_AVATAR_SRC = '/img/default-user.jpg';
 export const DEFAULT_AVATAR_SMALL_SRC = '/img/default-user.jpg';
 export const DEFAULT_RIG_SRC = '/img/default-vehicle.jpg';
