@@ -73,8 +73,6 @@ const Rsvp = ({ userStatus, attendeeCount, userId, eventId, pastEvent }) => {
       return;
     }
 
-    console.log('userStatus', userStatus);
-
     const set = async () => {
       await setRsvp({
         variables: {
@@ -107,7 +105,6 @@ const Rsvp = ({ userStatus, attendeeCount, userId, eventId, pastEvent }) => {
   }, [
     localUserStatus,
     localAttendeeCount,
-    userStatus,
     setLocalUserStatus,
     setLocalAttendeeCount,
     setRsvp,

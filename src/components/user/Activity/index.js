@@ -33,7 +33,11 @@ const Activity = ({ username, isSelf }) => {
           {get(user, 'eventsRSVPd', []).length > 0 ? (
             <ul className={Styles['calendar-list']}>
               {user.eventsRSVPd
-                .filter((event) => event.status === 'GOING')
+                .filter((rsvp) => rsvp.status === 'GOING')
+                .filter((rsvp) => new Date(rsvp.event.startTime) < new Date())
+                .sort((a, b) =>
+                  a.event.startTime < b.event.startTime ? 1 : -1,
+                )
                 .map((rsvp) => (
                   <li key={rsvp.event.id}>
                     <Calendar date={rsvp.event.startTime} />
