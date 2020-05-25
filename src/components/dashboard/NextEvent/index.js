@@ -85,7 +85,9 @@ const NextEvent = () => {
   const isAttendingNextEvent =
     attending !== null ? attending : userRSVP === 'GOING';
 
-  const featuredImage = get(event, 'featuredImage.url', DEFAULT_EVENT_SRC);
+  const featuredImage =
+    get(event, 'trail.featuredImage.url') ||
+    get(event, 'featuredImage.url', DEFAULT_EVENT_SRC);
 
   const backgroundImage = {
     backgroundImage: `linear-gradient(90deg,${rgba('#4b5767', 1)} 0%,${rgba(
@@ -95,8 +97,8 @@ const NextEvent = () => {
       '#ff372d',
       0.25,
     )} 80%),
-            url(${featuredImage})
-          `,
+    url(${featuredImage})
+    `,
   };
 
   return (

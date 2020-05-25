@@ -9,7 +9,6 @@ export const NEW_ACCOUNTS_QUERY = gql`
       username
       birthdate
       gender
-      email
     }
   }
 `;

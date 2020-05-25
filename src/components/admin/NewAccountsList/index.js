@@ -69,7 +69,6 @@ const NewAccountsList = () => {
                 birthdate,
                 gender,
                 username,
-                email,
               } = user;
               const age = differenceInYears(new Date(), new Date(birthdate));
 

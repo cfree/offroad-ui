@@ -35,6 +35,9 @@ export const NEXT_EVENT_QUERY = gql`
       trail {
         id
         name
+        featuredImage {
+          url
+        }
       }
     }
   }
