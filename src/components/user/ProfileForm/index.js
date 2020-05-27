@@ -314,7 +314,7 @@ class ProfileForm extends Component {
                             <div className={Styles['profile-form-field']}>
                               <Field
                                 type="text"
-                                inputMode="numeric"
+                                inputMode="text"
                                 placeholder="ex: 303-555-5555"
                                 id="phone"
                                 name="phone"

@@ -129,9 +129,11 @@ const AccountForm = ({ token = null }) => {
                     {/* <h3>Lapsed</h3> */}
                     Your account has been suspended because your membership dues
                     were not been received by March 31st. If you would like to
-                    reactivate your membership, send the{' '}
-                    <a href="mailto:board@4-playersofcolorado.org">Board</a> a
-                    quick email.
+                    reactivate your membership, send an email to{' '}
+                    <a href="mailto:board@4-playersofcolorado.org">
+                      board@4-playersofcolorado.org
+                    </a>
+                    .
                   </p>
                 </>
               </Filter>
@@ -150,9 +152,11 @@ const AccountForm = ({ token = null }) => {
                   <p>
                     {/* <h3>Inactive</h3> */}
                     Your membership has lapsed due to non-payment. If you would
-                    like to become a member again, send the{' '}
-                    <a href="mailto:board@4-playersofcolorado.org">Board</a> a
-                    quick email.
+                    like to become a member again, send an email to{' '}
+                    <a href="mailto:board@4-playersofcolorado.org">
+                      board@4-playersofcolorado.org
+                    </a>
+                    .
                   </p>
                 </>
               </Filter>
@@ -171,9 +175,11 @@ const AccountForm = ({ token = null }) => {
                   <p>
                     {/* <h3>Resigned</h3> */}
                     You have resigned from membership. Sorry to see you go! If
-                    you would like to become a member again, send the{' '}
-                    <a href="mailto:board@4-playersofcolorado.org">Board</a> a
-                    quick email.
+                    you would like to become a member again, send an email to{' '}
+                    <a href="mailto:board@4-playersofcolorado.org">
+                      board@4-playersofcolorado.org
+                    </a>
+                    .
                   </p>
                 </>
               </Filter>
@@ -192,8 +198,11 @@ const AccountForm = ({ token = null }) => {
                   <p>
                     {/* <h3>Removed</h3> */}
                     You have been removed from membership. If you have any
-                    questions, please contact the{' '}
-                    <a href="mailto:board@4-playersofcolorado.org">Board</a>.
+                    questions, please email{' '}
+                    <a href="mailto:board@4-playersofcolorado.org">
+                      board@4-playersofcolorado.org
+                    </a>
+                    .
                   </p>
                 </>
               </Filter>
@@ -252,8 +261,11 @@ const AccountForm = ({ token = null }) => {
                   </p>
 
                   <p>
-                    If you have any questions, please contact the{' '}
-                    <a href="mailto:board@4-playersofcolorado.org">Board</a>.
+                    If you have any questions, please email{' '}
+                    <a href="mailto:board@4-playersofcolorado.org">
+                      board@4-playersofcolorado.org
+                    </a>
+                    .
                   </p>
                 </>
               </Filter>
@@ -284,8 +296,11 @@ const AccountForm = ({ token = null }) => {
                   {runsAttended >= 1 && meetingsAttended >= 1 && (
                     <p>
                       Congratulations! You are eligible for membership. If you
-                      have any questions, please contact the
-                      <a href="mailto:board@4-playersofcolorado.org">Board</a>.
+                      have any questions, please email{' '}
+                      <a href="mailto:board@4-playersofcolorado.org">
+                        board@4-playersofcolorado.org
+                      </a>
+                      .
                     </p>
                   )}
                 </>
@@ -321,9 +336,9 @@ const AccountForm = ({ token = null }) => {
                     {/* <h3>Locked</h3> */}
                     Welcome! Your account is being reviewed. Please make sure
                     your profile is filled out. If you have any questions,
-                    please contact the{' '}
+                    please email{' '}
                     <a href="mailto:webmaster@4-playersofcolorado.org">
-                      Webmaster
+                      webmaster@4-playersofcolorado.org
                     </a>
                     .
                   </p>
