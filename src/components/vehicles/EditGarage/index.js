@@ -12,11 +12,12 @@ const EditGarage = () => {
     async ({ id, ...vehicleValues }, setSubmitting, userUpdateRig) => {
       setSubmitting(true);
 
-      const { year, mods, ...restVehicles } = vehicleValues;
+      const { year, mods, outfitLevel, ...restVehicles } = vehicleValues;
 
       userUpdateRig({
         variables: {
           id,
+          outfitLevel: outfitLevel === '0' ? null : outfitLevel,
           year: parseInt(year, 10),
           mods: mods ? mods.split(', ') : '',
           ...restVehicles,
