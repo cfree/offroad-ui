@@ -31,7 +31,7 @@
     "graphql": "^14.6.0",
     "graphql-tag": "^2.10.3",
     "html-react-parser": "^0.10.3",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "node-sass": "^4.13.1",
     "normalize.css": "^8.0.1",
     "polished": "^3.5.2",
