@@ -95,18 +95,27 @@
 }
 
 .event-title {
-  margin: 0 0 ($space / 2);
   line-height: 1;
   word-break: break-all;
   word-break: break-word;
   hyphens: auto;
+  margin: 0;
+  margin-bottom: $space / 2;
 
   @include breakpoint($bp-sm) {
-    margin: 0;
+    margin-bottom: $space / 2;
   }
 
   a {
     color: #000;
+  }
+}
+
+.event__badge {
+  margin: 0 0 ($space / 2);
+
+  @include breakpoint($bp-sm) {
+    margin-bottom: $space;
   }
 }
 

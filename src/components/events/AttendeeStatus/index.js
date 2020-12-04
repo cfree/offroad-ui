@@ -1,46 +1,14 @@
 import React, { Component } from 'react';
-import { Mutation } from '@apollo/react-components';
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import cn from 'classnames';
 
-import { RSVP_MUTATION } from './attendeeStatus.graphql';
-// Refetch
-import { EVENT_QUERY } from '../EventDetails/eventDetails.graphql';
-import { UPCOMING_EVENTS_QUERY } from '../EventList/eventList.graphql';
-import { NEXT_EVENT_QUERY } from '../../dashboard/NextEvent/nextEvent.graphql';
-
 import Icon from '../../common/Icon';
-import Loading from '../../utility/Loading';
 import { rsvpStatuses, pastRsvpStatuses } from '../../../lib/constants';
+import Button from '../../common/Button';
 
 import Styles from './attendeeStatus.module.scss';
 
 export default class AttendeeStatus extends Component {
-  getUserRSVPStatus = (eventId, myself) => {
-    if (this.props.attendees[eventId]) {
-      const attendee = this.props.attendees[eventId].find(
-        (rsvp) => rsvp.member.id === myself.id,
-      );
-
-      return (attendee && attendee.status) || null;
-    }
-    return null;
-  };
-
-  updateAttendees = async (setRSVP) => {
-    await setRSVP();
-
-    const update = [
-      ...this.props.attendees[this.props.eventId],
-      {
-        member: { ...this.props.user },
-        status: 'GOING',
-      },
-    ];
-
-    this.props.onUpdateEventAttendees({ [this.props.eventId]: update });
-  };
-
   showStatus = (status) => {
     if (this.props.isUpcoming) {
       switch (status) {
@@ -64,6 +32,7 @@ export default class AttendeeStatus extends Component {
   };
 
   showIcon = (status) => {
+    console.log('status', status);
     if (this.props.isUpcoming) {
       switch (status) {
         case 'GOING':
@@ -106,6 +75,7 @@ export default class AttendeeStatus extends Component {
               {pastRsvpStatuses[status]}
             </Icon>
           );
+        case 'NONE':
         case 'MAYBE':
         case 'CANT_GO':
         default:
@@ -122,61 +92,45 @@ export default class AttendeeStatus extends Component {
   };
 
   render() {
-    return (
-      <Mutation
-        mutation={RSVP_MUTATION}
-        variables={{
-          rsvp: {
-            userId: this.props.user.id,
-            eventId: this.props.eventId,
-            status: 'GOING',
-          },
-        }}
-        refetchQueries={[
-          {
-            query: EVENT_QUERY,
-            variables: { eventId: this.props.eventId },
-          },
-          {
-            query: UPCOMING_EVENTS_QUERY,
-          },
-          {
-            query: NEXT_EVENT_QUERY,
-          },
-        ]}
-      >
-        {(setRSVP, { loading }) => {
-          const status = this.getUserRSVPStatus(
-            this.props.eventId,
-            this.props.user,
-          );
+    const {
+      status,
+      eventId,
+      isUpcoming,
+      iconFirst = false,
+      darkMode = false,
+    } = this.props;
 
-          return (
-            <>
-              {status || !this.props.isUpcoming ? (
-                <span className={Styles['attendee-status']}>
-                  <span>{this.showStatus(status)}</span>
-                  {this.showIcon(status)}
-                </span>
-              ) : (
-                <button
-                  className={Styles['button']}
-                  disabled={loading}
-                  onClick={() => this.updateAttendees(setRSVP)}
-                >
-                  <Icon
-                    className={Styles['attendee-status--icon']}
-                    icon="success"
-                  >
-                    Attend
-                  </Icon>
-                </button>
-              )}
-              <Loading loading={loading} />
-            </>
-          );
-        }}
-      </Mutation>
+    const classNames = cn(Styles['attendee-status'], {
+      [Styles['attendees-status--dark']]: darkMode,
+    });
+
+    if (!status || status === 'NONE') {
+      return isUpcoming ? (
+        <Button ghost={darkMode} href={`/event/${eventId}`}>
+          View Event
+        </Button>
+      ) : (
+        <span className={classNames}>
+          <span>{this.showStatus(status)}</span>
+          {this.showIcon(status)}
+        </span>
+      );
+    }
+
+    return (
+      <span className={classNames}>
+        {iconFirst ? (
+          <>
+            {this.showIcon(status)}
+            <span>{this.showStatus(status)}</span>
+          </>
+        ) : (
+          <>
+            <span>{this.showStatus(status)}</span>
+            {this.showIcon(status)}
+          </>
+        )}
+      </span>
     );
   }
 }

@@ -3,13 +3,16 @@
 
 .rsvp {
   &__attendees {
+    display: flex;
+    flex-direction: column;
+
     @include breakpoint($bp-md) {
       margin-bottom: 7px;
     }
   }
 
   &__count {
-    margin-left: 10px;
+    // margin-left: 10px;
     font-size: 1.2rem;
     color: $black-light;
   }
@@ -32,6 +35,8 @@
     font-size: 1.6rem;
     font-weight: 700;
     margin-bottom: $space;
+    display: flex;
+    flex-direction: column;
 
     @include breakpoint($bp-md) {
       margin-bottom: 0;
@@ -41,7 +46,6 @@
   &__count--past {
     font-size: 1.2rem;
     font-weight: 400;
-    margin-left: 20px;
   }
 
   &__button {
@@ -68,6 +72,7 @@
   @extend %rsvp-icon;
 
   &--disabled {
+    @extend %rsvp-icon;
     cursor: not-allowed;
 
     &:before,
@@ -92,7 +97,6 @@
 
     &--selected {
       @extend %rsvp-icon;
-      cursor: not-allowed;
 
       &:before {
         transition: color 0.3s;
@@ -154,4 +158,8 @@
       }
     }
   }
+}
+
+.rsvp-modal__container {
+  @include container;
 }

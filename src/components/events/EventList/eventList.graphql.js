@@ -28,6 +28,7 @@ export const UPCOMING_EVENTS_QUERY = gql`
       address
       rallyAddress
       rallyTime
+      trailDifficulty
       trail {
         id
         name
@@ -81,6 +82,7 @@ export const PAST_EVENTS_QUERY = gql`
       address
       rallyAddress
       rallyTime
+      trailDifficulty
       trail {
         id
         name

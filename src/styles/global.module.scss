@@ -84,6 +84,21 @@
       background: transparent;
     }
   }
+
+  .ReactModal__Html--open,
+  .ReactModal__Body--open {
+    overflow: hidden !important; /* prevents background page from scrolling when the modal is open */
+  }
+
+  .ReactModal__Overlay {
+    position: fixed;
+    z-index: 999999;
+  }
+
+  .ReactModal__Content {
+    overflow-y: auto;
+    position: relative;
+  }
 }
 
 @font-face {

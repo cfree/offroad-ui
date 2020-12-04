@@ -71,7 +71,6 @@ class AdminProfileForm extends Component {
                   initialValues={userAdminFormValues}
                   validationSchema={userSchema}
                   onSubmit={(values, { setSubmitting }) => {
-                    console.log('VALUES', values);
                     this.setState(
                       {
                         userAdminForm: {

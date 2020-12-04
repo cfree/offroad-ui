@@ -217,3 +217,12 @@ export const convertQueryParams = (params) => {
       };
     }, {});
 };
+
+export const getUserRSVPStatus = (attendees, eventId, userId) => {
+  if (attendees) {
+    const attendee = attendees.find((rsvp) => rsvp.member.id === userId);
+
+    return (attendee && attendee.status) || 'NONE';
+  }
+  return 'NONE';
+};

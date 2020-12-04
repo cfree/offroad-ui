@@ -2,20 +2,7 @@
 @import '../../../styles/mixins.module';
 
 .container {
-  padding: $space / 2;
-
-  @include breakpoint($bp-sm) {
-    padding: $space;
-  }
-
-  @include breakpoint($max-width) {
-    margin: 0 auto;
-    max-width: $max-width;
-  }
-
-  @include breakpoint($bp-xl) {
-    padding: $space 0;
-  }
+  @include container;
 }
 
 .wrapper {

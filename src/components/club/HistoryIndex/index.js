@@ -40,6 +40,11 @@ const ProfileIndex = () => {
             title: 'In Memoriam',
             activeStyles: pathname.includes('/in-memoriam'),
           },
+          {
+            link: `/history/awards`,
+            title: 'Awards',
+            activeStyles: pathname.includes('/awards'),
+          },
         ]}
       />
 
@@ -50,6 +55,7 @@ const ProfileIndex = () => {
         <Route path={`${path}/in-memoriam`}>
           <InMemoriam />
         </Route>
+        <Route path={`${path}/awards`}>{/* <MemberAwards /> */}</Route>
         <Route exact path={path}>
           <History />
         </Route>

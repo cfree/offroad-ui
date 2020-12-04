@@ -16,7 +16,8 @@ import {
 } from '../../../lib/constants';
 // import Calendar from '../Calendar';
 import RigbookCard from '../../user/RigbookCard';
-import Rsvp from '../Rsvp';
+import RunRsvp from '../RunRsvp';
+import NonRunRsvp from '../NonRunRsvp';
 import Filter from '../../login/Filter';
 import { isAtLeastRunMaster } from '../../../lib/utils';
 import { eventTypes } from '../../../lib/constants';
@@ -107,8 +108,16 @@ export default class EventDetails extends Component {
           const attendees = event.rsvps.filter(
             (rsvp) => rsvp.status === 'GOING',
           );
-
-          const attendeeCount = attendees.length;
+          const guestPassengerCount = attendees.reduce(
+            (acc, attendee) => acc + get(attendee, 'guestCount', 0),
+            0,
+          );
+          const memberCount = attendees.length;
+          const attendeeCount = guestPassengerCount + memberCount;
+          const rigCount = attendees.filter((attendee) => {
+            console.log('attend', attendee);
+            return !attendee.isRider;
+          }).length;
 
           const userStatus = () => {
             const rsvp = event.rsvps.find(
@@ -121,6 +130,9 @@ export default class EventDetails extends Component {
 
             return 'NONE';
           };
+
+          const userRsvp = () =>
+            event.rsvps.find((rsvp) => rsvp.member.id === myself.id);
 
           const encodedRallyAddress = encodeURIComponent(
             event.rallyAddress || event.address || 'Colorado',
@@ -175,13 +187,28 @@ export default class EventDetails extends Component {
                 )}
               </div>
               <div className={Styles['event__rsvp']}>
-                <Rsvp
-                  userId={myself.id}
-                  userStatus={userStatus()}
-                  eventId={this.props.id}
-                  attendeeCount={attendeeCount}
-                  pastEvent={isPastEvent}
-                />
+                {event.type === 'RUN' ? (
+                  <RunRsvp
+                    user={myself}
+                    userStatus={userStatus()}
+                    eventId={this.props.id}
+                    attendeeCount={attendeeCount}
+                    rigCount={rigCount}
+                    pastEvent={isPastEvent}
+                    userRsvp={userRsvp()}
+                    isHost={event.host.id === myself.id}
+                  />
+                ) : (
+                  <NonRunRsvp
+                    user={myself}
+                    userStatus={userStatus()}
+                    eventId={this.props.id}
+                    attendeeCount={attendeeCount}
+                    rsvpCount={rigCount}
+                    pastEvent={isPastEvent}
+                    userRsvp={userRsvp()}
+                  />
+                )}
               </div>
               <aside className={Styles['event__aside']}>
                 <div className={Styles['event__aside-wrapper']}>
@@ -281,7 +308,6 @@ export default class EventDetails extends Component {
                       <h3>Run Leader Notes</h3>
                       {event.trailDifficulty && (
                         <>
-                          <strong>Difficulty</strong>:{' '}
                           <Badge type={getBadgeType(event.trailDifficulty)}>
                             {trailDifficulties[event.trailDifficulty]}
                           </Badge>
@@ -355,17 +381,29 @@ export default class EventDetails extends Component {
                   <h3>Attendees</h3>
 
                   <div className={Styles['event__attendees']}>
-                    <RigbookCard
-                      user={event.host}
-                      className={Styles['event__host']}
-                    />
-                    {attendees
-                      .filter(
-                        (attendee) => attendee.member.id !== event.host.id,
-                      )
-                      .map((attendee) => (
-                        <RigbookCard user={attendee.member} />
-                      ))}
+                    {attendees.map((attendee) => {
+                      const passengerCount = attendee.guestCount || 0;
+                      const passengers = passengerCount
+                        ? `${passengerCount} passenger${
+                            passengerCount === 1 ? '' : 's'
+                          }`
+                        : null;
+
+                      return (
+                        <RigbookCard
+                          key={attendee.member.id}
+                          user={attendee.member}
+                          extra={passengers}
+                          titleOverride={
+                            event.host.id === attendee.member.id
+                              ? event.type === 'RUN'
+                                ? 'Run Leader'
+                                : 'Host'
+                              : null
+                          }
+                        />
+                      );
+                    })}
                   </div>
                 </section>
                 {/* {isPastEvent && (

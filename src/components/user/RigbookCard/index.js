@@ -14,7 +14,7 @@ import Filter from '../../login/Filter';
 
 import Styles from './rigbookCard.module.scss';
 
-const RigbookCard = ({ user, titleOverride, className }) => {
+const RigbookCard = ({ user, titleOverride, className, extra }) => {
   const classes = cn(Styles['rigbook-card'], className);
   const RIG_SRC = get(user, 'rig.image.url', DEFAULT_RIG_SRC);
   const AVATAR_SRC = get(user, 'avatar.url', DEFAULT_AVATAR_SRC);
@@ -37,6 +37,7 @@ const RigbookCard = ({ user, titleOverride, className }) => {
         <h2>
           {user.firstName} {user.lastName}
         </h2>
+        {extra && <small className={Styles['extra']}>{extra}</small>}
         {user.titles && !titleOverride && (
           <div className={Styles['titles']}>{user.titles.join(', ')}</div>
         )}

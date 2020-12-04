@@ -1,19 +1,14 @@
-import React, { useState, useCallback } from 'react';
-import { useQuery, useMutation } from '@apollo/react-hooks';
+import React, { useState } from 'react';
+import { useQuery } from '@apollo/react-hooks';
 import { Link } from 'react-router-dom';
 import get from 'lodash/get';
 import { format } from 'date-fns';
 import { rgba } from 'polished';
 
-import { RSVP_MUTATION } from '../../events/Rsvp/rsvp.graphql';
 import { NEXT_EVENT_QUERY } from './nextEvent.graphql';
-// Refetch
-import { EVENT_QUERY } from '../../events/EventDetails/eventDetails.graphql';
-import { UPCOMING_EVENTS_QUERY } from '../../events/EventList/eventList.graphql';
 
 import ErrorMessage from '../../utility/ErrorMessage';
-import Loading from '../../utility/Loading';
-import Button from '../../common/Button';
+import AttendeeStatus from '../../events/AttendeeStatus';
 import { DEFAULT_EVENT_SRC } from '../../../lib/constants';
 
 import Styles from './nextEvent.module.scss';
@@ -38,33 +33,33 @@ const NextEvent = () => {
     error: queryError,
     data: queryData,
   } = useQuery(NEXT_EVENT_QUERY);
-  const [setRsvp, { loading }] = useMutation(RSVP_MUTATION);
+  // const [setRsvp, { loading }] = useMutation(RSVP_MUTATION);
 
   const [attending, setAttending] = useState(null);
-  const submitRsvp = useCallback(
-    (rsvp, eventId, userId, callback) => {
-      setAttending(rsvp);
-      callback({
-        variables: {
-          rsvp: {
-            userId,
-            eventId,
-            status: rsvp ? 'GOING' : 'CANT_GO',
-          },
-        },
-        refetchQueries: [
-          {
-            query: EVENT_QUERY,
-            variables: { eventId },
-          },
-          {
-            query: UPCOMING_EVENTS_QUERY,
-          },
-        ],
-      });
-    },
-    [setAttending],
-  );
+  // const submitRsvp = useCallback(
+  //   (rsvp, eventId, userId, callback) => {
+  //     setAttending(rsvp);
+  //     callback({
+  //       variables: {
+  //         rsvp: {
+  //           userId,
+  //           eventId,
+  //           status: rsvp ? 'GOING' : 'CANT_GO',
+  //         },
+  //       },
+  //       refetchQueries: [
+  //         {
+  //           query: EVENT_QUERY,
+  //           variables: { eventId },
+  //         },
+  //         {
+  //           query: UPCOMING_EVENTS_QUERY,
+  //         },
+  //       ],
+  //     });
+  //   },
+  //   [setAttending],
+  // );
 
   if (queryLoading) {
     return <div>Loading...</div>;
@@ -81,9 +76,9 @@ const NextEvent = () => {
   }
 
   const userRSVP = userStatus(myself.id, event);
-  const hasRSVPd = userRSVP !== 'NONE' || attending !== null;
-  const isAttendingNextEvent =
-    attending !== null ? attending : userRSVP === 'GOING';
+  // const hasRSVPd = userRSVP !== 'NONE' || attending !== null;
+  // const isAttendingNextEvent =
+  //   attending !== null ? attending : userRSVP === 'GOING';
 
   const featuredImage =
     get(event, 'trail.featuredImage.url') ||
@@ -112,7 +107,15 @@ const NextEvent = () => {
             </h3>
             <h4>{format(new Date(event.startTime), 'eee, MMM d, h:mm a')}</h4>
           </div>
-          <Button
+          <AttendeeStatus
+            isUpcoming
+            status={userRSVP}
+            eventId={event.id}
+            user={myself}
+            iconFirst
+            darkMode
+          />
+          {/* <Button
             onClick={() => submitRsvp(true, event.id, myself.id, setRsvp)}
             ghost
             selected={hasRSVPd && isAttendingNextEvent}
@@ -128,7 +131,7 @@ const NextEvent = () => {
               ? 'Not Attending'
               : "Won't Attend"}
           </Button>
-          <Loading loading={loading} />
+          <Loading loading={loading} /> */}
         </div>
       </div>
     </>

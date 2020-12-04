@@ -9,6 +9,7 @@ import {
   EDIT_EVENT_MUTATION,
 } from './editEvent.graphql';
 import { EVENT_QUERY } from '../EventDetails/eventDetails.graphql';
+import { UPCOMING_EVENTS_QUERY } from '../EventList/eventList.graphql';
 
 import EventForm from '../EventForm';
 import ErrorMessage from '../../utility/ErrorMessage';
@@ -147,6 +148,11 @@ class EditEvent extends Component {
 
     updateEvent({
       variables: eventValues,
+      refetchQueries: [
+        {
+          query: UPCOMING_EVENTS_QUERY,
+        },
+      ],
     });
 
     setSubmitting(false);

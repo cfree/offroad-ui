@@ -9,10 +9,13 @@ import {
   PAST_EVENTS_QUERY,
 } from './eventList.graphql.js';
 import AttendeeStatus from '../AttendeeStatus';
+import Badge from '../../common/Badge';
 import {
   DEFAULT_EVENT_SMALL_SRC,
   DEFAULT_AVATAR_SMALL_SRC,
+  trailDifficulties,
 } from '../../../lib/constants';
+import { getUserRSVPStatus } from '../../../lib/utils';
 
 import Styles from './eventList.module.scss';
 
@@ -81,6 +84,20 @@ class EventList extends Component {
                       'trail.featuredImage.smallUrl',
                     );
 
+                    let badgeType;
+
+                    switch (event.trailDifficulty) {
+                      case 'ADVANCED':
+                        badgeType = 'fail';
+                        break;
+                      case 'INTERMEDIATE':
+                        badgeType = 'caution';
+                        break;
+                      case 'EASY':
+                      default:
+                        badgeType = 'success';
+                    }
+
                     return (
                       <li className={Styles['event-wrapper']} key={event.id}>
                         <div className={Styles['event']}>
@@ -99,6 +116,12 @@ class EventList extends Component {
                                   {event.title}
                                 </Link>
                               </h3>
+                              <Badge
+                                type={badgeType}
+                                className={Styles['event__badge']}
+                              >
+                                {trailDifficulties[event.trailDifficulty]}
+                              </Badge>
                               <div className={Styles['event-location']}>
                                 {event.address}
                               </div>
@@ -125,7 +148,7 @@ class EventList extends Component {
                           <div className={Styles['event-details']}>
                             <div className={Styles['event-meta']}>
                               {this.state.attendees[event.id] &&
-                                this.state.attendees[event.id].length > 0 && (
+                                this.state.attendees[event.id].length >= 0 && (
                                   <span className={Styles['event-attendees']}>
                                     {event.rsvps && event.rsvps.length > 0 && (
                                       <span
@@ -141,7 +164,7 @@ class EventList extends Component {
                                                 'avatar.smallUrl',
                                                 DEFAULT_AVATAR_SMALL_SRC,
                                               )}
-                                              key={rsvp.member.id}
+                                              key={`${event.id}-${rsvp.member.id}`}
                                               width="30"
                                               alt="Attendee"
                                             />
@@ -171,12 +194,13 @@ class EventList extends Component {
                                   </span> */}
                                 <AttendeeStatus
                                   isUpcoming={this.props.upcoming}
-                                  attendees={this.state.attendees}
+                                  status={getUserRSVPStatus(
+                                    event.rsvps,
+                                    event.id,
+                                    myself.id,
+                                  )}
                                   eventId={event.id}
                                   user={myself}
-                                  onUpdateEventAttendees={
-                                    this.handleUpdateEventAttendees
-                                  }
                                 />
                               </span>
                             </div>

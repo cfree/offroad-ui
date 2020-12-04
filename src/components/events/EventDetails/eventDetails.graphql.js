@@ -10,6 +10,18 @@ export const EVENT_QUERY = gql`
         id
         url
       }
+      rig {
+        image {
+          id
+          url
+        }
+      }
+      vehicle {
+        id
+        year
+        make
+        model
+      }
     }
     event: getEvent(eventId: $eventId) {
       type
@@ -36,6 +48,13 @@ export const EVENT_QUERY = gql`
             url
           }
         }
+        equipment
+        vehicle {
+          id
+          year
+          make
+          model
+        }
       }
       startTime
       endTime
@@ -59,6 +78,8 @@ export const EVENT_QUERY = gql`
           }
         }
         status
+        guestCount
+        isRider
       }
       address
       trail {
