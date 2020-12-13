@@ -13,7 +13,7 @@ const Filter = ({
 }) => {
   const { data, error, loading } = useQuery(CURRENT_USER_QUERY);
 
-  if (loading && !data) {
+  if (loading) {
     return <p>Loading...</p>;
   }
 

@@ -21,6 +21,11 @@ export const ACCOUNT_FORM_QUERY = gql`
       id
       time
       message
+      logger {
+        id
+        firstName
+        lastName
+      }
     }
 
     # notifications: getEmailNotificationsStatus {
