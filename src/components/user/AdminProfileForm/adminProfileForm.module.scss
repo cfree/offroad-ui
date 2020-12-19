@@ -8,6 +8,15 @@
   @extend %form-field-wrapper;
 }
 
+.profile-radio-label {
+  @extend %label-radio;
+  line-height: 1;
+}
+
+.profile-form-radio {
+  @extend %form-radio;
+}
+
 .profile-form-label {
   @extend %form-label;
 }

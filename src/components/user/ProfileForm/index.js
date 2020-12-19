@@ -106,20 +106,10 @@ class ProfileForm extends Component {
 
           return (
             <>
-              {isSelf ? (
+              {isSelf && (
                 <AvatarUploader
                   image={queryData.user.avatar}
                   isGuest={isGuest}
-                />
-              ) : (
-                <img
-                  src={
-                    (queryData.user.avatar && queryData.user.avatar.url) ||
-                    DEFAULT_AVATAR_SRC
-                  }
-                  width="100"
-                  height="100"
-                  alt="Avatar"
                 />
               )}
 
@@ -474,12 +464,13 @@ class ProfileForm extends Component {
                             </div>
                           </div>
 
-                          <div className={Styles['form-field-wrapper']}>
+                          <div className={Styles['form-footer']}>
                             <div />
                             <div>
                               <Button
                                 type="submit"
                                 disabled={
+                                  formikProps.errors.length === 0 ||
                                   !formikProps.dirty ||
                                   !formikProps.isValid ||
                                   formikProps.isSubmitting ||

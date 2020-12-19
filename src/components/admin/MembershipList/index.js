@@ -1,11 +1,7 @@
 import React, { Component } from 'react';
-// import { Query, Mutation } from '@apollo/react-components';
 
-// import { roles } from '../../../lib/constants';
 import Filters from '../../user/Filters';
 import Roster from '../../user/Roster';
-// import ErrorMessage from '../../utility/ErrorMessage';
-// import Loading from '../../utility/Loading';
 
 export class MembershipList extends Component {
   state = {
@@ -20,12 +16,18 @@ export class MembershipList extends Component {
   };
 
   handleFilterUpdate = (updatedVals, filter) => {
-    this.setState((state) => ({
-      activeFilters: {
-        ...state.activeFilters,
-        [filter]: Object.values(updatedVals).map((obj) => obj.value),
-      },
-    }));
+    this.setState((state) => {
+      console.log('old State', state);
+      return {
+        activeFilters: {
+          ...state.activeFilters,
+          [filter]:
+            updatedVals === null
+              ? []
+              : Object.values(updatedVals).map((obj) => obj.value),
+        },
+      };
+    });
   };
 
   handleClear = () => {

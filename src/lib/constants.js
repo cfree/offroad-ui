@@ -50,14 +50,14 @@ export const offices = {
 
 export const titles = {
   WEBMASTER: 'Webmaster',
-  CHARTER_MEMBER: 'Charter Member',
+  // CHARTER_MEMBER: 'Charter Member',
   HISTORIAN: 'Historian',
   // RUNMASTER: 'Runmaster',
 };
 
 export const trailDifficulties = {
   UNKNOWN: 'Unknown',
-  BEGINNER: 'Beginner',
+  BEGINNER: 'Easy',
   INTERMEDIATE: 'Intermediate',
   ADVANCED: 'Advanced',
 };
@@ -129,29 +129,31 @@ export const membershipLogMessageTypes = [
   'OFFICE_REMOVED',
   'TITLE_ADDED',
   'TITLE_REMOVED',
-  'MEMBERSHIP_ELIGIBLE',
-  'GUEST_RESTRICTED',
+  'MEMBERSHIP_ELIGIBLE', // Redundant?
+  'MEMBERSHIP_GRANTED', // Redundant?
+  'GUEST_RESTRICTED', // Redundant?
 ];
 
-// export const membershipLogMessages = {
-//   ACCOUNT_CREATED: () => 'Account created',
-//   ACCOUNT_UNLOCKED: ({ logger }) => `Account unlocked by ${logger}`,
-//   ACCOUNT_CHANGED: ({ property, beforeState, afterState, logger }) =>
-//     logger
-//       ? `${property} changed from "${beforeState}" to "${afterState}" by ${logger}`
-//       : `${property} automatically changed from "${beforeState}" to "${afterState}"`,
-//   ACCOUNT_REJECTED: ({ logger, reason }) =>
-//     `Account rejected by ${logger}: ${reason}`,
-//   DUES_PAID: ({ logger }) =>
-//     logger ? `Dues received by ${logger}` : `Dues received via website`,
-//   OFFICE_ADDED: ({ office, logger }) => `"${office}" office added by ${logger}`,
-//   OFFICE_REMOVED: ({ office, logger }) =>
-//     `"${office}" office removed by ${logger}`,
-//   TITLE_ADDED: ({ title, logger }) => `"${title}" title added by ${logger}`,
-//   TITLE_REMOVED: ({ title, logger }) => `"${title}" title removed by ${logger}`,
-//   MEMBERSHIP_ELIGIBLE: () => 'Eligible for membership',
-//   GUEST_RESTRICTED: () => 'Attended 3 runs',
-// };
+export const membershipLogMessages = {
+  ACCOUNT_CREATED: () => 'Account created',
+  ACCOUNT_UNLOCKED: ({ logger }) => `Account unlocked by ${logger}`,
+  ACCOUNT_CHANGED: ({ property, beforeState, afterState, logger }) =>
+    logger
+      ? `${property} changed from "${beforeState}" to "${afterState}" by ${logger}`
+      : `${property} automatically changed from "${beforeState}" to "${afterState}"`,
+  ACCOUNT_REJECTED: ({ logger, reason }) =>
+    `Account rejected by ${logger}: ${reason}`,
+  DUES_PAID: (amt) => `Paid $${amt}`,
+  OFFICE_ADDED: ({ office, logger }) => `"${office}" office added by ${logger}`,
+  OFFICE_REMOVED: ({ office, logger }) =>
+    `"${office}" office removed by ${logger}`,
+  TITLE_ADDED: ({ title, logger }) => `"${title}" title added by ${logger}`,
+  TITLE_REMOVED: ({ title, logger }) => `"${title}" title removed by ${logger}`,
+  MEMBERSHIP_ELIGIBLE: () => 'Eligible for membership',
+  MEMBERSHIP_GRANTED: ({ accountType }) =>
+    `Became a ${accountTypes[accountType]} Member`,
+  GUEST_RESTRICTED: () => 'Attended 3 runs',
+};
 
 // export const activityLogMessages = {
 //   EVENT_ATTENDED: ({ title, type }) => `Attended "${title}" ${type}`,

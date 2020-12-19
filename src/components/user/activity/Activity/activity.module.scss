@@ -1,11 +1,13 @@
-@import '../../../styles/variables.module';
-@import '../../../styles/mixins.module';
+@import '../../../../styles/variables.module';
+@import '../../../../styles/mixins.module';
 
 .activity {
+}
+
+.activity__aside {
   @include breakpoint($bp-sm) {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-gap: $space;
+    max-width: 70%;
+    margin: 0 auto;
   }
 }
 
@@ -26,29 +28,32 @@
 }
 
 .user-logs {
-  // display: grid;
-  // grid-column-gap: 20px;
-  // grid-template-columns: 1fr 1fr;
 }
 
 .calendar-list {
-  margin: 0 0 ($space / 2);
+  margin: 0;
   padding: 0;
 
   @include breakpoint($bp-md) {
-    margin: 0 0 $space;
+    margin: 0;
   }
 
   li {
-    margin: 0 0 ($space / 2);
+    margin: 0;
     padding: 0;
     list-style: none;
     display: flex;
     align-items: center;
     line-height: 1;
+    border-bottom: 1px solid $white-dark;
+
+    &:first-child {
+      border-top: 1px solid $white-dark;
+    }
 
     @include breakpoint($bp-md) {
-      margin: 0 0 $space;
+      margin: 0;
+      padding: $space;
     }
 
     & > div {

@@ -53,6 +53,8 @@ const PayDues = ({ onLoading, children }) => {
     [payMembershipDues, onLoading],
   );
 
+  useEffect(() => () => onLoading(false));
+
   if (loading) {
     return <Loading loading />;
   }

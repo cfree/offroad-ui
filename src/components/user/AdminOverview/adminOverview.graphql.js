@@ -9,7 +9,6 @@ export const ADMIN_OVERVIEW_QUERY = gql`
       lastLogin
     }
     duesLastReceived: getDuesLastReceived(username: $username) {
-      id
       time
     }
     meetings: getUserEvents(username: $username, eventType: MEETING) {

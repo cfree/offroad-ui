@@ -1,10 +1,9 @@
 import { gql } from 'apollo-boost';
 
-export const PROFILE_HEADER_QUERY = gql`
-  query PROFILE_HEADER_QUERY($username: String) {
+export const ADMIN_PROFILE_HEADER_QUERY = gql`
+  query ADMIN_PROFILE_HEADER_QUERY($username: String) {
     user(username: $username) {
       id
-      email
       firstName
       lastName
       avatar {

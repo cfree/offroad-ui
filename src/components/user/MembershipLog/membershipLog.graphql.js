@@ -9,6 +9,12 @@ export const MEMBERSHIP_LOG_QUERY = gql`
         time
         message
         messageCode
+        logger {
+          id
+          username
+          firstName
+          lastName
+        }
       }
     }
   }

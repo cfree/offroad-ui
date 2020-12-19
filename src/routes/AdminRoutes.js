@@ -13,6 +13,7 @@ import MeetingsPage from '../pages/admin/MeetingsPage';
 import TrailsPage from '../pages/admin/TrailsPage';
 import UnlockPage from '../pages/admin/UnlockPage';
 import InvitePage from '../pages/admin/InvitePage';
+import ProfilePage from '../pages/admin/ProfilePage';
 import ErrorPage from '../pages/util/ErrorPage';
 
 const AdminRoutes = () => {
@@ -78,6 +79,12 @@ const AdminRoutes = () => {
       <Route
         path={`${path}/invite`}
         component={InvitePage}
+        statusCheck={isActive}
+        roleCheck={isAtLeastBoardMember}
+      />
+      <Route
+        path={`${path}/profile/:username`}
+        component={ProfilePage}
         statusCheck={isActive}
         roleCheck={isAtLeastBoardMember}
       />

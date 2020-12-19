@@ -1,21 +1,20 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useRouteMatch } from 'react-router-dom';
 import get from 'lodash/get';
 import cn from 'classnames';
 
-import {
-  getMemberType,
-  getPhoneNumber,
-  isAtLeastBoardMember,
-} from '../../../lib/utils';
+import { getMemberType, getPhoneNumber } from '../../../lib/utils';
 import { DEFAULT_AVATAR_SMALL_SRC } from '../../../lib/constants';
-import Filter from '../../login/Filter';
 
 import Styles from './rosterCard.module.scss';
 
 const RosterCard = ({ user, className }) => {
   const classes = cn(Styles['roster-card'], className);
   const phone = get(user, 'contactInfo.phone', '');
+  const match = useRouteMatch('/admin/roster');
+  const linkTo = match.isExact
+    ? `/admin/profile/${user.username}`
+    : `/profile/${user.username}`;
 
   return (
     <tr className={classes}>
@@ -29,7 +28,7 @@ const RosterCard = ({ user, className }) => {
         />
       </td>
       <td>
-        <Link to={`/profile/${user.username}`}>
+        <Link to={linkTo}>
           {user.firstName} {user.lastName}
         </Link>
       </td>

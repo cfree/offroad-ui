@@ -8,7 +8,7 @@ import {
 } from 'react-router-dom';
 
 import Profile from '../Profile';
-import Activity from '../Activity';
+import ActivityIndex from '../activity/ActivityIndex';
 import Garage from '../../vehicles/Garage';
 import ProfileHeader from '../ProfileHeader';
 import useUser from '../../../hooks/useUser';
@@ -41,7 +41,7 @@ const ProfileIndex = () => {
           <Garage username={username} isSelf={isSelf} />
         </Route>
         <Route path={`${path}/activity`}>
-          <Activity username={username} isSelf={isSelf} />
+          <ActivityIndex username={username} isSelf={isSelf} />
         </Route>
         <Route exact path={path}>
           <Profile username={username} isSelf={isSelf} />

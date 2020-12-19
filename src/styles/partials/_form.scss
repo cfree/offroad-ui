@@ -82,10 +82,9 @@
   }
 }
 
-%label-radio {
+%label-radio,
+%label-checkbox {
   margin: 0;
-  display: flex;
-  align-items: center;
 
   & + & {
     margin-left: ($space / 2);
@@ -94,6 +93,15 @@
       margin-left: $space;
     }
   }
+
+  [type='radio'] {
+    margin-right: 5px;
+  }
+}
+
+%form-radio {
+  display: flex;
+  align-items: center;
 }
 
 %form-field {

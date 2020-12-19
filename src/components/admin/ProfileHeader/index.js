@@ -1,10 +1,11 @@
 import React from 'react';
 import get from 'lodash/get';
 import format from 'date-fns/format';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 import { useQuery } from '@apollo/react-hooks';
 
-import { PROFILE_HEADER_QUERY } from './profileHeader.graphql';
+import { PROFILE_HEADER_QUERY } from '../../user/ProfileHeader/profileHeader.graphql';
+
 import {
   accountTypes as types,
   offices,
@@ -13,10 +14,11 @@ import {
   DEFAULT_RIG_SRC,
 } from '../../../lib/constants';
 import Tabs from '../../common/Tabs';
+import Button from '../../common/Button';
 
 import Styles from './profileHeader.module.scss';
 
-const ProfileHeader = ({ username, isSelf }) => {
+const ProfileHeader = ({ username }) => {
   const { pathname } = useLocation();
   const { data, loading, error } = useQuery(PROFILE_HEADER_QUERY, {
     variables: { username },
@@ -37,20 +39,20 @@ const ProfileHeader = ({ username, isSelf }) => {
 
   const tabs = [
     {
-      link: `/profile/${username}`,
-      title: 'Details',
+      link: `/admin/profile/${username}`,
+      title: 'Overview',
       activeStyles:
-        !pathname.includes('/garage') && !pathname.includes('/activity'),
+        !pathname.includes('/membership-log') && !pathname.includes('/edit'),
     },
     {
-      link: `/profile/${username}/garage`,
-      title: 'Garage',
-      activeStyles: pathname.includes('/garage'),
+      link: `/admin/profile/${username}/membership-log`,
+      title: 'Membership Log',
+      activeStyles: pathname.includes('/membership-log'),
     },
     {
-      link: `/profile/${username}/activity`,
-      title: 'Activity',
-      activeStyles: pathname.includes('/activity'),
+      link: `/admin/profile/${username}/edit`,
+      title: 'Edit',
+      activeStyles: pathname.includes('/edit'),
     },
   ];
 
@@ -92,6 +94,14 @@ const ProfileHeader = ({ username, isSelf }) => {
                 </ul>
               </div>
             </div>
+            <ul className={Styles['user-actions']}>
+              <li>
+                <Button to={`/profile/${username}`}>Profile</Button>
+              </li>
+              {/* <li>
+                <Button href={`mailto:${user.email}`}>Send Message</Button>
+              </li> */}
+            </ul>
           </div>
         ) : (
           <h3>No user information</h3>

@@ -9,59 +9,54 @@ import {
   titles,
 } from '../../../lib/constants';
 import { formatFilterSelect, formatFilterSelected } from '../../../lib/utils';
-// import ErrorMessage from '../../utility/ErrorMessage';
-// import Loading from '../../utility/Loading';
 
 import './filters.module.scss';
 
-const Filters = (props) => {
+const Filters = ({ activeFilters, onFilterUpdate }) => {
   return (
     <div className="filters">
       Roles
       <Select
-        defaultValue={formatFilterSelected(props.activeFilters.role, roles)}
+        value={formatFilterSelected(activeFilters.role, roles)}
         placeholder="Select role"
         isMulti={true}
         options={formatFilterSelect(roles)}
-        onChange={(e) => props.onFilterUpdate(e, 'role')}
+        onChange={(e) => onFilterUpdate(e, 'role')}
       />
       Account Status
       <Select
-        defaultValue={formatFilterSelected(
-          props.activeFilters.accountStatus,
+        value={formatFilterSelected(
+          activeFilters.accountStatus,
           accountStatuses,
         )}
         placeholder="Select account status"
         isMulti={true}
         options={formatFilterSelect(accountStatuses)}
-        onChange={(e) => props.onFilterUpdate(e, 'accountStatus')}
+        onChange={(e) => onFilterUpdate(e, 'accountStatus')}
       />
       Account Types
       <Select
-        defaultValue={formatFilterSelected(
-          props.activeFilters.accountType,
-          accountTypes,
-        )}
+        value={formatFilterSelected(activeFilters.accountType, accountTypes)}
         placeholder="Select account type"
         isMulti={true}
         options={formatFilterSelect(accountTypes)}
-        onChange={(e) => props.onFilterUpdate(e, 'accountType')}
+        onChange={(e) => onFilterUpdate(e, 'accountType')}
       />
       Offices
       <Select
-        defaultValue={formatFilterSelected(props.activeFilters.office, offices)}
+        value={formatFilterSelected(activeFilters.office, offices)}
         placeholder="Select office"
         isMulti={true}
         options={formatFilterSelect(offices)}
-        onChange={(e) => props.onFilterUpdate(e, 'office')}
+        onChange={(e) => onFilterUpdate(e, 'office')}
       />
       Titles
       <Select
-        defaultValue={formatFilterSelected(props.activeFilters.title, titles)}
+        value={formatFilterSelected(activeFilters.title, titles)}
         placeholder="Select title"
         isMulti={true}
         options={formatFilterSelect(titles)}
-        onChange={(e) => props.onFilterUpdate(e, 'title')}
+        onChange={(e) => onFilterUpdate(e, 'title')}
       />
       {/* <fieldset>
         <div>
