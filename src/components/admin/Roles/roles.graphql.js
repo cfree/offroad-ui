@@ -43,10 +43,10 @@ export const UPDATE_OFFICE_MUTATION = gql`
 `;
 
 export const UPDATE_TITLE_MUTATION = gql`
-  mutation UPDATE_TITLE_MUTATION($title: Title, $userId: ID!) {
-    updateTitle(title: $title, userId: $userId) {
+  mutation UPDATE_TITLE_MUTATION($titles: [Title], $userId: ID!) {
+    updateTitles(titles: $titles, userId: $userId) {
       id
-      title
+      titles
     }
   }
 `;
@@ -62,7 +62,6 @@ export const ALL_USERS_QUERY = gql`
       accountStatus
       accountType
       office
-      title
     }
   }
 `;

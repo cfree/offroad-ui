@@ -19,7 +19,7 @@ const EventsSchedule = () => {
     return <ErrorMessage error={error} />;
   }
 
-  const { events } = data;
+  const { events, myself } = data;
 
   return (
     <div className={Styles['events-schedule']}>
@@ -27,12 +27,27 @@ const EventsSchedule = () => {
       {events.length > 0 ? (
         <>
           <ul>
-            {events.map((event) => (
-              <li key={event.id}>
-                <Calendar date={event.startTime} />
-                <Link to={`event/${event.id}`}>{event.title}</Link>
-              </li>
-            ))}
+            {events.map((event) => {
+              const lockedOut =
+                event.membersOnly && myself.accountType === 'GUEST';
+
+              console.log('locked', lockedOut);
+
+              return (
+                <li key={event.id}>
+                  <Calendar
+                    className={Styles['calendar']}
+                    date={event.startTime}
+                    mask={lockedOut}
+                  />
+                  {lockedOut ? (
+                    <>{event.title}</>
+                  ) : (
+                    <Link to={`event/${event.id}`}>{event.title}</Link>
+                  )}
+                </li>
+              );
+            })}
           </ul>
           <hr className={Styles['hr']} />
           <Link to="/events">

@@ -31,7 +31,7 @@ const ProfileHeader = ({ username, isSelf }) => {
   }
 
   const { user } = data;
-  const convertedTitles = get(titles, 'user.title', []);
+  const convertedTitles = get(user, 'title', []).map((title) => titles[title]);
   const RIG_SRC = get(user, 'rig.image.url', DEFAULT_RIG_SRC);
   const AVATAR_SRC = get(user, 'avatar.url', DEFAULT_AVATAR_SRC);
 

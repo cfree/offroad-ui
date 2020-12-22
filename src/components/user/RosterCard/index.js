@@ -12,9 +12,10 @@ const RosterCard = ({ user, className }) => {
   const classes = cn(Styles['roster-card'], className);
   const phone = get(user, 'contactInfo.phone', '');
   const match = useRouteMatch('/admin/roster');
-  const linkTo = match.isExact
-    ? `/admin/profile/${user.username}`
-    : `/profile/${user.username}`;
+  const linkTo =
+    match && match.isExact
+      ? `/admin/profile/${user.username}`
+      : `/profile/${user.username}`;
 
   return (
     <tr className={classes}>

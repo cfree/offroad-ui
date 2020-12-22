@@ -23,6 +23,7 @@ export const SETUP_EXISTING_EVENT_QUERY = gql`
       }
       startTime
       endTime
+      membersOnly
       rsvps {
         member {
           id
@@ -50,7 +51,8 @@ export const SETUP_EXISTING_EVENT_QUERY = gql`
         favoriteCount
       }
       rallyAddress
-      rallyTime
+      maxAttendees
+      maxRigs
     }
     runLeaders: getRunLeaders {
       id
@@ -77,12 +79,13 @@ export const EDIT_EVENT_MUTATION = gql`
     $trailDifficulty: TrailDifficulty
     $trailNotes: String
     $rallyAddress: String
-    $rallyTime: DateTime
     $membersOnly: Boolean
     $host: String!
     $trail: String
     $featuredImage: String #publicId
     $newFeaturedImage: CloudinaryImageInput
+    $maxAttendees: Int
+    $maxRigs: Int
   ) {
     updateEvent(
       id: $id
@@ -96,12 +99,13 @@ export const EDIT_EVENT_MUTATION = gql`
         trailDifficulty: $trailDifficulty
         trailNotes: $trailNotes
         rallyAddress: $rallyAddress
-        rallyTime: $rallyTime
         membersOnly: $membersOnly
         host: $host
         trail: $trail
         featuredImage: $featuredImage #publicId
         newFeaturedImage: $newFeaturedImage
+        maxAttendees: $maxAttendees
+        maxRigs: $maxRigs
       }
     ) {
       message

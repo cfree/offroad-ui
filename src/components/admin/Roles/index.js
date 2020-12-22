@@ -7,7 +7,6 @@ import {
   accountTypes,
   accountStatuses,
   offices,
-  titles,
 } from '../../../lib/constants';
 import ErrorMessage from '../../utility/ErrorMessage';
 import Loading from '../../utility/Loading';
@@ -17,7 +16,6 @@ import {
   UPDATE_ACCOUNT_TYPE_MUTATION,
   UPDATE_OFFICE_MUTATION,
   UPDATE_ROLE_MUTATION,
-  UPDATE_TITLE_MUTATION,
   ALL_USERS_QUERY,
 } from './roles.graphql';
 
@@ -59,12 +57,9 @@ class UserProperty extends React.Component {
         mutation = UPDATE_ACCOUNT_STATUS_MUTATION;
         break;
       case 'office':
+      default:
         mutation = UPDATE_OFFICE_MUTATION;
         break;
-      case 'title':
-        mutation = UPDATE_TITLE_MUTATION;
-        break;
-      default:
     }
 
     return (
@@ -90,11 +85,13 @@ class UserProperty extends React.Component {
                   None
                 </option>
               )}
-              {Object.entries(properties).map((property) => (
-                <option key={property[0]} value={property[0]}>
-                  {property[1]}
-                </option>
-              ))}
+              {Object.entries(properties).map((property) => {
+                return (
+                  <option key={property[0]} value={property[0]}>
+                    {property[1]}
+                  </option>
+                );
+              })}
             </select>
             <Loading loading={loading} />
             <ErrorMessage error={error} />
@@ -132,10 +129,6 @@ const UserOffice = (props) => (
     {...props}
     allowNone
   />
-);
-
-const UserTitle = (props) => (
-  <UserProperty properties={titles} userProperty="title" {...props} allowNone />
 );
 
 const MemberTable = ({ allUsers }) => {
@@ -184,7 +177,6 @@ const MemberTable = ({ allUsers }) => {
             <th>Account Type</th>
             <th>Account Status</th>
             <th>Office</th>
-            <th>Title</th>
           </tr>
         </thead>
         <tbody>
@@ -210,9 +202,6 @@ const MemberTable = ({ allUsers }) => {
               </td>
               <td>
                 <UserOffice userId={user.id} currentProperty={user.office} />
-              </td>
-              <td>
-                <UserTitle userId={user.id} currentProperty={user.title} />
               </td>
             </tr>
           ))}

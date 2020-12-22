@@ -15,11 +15,11 @@ import {
   // DEFAULT_TRAIL_SRC,
 } from '../../../lib/constants';
 // import Calendar from '../Calendar';
-import RigbookCard from '../../user/RigbookCard';
+import AttendeeCard from '../AttendeeCard';
 import RunRsvp from '../RunRsvp';
 import NonRunRsvp from '../NonRunRsvp';
 import Filter from '../../login/Filter';
-import { isAtLeastRunMaster } from '../../../lib/utils';
+import { isAtLeastRunMaster, isFullMember } from '../../../lib/utils';
 import { eventTypes } from '../../../lib/constants';
 import Icon from '../../common/Icon';
 import ErrorMessage from '../../utility/ErrorMessage';
@@ -29,7 +29,7 @@ import Styles from './eventDetails.module.scss';
 
 const getBadgeType = (difficulty) => {
   switch (difficulty) {
-    case 'BEGINNER':
+    case 'EASY':
       return 'success';
     case 'INTERMEDIATE':
       return 'caution';
@@ -45,6 +45,27 @@ export default class EventDetails extends Component {
   onMapImgError = (e) => {
     e.target.src = '/img/default-map.png';
   };
+
+  getStat = (actual, max, noun, plural) => {
+    return max && max !== -1 ? (
+      <>
+        <span className={Styles['stat--large']}>{actual}</span> out of{' '}
+        <span className={Styles['stat--large']}>{max}</span>{' '}
+        <span className={Styles['stat--newline']}>{plural}</span>
+      </>
+    ) : (
+      <>
+        <span className={Styles['stat--large']}>{actual}</span>{' '}
+        <span className={Styles['stat--newline']}>
+          {actual === 1 ? noun : plural}
+        </span>
+      </>
+    );
+  };
+
+  getMaxRigs = (count) => count > -1 && `Max ${count} rigs`;
+
+  getMaxAttendees = (count) => count > -1 && `Max ${count} attendees`;
 
   getEventDate = (event) => {
     const startTime = new Date(event.startTime);
@@ -71,20 +92,10 @@ export default class EventDetails extends Component {
       return (
         <>
           {format(startTime, 'h:mm a')} to {format(endTime, 'h:mm a')}
-          {event.rallyTime && (
-            <>
-              <br />
-              {format(new Date(event.rallyTime), 'h:mm a')} rally time
-            </>
-          )}
         </>
       );
     } else {
-      return event.rallyTime ? (
-        <>{format(new Date(event.rallyTime), 'h:mm a')} rally time</>
-      ) : (
-        <>{format(startTime, 'h:mm a')}</>
-      );
+      return event.trail && <>{format(startTime, 'h:mm a')}</>;
     }
   };
 
@@ -103,19 +114,30 @@ export default class EventDetails extends Component {
 
           const { event, myself } = data;
 
+          const lockedOut = event.membersOnly && myself.accountType === 'GUEST';
+
+          if (lockedOut) {
+            return null;
+          }
+
           const isPastEvent = Date.now() > getTime(new Date(event.startTime));
 
-          const attendees = event.rsvps.filter(
+          const allAttendees = event.rsvps.filter(
             (rsvp) => rsvp.status === 'GOING',
           );
-          const guestPassengerCount = attendees.reduce(
+          const hostRsvp = allAttendees.find(
+            (attendee) => attendee.member.id === event.host.id,
+          );
+          const rsvpsSansHost = allAttendees.filter(
+            (attendee) => attendee.member.id !== event.host.id,
+          );
+          const guestPassengerCount = allAttendees.reduce(
             (acc, attendee) => acc + get(attendee, 'guestCount', 0),
             0,
           );
-          const memberCount = attendees.length;
+          const memberCount = allAttendees.length;
           const attendeeCount = guestPassengerCount + memberCount;
-          const rigCount = attendees.filter((attendee) => {
-            console.log('attend', attendee);
+          const rigCount = allAttendees.filter((attendee) => {
             return !attendee.isRider;
           }).length;
 
@@ -138,9 +160,9 @@ export default class EventDetails extends Component {
             event.rallyAddress || event.address || 'Colorado',
           );
 
-          const encodedAddress =
-            get(event, 'trail.trailheadCoords') ||
-            encodeURIComponent(event.address || 'Colorado');
+          // const encodedAddress =
+          //   get(event, 'trail.trailheadCoords') ||
+          //   encodeURIComponent(event.address || 'Colorado');
 
           const EVENT_IMAGE = get(
             event,
@@ -166,7 +188,10 @@ export default class EventDetails extends Component {
                     ? 'Past Event'
                     : format(new Date(event.startTime), 'EEEE, MMMM d, yyyy')}
                   {!isPastEvent && (
-                    <Filter roleCheck={isAtLeastRunMaster}>
+                    <Filter
+                      roleCheck={isAtLeastRunMaster}
+                      typeCheck={isFullMember}
+                    >
                       {' '}
                       <small>
                         <Link to={`/event/${eventId}/edit`}>Edit</Link>
@@ -197,6 +222,8 @@ export default class EventDetails extends Component {
                     pastEvent={isPastEvent}
                     userRsvp={userRsvp()}
                     isHost={event.host.id === myself.id}
+                    maxRigs={event.maxRigs}
+                    maxAttendees={event.maxAttendees}
                   />
                 ) : (
                   <NonRunRsvp
@@ -207,6 +234,7 @@ export default class EventDetails extends Component {
                     rsvpCount={rigCount}
                     pastEvent={isPastEvent}
                     userRsvp={userRsvp()}
+                    maxAttendees={event.maxAttendees}
                   />
                 )}
               </div>
@@ -223,7 +251,42 @@ export default class EventDetails extends Component {
                         Event Type
                       </Icon>
                     </dt>
-                    <dd>{eventType}</dd>
+                    <dd>
+                      {eventType}{' '}
+                      {event.trailDifficulty && event.trail && (
+                        <Badge type={getBadgeType(event.trailDifficulty)}>
+                          {trailDifficulties[event.trailDifficulty]}
+                        </Badge>
+                      )}
+                    </dd>
+
+                    {event.maxRigs && event.maxRigs > -1 && (
+                      <>
+                        <dt>
+                          <Icon
+                            className={Styles[`event-type__icon`]}
+                            icon="count"
+                          >
+                            Max Rigs
+                          </Icon>
+                        </dt>
+                        <dd>{this.getMaxRigs(event.maxRigs)}</dd>
+                      </>
+                    )}
+
+                    {event.maxAttendees && event.maxAttendees > -1 && (
+                      <>
+                        <dt>
+                          <Icon
+                            className={Styles[`event-type__icon`]}
+                            icon="count"
+                          >
+                            Max Attendees
+                          </Icon>
+                        </dt>
+                        <dd>{this.getMaxAttendees(event.maxAttendees)}</dd>
+                      </>
+                    )}
 
                     <dt>
                       <Icon className={Styles[`event-type__icon`]} icon="date">
@@ -239,7 +302,7 @@ export default class EventDetails extends Component {
                     </dt>
                     <dd>{this.getEventTime(event)}</dd>
 
-                    {event.rallyAddress ? (
+                    {event.rallyAddress && (
                       <>
                         <dt>
                           <Icon
@@ -249,9 +312,20 @@ export default class EventDetails extends Component {
                             Rally Address
                           </Icon>
                         </dt>
-                        <dd>{event.rallyAddress}</dd>
+                        <dd>
+                          {event.rallyAddress}
+                          <br />
+                          <small>
+                            <a
+                              href={`https://www.google.com/maps/dir/?api=1&destination=${encodedRallyAddress}`}
+                            >
+                              Directions
+                            </a>
+                          </small>
+                        </dd>
                       </>
-                    ) : (
+                    )}
+                    {event.address && (
                       <>
                         <dt>
                           <Icon
@@ -261,31 +335,50 @@ export default class EventDetails extends Component {
                             Address
                           </Icon>
                         </dt>
-                        <dd>{event.address || 'n/a'}</dd>
+                        <dd>
+                          {event.address}
+                          <br />
+                          <small>
+                            <a
+                              href={`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(
+                                event.address,
+                              )}`}
+                            >
+                              Directions
+                            </a>
+                          </small>
+                        </dd>
                       </>
                     )}
                   </dl>
-                  {(event.rallyAddress || event.address) && (
+                  {event.rallyAddress && (
                     <p>
-                      <a
-                        href={`https://www.google.com/maps/search/?api=1&query=${encodedRallyAddress}`}
-                      >
-                        <img
-                          width="250"
-                          height="100"
-                          src={`https://maps.googleapis.com/maps/api/staticmap?zoom=11&size=500x200&maptype=roadmap&markers=size:mid%7Ccolor:red%7C&center=${encodedAddress}&key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`}
-                          alt={`${event.title} map`}
-                          onError={this.onMapImgError}
-                        />
-                      </a>
-                      <br />
-                      <small>
-                        <a
-                          href={`https://www.google.com/maps/dir/?api=1&destination=${encodedRallyAddress}`}
-                        >
-                          Directions
-                        </a>
-                      </small>
+                      <img
+                        width="250"
+                        height="100"
+                        src={`https://maps.googleapis.com/maps/api/staticmap?zoom=9&size=250x100&maptype=roadmap&markers=color:red%7Csize:small%7C${encodeURIComponent(
+                          event.rallyAddress,
+                        )}&center=${encodeURIComponent(
+                          event.rallyAddress,
+                        )}&key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`}
+                        alt={`${event.title} map`}
+                        onError={this.onMapImgError}
+                      />
+                    </p>
+                  )}
+                  {event.address && (
+                    <p>
+                      <img
+                        width="250"
+                        height="100"
+                        src={`https://maps.googleapis.com/maps/api/staticmap?zoom=9&size=250x100&maptype=roadmap&markers=color:red%7Csize:small%7C${encodeURIComponent(
+                          event.address,
+                        )}&center=${encodeURIComponent(event.address)}&key=${
+                          process.env.REACT_APP_GOOGLE_MAPS_API_KEY
+                        }`}
+                        alt={`${event.title} map`}
+                        onError={this.onMapImgError}
+                      />
                     </p>
                   )}
                 </div>
@@ -299,32 +392,25 @@ export default class EventDetails extends Component {
                     <img src={EVENT_IMAGE} alt={event.title} />
                   )}
                 </section>
-                <section
-                  className={Styles['event__section']}
-                  aria-label="Description"
-                >
-                  {event.type === 'RUN' && (
-                    <>
-                      <h3>Run Leader Notes</h3>
-                      {event.trailDifficulty && (
-                        <>
-                          <Badge type={getBadgeType(event.trailDifficulty)}>
-                            {trailDifficulties[event.trailDifficulty]}
-                          </Badge>
-                        </>
-                      )}
-                    </>
-                  )}
-                  {event.description && parse(event.description)}
-                </section>
+
+                {event.description && (
+                  <section
+                    className={Styles['event__section']}
+                    aria-label="Description"
+                  >
+                    {parse(event.description)}
+                  </section>
+                )}
                 {event.trail && (
                   <section>
                     {event.trail.description && (
                       <>
-                        <h3>Trail Information</h3>
+                        <h3>{event.trail.name} Trail Information</h3>
                         {parse(event.trail.description)}
                       </>
                     )}
+
+                    {/* <CurrentWeather coords={event.trail.trailheadCoords} /> */}
 
                     {event.trailNotes && (
                       <>
@@ -380,30 +466,47 @@ export default class EventDetails extends Component {
                 <section className={Styles['event__section']}>
                   <h3>Attendees</h3>
 
-                  <div className={Styles['event__attendees']}>
-                    {attendees.map((attendee) => {
-                      const passengerCount = attendee.guestCount || 0;
-                      const passengers = passengerCount
-                        ? `${passengerCount} passenger${
-                            passengerCount === 1 ? '' : 's'
-                          }`
-                        : null;
+                  <div className={Styles['event-stats']}>
+                    <div className={Styles['event-stat']}>
+                      {this.getStat(
+                        rigCount,
+                        event.maxRigs,
+                        'vehicle',
+                        'vehicles',
+                      )}
+                    </div>
+                    <div className={Styles['event-stat']}>
+                      {this.getStat(
+                        attendeeCount,
+                        event.maxAttendees,
+                        'attendee',
+                        'attendees',
+                      )}
+                    </div>
+                  </div>
 
-                      return (
-                        <RigbookCard
+                  <div className={Styles['event__attendees']}>
+                    <div>
+                      <h4 className={Styles['event__card-heading']}>
+                        Run Leader
+                      </h4>
+                      <AttendeeCard
+                        key={event.host.id}
+                        rsvp={hostRsvp}
+                        isLeader
+                      />
+                    </div>
+                    <div>
+                      <h4 className={Styles['event__card-heading']}>
+                        Attendees
+                      </h4>
+                      {rsvpsSansHost.map((attendee) => (
+                        <AttendeeCard
                           key={attendee.member.id}
-                          user={attendee.member}
-                          extra={passengers}
-                          titleOverride={
-                            event.host.id === attendee.member.id
-                              ? event.type === 'RUN'
-                                ? 'Run Leader'
-                                : 'Host'
-                              : null
-                          }
+                          rsvp={attendee}
                         />
-                      );
-                    })}
+                      ))}
+                    </div>
                   </div>
                 </section>
                 {/* {isPastEvent && (
@@ -431,3 +534,133 @@ export default class EventDetails extends Component {
     );
   }
 }
+
+/*
+  
+  Old card:
+
+  <RigbookCard
+    key={attendee.member.id}
+    user={attendee.member}
+    extra={passengers}
+    titleOverride={
+      event.host.id === attendee.member.id
+        ? event.type === 'RUN'
+          ? 'Run Leader'
+          : 'Host'
+        : null
+    }
+  />
+*/
+
+/*
+
+Ideal State:
+
+<Page>
+  <Title />
+
+  <Stats>
+    <RigsAllowed />
+    <AttendeesAllowed />
+    <TotalMiles />
+    <HighestElevation />
+  </Stats>
+
+  <RSVP />
+
+  <OptionalRecurringEventInfo />
+  <StartDateTime />
+  <EndDateTime />
+
+  <RallyPoint />
+
+  <AddToCalendar>
+    <Google />
+    <ICal />
+  </AddToCalendar>
+
+  <Tabs>
+    <Details>
+      <Difficulty />
+      <TripType />
+      <Region />
+
+      <TerrainExpected />
+      <RecommendedCapabilities />
+    </Details>
+
+    <Attendees>
+      <Host>
+        <RigPhoto />
+        <Avatar />
+        <RunLeaderCount />
+
+        <Name />
+        <TitlesOrOffices />
+
+        <SendMessage />
+
+        <Hometown />
+        <ProfileLink />
+        <MemberSince />
+      </Host>
+
+      <Attending>
+        <Count />
+
+        <Attendee>
+          <Avatar />
+          <PassengersCount />
+
+          <Name />
+          <AccountType />
+
+          <AddlInfo>
+            <Name />
+            <TitlesOrOffices />
+            <Hometown />
+            <MemberSince />
+            
+            <EventsCount />
+            <SendMessage />
+            <ProfileLink /> // Icon - @username
+          </AddlInfo>
+
+          <Drivers>
+            <Rig />
+            <Equipment />
+          </Drivers>
+        </Attendee>
+
+        <Riders />
+      </Attending>
+      <NotAttending />
+    </Attendees>
+
+    <Location>
+      <Meta>
+        <AvgRatings />
+        <AvgDifficulty />
+        <NumOfFavorites />
+      </Meta>
+    
+      <Description />
+      <Map />
+
+    </Location>
+
+    <Comments>
+      <CommentCount />
+
+      <Comment>
+        <Avatar />
+        <Name />
+        <Date />
+        <Message />
+      </Comment>
+    </Comments>
+  </Tabs>
+</Page>
+
+*/

@@ -30,6 +30,30 @@ export class MembershipList extends Component {
     });
   };
 
+  handleDefault = () => {
+    this.setState({
+      activeFilters: {
+        accountStatus: ['ACTIVE'],
+        accountType: ['FULL', 'ASSOCIATE', 'EMERITUS'],
+        role: [],
+        office: [],
+        title: [],
+      },
+    });
+  };
+
+  handleActiveGuests = () => {
+    this.setState({
+      activeFilters: {
+        accountStatus: ['ACTIVE'],
+        accountType: ['GUEST'],
+        role: [],
+        office: [],
+        title: [],
+      },
+    });
+  };
+
   handleClear = () => {
     this.setState({
       activeFilters: {
@@ -99,6 +123,12 @@ export class MembershipList extends Component {
           <h3>Quick Filters</h3>
 
           <ul>
+            <li>
+              <button onClick={this.handleDefault}>Active Members</button>
+            </li>
+            <li>
+              <button onClick={this.handleActiveGuests}>Active Guests</button>
+            </li>
             <li>
               <button onClick={this.handleShowNewRegs}>
                 Locked New Registrations

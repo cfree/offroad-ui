@@ -56,16 +56,15 @@ class EditEvent extends Component {
             trailDifficulty: event.trailDifficulty,
             trailNotes: event.trailNotes,
             rallyAddress: event.rallyAddress,
-            rallyTime: format(new Date(event.rallyTime), 'HH:mm'),
             membersOnly: event.membersOnly,
             host: event.host.username,
             trail: (event.trail && event.trail.id) || '0',
             image: get(event, 'featuredImage.url', null),
             imagePublicId: get(event, 'featuredImage.publicId', null),
             newImage: null,
+            maxAttendees: event.maxAttendees,
+            maxRigs: event.maxRigs,
           };
-
-          console.log('RUN TYPE', event.type);
 
           return (
             <>
@@ -134,10 +133,11 @@ class EditEvent extends Component {
       ...filteredValues,
       startTime: new Date(`${startDate} ${filteredValues.startTime}`),
       endTime: new Date(`${endDate} ${filteredValues.endTime}`),
-      rallyTime: new Date(`${startDate} ${filteredValues.rallyTime}`),
       featuredImage: image,
       newFeaturedImage: null,
     };
+
+    console.log('eventValues', eventValues);
 
     setSubmitting(true);
 

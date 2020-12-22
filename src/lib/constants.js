@@ -4,6 +4,10 @@ export const perPage = 4;
 export const siteNameShort = '4-Players';
 export const siteName = '4-Players of Colorado';
 
+/*
+  Note: If someone is assigned a role, that does not change their title or office.
+  Must be done manually.
+*/
 export const roles = {
   ADMIN: 'Admin',
   OFFICER: 'Officer',
@@ -26,7 +30,7 @@ export const accountStatuses = {
   // Full members: Dues not received in a year
   INACTIVE: 'Inactive',
   // For accounts that were rejected
-  // REJECTED: 'Rejected',
+  REJECTED: 'Rejected',
   // For Guests who should join or leave
   LIMITED: 'Limited',
   // For new profiles
@@ -42,6 +46,7 @@ export const accountTypes = {
 };
 
 export const offices = {
+  // unique, can only be one user per office
   PRESIDENT: 'President',
   VICE_PRESIDENT: 'Vice President',
   SECRETARY: 'Secretary',
@@ -49,15 +54,18 @@ export const offices = {
 };
 
 export const titles = {
+  // can be multiple users with same title
   WEBMASTER: 'Webmaster',
-  // CHARTER_MEMBER: 'Charter Member',
   HISTORIAN: 'Historian',
-  // RUNMASTER: 'Runmaster',
+  RUN_LEADER: 'Run Leader',
+  RUN_MASTER: 'Run Master',
+  CHARTER_MEMBER: 'Charter Member',
 };
 
 export const trailDifficulties = {
   UNKNOWN: 'Unknown',
-  BEGINNER: 'Easy',
+  // BEGINNER: 'Easy', // deprecated
+  EASY: 'Easy',
   INTERMEDIATE: 'Intermediate',
   ADVANCED: 'Advanced',
 };

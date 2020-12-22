@@ -35,7 +35,6 @@
     display: flex;
 
     & > a {
-      margin-left: 10px;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -44,6 +43,25 @@
 
   & > a {
     float: right;
+  }
+}
+
+.calendar {
+  margin-right: 10px;
+  min-width: 36px;
+
+  @include breakpoint($bp-sm) {
+    min-width: 40px;
+  }
+
+  i {
+    vertical-align: middle;
+    color: $grey-light;
+    margin-top: 2px;
+
+    @include breakpoint($bp-sm) {
+      margin-top: 5px;
+    }
   }
 }
 

@@ -13,8 +13,9 @@ export const eventSchema = yup.object().shape({
   trailDifficulty: yup.string().nullable(),
   // trailNotes: yup.string(),
   rallyAddress: yup.string().nullable(),
-  rallyTime: yup.string().nullable().default(null),
   membersOnly: yup.boolean(),
   host: yup.string(), // ID
   trail: yup.string().nullable(), // ID
+  maxAttendees: yup.number().integer().min(-1),
+  maxRigs: yup.number().integer().min(-1),
 });

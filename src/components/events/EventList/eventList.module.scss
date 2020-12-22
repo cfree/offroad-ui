@@ -114,6 +114,10 @@
 .event__badge {
   margin: 0 0 ($space / 2);
 
+  & + & {
+    margin-left: 5px;
+  }
+
   @include breakpoint($bp-sm) {
     margin-bottom: $space;
   }
@@ -126,6 +130,7 @@
 .event-meta {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 .event-attendees {
@@ -165,6 +170,10 @@
       margin-left: -15px;
     }
   }
+}
+
+.event-attendees__badge {
+  margin-bottom: 0;
 }
 
 .event-attendees__count {

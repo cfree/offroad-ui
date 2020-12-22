@@ -16,6 +16,7 @@ import Steps from '../../common/Steps';
 import Icon from '../../common/Icon';
 import NumberInput from '../../common/forms/NumberInput';
 import Button from '../../common/Button';
+import Badge from '../../common/Badge';
 
 import Styles from './rsvp.module.scss';
 
@@ -35,8 +36,9 @@ const RunRsvp = ({
   eventId,
   pastEvent,
   userRsvp,
-  remainingSpots = 20,
   isHost = false,
+  maxAttendees,
+  maxRigs,
 }) => {
   const userId = user.id;
   const [localUserStatus, setLocalUserStatus] = useState(userStatus);
@@ -44,9 +46,7 @@ const RunRsvp = ({
     get(userRsvp, 'guestCount', 0),
   );
   const [modalIsOpen, setIsOpen] = useState(false);
-  const [isRider, setIsRider] = useState(
-    userRsvp ? userRsvp.isRider : !get(user, 'vehicle', true),
-  );
+  const [isRider, setIsRider] = useState(!user.vehicle || userRsvp.isRider);
 
   const { loading: queryLoading, error: queryError, data } = useQuery(
     MEMBERSHIP_QUERY,
@@ -77,7 +77,6 @@ const RunRsvp = ({
 
   const handleYesClick = useCallback(() => {
     const set = async () => {
-      console.log('rider', isRider);
       await setRsvp({
         variables: {
           rsvp: {
@@ -175,20 +174,23 @@ const RunRsvp = ({
     }
   }, [localUserStatus, guestsCountInVehicle, isRider]);
 
-  const getRsvpText = useCallback(() => {
-    const guests = get(userRsvp, 'guestCount', 0);
+  const getRsvpText = useCallback(
+    (fullUp) => {
+      const guests = get(userRsvp, 'guestCount', 0);
 
-    switch (userStatus) {
-      case 'GOING':
-        return guests ? `You + ${guests} going` : `You're going`;
-      case 'MAYBE':
-        return `You're considering it`;
-      case 'CANT_GO':
-        return `You're not going`;
-      default:
-        return 'Are you going?';
-    }
-  }, [userStatus, userRsvp]);
+      switch (userStatus) {
+        case 'GOING':
+          return guests ? `You + ${guests} going` : `You're going`;
+        case 'MAYBE':
+          return `You're considering it`;
+        case 'CANT_GO':
+          return `You're not going`;
+        default:
+          return fullUp ? `You're not going` : 'Are you going?';
+      }
+    },
+    [userStatus, userRsvp],
+  );
 
   const getCountText = useCallback(
     () =>
@@ -227,8 +229,13 @@ const RunRsvp = ({
   }
 
   const cost = false;
+  const fullUp = maxAttendees === attendeeCount || maxRigs === rigCount;
+  const diff = (maxAttendees || -1) - attendeeCount;
+  const remainingAttendeeSpots = diff >= 0 ? diff : 100;
 
   const { vehicle, equipment } = user;
+
+  console.log('remaining', remainingAttendeeSpots);
 
   return pastEvent ? (
     <div className={Styles['rsvp__status--past']}>
@@ -237,8 +244,9 @@ const RunRsvp = ({
     </div>
   ) : (
     <div className={Styles['rsvp__status--upcoming']}>
+      {fullUp && <Badge type="fail">Full</Badge>}
       <div className={Styles['rsvp__attendees']}>
-        {getRsvpText()}
+        {getRsvpText(fullUp)}
         <span className={Styles['rsvp__count']}>{getCountText()}</span>
       </div>
       <div className={Styles['rsvp__actions']}>
@@ -282,7 +290,7 @@ const RunRsvp = ({
                 name="is-rider"
                 type="checkbox"
                 disabled={!vehicle}
-                checked={isRider || !vehicle}
+                checked={isRider}
                 onChange={() => setIsRider(!isRider)}
               />{' '}
               I am a rider
@@ -302,9 +310,10 @@ const RunRsvp = ({
                 <br />
                 <NumberInput
                   min={0}
-                  max={remainingSpots}
+                  max={remainingAttendeeSpots}
                   defaultValue={guestsCountInVehicle}
                   onChange={handleGuestCountChange}
+                  disabled={remainingAttendeeSpots === 1}
                 />{' '}
               </p>
             </>

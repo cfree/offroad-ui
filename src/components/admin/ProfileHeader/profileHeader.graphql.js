@@ -13,7 +13,7 @@ export const ADMIN_PROFILE_HEADER_QUERY = gql`
       joined
       role
       username
-      title
+      titles
       office
       accountType
       rig {

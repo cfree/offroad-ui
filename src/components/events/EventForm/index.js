@@ -222,22 +222,6 @@ const EventForm = ({
                 <div className={Styles['form-field-wrapper']}>
                   <label
                     className={Styles['event-form-label']}
-                    htmlFor="rallyTime"
-                  >
-                    Rally Time
-                  </label>
-                  <div className={Styles['event-form-field']}>
-                    <Field type="time" id="rallyTime" name="rallyTime" />
-                    <FormikErrorMessage
-                      name="rallyTime"
-                      component={FormErrorMessage}
-                    />
-                  </div>
-                </div>
-
-                <div className={Styles['form-field-wrapper']}>
-                  <label
-                    className={Styles['event-form-label']}
                     htmlFor="membersOnly"
                   >
                     Members Only?
@@ -247,7 +231,7 @@ const EventForm = ({
                       type="checkbox"
                       id="membersOnly"
                       name="membersOnly"
-                      value={true}
+                      checked={formikProps.values.membersOnly}
                     />
                     <FormikErrorMessage
                       name="membersOnly"
@@ -375,6 +359,53 @@ const EventForm = ({
                       />
                       <FormikErrorMessage
                         name="newImage"
+                        component={FormErrorMessage}
+                      />
+                    </div>
+                  </div>
+                )}
+
+                <div className={Styles['form-field-wrapper']}>
+                  <label
+                    className={Styles['event-form-label']}
+                    htmlFor="maxAttendees"
+                  >
+                    Max number of attendees
+                  </label>
+                  <div className={Styles['event-form-field']}>
+                    <Field
+                      type="number"
+                      min="-1"
+                      step="1"
+                      id="maxAttendees"
+                      name="maxAttendees"
+                    />{' '}
+                    <small>-1 is unlimited</small>
+                    <FormikErrorMessage
+                      name="maxAttendees"
+                      component={FormErrorMessage}
+                    />
+                  </div>
+                </div>
+
+                {formikProps.values.type === 'RUN' && (
+                  <div className={Styles['form-field-wrapper']}>
+                    <label
+                      className={Styles['event-form-label']}
+                      htmlFor="maxRigs"
+                    >
+                      Max number of rigs
+                    </label>
+                    <div className={Styles['event-form-field']}>
+                      <Field
+                        type="number"
+                        min="-1"
+                        id="maxRigs"
+                        name="maxRigs"
+                      />{' '}
+                      <small>-1 is unlimited</small>
+                      <FormikErrorMessage
+                        name="maxRigs"
                         component={FormErrorMessage}
                       />
                     </div>

@@ -19,7 +19,7 @@ export const RIGBOOK_QUERY = gql`
         }
       }
       joined
-      title
+      titles
       office
       accountType
       vehicle {
@@ -47,7 +47,7 @@ export const RIGBOOK_QUERY = gql`
         }
       }
       joined
-      title
+      titles
       office
       accountType
       vehicle {
@@ -75,7 +75,7 @@ export const RIGBOOK_QUERY = gql`
         }
       }
       joined
-      title
+      titles
       office
       accountType
       vehicle {
@@ -103,7 +103,7 @@ export const RIGBOOK_QUERY = gql`
         }
       }
       joined
-      title
+      titles
       office
       accountType
       vehicle {
@@ -131,7 +131,7 @@ export const RIGBOOK_QUERY = gql`
         }
       }
       joined
-      title
+      titles
       accountType
       vehicle {
         id

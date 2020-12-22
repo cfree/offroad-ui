@@ -6,6 +6,7 @@ export const UPCOMING_EVENTS_QUERY = gql`
       id
       firstName
       lastName
+      accountType
       avatar {
         id
         smallUrl
@@ -20,6 +21,7 @@ export const UPCOMING_EVENTS_QUERY = gql`
       }
       startTime
       endTime
+      membersOnly
       host {
         id
         firstName
@@ -27,8 +29,9 @@ export const UPCOMING_EVENTS_QUERY = gql`
       }
       address
       rallyAddress
-      rallyTime
       trailDifficulty
+      maxRigs
+      maxAttendees
       trail {
         id
         name
@@ -49,6 +52,8 @@ export const UPCOMING_EVENTS_QUERY = gql`
           }
         }
         status
+        isRider
+        guestCount
       }
     }
   }
@@ -60,6 +65,7 @@ export const PAST_EVENTS_QUERY = gql`
       id
       firstName
       lastName
+      accountType
       avatar {
         id
         smallUrl
@@ -74,6 +80,7 @@ export const PAST_EVENTS_QUERY = gql`
       }
       startTime
       endTime
+      membersOnly
       host {
         id
         firstName
@@ -81,8 +88,9 @@ export const PAST_EVENTS_QUERY = gql`
       }
       address
       rallyAddress
-      rallyTime
       trailDifficulty
+      maxRigs
+      maxAttendees
       trail {
         id
         name
@@ -103,6 +111,8 @@ export const PAST_EVENTS_QUERY = gql`
           }
         }
         status
+        isRider
+        guestCount
       }
     }
   }

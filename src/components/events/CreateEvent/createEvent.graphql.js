@@ -26,7 +26,6 @@ export const CREATE_EVENT_MUTATION = gql`
     $trailDifficulty: TrailDifficulty
     $trailNotes: String
     $rallyAddress: String
-    $rallyTime: DateTime
     $membersOnly: Boolean
     $host: String!
     $trail: String
@@ -44,7 +43,6 @@ export const CREATE_EVENT_MUTATION = gql`
         trailDifficulty: $trailDifficulty
         trailNotes: $trailNotes
         rallyAddress: $rallyAddress
-        rallyTime: $rallyTime
         membersOnly: $membersOnly
         host: $host
         trail: $trail

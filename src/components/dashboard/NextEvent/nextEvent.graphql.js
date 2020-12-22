@@ -4,6 +4,7 @@ export const NEXT_EVENT_QUERY = gql`
   query NEXT_EVENT_QUERY {
     myself {
       id
+      accountType
     }
     event: getNextEvent {
       id
@@ -16,6 +17,7 @@ export const NEXT_EVENT_QUERY = gql`
       }
       startTime
       endTime
+      membersOnly
       rsvps {
         member {
           id

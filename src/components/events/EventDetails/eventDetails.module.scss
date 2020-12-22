@@ -60,7 +60,7 @@
 }
 
 .event__title {
-  margin: 0 0 ($space / 2);
+  margin: 0 0 $space;
   line-height: 1;
 }
 
@@ -102,12 +102,6 @@
   top: 20px;
   font-size: 1.6rem;
   margin-bottom: $space / 2;
-
-  @include breakpoint($bp-sm) {
-    display: flex;
-    grid-template-columns: 30px auto;
-    justify-content: space-between;
-  }
 
   @include breakpoint($bp-md) {
     display: block;
@@ -180,21 +174,79 @@
   box-shadow: 0 0 0 1px $red-light;
 }
 
-.event__attendees {
-  display: grid;
-  grid-gap: ($space / 2);
-  grid-template-columns: repeat(2, 1fr);
+.event__card-heading {
+  margin: 0;
+  padding: 5px 20px 3px;
+  color: $white;
+  text-transform: uppercase;
+  background: $black-light;
+  display: flex;
+}
+
+.event-stats {
+  display: flex;
+  // justify-content: space-evenly;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.event-stat {
+  text-align: center;
+  padding: 20px 20px 10px;
+  font-size: 18px;
+  font-style: italic;
+  font-family: $font-secondary;
+  border-radius: 20px;
+  background: $white-dark;
+  // min-width: ;
 
   @include breakpoint($bp-sm) {
-    grid-gap: $space;
+    font-size: 25px;
   }
 
-  @include breakpoint($bp-md) {
-    grid-template-columns: repeat(2, minmax(230px, 1fr));
+  & + & {
+    margin-left: 20px;
   }
+}
 
-  @include breakpoint($max-width) {
-    grid-gap: $space;
-    grid-template-columns: repeat(3, minmax(230px, 1fr));
+.stat--large {
+  font-size: 35px;
+  font-weight: 700;
+  font-family: $font-primary;
+  line-height: 0.6;
+
+  @include breakpoint($bp-sm) {
+    font-size: 50px;
   }
+}
+
+.stat--newline {
+  font-size: 20px;
+  font-weight: 700;
+  display: block;
+  font-family: $font-secondary;
+
+  @include breakpoint($bp-sm) {
+    font-size: 30px;
+  }
+}
+
+.event__attendees {
+  // display: grid;
+  // grid-gap: ($space / 2);
+  // grid-template-columns: repeat(2, 1fr);
+
+  // @include breakpoint($bp-sm) {
+  //   grid-gap: $space;
+  // }
+
+  // @include breakpoint($bp-md) {
+  //   grid-template-columns: repeat(2, minmax(230px, 1fr));
+  // }
+
+  // @include breakpoint($max-width) {
+  //   grid-gap: $space;
+  //   grid-template-columns: repeat(3, minmax(230px, 1fr));
+  // }
 }

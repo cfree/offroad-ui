@@ -6,11 +6,13 @@ export const EVENT_QUERY = gql`
       id
       firstName
       lastName
+      accountType
       avatar {
         id
         url
       }
       rig {
+        id
         image {
           id
           url
@@ -33,53 +35,49 @@ export const EVENT_QUERY = gql`
       }
       host {
         id
-        firstName
-        lastName
-        username
-        accountType
-        avatar {
-          id
-          url
-          smallUrl
-        }
-        rig {
-          image {
-            id
-            url
-          }
-        }
-        equipment
-        vehicle {
-          id
-          year
-          make
-          model
-        }
       }
       startTime
       endTime
+      membersOnly
       trailDifficulty
       rsvps {
+        id
         member {
           id
           firstName
           lastName
           username
           accountType
+          email
+          runsAttendedCount
+          contactInfo {
+            id
+            city
+            state
+          }
           avatar {
             id
             url
           }
           rig {
+            id
             image {
               id
               url
             }
           }
+          vehicle {
+            id
+            year
+            make
+            model
+            trim
+          }
         }
         status
         guestCount
         isRider
+        equipment
       }
       address
       trail {
@@ -89,7 +87,6 @@ export const EVENT_QUERY = gql`
         address
         avgDifficulty
         avgRatings
-        currentConditions
         conditionsLastReported
         favoriteCount
         trailheadCoords
@@ -99,7 +96,8 @@ export const EVENT_QUERY = gql`
         }
       }
       rallyAddress
-      rallyTime
+      maxRigs
+      maxAttendees
     }
   }
 `;

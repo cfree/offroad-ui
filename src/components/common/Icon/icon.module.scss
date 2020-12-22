@@ -20,6 +20,8 @@
   }
 }
 
+// Icon font generated Fontastic.me acct
+// Unicode values taken from Fontastic stylesheet
 $icons: (
   'comment': '\61',
   'success': '\62',
@@ -60,6 +62,8 @@ $icons: (
   'meeting': '\4c',
   'collection': '\4d',
   'fundraising': '\49',
+  'lock': '\4e',
+  'count': '\4f',
 );
 
 @each $name, $content in $icons {

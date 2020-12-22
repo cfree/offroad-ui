@@ -33,7 +33,7 @@ const ProfileHeader = ({ username }) => {
   }
 
   const { user } = data;
-  const convertedTitles = get(titles, 'user.title', []);
+  const convertedTitles = get(user, 'titles', []).map((title) => titles[title]);
   const RIG_SRC = get(user, 'rig.image.url', DEFAULT_RIG_SRC);
   const AVATAR_SRC = get(user, 'avatar.url', DEFAULT_AVATAR_SRC);
 
@@ -84,9 +84,13 @@ const ProfileHeader = ({ username }) => {
                     <li>{types[user.accountType]} Member</li>
                   )}
                   {(user.office || convertedTitles.length > 0) && (
-                    <li>
-                      {[offices[user.office], ...convertedTitles].join(', ')}
-                    </li>
+                    <>
+                      {[offices[user.office], ...convertedTitles].map(
+                        (item) => (
+                          <li key="item">{item}</li>
+                        ),
+                      )}
+                    </>
                   )}
                   {user.joined && (
                     <li>Joined {format(new Date(user.joined), 'M/d/yyyy')}</li>

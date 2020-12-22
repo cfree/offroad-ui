@@ -3,6 +3,7 @@ import { Query } from '@apollo/react-components';
 import { format } from 'date-fns';
 import { Link } from 'react-router-dom';
 import get from 'lodash/get';
+import cn from 'classnames';
 
 import {
   UPCOMING_EVENTS_QUERY,
@@ -64,7 +65,30 @@ class EventList extends Component {
                       (rsvp) => rsvp.status === 'GOING',
                     );
 
-                    if (!this.state.attendees[event.id]) {
+                    console.log('attendees', this.state.attendees[event.id]);
+
+                    let totalAttendees = 0;
+                    let totalRigs = 0;
+
+                    if (this.state.attendees[event.id]) {
+                      this.state.attendees[event.id].forEach((attendee) => {
+                        console.log('attendee', attendee);
+                        totalAttendees += 1;
+
+                        if (attendee.isRider) {
+                          return;
+                        }
+
+                        if (attendee.guestCount) {
+                          totalAttendees += attendee.guestCount;
+                        }
+
+                        if (event.trail) {
+                          totalRigs += 1;
+                        }
+                        return;
+                      });
+                    } else {
                       this.setState((state) => ({
                         attendees: {
                           ...state.attendees,
@@ -94,34 +118,80 @@ class EventList extends Component {
                         badgeType = 'caution';
                         break;
                       case 'EASY':
-                      default:
+                      case 'BEGINNER':
                         badgeType = 'success';
+                        break;
+                      default:
+                        badgeType = 'neutral';
                     }
+
+                    const lockedOut =
+                      event.membersOnly && myself.accountType === 'GUEST';
+
+                    const classNames = cn(Styles['event'], {
+                      [Styles['event__locked']]: lockedOut,
+                    });
+
+                    // this.state.attendees[event.id] || [].map(() => '');
+                    // Loop through each attendee
+
+                    // const totalRigs =
+                    //   this.state.attendees[event.id] || [].map(() => '');
+
+                    const isFull =
+                      event.maxRigs === totalRigs ||
+                      event.maxAttendees === totalAttendees;
+
+                    console.log('isFull', isFull, totalRigs, totalAttendees);
 
                     return (
                       <li className={Styles['event-wrapper']} key={event.id}>
-                        <div className={Styles['event']}>
+                        <div className={classNames}>
                           <div className={Styles['event__header']}>
                             <div className={Styles['event__header-details']}>
                               <div className={Styles['event-date']}>
-                                <Link to={`/event/${event.id}`}>
-                                  {format(
-                                    new Date(event.startTime),
-                                    'eee, MMM d, h:mm a',
-                                  )}
-                                </Link>
+                                {lockedOut ? (
+                                  <>
+                                    {format(
+                                      new Date(event.startTime),
+                                      'eee, MMM d',
+                                    )}
+                                  </>
+                                ) : (
+                                  <Link to={`/event/${event.id}`}>
+                                    {format(
+                                      new Date(event.startTime),
+                                      'eee, MMM d, h:mm a',
+                                    )}
+                                  </Link>
+                                )}
                               </div>
                               <h3 className={Styles['event-title']}>
-                                <Link to={`/event/${event.id}`}>
-                                  {event.title}
-                                </Link>
+                                {lockedOut ? (
+                                  <>{event.title}</>
+                                ) : (
+                                  <Link to={`/event/${event.id}`}>
+                                    {event.title}
+                                  </Link>
+                                )}
                               </h3>
-                              <Badge
-                                type={badgeType}
-                                className={Styles['event__badge']}
-                              >
-                                {trailDifficulties[event.trailDifficulty]}
-                              </Badge>
+                              {event.trailDifficulty &&
+                                event.trailDifficulty !== 'UNKNOWN' && (
+                                  <Badge
+                                    type={badgeType}
+                                    className={Styles['event__badge']}
+                                  >
+                                    {trailDifficulties[event.trailDifficulty]}
+                                  </Badge>
+                                )}
+                              {event.membersOnly && (
+                                <Badge
+                                  type="neutral"
+                                  className={Styles['event__badge']}
+                                >
+                                  Members Only
+                                </Badge>
+                              )}
                               <div className={Styles['event-location']}>
                                 {event.address}
                               </div>
@@ -172,20 +242,34 @@ class EventList extends Component {
                                         )}
                                       </span>
                                     )}
-                                    <span
-                                      className={
-                                        Styles['event-attendees__count']
-                                      }
-                                    >
+                                    {isFull ? (
+                                      <Badge
+                                        className={
+                                          Styles['event-attendees__badge']
+                                        }
+                                        type="fail"
+                                      >
+                                        Full
+                                      </Badge>
+                                    ) : (
                                       <span
                                         className={
-                                          Styles['event-attendees__number']
+                                          Styles['event-attendees__count']
                                         }
                                       >
-                                        {this.state.attendees[event.id].length}
-                                      </span>{' '}
-                                      attendees
-                                    </span>
+                                        <span
+                                          className={
+                                            Styles['event-attendees__number']
+                                          }
+                                        >
+                                          {
+                                            this.state.attendees[event.id]
+                                              .length
+                                          }
+                                        </span>{' '}
+                                        attendees
+                                      </span>
+                                    )}
                                   </span>
                                 )}
                               <span className={Styles['event-rsvp']}>
@@ -201,6 +285,7 @@ class EventList extends Component {
                                   )}
                                   eventId={event.id}
                                   user={myself}
+                                  lockedOut={lockedOut}
                                 />
                               </span>
                             </div>

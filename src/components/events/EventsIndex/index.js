@@ -38,7 +38,7 @@ const EventsIndex = () => {
       </nav>
 
       <Route exact path={path}>
-        <EventList upcoming="true" />
+        <EventList upcoming />
       </Route>
       <Route path={`${path}/past`}>
         <EventList />

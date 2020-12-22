@@ -32,7 +32,6 @@ export default class AttendeeStatus extends Component {
   };
 
   showIcon = (status) => {
-    console.log('status', status);
     if (this.props.isUpcoming) {
       switch (status) {
         case 'GOING':
@@ -98,7 +97,12 @@ export default class AttendeeStatus extends Component {
       isUpcoming,
       iconFirst = false,
       darkMode = false,
+      lockedOut = false,
     } = this.props;
+
+    if (lockedOut) {
+      return null;
+    }
 
     const classNames = cn(Styles['attendee-status'], {
       [Styles['attendees-status--dark']]: darkMode,

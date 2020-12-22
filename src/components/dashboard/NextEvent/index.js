@@ -96,6 +96,8 @@ const NextEvent = () => {
     `,
   };
 
+  const lockedOut = myself.accountType === 'GUEST' && event.membersOnly;
+
   return (
     <>
       <h3 className={Styles['dashboard-heading']}>Next Event</h3>
@@ -103,10 +105,20 @@ const NextEvent = () => {
         <div className={Styles['event']} style={backgroundImage}>
           <div className={Styles['event-details']}>
             <h3>
-              <Link to={`/event/${event.id}`}>{event.title}</Link>
+              {lockedOut ? (
+                <>{event.title}</>
+              ) : (
+                <Link to={`/event/${event.id}`}>{event.title}</Link>
+              )}
             </h3>
-            <h4>{format(new Date(event.startTime), 'eee, MMM d, h:mm a')}</h4>
+            {lockedOut ? (
+              <h4>{format(new Date(event.startTime), 'eee, MMM d')}</h4>
+            ) : (
+              <h4>{format(new Date(event.startTime), 'eee, MMM d, h:mm a')}</h4>
+            )}
+            {lockedOut && <h4>Members Only</h4>}
           </div>
+
           <AttendeeStatus
             isUpcoming
             status={userRSVP}
@@ -114,6 +126,7 @@ const NextEvent = () => {
             user={myself}
             iconFirst
             darkMode
+            lockedOut={lockedOut}
           />
           {/* <Button
             onClick={() => submitRsvp(true, event.id, myself.id, setRsvp)}

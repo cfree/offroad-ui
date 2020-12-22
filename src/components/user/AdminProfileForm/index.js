@@ -61,8 +61,7 @@ const AdminProfileForm = ({ username }) => {
   }
 
   const userAdminFormValues = {
-    title: user.title,
-    isCharterMember: user.isCharterMember ? 'yes' : 'no',
+    titles: user.titles || [],
     office: user.office,
     role: user.role,
     accountType: user.accountType,
@@ -77,8 +76,7 @@ const AdminProfileForm = ({ username }) => {
         setUserAdminForm({
           id: user.id,
           ...values,
-          isCharterMember: values.isCharterMember === 'yes',
-          title: values.title === 'None' ? null : values.title,
+          titles: values.titles.length === 0 ? null : values.titles,
           office: values.office === 'None' ? null : values.office,
         });
 
@@ -90,15 +88,53 @@ const AdminProfileForm = ({ username }) => {
         <div className={cn(Styles['form'], Styles['profile-form--user'])}>
           <form onSubmit={formikProps.handleSubmit}>
             <div className={Styles['form-field-wrapper']}>
-              <label className={Styles['profile-form-label']} htmlFor="title">
-                Title
+              <label className={Styles['profile-form-label']}>Titles</label>
+              <div className={Styles['profile-form-field']}>
+                {Object.keys(titles).map((title) => (
+                  <label>
+                    <Field
+                      type="checkbox"
+                      name="titles"
+                      id="titles"
+                      checked={formikProps.values.titles.includes(title)}
+                      onChange={(event) => {
+                        const value = event.target.value;
+                        const wasChecked = event.target.checked;
+
+                        if (wasChecked) {
+                          formikProps.setFieldValue('titles', [
+                            ...formikProps.values.titles,
+                            value,
+                          ]);
+                        } else {
+                          formikProps.setFieldValue('titles', [
+                            ...formikProps.values.titles.filter(
+                              (title) => title !== value,
+                            ),
+                          ]);
+                        }
+                      }}
+                    />{' '}
+                    {titles[title]}
+                  </label>
+                ))}
+                <FormikErrorMessage
+                  name="titles"
+                  component={FormErrorMessage}
+                />
+              </div>
+            </div>
+
+            {/* <div className={Styles['form-field-wrapper']}>
+              <label className={Styles['profile-form-label']} htmlFor="titles">
+                Titles
               </label>
               <div className={Styles['profile-form-field']}>
                 <Field
                   component="select"
-                  name="title"
-                  id="title"
-                  defaultValue={user.title || null}
+                  name="titles"
+                  id="titles"
+                  defaultValue={(user.titles && user.titles[0]) || null}
                 >
                   <option value={null}>None</option>
                   {Object.entries(titles).map((title, idx) => (
@@ -107,47 +143,12 @@ const AdminProfileForm = ({ username }) => {
                     </option>
                   ))}
                 </Field>
-                <FormikErrorMessage name="title" component={FormErrorMessage} />
-              </div>
-            </div>
-
-            <div className={Styles['form-field-wrapper']}>
-              <div className={Styles['profile-form-label']}>
-                Is Charter Member?
-              </div>
-              <div className={Styles['profile-form-radio']}>
-                <label
-                  htmlFor="isCharterMemberYes"
-                  className={Styles['profile-radio-label']}
-                >
-                  <Field
-                    type="radio"
-                    id="isCharterMemberYes"
-                    name="isCharterMember"
-                    value="yes"
-                    checked={formikProps.values.isCharterMember === 'yes'}
-                  />
-                  Yes
-                </label>
-                <label
-                  htmlFor="isCharterMemberNo"
-                  className={Styles['profile-radio-label']}
-                >
-                  <Field
-                    type="radio"
-                    id="isCharterMemberNo"
-                    name="isCharterMember"
-                    value="no"
-                    checked={formikProps.values.isCharterMember === 'no'}
-                  />
-                  No
-                </label>
                 <FormikErrorMessage
-                  name="isCharterMember"
+                  name="titles"
                   component={FormErrorMessage}
                 />
               </div>
-            </div>
+            </div> */}
 
             {/* <div className={Styles['form-field-wrapper']}>
                 <div className={Styles['profile-form-label']}>

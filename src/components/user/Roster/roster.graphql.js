@@ -6,14 +6,14 @@ export const MEMBERSHIP_QUERY = gql`
     $accountType: [AccountType]
     $role: [Role]
     $office: [Office]
-    $title: [Title]
+    $titles: [Title]
   ) {
     users(
       accountStatus: $accountStatus
       accountType: $accountType
       role: $role
       office: $office
-      title: $title
+      titles: $titles
     ) {
       username
       id

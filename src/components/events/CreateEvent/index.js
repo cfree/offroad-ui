@@ -40,12 +40,13 @@ class CreateEvent extends Component {
             trailDifficulty: 'UNKNOWN',
             trailNotes: '',
             rallyAddress: '',
-            rallyTime: '09:45',
             membersOnly: false,
             host: queryData.runLeaders[0].username,
             trail: '0',
             image: null,
             newImage: null,
+            maxAttendees: -1,
+            maxRigs: -1,
           };
 
           console.log('initialValue', format(today, 'yyyy-MM-dd'));
@@ -109,7 +110,6 @@ class CreateEvent extends Component {
       ...filteredValues,
       startTime: new Date(`${startDate} ${filteredValues.startTime}`),
       endTime: new Date(`${endDate} ${filteredValues.endTime}`),
-      rallyTime: new Date(`${startDate} ${filteredValues.rallyTime}`),
       featuredImage: image,
       newFeaturedImage: null,
     };
