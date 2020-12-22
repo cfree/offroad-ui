@@ -18,6 +18,7 @@ import SuccessMessage from '../../utility/SuccessMessage';
 import FormErrorMessage from '../../utility/FormErrorMessage';
 import Loading from '../../utility/Loading';
 import {
+  dateFormatForm,
   states,
   DEFAULT_AVATAR_SRC,
   trailDifficulties,
@@ -63,11 +64,11 @@ class ProfileForm extends Component {
             gender: queryData.user.gender || 'MALE',
             birthdate:
               (queryData.user.birthdate &&
-                format(new Date(queryData.user.birthdate), 'yyyy-MM-dd')) ||
+                format(new Date(queryData.user.birthdate), dateFormatForm)) ||
               null, // admin
             joined:
               (queryData.user.joined &&
-                format(new Date(queryData.user.joined), 'yyyy-MM-dd')) ||
+                format(new Date(queryData.user.joined), dateFormatForm)) ||
               null, // admin
             phone:
               (queryData.user.contactInfo &&
@@ -283,7 +284,7 @@ class ProfileForm extends Component {
                                   type="date"
                                   id="joined"
                                   name="joined"
-                                  max={format(new Date(), 'yyyy-mm-dd')}
+                                  max={format(new Date(), dateFormatForm)}
                                   disabled={!isAdmin || queryData.user.joined}
                                 />
                                 <FormikErrorMessage

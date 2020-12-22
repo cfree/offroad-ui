@@ -12,6 +12,8 @@ import {
 import AttendeeStatus from '../AttendeeStatus';
 import Badge from '../../common/Badge';
 import {
+  dateFormatAbbrev,
+  dateTimeFormatAbbrev,
   DEFAULT_EVENT_SMALL_SRC,
   DEFAULT_AVATAR_SMALL_SRC,
   trailDifficulties,
@@ -154,14 +156,14 @@ class EventList extends Component {
                                   <>
                                     {format(
                                       new Date(event.startTime),
-                                      'eee, MMM d',
+                                      dateFormatAbbrev,
                                     )}
                                   </>
                                 ) : (
                                   <Link to={`/event/${event.id}`}>
                                     {format(
                                       new Date(event.startTime),
-                                      'eee, MMM d, h:mm a',
+                                      dateTimeFormatAbbrev,
                                     )}
                                   </Link>
                                 )}

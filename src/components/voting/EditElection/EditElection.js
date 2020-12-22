@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Query, Mutation } from '@apollo/react-components';
 import { gql } from 'apollo-boost';
 import { format } from 'date-fns';
+
+import { dateFormatForm } from '../../../lib/constants';
 import AddOffice from '../AddOffice';
 
 const ELECTION_CANDIDATES_QUERY = gql`
@@ -130,9 +132,9 @@ class EditElection extends Component {
                     id="startDate"
                     defaultValue={
                       this.state.startTime ||
-                      format(new Date(getElection.startTime), 'yyyy-mm-dd')
+                      format(new Date(getElection.startTime), dateFormatForm)
                     }
-                    min={format(Date.now(), 'yyyy-mm-dd')}
+                    min={format(Date.now(), dateFormatForm)}
                     onChange={this.updateState}
                     type="date"
                     id="startDate"
@@ -147,7 +149,7 @@ class EditElection extends Component {
                     id="endDate"
                     defaultValue={
                       this.state.endTime ||
-                      format(new Date(getElection.endTime), 'yyyy-mm-dd')
+                      format(new Date(getElection.endTime), dateFormatForm)
                     }
                     onChange={this.updateState}
                     type="date"

@@ -12,6 +12,7 @@ import {
 
 import EventForm from '../EventForm';
 import ErrorMessage from '../../utility/ErrorMessage';
+import { dateFormatForm } from '../../../lib/constants';
 import { uploadImage } from '../../../lib/utils';
 
 class CreateEvent extends Component {
@@ -32,9 +33,9 @@ class CreateEvent extends Component {
             type: 'RUN',
             title: '',
             description: '',
-            startDate: format(today, 'yyyy-MM-dd'),
+            startDate: format(today, dateFormatForm),
             startTime: '10:00',
-            endDate: format(today, 'yyyy-MM-dd'),
+            endDate: format(today, dateFormatForm),
             endTime: '15:00',
             address: '',
             trailDifficulty: 'UNKNOWN',
@@ -49,7 +50,7 @@ class CreateEvent extends Component {
             maxRigs: -1,
           };
 
-          console.log('initialValue', format(today, 'yyyy-MM-dd'));
+          console.log('initialValue', format(today, dateFormatForm));
 
           return (
             <>

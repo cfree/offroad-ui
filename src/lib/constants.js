@@ -4,6 +4,22 @@ export const perPage = 4;
 export const siteNameShort = '4-Players';
 export const siteName = '4-Players of Colorado';
 
+/**
+ * Date/time
+ *
+ * Outdated:
+ * M/d/yyyy    // 1/1/2001
+ * M/d/yy      // 1/1/01
+ */
+export const dateFormat = 'dd LLL yyyy'; // 08 Sept 2018
+export const dateFormatAbbrev = 'eee, MMM d'; // Sat, Jan 2
+export const dateFormatFull = 'EEEE, MMMM d, yyyy'; // Thursday, April 1, 2021
+export const dateFormatForm = 'yyyy-MM-dd'; // 2017-08-01
+export const timeFormat = 'h:mm a'; // 3:00 PM
+export const timeFormat24Hr = 'HH:mm'; // 03:00
+export const dateTimeFormat = `${dateFormat}, ${timeFormat}`;
+export const dateTimeFormatAbbrev = `${dateFormatAbbrev}, ${timeFormat}`;
+
 /*
   Note: If someone is assigned a role, that does not change their title or office.
   Must be done manually.

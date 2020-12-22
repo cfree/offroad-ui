@@ -9,6 +9,7 @@ import { useQuery } from '@apollo/react-hooks';
 import { RUN_EVENT_QUERY } from './runEventDetails.graphql';
 
 import {
+  dateFormatFull,
   trailDifficulties,
   // trailConditions,
   DEFAULT_EVENT_SRC,
@@ -114,7 +115,7 @@ const RunEventDetails = ({ eventId }) => {
         <div className={Styles['event__date']}>
           {isPastEvent
             ? 'Past Event'
-            : format(new Date(event.startTime), 'EEEE, MMMM d, yyyy')}
+            : format(new Date(event.startTime), dateFormatFull)}
           {!isPastEvent && (
             <Filter roleCheck={isAtLeastRunMaster} typeCheck={isFullMember}>
               {' '}

@@ -3,7 +3,9 @@ import { format } from 'date-fns';
 import { useQuery } from '@apollo/react-hooks';
 
 import { ADMIN_OVERVIEW_QUERY } from './adminOverview.graphql';
+
 import ErrorMessage from '../../utility/ErrorMessage';
+import { dateFormat } from '../../../lib/constants';
 
 const AdminOverview = ({ username }) => {
   const {
@@ -34,11 +36,11 @@ const AdminOverview = ({ username }) => {
       <ul>
         <li>
           <strong>Date account created:</strong>{' '}
-          {format(new Date(user.createdAt), 'MM-dd-yyyy')}
+          {format(new Date(user.createdAt), dateFormat)}
         </li>
         <li>
           <strong>Last login:</strong>{' '}
-          {user.lastLogin && format(new Date(user.lastLogin), 'MM-dd-yyyy')}
+          {user.lastLogin && format(new Date(user.lastLogin), dateFormat)}
         </li>
         <li>
           <strong>Runs attended:</strong> {(runs && runs.length) || '0'}{' '}
@@ -47,7 +49,7 @@ const AdminOverview = ({ username }) => {
               <br />
               <small>{`last: ${format(
                 new Date(runs[0].startTime),
-                'MM-dd-yyyy',
+                dateFormat,
               )}`}</small>
             </>
           )}
@@ -60,7 +62,7 @@ const AdminOverview = ({ username }) => {
               <br />
               <small>{`last: ${format(
                 new Date(meetings[0].startTime),
-                'MM-dd-yyyy',
+                dateFormat,
               )}`}</small>
             </>
           )}
@@ -69,15 +71,13 @@ const AdminOverview = ({ username }) => {
           <>
             <li>
               <strong>Date joined:</strong>{' '}
-              {user.joined
-                ? format(new Date(user.joined), 'MM-dd-yyyy')
-                : 'n/a'}
+              {user.joined ? format(new Date(user.joined), dateFormat) : 'n/a'}
             </li>
 
             <li>
               <strong>Dues last received:</strong>{' '}
               {duesLastReceived &&
-                format(new Date(duesLastReceived.time), 'MM-dd-yyyy')}
+                format(new Date(duesLastReceived.time), dateFormat)}
             </li>
           </>
         ) : (

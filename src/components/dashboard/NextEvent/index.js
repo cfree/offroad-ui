@@ -9,7 +9,11 @@ import { NEXT_EVENT_QUERY } from './nextEvent.graphql';
 
 import ErrorMessage from '../../utility/ErrorMessage';
 import AttendeeStatus from '../../events/AttendeeStatus';
-import { DEFAULT_EVENT_SRC } from '../../../lib/constants';
+import {
+  dateFormatAbbrev,
+  dateTimeFormatAbbrev,
+  DEFAULT_EVENT_SRC,
+} from '../../../lib/constants';
 
 import Styles from './nextEvent.module.scss';
 
@@ -112,9 +116,9 @@ const NextEvent = () => {
               )}
             </h3>
             {lockedOut ? (
-              <h4>{format(new Date(event.startTime), 'eee, MMM d')}</h4>
+              <h4>{format(new Date(event.startTime), dateFormatAbbrev)}</h4>
             ) : (
-              <h4>{format(new Date(event.startTime), 'eee, MMM d, h:mm a')}</h4>
+              <h4>{format(new Date(event.startTime), dateTimeFormatAbbrev)}</h4>
             )}
             {lockedOut && <h4>Members Only</h4>}
           </div>

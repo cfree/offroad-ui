@@ -4,6 +4,8 @@ import { Query } from '@apollo/react-components';
 import { gql } from 'apollo-boost';
 import { format } from 'date-fns';
 
+import { dateFormat } from '../../../lib/constants';
+
 const getElectionQuery = (admin) =>
   admin
     ? gql`
@@ -83,7 +85,8 @@ export default class PollingPlace extends Component {
                           </Link>
                           <br />
                           <small>
-                            Ends: {format(new Date(election.endTime), 'M/D/YY')}
+                            Ends:{' '}
+                            {format(new Date(election.endTime), dateFormat)}
                           </small>
                           {election.races && (
                             <>

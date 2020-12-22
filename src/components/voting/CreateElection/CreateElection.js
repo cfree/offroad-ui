@@ -3,6 +3,8 @@ import { Query, Mutation } from '@apollo/react-components';
 import { gql } from 'apollo-boost';
 import { format, addWeeks } from 'date-fns';
 import { useHistory } from 'react-router-dom';
+
+import { dateFormatForm } from '../../../lib/constants';
 import AddOffice from '../AddOffice';
 
 const ELECTION_CANDIDATES_QUERY = gql`
@@ -28,9 +30,11 @@ const SUBMIT_ELECTION_MUTATION = gql`
 
 const CreateElection = () => {
   const [title, setTitle] = useState('');
-  const [startTime, setStartTime] = useState(format(Date.now(), 'yyyy-MM-dd'));
+  const [startTime, setStartTime] = useState(
+    format(Date.now(), dateFormatForm),
+  );
   const [endTime, setEndTime] = useState(
-    format(addWeeks(Date.now(), 2), 'yyyy-MM-dd'),
+    format(addWeeks(Date.now(), 2), dateFormatForm),
   );
   const [races, setRaces] = useState([]);
   const history = useHistory();
@@ -91,7 +95,7 @@ const CreateElection = () => {
                   name="startDate"
                   id="startDate"
                   defaultValue={startTime}
-                  min={format(Date.now(), 'yyyy-mm-dd')}
+                  min={format(Date.now(), dateFormatForm)}
                   onChange={(e) => setStartTime(e.target.value)}
                   type="date"
                   pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}"

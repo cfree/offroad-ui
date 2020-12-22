@@ -8,7 +8,11 @@ import RichTextArea from '../../utility/RichTextArea';
 import Loading from '../../utility/Loading';
 import ErrorMessage from '../../utility/ErrorMessage';
 import FormErrorMessage from '../../utility/FormErrorMessage';
-import { eventTypes, trailDifficulties } from '../../../lib/constants';
+import {
+  dateFormatForm,
+  eventTypes,
+  trailDifficulties,
+} from '../../../lib/constants';
 // import EventImageUploader from '../EventImageUploader';
 import UploadImagePreview from '../../common/UploadImagePreview';
 
@@ -112,7 +116,7 @@ const EventForm = ({
                       type="date"
                       id="startDate"
                       name="startDate"
-                      min={format(startOfToday(), 'yyyy-MM-dd')}
+                      min={format(startOfToday(), dateFormatForm)}
                       onChange={(e) => {
                         formikProps.setFieldValue('endDate', e.target.value);
                         formikProps.handleChange(e);

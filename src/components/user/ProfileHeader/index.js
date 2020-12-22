@@ -6,6 +6,7 @@ import { useQuery } from '@apollo/react-hooks';
 
 import { PROFILE_HEADER_QUERY } from './profileHeader.graphql';
 import {
+  dateFormat,
   accountTypes as types,
   offices,
   titles,
@@ -87,7 +88,7 @@ const ProfileHeader = ({ username, isSelf }) => {
                     </li>
                   )}
                   {user.joined && (
-                    <li>Joined {format(new Date(user.joined), 'M/d/yyyy')}</li>
+                    <li>Joined {format(new Date(user.joined), dateFormat)}</li>
                   )}
                 </ul>
               </div>

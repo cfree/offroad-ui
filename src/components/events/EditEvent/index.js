@@ -14,14 +14,15 @@ import { UPCOMING_EVENTS_QUERY } from '../EventList/eventList.graphql';
 
 import EventForm from '../EventForm';
 import ErrorMessage from '../../utility/ErrorMessage';
+import { dateFormatForm, timeFormat24Hr } from '../../../lib/constants';
 import { uploadImage } from '../../../lib/utils';
 // import UploadImagePreview from '../../common/UploadImagePreview';
 
 class EditEvent extends Component {
   // state = {
-  //   startDate: format(new Date(), 'yyyy-mm-dd'),
+  //   startDate: format(new Date(), dateFormatForm),
   //   startTime: '10:00',
-  //   endDate: format(new Date(), 'yyyy-mm-dd'),
+  //   endDate: format(new Date(), dateFormatForm),
   //   endTime: '15:00',
   //   eventForm: {},
   // };
@@ -47,10 +48,10 @@ class EditEvent extends Component {
           const initialValues = {
             id: existingEventId,
             type: event.type,
-            startDate: format(new Date(event.startTime), 'yyyy-MM-dd'),
-            startTime: format(new Date(event.startTime), 'HH:mm'),
-            endDate: format(new Date(event.endTime), 'yyyy-MM-dd'),
-            endTime: format(new Date(event.endTime), 'HH:mm'),
+            startDate: format(new Date(event.startTime), dateFormatForm),
+            startTime: format(new Date(event.startTime), timeFormat24Hr),
+            endDate: format(new Date(event.endTime), dateFormatForm),
+            endTime: format(new Date(event.endTime), timeFormat24Hr),
             title: event.title,
             description: event.description,
             address: event.address,

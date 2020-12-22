@@ -3,6 +3,7 @@ import format from 'date-fns/format';
 import cn from 'classnames';
 
 import Icon from '../../common/Icon';
+import { dateFormat } from '../../../lib/constants';
 
 import Styles from './calendar.module.scss';
 
@@ -11,7 +12,7 @@ const Calendar = ({ date, className, mask = false }) => {
   const classNames = cn(Styles['calendar'], className);
 
   return (
-    <div className={classNames} title={format(dateValue, 'MM-dd-yyyy')}>
+    <div className={classNames} title={format(dateValue, dateFormat)}>
       {mask ? (
         <Icon icon="lock">Members Only</Icon>
       ) : (

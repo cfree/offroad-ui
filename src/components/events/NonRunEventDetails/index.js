@@ -9,6 +9,9 @@ import { useQuery } from '@apollo/react-hooks';
 import { NON_RUN_EVENT_QUERY } from './nonRunEventDetails.graphql';
 
 import {
+  dateFormat,
+  dateFormatFull,
+  timeFormat,
   DEFAULT_EVENT_SRC,
   DEFAULT_AVATAR_SMALL_SRC,
 } from '../../../lib/constants';
@@ -94,7 +97,7 @@ const NonRunEventDetails = ({ eventId }) => {
         <div className={Styles['event__date']}>
           {isPastEvent
             ? 'Past Event'
-            : format(new Date(event.startTime), 'EEEE, MMMM d, yyyy')}
+            : format(new Date(event.startTime), dateFormatFull)}
           {!isPastEvent && (
             <Filter roleCheck={isAtLeastBoardMember} typeCheck={isFullMember}>
               {' '}
@@ -322,11 +325,11 @@ export const getEventDate = (event) => {
 
   // If event is on one day
   if (isEqual(startOfDay(startTime), startOfDay(endTime))) {
-    return <>{format(startTime, 'M/d/yy')}</>;
+    return <>{format(startTime, dateFormat)}</>;
   } else {
     return (
       <>
-        {format(startTime, 'M/d/yy')} to {format(endTime, 'M/d/yy')}
+        {format(startTime, dateFormat)} to {format(endTime, dateFormat)}
       </>
     );
   }
@@ -340,10 +343,10 @@ export const getEventTime = (event) => {
   if (isEqual(startOfDay(startTime), startOfDay(endTime))) {
     return (
       <>
-        {format(startTime, 'h:mm a')} to {format(endTime, 'h:mm a')}
+        {format(startTime, timeFormat)} to {format(endTime, timeFormat)}
       </>
     );
   } else {
-    return <>{format(startTime, 'h:mm a')}</>;
+    return <>{format(startTime, timeFormat)}</>;
   }
 };

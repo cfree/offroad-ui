@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import format from 'date-fns/format';
 
 import Calendar from '../../../events/Calendar';
+import { dateFormat } from '../../../../lib/constants';
 
 const Styles = [];
 
@@ -49,7 +50,7 @@ const TrailActivity = () => {
           <ul>
             {user.bandaids.map((bandaid) => (
               <li key={bandaid.id}>
-                {format(new Date(bandaid.occurred), 'm/d/yyyy')} {bandaid.name}
+                {format(new Date(bandaid.occurred), dateFormat)} {bandaid.name}
               </li>
             ))}
           </ul>
@@ -63,7 +64,7 @@ const TrailActivity = () => {
           <ul>
             {user.runReportsLogged.map((report) => (
               <li key={report.id}>
-                {format(new Date(report.reportFiled), 'm/d/yyyy')}{' '}
+                {format(new Date(report.reportFiled), dateFormat)}{' '}
                 {report.title}
               </li>
             ))}

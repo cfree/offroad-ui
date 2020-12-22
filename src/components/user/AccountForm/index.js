@@ -31,7 +31,11 @@ import {
   whatYearIsIt,
   // isActiveOrPastDue,
 } from '../../../lib/utils';
-import { accountTypes, accountStatuses } from '../../../lib/constants';
+import {
+  dateFormat,
+  accountTypes,
+  accountStatuses,
+} from '../../../lib/constants';
 
 import Styles from './accountForm.module.scss';
 
@@ -404,7 +408,7 @@ const AccountForm = ({ token = null }) => {
                           >
                             <Icon className={Styles['icon']} icon="success" />{' '}
                             Dues received{' '}
-                            {format(new Date(item.time), 'MM/dd/yyyy')}
+                            {format(new Date(item.time), dateFormat)}
                             <br />
                             <small>{msg}</small>
                           </div>
