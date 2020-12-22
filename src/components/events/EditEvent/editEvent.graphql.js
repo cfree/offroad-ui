@@ -3,6 +3,7 @@ import { gql } from 'apollo-boost';
 export const SETUP_EXISTING_EVENT_QUERY = gql`
   query SETUP_EXISTING_EVENT_QUERY($eventId: ID!) {
     event: getEvent(eventId: $eventId) {
+      id
       type
       title
       description
@@ -25,6 +26,7 @@ export const SETUP_EXISTING_EVENT_QUERY = gql`
       endTime
       membersOnly
       rsvps {
+        id
         member {
           id
           firstName

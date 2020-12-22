@@ -1,31 +1,13 @@
 import { gql } from 'apollo-boost';
 
-export const EVENT_QUERY = gql`
-  query EVENT_QUERY($eventId: ID!) {
+export const RUN_EVENT_QUERY = gql`
+  query RUN_EVENT_QUERY($eventId: ID!) {
     myself {
       id
-      firstName
-      lastName
       accountType
-      avatar {
-        id
-        url
-      }
-      rig {
-        id
-        image {
-          id
-          url
-        }
-      }
-      vehicle {
-        id
-        year
-        make
-        model
-      }
     }
     event: getEvent(eventId: $eventId) {
+      id
       type
       title
       description
@@ -35,6 +17,12 @@ export const EVENT_QUERY = gql`
       }
       host {
         id
+        firstName
+        lastName
+        avatar {
+          id
+          smallUrl
+        }
       }
       startTime
       endTime
@@ -58,13 +46,6 @@ export const EVENT_QUERY = gql`
           avatar {
             id
             url
-          }
-          rig {
-            id
-            image {
-              id
-              url
-            }
           }
           vehicle {
             id

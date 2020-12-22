@@ -3,7 +3,7 @@ import { format, startOfToday } from 'date-fns';
 import { Formik, Field, ErrorMessage as FormikErrorMessage } from 'formik';
 import cn from 'classnames';
 
-import { eventSchema } from './eventForm.schema';
+import { runEventSchema, nonRunEventSchema } from './eventForm.schema';
 import RichTextArea from '../../utility/RichTextArea';
 import Loading from '../../utility/Loading';
 import ErrorMessage from '../../utility/ErrorMessage';
@@ -28,7 +28,9 @@ const EventForm = ({
       <Formik
         enableReinitialize={true}
         initialValues={initialValues}
-        validationSchema={eventSchema}
+        validationSchema={
+          initialValues.type === 'RUN' ? runEventSchema : nonRunEventSchema
+        }
         onSubmit={(values, { setSubmitting }) => {
           onSubmit(values, setSubmitting);
         }}
@@ -242,7 +244,7 @@ const EventForm = ({
 
                 <div className={Styles['form-field-wrapper']}>
                   <label className={Styles['event-form-label']} htmlFor="host">
-                    Run Leader
+                    {initialValues.type === 'RUN' ? 'Run Leader' : 'Host'}
                   </label>
                   <div className={Styles['event-form-field']}>
                     <Field

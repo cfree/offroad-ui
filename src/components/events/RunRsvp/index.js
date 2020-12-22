@@ -6,7 +6,7 @@ import get from 'lodash/get';
 
 import { RSVP_MUTATION } from './rsvp.graphql';
 // Refetch
-import { EVENT_QUERY } from '../EventDetails/eventDetails.graphql';
+import { RUN_EVENT_QUERY } from '../RunEventDetails/runEventDetails.graphql';
 import { UPCOMING_EVENTS_QUERY } from '../EventList/eventList.graphql';
 import { NEXT_EVENT_QUERY } from '../../dashboard/NextEvent/nextEvent.graphql';
 import { MEMBERSHIP_QUERY } from '../../user/Roster/roster.graphql';
@@ -16,7 +16,6 @@ import Steps from '../../common/Steps';
 import Icon from '../../common/Icon';
 import NumberInput from '../../common/forms/NumberInput';
 import Button from '../../common/Button';
-import Badge from '../../common/Badge';
 
 import Styles from './rsvp.module.scss';
 
@@ -39,6 +38,7 @@ const RunRsvp = ({
   isHost = false,
   maxAttendees,
   maxRigs,
+  fullUp = false,
 }) => {
   const userId = user.id;
   const [localUserStatus, setLocalUserStatus] = useState(userStatus);
@@ -90,7 +90,7 @@ const RunRsvp = ({
         },
         refetchQueries: [
           {
-            query: EVENT_QUERY,
+            query: RUN_EVENT_QUERY,
             variables: { eventId },
           },
           {
@@ -146,7 +146,7 @@ const RunRsvp = ({
         },
         refetchQueries: [
           {
-            query: EVENT_QUERY,
+            query: RUN_EVENT_QUERY,
             variables: { eventId },
           },
           {
@@ -229,7 +229,6 @@ const RunRsvp = ({
   }
 
   const cost = false;
-  const fullUp = maxAttendees === attendeeCount || maxRigs === rigCount;
   const diff = (maxAttendees || -1) - attendeeCount;
   const remainingAttendeeSpots = diff >= 0 ? diff : 100;
 
@@ -244,7 +243,6 @@ const RunRsvp = ({
     </div>
   ) : (
     <div className={Styles['rsvp__status--upcoming']}>
-      {fullUp && <Badge type="fail">Full</Badge>}
       <div className={Styles['rsvp__attendees']}>
         {getRsvpText(fullUp)}
         <span className={Styles['rsvp__count']}>{getCountText()}</span>

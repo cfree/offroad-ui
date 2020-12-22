@@ -1,4 +1,5 @@
 @import './variables.module.scss';
+@import './partials/events';
 
 @mixin breakpoint($bp, $direction: min) {
   @media (#{$direction}-width: $bp) {

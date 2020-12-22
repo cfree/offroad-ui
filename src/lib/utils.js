@@ -252,3 +252,26 @@ export const convertToCents = (dollarAmt) => {
 export const whatYearIsIt = () => {
   return new Date().getFullYear();
 };
+
+export const getBadgeType = (difficulty) => {
+  switch (difficulty) {
+    case 'EASY':
+      return 'success';
+    case 'INTERMEDIATE':
+      return 'caution';
+    case 'ADVANCED':
+      return 'fail';
+    case 'UNKNOWN':
+    default:
+      return 'neutral';
+  }
+};
+
+export const onMapImgError = (e) => {
+  e.target.src = '/img/default-map.png';
+};
+
+export const getMaxRigs = (count) => count > -1 && `Max ${count} rigs`;
+
+export const getMaxAttendees = (count) =>
+  count > -1 && `Max ${count} attendees`;

@@ -27,7 +27,7 @@ class EventList extends Component {
 
   getAttendees = (eventId) => {
     if (this.state.attendees[eventId]) {
-      const attendees = [...this.state.attendees[eventId]];
+      const attendees = this.state.attendees[eventId];
       return attendees.length > 3 ? attendees.slice(0, 3) : attendees;
     }
 
@@ -192,9 +192,6 @@ class EventList extends Component {
                                   Members Only
                                 </Badge>
                               )}
-                              <div className={Styles['event-location']}>
-                                {event.address}
-                              </div>
                             </div>
                             {TRAIL_IMAGE && (
                               <img
@@ -262,10 +259,7 @@ class EventList extends Component {
                                             Styles['event-attendees__number']
                                           }
                                         >
-                                          {
-                                            this.state.attendees[event.id]
-                                              .length
-                                          }
+                                          {totalAttendees}
                                         </span>{' '}
                                         attendees
                                       </span>

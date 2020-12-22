@@ -8,7 +8,8 @@ import {
   SETUP_EXISTING_EVENT_QUERY,
   EDIT_EVENT_MUTATION,
 } from './editEvent.graphql';
-import { EVENT_QUERY } from '../EventDetails/eventDetails.graphql';
+import { RUN_EVENT_QUERY } from '../RunEventDetails/runEventDetails.graphql';
+import { NON_RUN_EVENT_QUERY } from '../NonRunEventDetails/nonRunEventDetails.graphql';
 import { UPCOMING_EVENTS_QUERY } from '../EventList/eventList.graphql';
 
 import EventForm from '../EventForm';
@@ -73,7 +74,10 @@ class EditEvent extends Component {
                 mutation={EDIT_EVENT_MUTATION}
                 refetchQueries={[
                   {
-                    query: EVENT_QUERY,
+                    query:
+                      event.type === 'RUN'
+                        ? RUN_EVENT_QUERY
+                        : NON_RUN_EVENT_QUERY,
                     variables: { eventId: existingEventId },
                   },
                 ]}

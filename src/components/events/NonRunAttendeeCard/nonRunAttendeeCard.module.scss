@@ -1,0 +1,5 @@
+@import '../../../styles/mixins.module';
+
+.event {
+  @include event-card;
+}

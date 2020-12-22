@@ -5,7 +5,7 @@ import get from 'lodash/get';
 
 import { RSVP_MUTATION } from './rsvp.graphql';
 // Refetch
-import { EVENT_QUERY } from '../EventDetails/eventDetails.graphql';
+import { NON_RUN_EVENT_QUERY } from '../NonRunEventDetails/nonRunEventDetails.graphql';
 import { UPCOMING_EVENTS_QUERY } from '../EventList/eventList.graphql';
 import { NEXT_EVENT_QUERY } from '../../dashboard/NextEvent/nextEvent.graphql';
 import { MEMBERSHIP_QUERY } from '../../user/Roster/roster.graphql';
@@ -35,6 +35,7 @@ const NonRunRsvp = ({
   pastEvent,
   userRsvp,
   remainingSpots = 20,
+  fullUp = false,
 }) => {
   const userId = user.id;
   const [localUserStatus, setLocalUserStatus] = useState(userStatus);
@@ -84,7 +85,7 @@ const NonRunRsvp = ({
         },
         refetchQueries: [
           {
-            query: EVENT_QUERY,
+            query: NON_RUN_EVENT_QUERY,
             variables: { eventId },
           },
           {
@@ -132,7 +133,7 @@ const NonRunRsvp = ({
         },
         refetchQueries: [
           {
-            query: EVENT_QUERY,
+            query: NON_RUN_EVENT_QUERY,
             variables: { eventId },
           },
           {

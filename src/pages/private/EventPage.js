@@ -2,7 +2,7 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 
 import EventPageLayout from '../../components/layout/EventPageLayout';
-import EventDetails from '../../components/events/EventDetails';
+import EventIndex from '../../components/events/EventIndex';
 
 const EventPage = () => {
   const params = useParams();
@@ -10,7 +10,7 @@ const EventPage = () => {
 
   return (
     <EventPageLayout>
-      <EventDetails id={id} />
+      <EventIndex id={id} />
     </EventPageLayout>
   );
 };
