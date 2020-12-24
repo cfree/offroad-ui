@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 
 import Filters from '../../user/Filters';
 import Roster from '../../user/Roster';
+import Button from '../../common/Button';
+
+import Styles from './membershipList.module.scss';
 
 export class MembershipList extends Component {
   state = {
@@ -120,42 +123,43 @@ export class MembershipList extends Component {
         <h2>Membership</h2>
 
         <aside>
-          <h3>Quick Filters</h3>
+          <h3>Filter Presets</h3>
 
-          <ul>
+          <ul className={Styles['button-list']}>
             <li>
-              <button onClick={this.handleDefault}>Active Members</button>
+              <Button onClick={this.handleDefault}>Active Members</Button>
             </li>
             <li>
-              <button onClick={this.handleActiveGuests}>Active Guests</button>
+              <Button onClick={this.handleActiveGuests}>Active Guests</Button>
             </li>
             <li>
-              <button onClick={this.handleShowNewRegs}>
+              <Button onClick={this.handleShowNewRegs}>
                 Locked New Registrations
-              </button>
+              </Button>
             </li>
             <li>
-              <button onClick={this.handleShowPastDue}>
+              <Button onClick={this.handleShowPastDue}>
                 Past Due Full Members
-              </button>
+              </Button>
             </li>
             <li>
-              <button onClick={this.handleShowDelinquent}>
+              <Button onClick={this.handleShowDelinquent}>
                 Delinquent Full Members
-              </button>
+              </Button>
             </li>
             <li>
-              <button onClick={this.handleShowInactive}>
+              <Button onClick={this.handleShowInactive}>
                 Inactive Full Members
-              </button>
+              </Button>
             </li>
             <li>
-              <button onClick={this.handleClear}>Clear Filters</button>
+              <Button onClick={this.handleClear}>Clear Filters</Button>
             </li>
           </ul>
         </aside>
 
         <section>
+          <h3>Filters</h3>
           <Filters
             activeFilters={this.state.activeFilters}
             onFilterUpdate={this.handleFilterUpdate}

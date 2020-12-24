@@ -75,7 +75,7 @@ const KennysCabin = () => {
               </td>
             </tr>
             <tr>
-              <td>
+              <td className={Styles['td-split']}>
                 Jacquiline Page
                 <a href="https://i1.wp.com/members.4-playersofcolorado.org/wp-content/uploads/2016/12/DSC00482.jpg">
                   <img

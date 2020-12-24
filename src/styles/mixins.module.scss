@@ -37,6 +37,11 @@
   display: block;
   margin: 0 auto 1.5em;
 
+  @include breakpoint($bp-sm, max) {
+    width: 100%;
+    height: auto;
+  }
+
   @include breakpoint($bp-sm) {
     clear: none;
     display: inline;

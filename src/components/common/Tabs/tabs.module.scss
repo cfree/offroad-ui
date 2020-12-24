@@ -17,6 +17,10 @@
   }
 
   a {
+    @include breakpoint($bp-sm, max) {
+      font-size: 12px;
+    }
+
     display: block;
     padding: 5px ($space / 2);
 
@@ -33,6 +37,7 @@
   border-top-right-radius: 5px;
   color: $grey-light;
   position: relative;
+  height: 100%;
 
   &:after {
     content: '';

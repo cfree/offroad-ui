@@ -8,10 +8,11 @@ import { isAdmin, isActive } from '../../../lib/utils';
 
 const Dashboard = () => (
   <>
-    <div>
+    <h2>Dashboard</h2>
+    {/* <div>
       <h3>At A Glance</h3>
-      {/* <AtAGlance /> */}
-    </div>
+      <AtAGlance />
+    </div> */}
     <div>
       <h3>Tools</h3>
       <ul>
@@ -22,6 +23,9 @@ const Dashboard = () => (
         </Filter>
         <li>
           <Link to="/admin/roster">Membership List</Link>
+        </li>
+        <li>
+          <Link to="/event/new">Create Event</Link>
         </li>
         <li>
           <Link to="/admin/meetings">Meetings</Link>

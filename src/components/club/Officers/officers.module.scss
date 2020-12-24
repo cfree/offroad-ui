@@ -31,6 +31,9 @@
   }
 
   td {
+    display: table-cell;
+    align-items: none;
+
     @include breakpoint($bp-sm) {
       width: 50%;
     }
@@ -42,6 +45,12 @@
         font-style: normal;
       }
     }
+
+    // div {
+    //   display: block;
+    //   width: 100%;
+    //   position: relative;
+    // }
   }
 }
 
@@ -57,7 +66,6 @@
 
 .aside-content {
   @include breakpoint($bp-sm) {
-    padding: $space;
     position: sticky;
     top: 0;
   }
@@ -69,7 +77,10 @@
   list-style: none;
 
   @include breakpoint($bp-sm) {
+    height: 100vh;
+    padding: $space;
     margin: 0;
+    overflow: auto;
   }
 
   li {

@@ -14,7 +14,7 @@ import Filter from '../../login/Filter';
 
 import Styles from './rigbookCard.module.scss';
 
-const RigbookCard = ({ user, titleOverride, className, extra }) => {
+const RigbookCard = ({ user, className }) => {
   const classes = cn(Styles['rigbook-card'], className);
   const RIG_SRC = get(user, 'rig.image.url', DEFAULT_RIG_SRC);
   const AVATAR_SRC = get(user, 'avatar.url', DEFAULT_AVATAR_SRC);
@@ -37,24 +37,33 @@ const RigbookCard = ({ user, titleOverride, className, extra }) => {
         <h2>
           {user.firstName} {user.lastName}
         </h2>
-        {extra && <small className={Styles['extra']}>{extra}</small>}
-        {user.titles && !titleOverride && (
-          <div className={Styles['titles']}>{user.titles.join(', ')}</div>
+        {user.office && (
+          <small className={Styles['extra']}>{offices[user.office]}</small>
         )}
         {user.vehicle && (
           <>
             <h3>
-              {user.vehicle.year} {user.vehicle.make} {user.vehicle.model}
+              {[
+                user.vehicle.year || '',
+                user.vehicle.make || '',
+                user.vehicle.model || '',
+              ].join(' ')}
             </h3>
             {user.vehicle.trim && <h4>{user.vehicle.trim}</h4>}
           </>
         )}
-        <h5>
-          {user.office && !titleOverride && (
-            <div className={Styles['titles']}>{offices[user.office]}</div>
+        <h5 className={Styles['titles']}>
+          <ul>
+            <li>{getMemberType(user.accountType)}</li>
+            <li>Joined {format(new Date(user.joined), 'yyyy')}</li>
+          </ul>
+          {user.titles && (
+            <ul>
+              {user.titles.map((title) => (
+                <li key={title}>{title}</li>
+              ))}
+            </ul>
           )}
-          {titleOverride ? titleOverride : getMemberType(user.accountType)}
-          {user.joined && ` • Joined ${format(new Date(user.joined), 'yyyy')}`}
         </h5>
       </div>
       <ul className={Styles['profile-actions-list']}>

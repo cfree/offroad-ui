@@ -3,8 +3,11 @@ import { Query } from '@apollo/react-components';
 import { Link } from 'react-router-dom';
 // import get from 'lodash/get';
 
-import ErrorMessage from '../../utility/ErrorMessage';
 import { TRAILS_QUERY } from './trailsList.graphql.js';
+
+import ErrorMessage from '../../utility/ErrorMessage';
+import Button from '../../common/Button';
+
 // import {
 //   StyledEvents,
 //   StyledEventsList,
@@ -31,6 +34,10 @@ const TrailsList = () => {
 
         return (
           <>
+            <h2>Trails</h2>
+            <div>
+              <Button to="/trail/new">Create a trail</Button>
+            </div>
             {trails.length > 0 ? (
               <ul>
                 {trails.map((trail) => {

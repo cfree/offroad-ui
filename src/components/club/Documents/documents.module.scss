@@ -39,7 +39,6 @@
 
 .aside-content {
   @include breakpoint($bp-sm) {
-    padding: $space;
     position: sticky;
     top: 0;
   }
@@ -51,7 +50,10 @@
   list-style: none;
 
   @include breakpoint($bp-sm) {
+    height: 100vh;
+    padding: $space;
     margin: 0;
+    overflow: auto;
   }
 
   li {

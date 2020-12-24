@@ -445,14 +445,6 @@ export default RunEventDetails;
   <RigbookCard
     key={attendee.member.id}
     user={attendee.member}
-    extra={passengers}
-    titleOverride={
-      event.host.id === attendee.member.id
-        ? event.type === 'RUN'
-          ? 'Run Leader'
-          : 'Host'
-        : null
-    }
   />
 */
 

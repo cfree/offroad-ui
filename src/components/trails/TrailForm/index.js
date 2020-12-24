@@ -7,6 +7,7 @@ import RichTextArea from '../../utility/RichTextArea';
 import Loading from '../../utility/Loading';
 import ErrorMessage from '../../utility/ErrorMessage';
 import FormErrorMessage from '../../utility/FormErrorMessage';
+import Button from '../../common/Button';
 
 import Styles from './trailForm.module.scss';
 
@@ -64,9 +65,20 @@ const TrailForm = ({
                     URL Slug
                   </label>
                   <div className={Styles['trail-form-field']}>
-                    <Field typ="text" id="slug" name="slug" />
+                    <Field
+                      type="text"
+                      id="slug"
+                      name="slug"
+                      onChange={(e) => {
+                        formikProps.setFieldValue(
+                          'slug',
+                          e.target.value.replace(' ', '-'),
+                        );
+                      }}
+                    />
+                    <br />
                     <small>
-                      Ex: 4-playersofcolorado.org/trail/
+                      4-playersofcolorado.org/trail/
                       <strong>{formikProps.values.slug}</strong>
                     </small>
                     <FormikErrorMessage
@@ -134,7 +146,7 @@ const TrailForm = ({
                 </div>
 
                 <div className={Styles['form-footer']}>
-                  <button
+                  <Button
                     type="submit"
                     disabled={
                       Object.keys(formikProps.errors).length > 0 ||
@@ -143,7 +155,7 @@ const TrailForm = ({
                     }
                   >
                     {submitLabel}
-                  </button>
+                  </Button>
                   <Loading loading={loading} />
                   <ErrorMessage error={error} />
                 </div>

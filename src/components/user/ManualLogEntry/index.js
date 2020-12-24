@@ -10,6 +10,8 @@ import ErrorMessage from '../../utility/ErrorMessage';
 import Loading from '../../utility/Loading';
 import DatePicker from '../../utility/DatePicker';
 
+import Styles from './manualLogEntry.module.scss';
+
 const ManualLogEntry = ({ userId, username }) => {
   const [logMembershipEntry, { error, loading, data }] = useMutation(
     LOG_MEMBERSHIP_ITEM_MUTATION,
@@ -51,44 +53,66 @@ const ManualLogEntry = ({ userId, username }) => {
 
   return (
     <>
-      <div>
-        <label htmlFor="msg">Message Code</label>
-        <select name="msg" onChange={(e) => setCode(e.target.value)}>
-          {types.map((type) => (
-            <option key={type} value={type}>
-              {type}
-            </option>
-          ))}
-        </select>
-      </div>
-
-      <div>
-        <label htmlFor="date">Date</label>
-        <DatePicker value={date} onChange={setDate} />
-      </div>
-
-      {code === 'DUES_PAID' && (
-        <div>
-          <label htmlFor="amt">$ Amount</label>
-          <input
-            type="number"
-            name="amt"
-            value={amt}
-            required
-            onChange={(e) => setAmt(e.target.value)}
-          />
+      <div className={Styles['form']}>
+        <div className={Styles['form-field-wrapper']}>
+          <label className={Styles['form-label']} htmlFor="msg">
+            Message Code
+          </label>
+          <div className={Styles['form-field']}>
+            <select name="msg" onChange={(e) => setCode(e.target.value)}>
+              {types.map((type) => (
+                <option key={type} value={type}>
+                  {type}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
-      )}
+        <div className={Styles['form-field-wrapper']}>
+          <label className={Styles['form-label']} htmlFor="date">
+            Date
+          </label>
+          <div>
+            <DatePicker
+              value={date}
+              onChange={setDate}
+              className={Styles['date-field']}
+            />
+          </div>
+        </div>
 
-      <Button
-        onClick={handleChange}
-        disabled={loading || !code || !date || (code === 'DUES_PAID' && !amt)}
-      >
-        Log
-      </Button>
-      <Loading loading={loading} />
-      <ErrorMessage error={error} />
-      {data && <SuccessMessage message={data.message} />}
+        {code === 'DUES_PAID' && (
+          <div className={Styles['form-field-wrapper']}>
+            <label className={Styles['form-label']} htmlFor="amt">
+              $ Amount
+            </label>
+            <div className={Styles['form-field']}>
+              <input
+                type="number"
+                name="amt"
+                value={amt}
+                required
+                onChange={(e) => setAmt(e.target.value)}
+                className={Styles['form-field']}
+              />
+            </div>
+          </div>
+        )}
+
+        <div className={Styles['form-footer']}>
+          <Button
+            onClick={handleChange}
+            disabled={
+              loading || !code || !date || (code === 'DUES_PAID' && !amt)
+            }
+          >
+            Log
+          </Button>
+          <Loading loading={loading} />
+          <ErrorMessage error={error} />
+          {data && <SuccessMessage message={data.message} />}
+        </div>
+      </div>
     </>
   );
 };

@@ -186,13 +186,14 @@ const SignupForm = () => {
                   <label className={Styles['form-label']} htmlFor="birthdate">
                     Birthdate
                   </label>
-                  <div className={Styles['form-field']}>
+                  <div>
                     <DatePickerField
                       id="birthdate"
                       name="birthdate"
                       value={formikProps.values.birthdate}
                       maxDate={dateEighteenYearsAgo()}
                       onChange={formikProps.setFieldValue}
+                      className={Styles['date-field']}
                     />
                     <FormikErrorMessage
                       name="birthdate"

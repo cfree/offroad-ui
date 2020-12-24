@@ -30,7 +30,8 @@ const ProfileIndex = () => {
             title: 'Details',
             activeStyles:
               !pathname.includes('/officers') &&
-              !pathname.includes('/in-memoriam'),
+              !pathname.includes('/in-memoriam') &&
+              !pathname.includes('/kennys-cabin'),
           },
           {
             link: `/history/officers`,

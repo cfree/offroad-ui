@@ -16,6 +16,10 @@
   @extend %form-field;
 }
 
+.event-date-field {
+  @extend %date-field;
+}
+
 .form-footer {
   @extend %form-footer;
 }

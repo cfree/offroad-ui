@@ -25,6 +25,14 @@
   @extend %form-field;
 }
 
+.profile-date-field {
+  @extend %date-field;
+}
+
+.profile-date-field--disabled {
+  @extend %date-field--disabled;
+}
+
 .form-footer {
   @extend %form-footer;
 }

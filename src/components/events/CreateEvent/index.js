@@ -25,14 +25,17 @@ class CreateEvent extends Component {
             return <ErrorMessage error={queryError} />;
           }
 
-          const today = new Date();
+          const todayStart = new Date();
+          todayStart.setHours(10, 0, 0, 0);
+          const todayEnd = new Date();
+          todayEnd.setHours(15, 0, 0, 0);
 
           const initialValues = {
             type: 'RUN',
             title: '',
             description: '',
-            startDateTime: today.setHours(10, 0, 0, 0),
-            endDateTime: today.setHours(15, 0, 0, 0),
+            startDateTime: todayStart,
+            endDateTime: todayEnd,
             address: '',
             trailDifficulty: 'UNKNOWN',
             trailNotes: '',
@@ -113,8 +116,6 @@ class CreateEvent extends Component {
       const cloudinaryResults = await uploadImage(newImage, 'events');
       eventValues.newFeaturedImage = cloudinaryResults;
     }
-
-    console.log('eventValues', eventValues);
 
     createEvent({
       variables: eventValues,

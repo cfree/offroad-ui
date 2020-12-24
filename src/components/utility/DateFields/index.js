@@ -25,7 +25,3 @@ export const DateTimePickerField = ({ name, value, onChange, ...props }) => {
     />
   );
 };
-
-export const TimeRangePickerField = () => {
-  return <div></div>;
-};

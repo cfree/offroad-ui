@@ -43,8 +43,6 @@ class EditEvent extends Component {
 
           const { event } = queryData;
 
-          console.log('api', typeof event.startTime, event.startTime);
-
           const initialValues = {
             id: existingEventId,
             type: event.type,

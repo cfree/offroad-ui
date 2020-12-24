@@ -24,60 +24,67 @@ import {
   isNotDeceasedMember,
   isDelinquent,
   isNotDelinquent,
+  isRejected,
+  isNotRejected,
 } from '../../../lib/utils';
 
 import Styles from './dashboard.module.scss';
 
 const Dashboard = () => (
   <div>
-    <Filter statusCheck={isNotInactive}>
-      <Filter statusCheck={isNotLimited}>
-        <Filter statusCheck={wasNotRemoved}>
-          <Filter statusCheck={hasNotResigned}>
-            <Filter statusCheck={isNotLocked}>
-              <Filter typeCheck={isNotDeceasedMember}>
-                <div className={Styles['dashboard']}>
-                  <Filter statusCheck={isNotDelinquent}>
-                    <div className={Styles['two-thirds']}>
-                      <div className={Styles['container']}>
-                        <NextEvent />
-                      </div>
-                    </div>
-                    <div className={Styles['third']}>
-                      <EventsSchedule />
-                    </div>
-                  </Filter>
-
-                  <Filter typeCheck={isMember}>
+    <Filter statusCheck={isNotRejected}>
+      <Filter statusCheck={isNotInactive}>
+        <Filter statusCheck={isNotLimited}>
+          <Filter statusCheck={wasNotRemoved}>
+            <Filter statusCheck={hasNotResigned}>
+              <Filter statusCheck={isNotLocked}>
+                <Filter typeCheck={isNotDeceasedMember}>
+                  <div className={Styles['dashboard']}>
                     <Filter statusCheck={isNotDelinquent}>
+                      <div className={Styles['two-thirds']}>
+                        <div className={Styles['container']}>
+                          <NextEvent />
+                        </div>
+                      </div>
                       <div className={Styles['third']}>
-                        <Link to="/roster" className={Styles['roster-link']}>
-                          Roster
-                        </Link>
+                        <EventsSchedule />
                       </div>
                     </Filter>
-                    <div className={Styles['third']}>
-                      <Link to="/history" className={Styles['history-link']}>
-                        Club History
-                      </Link>
-                    </div>
-                    <div className={Styles['third']}>
-                      <Link to="/documents" className={Styles['document-link']}>
-                        Documents
-                      </Link>
-                    </div>
 
-                    {/* <div className={Styles['two-thirds']}>
-          <RecentPhotos />
-        </div>
+                    <Filter typeCheck={isMember}>
+                      <Filter statusCheck={isNotDelinquent}>
+                        <div className={Styles['third']}>
+                          <Link to="/roster" className={Styles['roster-link']}>
+                            Roster
+                          </Link>
+                        </div>
+                      </Filter>
+                      <div className={Styles['third']}>
+                        <Link to="/history" className={Styles['history-link']}>
+                          Club History
+                        </Link>
+                      </div>
+                      <div className={Styles['third']}>
+                        <Link
+                          to="/documents"
+                          className={Styles['document-link']}
+                        >
+                          Documents
+                        </Link>
+                      </div>
 
-          <RunReports />
-          <RecentCheckIns />
-        </div>
-      </div> */}
-                    {/* <PollingPlace /> */}
-                  </Filter>
-                </div>
+                      {/* <div className={Styles['two-thirds']}>
+                            <RecentPhotos />
+                          </div>
+
+                            <RunReports />
+                            <RecentCheckIns />
+                          </div>
+                        </div> */}
+                      {/* <PollingPlace /> */}
+                    </Filter>
+                  </div>
+                </Filter>
               </Filter>
             </Filter>
           </Filter>
@@ -146,6 +153,18 @@ const Dashboard = () => (
         <p>
           Your account is locked. Review your{' '}
           <Link to="/settings/account">account settings</Link> for more details.
+        </p>
+      </>
+    </Filter>
+    <Filter statusCheck={isRejected}>
+      <>
+        <h2>Dashboard</h2>
+        <p>
+          Your account has been rejected and will be deleted in 30 days. Please{' '}
+          <a href="mailto:webmaster@4-playersofcolorado.org">
+            contact the webmaster
+          </a>{' '}
+          to dispute this claim.
         </p>
       </>
     </Filter>

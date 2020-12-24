@@ -1,12 +1,20 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import Styles from './history.module.scss';
+
 const History = () => {
   return (
     <div>
       <h3>Details</h3>
 
       <p>
+        <img
+          className={Styles['img']}
+          src="/img/early-club.jpg"
+          width="50%"
+          alt="Early club days"
+        />
         The club was founded in 1986 as a social organization for gay men in a
         time when non-bar activities were sought after during the uptick of the
         AIDS crisis. Fundraising for gay men’s health organizations has always
@@ -41,7 +49,12 @@ const History = () => {
 
         <cite>Kurtis Keele, attendee at the first meeting</cite>
       </blockquote>
-      <p></p>
+      <p>
+        If you have have any club photos, history, or anecdotes to share, please
+        email the{' '}
+        <a href="mailto:webmaster@4-playersofcolorado.org">webmaster</a>.
+      </p>
+
       <h3>Charter Members</h3>
       <p>
         Though the club was officially incorporated in November of 1986, members

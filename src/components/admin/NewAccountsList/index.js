@@ -1,19 +1,27 @@
-import React, { useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { useQuery, useMutation } from '@apollo/react-hooks';
 import differenceInYears from 'date-fns/differenceInYears';
 
 import {
   NEW_ACCOUNTS_QUERY,
-  NEW_ACCOUNTS_MUTATION,
+  NEW_ACCOUNTS_APPROVE_MUTATION,
+  NEW_ACCOUNTS_REJECT_MUTATION,
 } from './newAccountsList.graphql';
 import Button from '../../common/Button';
 import Loading from '../../utility/Loading';
 import SuccessMessage from '../../utility/SuccessMessage';
 import ErrorMessage from '../../utility/ErrorMessage';
 import { genders } from '../../../lib/constants';
+import { SideModal } from '../../common/Modal';
+
+import Styles from './newAccountsList.module.scss';
 
 const NewAccountsList = () => {
+  const [reasonModalOpen, setReasonModalOpen] = useState(false);
+  const [reason, setReason] = useState('');
+  const [rejectId, setRejectId] = useState();
+
   const {
     error: queryError,
     loading: queryLoading,
@@ -22,16 +30,48 @@ const NewAccountsList = () => {
   const [
     unlockNewAccount,
     { error: mutationError, loading: mutationLoading, data: mutationData },
-  ] = useMutation(NEW_ACCOUNTS_MUTATION);
+  ] = useMutation(NEW_ACCOUNTS_APPROVE_MUTATION);
+
+  const [
+    rejectNewAccount,
+    { error: rejectError, loading: rejectLoading, data: rejectData },
+  ] = useMutation(NEW_ACCOUNTS_REJECT_MUTATION);
 
   const handleUnlock = useCallback(
     (id) => {
       unlockNewAccount({
         variables: { userId: id },
+        refetchQueries: [{ query: NEW_ACCOUNTS_QUERY }],
       });
     },
     [unlockNewAccount],
   );
+
+  const handleOpenModal = useCallback(
+    (id) => {
+      setRejectId(id);
+      setReasonModalOpen(true);
+    },
+    [setRejectId, setReasonModalOpen],
+  );
+
+  const handleCloseModal = useCallback(() => {
+    setRejectId();
+    setReasonModalOpen(false);
+  }, [setRejectId, setReasonModalOpen]);
+
+  const handleReject = useCallback(() => {
+    const fn = async () => {
+      await rejectNewAccount({
+        variables: { userId: rejectId, reason },
+        refetchQueries: [{ query: NEW_ACCOUNTS_QUERY }],
+      });
+
+      handleCloseModal();
+    };
+
+    fn();
+  }, [rejectNewAccount, handleCloseModal, reason, rejectId]);
 
   if (queryLoading) {
     return <Loading loading />;
@@ -47,10 +87,14 @@ const NewAccountsList = () => {
     <div>
       <h2>Locked New Accounts</h2>
       {mutationError && <ErrorMessage error={mutationError} />}
+      {rejectError && <ErrorMessage error={rejectError} />}
       {mutationData && (
         <SuccessMessage message={mutationData.unlockNewAccount.message} />
       )}
-      <table>
+      {rejectData && (
+        <SuccessMessage message={rejectData.rejectNewAccount.message} />
+      )}
+      <table className={Styles['new-accounts-table']}>
         <thead>
           <tr>
             <th>Name</th>
@@ -59,7 +103,7 @@ const NewAccountsList = () => {
             <th>Unlock/Notify</th>
           </tr>
         </thead>
-        {users && (
+        {users && users.length > 0 ? (
           <tbody>
             {users.map((user) => {
               const {
@@ -75,23 +119,47 @@ const NewAccountsList = () => {
               return (
                 <tr key={id}>
                   <td>
-                    <Link to={`/profile/${username}`}>
+                    <Link to={`/admin/profile/${username}`}>
                       {firstName} {lastName}
                     </Link>
                   </td>
                   <td>{age}</td>
                   <td>{genders[gender]}</td>
-                  <th>
-                    <Loading loading={mutationLoading} />
+                  <td>
+                    <Loading loading={mutationLoading || rejectLoading} />
                     <Button onClick={() => handleUnlock(id)}>Unlock</Button>
-                    {/* <Button>Remove</Button> */}
-                  </th>
+                    <Button onClick={() => handleOpenModal(id)}>Reject</Button>
+                  </td>
                 </tr>
               );
             })}
           </tbody>
+        ) : (
+          <tbody>
+            <tr>
+              <td colspan="4">No new accounts</td>
+            </tr>
+          </tbody>
         )}
       </table>
+      <SideModal
+        title="Reason for Reject"
+        isOpen={reasonModalOpen}
+        onClose={handleCloseModal}
+      >
+        <p>
+          Please provide a reason for this account reject. An email will be sent
+          to this user.
+        </p>
+        <input
+          type="text"
+          className={Styles['reason-input']}
+          onChange={(e) => setReason(e.target.value)}
+        />
+        <Button disabled={!reason} onClick={handleReject}>
+          Confirm Rejection
+        </Button>
+      </SideModal>
     </div>
   );
 };

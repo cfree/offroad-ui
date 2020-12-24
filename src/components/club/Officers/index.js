@@ -97,9 +97,12 @@ const Officers = () => {
               <tr>
                 <td>Tom Eskridge</td>
                 <td>
-                  President <small>(Sept-Dec)</small>
-                  <br />
-                  Vice President <small>(Jan-Sept)</small>
+                  <div>
+                    President <small>(Sept-Dec)</small>
+                  </div>
+                  <div>
+                    Vice President <small>(Jan-Sept)</small>
+                  </div>
                 </td>
               </tr>
               <tr>

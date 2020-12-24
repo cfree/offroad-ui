@@ -37,12 +37,6 @@ const EventForm = ({
         }}
       >
         {(formikProps) => {
-          console.log(
-            'formik',
-            formikProps.values.startDateTime instanceof Date,
-            formikProps.values.startDateTime,
-          );
-
           return (
             <div className={cn(Styles['form'], Styles['event-form--user'])}>
               <form onSubmit={formikProps.handleSubmit}>
@@ -114,7 +108,7 @@ const EventForm = ({
                   >
                     Start Date
                   </label>
-                  <div className={Styles['event-form-field']}>
+                  <div>
                     <DateTimePickerField
                       id="startDateTime"
                       name="startDateTime"
@@ -132,7 +126,9 @@ const EventForm = ({
                         );
                       }}
                       disableClock
+                      className={Styles['event-date-field']}
                     />
+                    <br />
                     <small>Mountain Timezone</small>
                     <FormikErrorMessage
                       name="startDateTime"
@@ -148,7 +144,7 @@ const EventForm = ({
                   >
                     End Date
                   </label>
-                  <div className={Styles['event-form-field']}>
+                  <div>
                     <DateTimePickerField
                       id="endDateTime"
                       name="endDateTime"
@@ -156,7 +152,9 @@ const EventForm = ({
                       minDate={formikProps.values.startDateTime}
                       onChange={formikProps.setFieldValue}
                       disableClock
+                      className={Styles['event-date-field']}
                     />
+                    <br />
                     <small>Mountain Timezone</small>
                     <FormikErrorMessage
                       name="endDateTime"
@@ -387,7 +385,8 @@ const EventForm = ({
                       step="1"
                       id="maxAttendees"
                       name="maxAttendees"
-                    />{' '}
+                    />
+                    <br />
                     <small>-1 is unlimited</small>
                     <FormikErrorMessage
                       name="maxAttendees"
@@ -410,7 +409,8 @@ const EventForm = ({
                         min="-1"
                         id="maxRigs"
                         name="maxRigs"
-                      />{' '}
+                      />
+                      <br />
                       <small>-1 is unlimited</small>
                       <FormikErrorMessage
                         name="maxRigs"

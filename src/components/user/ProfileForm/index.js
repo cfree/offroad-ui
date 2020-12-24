@@ -257,7 +257,7 @@ class ProfileForm extends Component {
                             >
                               Birthdate
                             </label>
-                            <div className={Styles['profile-form-field']}>
+                            <div>
                               <DatePickerField
                                 id="birthdate"
                                 name="birthdate"
@@ -266,6 +266,11 @@ class ProfileForm extends Component {
                                 disabled={!isAdmin}
                                 disableCalendar={!isAdmin}
                                 onChange={formikProps.setFieldValue}
+                                className={cn(Styles['profile-date-field'], {
+                                  [Styles[
+                                    'profile-date-field--disabled'
+                                  ]]: !isAdmin,
+                                })}
                               />
                               <FormikErrorMessage
                                 name="birthdate"
@@ -282,7 +287,7 @@ class ProfileForm extends Component {
                               >
                                 Date Joined
                               </label>
-                              <div className={Styles['profile-form-field']}>
+                              <div>
                                 <DatePickerField
                                   id="joined"
                                   name="joined"
@@ -293,6 +298,10 @@ class ProfileForm extends Component {
                                     !isAdmin || queryData.user.joined
                                   }
                                   onChange={formikProps.setFieldValue}
+                                  className={cn(Styles['profile-date-field'], {
+                                    [Styles['profile-date-field--disabled']]:
+                                      !isAdmin || queryData.user.joined,
+                                  })}
                                 />
                                 <FormikErrorMessage
                                   name="joined"

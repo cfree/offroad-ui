@@ -107,8 +107,8 @@
 %form-field {
   input[type='text'],
   input[type='email'],
-  input[type='password'],
-  input[type='date'] {
+  input[type='number'],
+  input[type='password'] {
     border: 1px solid $grey-light;
     padding: 3px 5px;
     width: 100%;
@@ -142,6 +142,29 @@
       width: 300px;
     }
   }
+}
+
+%date-field {
+  background: white;
+  padding: 3px 5px;
+  width: 100%;
+  line-height: 1;
+  font-size: 1.6rem;
+  border: 1px solid $grey-light;
+
+  @include breakpoint($bp-sm) {
+    width: 300px;
+    padding: 7px 10px;
+  }
+
+  & > div {
+    border: none;
+  }
+}
+
+%date-field--disabled {
+  background: $grey !important;
+  cursor: not-allowed !important;
 }
 
 %form-footer {

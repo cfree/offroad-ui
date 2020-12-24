@@ -47,6 +47,24 @@
 
 .titles {
   text-transform: uppercase;
+
+  ul {
+    margin: 0;
+    padding: 0;
+  }
+
+  li {
+    margin: 0;
+    padding: 0;
+    display: block;
+
+    // @include breakpoint($bp-sm) {
+    //   height: 75px;
+    //   width: 75px;
+    //   margin: -30px auto 0;
+    //   box-shadow: 0 0 0 4px $white;
+    // }
+  }
 }
 
 .extra {
