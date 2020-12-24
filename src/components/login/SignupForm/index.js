@@ -15,6 +15,7 @@ import FormErrorMessage from '../../utility/FormErrorMessage';
 import { dateEighteenYearsAgo } from '../../../utilities/dates';
 import Button from '../../common/Button';
 import { useQueryParams } from '../../../hooks/useQueryParams';
+import { DatePickerField } from '../../utility/DateFields';
 
 import Styles from './signupForm.module.scss';
 
@@ -71,7 +72,7 @@ const SignupForm = () => {
             lastName,
             username: '',
             gender: 'MALE',
-            birthdate: '',
+            birthdate: null,
             token,
           }}
           validationSchema={userSchema}
@@ -186,11 +187,12 @@ const SignupForm = () => {
                     Birthdate
                   </label>
                   <div className={Styles['form-field']}>
-                    <Field
-                      type="date"
+                    <DatePickerField
                       id="birthdate"
                       name="birthdate"
-                      max={dateEighteenYearsAgo}
+                      value={formikProps.values.birthdate}
+                      maxDate={dateEighteenYearsAgo()}
+                      onChange={formikProps.setFieldValue}
                     />
                     <FormikErrorMessage
                       name="birthdate"

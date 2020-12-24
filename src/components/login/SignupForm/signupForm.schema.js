@@ -1,4 +1,5 @@
 import * as yup from 'yup';
+
 import { dateEighteenYearsAgo } from '../../../utilities/dates';
 
 export const userSchema = yup.object().shape({
@@ -8,7 +9,7 @@ export const userSchema = yup.object().shape({
   gender: yup.string(),
   birthdate: yup
     .date()
-    .max(dateEighteenYearsAgo, 'You must be 18 years old to join')
+    .max(dateEighteenYearsAgo(), 'You must be 18 years old to join')
     .required('Birthdate is required'),
   email: yup.string().email().required(),
   password: yup.string().min(8).required('Must be at least 8 characters'),

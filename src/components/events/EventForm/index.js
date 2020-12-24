@@ -1,18 +1,15 @@
 import React from 'react';
-import { format, startOfToday } from 'date-fns';
 import { Formik, Field, ErrorMessage as FormikErrorMessage } from 'formik';
 import cn from 'classnames';
+import startOfDay from 'date-fns/startOfDay';
 
 import { runEventSchema, nonRunEventSchema } from './eventForm.schema';
 import RichTextArea from '../../utility/RichTextArea';
 import Loading from '../../utility/Loading';
 import ErrorMessage from '../../utility/ErrorMessage';
 import FormErrorMessage from '../../utility/FormErrorMessage';
-import {
-  dateFormatForm,
-  eventTypes,
-  trailDifficulties,
-} from '../../../lib/constants';
+import { eventTypes, trailDifficulties } from '../../../lib/constants';
+import { DateTimePickerField } from '../../utility/DateFields';
 // import EventImageUploader from '../EventImageUploader';
 import UploadImagePreview from '../../common/UploadImagePreview';
 
@@ -40,6 +37,12 @@ const EventForm = ({
         }}
       >
         {(formikProps) => {
+          console.log(
+            'formik',
+            formikProps.values.startDateTime instanceof Date,
+            formikProps.values.startDateTime,
+          );
+
           return (
             <div className={cn(Styles['form'], Styles['event-form--user'])}>
               <form onSubmit={formikProps.handleSubmit}>
@@ -107,29 +110,32 @@ const EventForm = ({
                 <div className={Styles['form-field-wrapper']}>
                   <label
                     className={Styles['event-form-label']}
-                    htmlFor="startDate"
+                    htmlFor="startDateTime"
                   >
                     Start Date
                   </label>
                   <div className={Styles['event-form-field']}>
-                    <Field
-                      type="date"
-                      id="startDate"
-                      name="startDate"
-                      min={format(startOfToday(), dateFormatForm)}
-                      onChange={(e) => {
-                        formikProps.setFieldValue('endDate', e.target.value);
-                        formikProps.handleChange(e);
+                    <DateTimePickerField
+                      id="startDateTime"
+                      name="startDateTime"
+                      value={formikProps.values.startDateTime}
+                      minDate={startOfDay(new Date())}
+                      onChange={(name, value) => {
+                        const hours = formikProps.values.endDateTime.getHours();
+                        const mins = formikProps.values.endDateTime.getMinutes();
+                        const newEndDateTime = new Date(value.toString());
+
+                        formikProps.setFieldValue(name, value);
+                        formikProps.setFieldValue(
+                          'endDateTime',
+                          new Date(newEndDateTime.setHours(hours, mins, 0, 0)),
+                        );
                       }}
-                    />{' '}
-                    <Field type="time" id="startTime" name="startTime" />
+                      disableClock
+                    />
                     <small>Mountain Timezone</small>
                     <FormikErrorMessage
-                      name="startDate"
-                      component={FormErrorMessage}
-                    />
-                    <FormikErrorMessage
-                      name="startTime"
+                      name="startDateTime"
                       component={FormErrorMessage}
                     />
                   </div>
@@ -138,26 +144,22 @@ const EventForm = ({
                 <div className={Styles['form-field-wrapper']}>
                   <label
                     className={Styles['event-form-label']}
-                    htmlFor="endTime"
+                    htmlFor="endDateTime"
                   >
                     End Date
                   </label>
                   <div className={Styles['event-form-field']}>
-                    <Field
-                      type="date"
-                      id="endDate"
-                      name="endDate"
-                      min={formikProps.values.startDate}
+                    <DateTimePickerField
+                      id="endDateTime"
+                      name="endDateTime"
+                      value={formikProps.values.endDateTime}
+                      minDate={formikProps.values.startDateTime}
+                      onChange={formikProps.setFieldValue}
+                      disableClock
                     />
-
-                    <Field type="time" id="endTime" name="endTime" />
                     <small>Mountain Timezone</small>
                     <FormikErrorMessage
-                      name="endDate"
-                      component={FormErrorMessage}
-                    />
-                    <FormikErrorMessage
-                      name="endTime"
+                      name="endDateTime"
                       component={FormErrorMessage}
                     />
                   </div>

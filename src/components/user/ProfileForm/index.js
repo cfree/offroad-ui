@@ -26,6 +26,7 @@ import {
 import { formatPhone } from '../../../lib/utils';
 import { dateEighteenYearsAgo } from '../../../utilities/dates';
 import Button from '../../common/Button';
+import { DatePickerField } from '../../utility/DateFields';
 
 import Styles from './profileForm.module.scss';
 
@@ -64,7 +65,7 @@ class ProfileForm extends Component {
             gender: queryData.user.gender || 'MALE',
             birthdate:
               (queryData.user.birthdate &&
-                format(new Date(queryData.user.birthdate), dateFormatForm)) ||
+                new Date(queryData.user.birthdate)) ||
               null, // admin
             joined:
               (queryData.user.joined &&
@@ -257,12 +258,14 @@ class ProfileForm extends Component {
                               Birthdate
                             </label>
                             <div className={Styles['profile-form-field']}>
-                              <Field
-                                type="date"
+                              <DatePickerField
                                 id="birthdate"
                                 name="birthdate"
-                                max={dateEighteenYearsAgo}
+                                value={formikProps.values.birthdate}
+                                maxDate={dateEighteenYearsAgo()}
                                 disabled={!isAdmin}
+                                disableCalendar={!isAdmin}
+                                onChange={formikProps.setFieldValue}
                               />
                               <FormikErrorMessage
                                 name="birthdate"
@@ -280,12 +283,16 @@ class ProfileForm extends Component {
                                 Date Joined
                               </label>
                               <div className={Styles['profile-form-field']}>
-                                <Field
-                                  type="date"
+                                <DatePickerField
                                   id="joined"
                                   name="joined"
-                                  max={format(new Date(), dateFormatForm)}
+                                  value={formikProps.values.joined}
+                                  maxDate={new Date()}
                                   disabled={!isAdmin || queryData.user.joined}
+                                  disableCalendar={
+                                    !isAdmin || queryData.user.joined
+                                  }
+                                  onChange={formikProps.setFieldValue}
                                 />
                                 <FormikErrorMessage
                                   name="joined"

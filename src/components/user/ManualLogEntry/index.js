@@ -1,7 +1,5 @@
 import React, { useState, useCallback } from 'react';
 import { useMutation } from '@apollo/react-hooks';
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
 
 import { LOG_MEMBERSHIP_ITEM_MUTATION } from './manualLogEntry.graphql';
 import { MEMBERSHIP_LOG_QUERY } from '../MembershipLog/membershipLog.graphql';
@@ -10,6 +8,7 @@ import Button from '../../common/Button';
 import SuccessMessage from '../../utility/SuccessMessage';
 import ErrorMessage from '../../utility/ErrorMessage';
 import Loading from '../../utility/Loading';
+import DatePicker from '../../utility/DatePicker';
 
 const ManualLogEntry = ({ userId, username }) => {
   const [logMembershipEntry, { error, loading, data }] = useMutation(
@@ -65,7 +64,7 @@ const ManualLogEntry = ({ userId, username }) => {
 
       <div>
         <label htmlFor="date">Date</label>
-        <DatePicker selected={date} onChange={setDate} />
+        <DatePicker value={date} onChange={setDate} />
       </div>
 
       {code === 'DUES_PAID' && (

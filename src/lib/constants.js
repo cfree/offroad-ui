@@ -193,3 +193,18 @@ export const membershipLogMessages = {
 //   // COMMENTED: '',
 //   MEMBERSHIP_GRANTED: () => 'Became a Full Member',
 // };
+
+export const months = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December',
+];

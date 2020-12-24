@@ -8,7 +8,7 @@ export const userSchema = yup.object().shape({
   gender: yup.string(),
   birthdate: yup
     .date()
-    .max(dateEighteenYearsAgo, 'You must be 18 years old to join')
+    .max(dateEighteenYearsAgo(), 'You must be 18 years old to join')
     .required('Birthdate is required'),
   joined: yup.date().max(new Date()).nullable(),
   phone: yup

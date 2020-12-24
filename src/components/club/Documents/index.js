@@ -1,10 +1,61 @@
 import React from 'react';
+import { gql } from 'apollo-boost';
+import { useQuery } from '@apollo/react-hooks';
 
 import Hr from '../../common/Hr';
+import { months } from '../../../lib/constants';
 
 import Styles from './documents.module.scss';
 
+const DOCS_QUERY = gql`
+  query DOCS_QUERY {
+    docs: getDocs {
+      bylaws {
+        name
+        link
+        date
+      }
+      sors {
+        name
+        link
+        date
+      }
+      archives {
+        year
+        monthlyArchives {
+          month
+          meetingMinutes {
+            name
+            link
+            date
+          }
+          newsletter {
+            name
+            link
+            date
+          }
+        }
+      }
+    }
+  }
+`;
+
 const Documents = () => {
+  const { loading, error, data } = useQuery(DOCS_QUERY);
+
+  if (loading || !data) {
+    return 'Loading...';
+  }
+
+  if (error) {
+    return 'Error.';
+  }
+
+  const { docs } = data;
+  const { bylaws, sors, archives } = docs;
+
+  const yearsAvailable = archives.map((archive) => archive.year);
+
   return (
     <div>
       <h2>Club Documents</h2>
@@ -13,16 +64,26 @@ const Documents = () => {
 
       <ul>
         <li>
-          <a href="/docs/bylaws.pdf" download>
+          <a
+            href={bylaws.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            download
+          >
             Bylaws
           </a>{' '}
-          (2019 rev)
+          ({new Date(bylaws.date).getFullYear()} rev)
         </li>
         <li>
-          <a href="/docs/sors.pdf" download>
+          <a
+            href={sors.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            download
+          >
             Standard Operating Rules
           </a>{' '}
-          (2020 rev)
+          ({new Date(sors.date).getFullYear()} rev)
         </li>
       </ul>
 
@@ -39,112 +100,55 @@ const Documents = () => {
       <div className={Styles['archive-content']}>
         <div className={Styles['archive-lists']}>
           <section>
-            <h4 id="c-2019">2019</h4>
-
-            <dl className={Styles['archive-list']}>
-              <dt>November</dt>
-              <dd>
-                <a href="/">Minutes</a>
-                <br />
-                <a href="/">Newsletter</a>
-              </dd>
-
-              <dt>October (Moab)</dt>
-              <dd>
-                <a href="/">Minutes</a>
-              </dd>
-
-              <dt>September</dt>
-              <dd>
-                <a href="/">Minutes</a>
-                <br />
-                <a href="/">Newsletter</a>
-              </dd>
-
-              <dt>August</dt>
-              <dd>
-                <a href="/">Minutes</a>
-                <br />
-                <a href="/">Newsletter</a>
-              </dd>
-
-              <dt>July</dt>
-              <dd>
-                <a href="/">Minutes</a>
-                <br />
-                <a href="/">Newsletter</a>
-              </dd>
-
-              <dt>June</dt>
-              <dd>
-                <a href="/">Minutes</a>
-                <br />
-                <a href="/">Newsletter</a>
-              </dd>
-
-              <dt>May</dt>
-              <dd>
-                <a href="/">Minutes</a>
-                <br />
-                <a href="/">Newsletter</a>
-              </dd>
-            </dl>
+            {archives.map(({ year, monthlyArchives }) => (
+              <>
+                <h4 id={`c-${year}`}>{year}</h4>
+                <dl className={Styles['archive-list']}>
+                  {monthlyArchives.map(
+                    ({ month, meetingMinutes, newsletter }) => (
+                      <>
+                        <dt>{months[month]}</dt>
+                        <dd>
+                          {meetingMinutes && (
+                            <a
+                              href={meetingMinutes.link}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              download
+                            >
+                              {meetingMinutes.name}
+                            </a>
+                          )}
+                          {newsletter && (
+                            <>
+                              <br />
+                              <a
+                                href={newsletter.link}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                download
+                              >
+                                {newsletter.name}
+                              </a>
+                            </>
+                          )}
+                        </dd>
+                      </>
+                    ),
+                  )}
+                </dl>
+              </>
+            ))}
           </section>
         </div>
         <aside className={Styles['aside']}>
           <div className={Styles['aside-content']}>
             <ul className={Styles['aside-list']}>
-              <li>
-                <a href="#c-2020">2020</a>
-              </li>
-              <li>
-                <a href="#c-2019">2019</a>
-              </li>
-              <li>
-                <a href="#c-2018">2018</a>
-              </li>
-              <li>
-                <a href="#c-2017">2017</a>
-              </li>
-              <li>
-                <a href="#c-2016">2016</a>
-              </li>
-              <li>
-                <a href="#c-2015">2015</a>
-              </li>
-              <li>
-                <a href="#c-2014">2014</a>
-              </li>
-              <li>2015</li>
-              <li>2014</li>
-              <li>2013</li>
-              <li>2012</li>
-              <li>2011</li>
-              <li>2010</li>
-              <li>2009</li>
-              <li>2008</li>
-              <li>2007</li>
-              <li>2006</li>
-              <li>2005</li>
-              <li>2004</li>
-              <li>2003</li>
-              <li>2002</li>
-              <li>2001</li>
-              <li>2000</li>
-              <li>1999</li>
-              <li>1998</li>
-              <li>1997</li>
-              <li>1996</li>
-              <li>1995</li>
-              <li>1994</li>
-              <li>1993</li>
-              <li>1992</li>
-              <li>1991</li>
-              <li>1990</li>
-              <li>1989</li>
-              <li>1988</li>
-              <li>1987</li>
-              <li>1986</li>
+              {yearsAvailable.map((year) => (
+                <li>
+                  <a href={`#c-${year}`}>{year}</a>
+                </li>
+              ))}
             </ul>
           </div>
         </aside>

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Query, Mutation } from '@apollo/react-components';
-import { format } from 'date-fns';
 import get from 'lodash/get';
 import { Link } from 'react-router-dom';
 
@@ -14,19 +13,18 @@ import { UPCOMING_EVENTS_QUERY } from '../EventList/eventList.graphql';
 
 import EventForm from '../EventForm';
 import ErrorMessage from '../../utility/ErrorMessage';
-import { dateFormatForm, timeFormat24Hr } from '../../../lib/constants';
 import { uploadImage } from '../../../lib/utils';
 // import UploadImagePreview from '../../common/UploadImagePreview';
 
-class EditEvent extends Component {
-  // state = {
-  //   startDate: format(new Date(), dateFormatForm),
-  //   startTime: '10:00',
-  //   endDate: format(new Date(), dateFormatForm),
-  //   endTime: '15:00',
-  //   eventForm: {},
-  // };
+/**
+ * Date round-trip
+ *
+ * 1. Type received from server: string
+ * 2. Initial value: converted string to Date
+ * 3.
+ */
 
+class EditEvent extends Component {
   render() {
     const { event: existingEventId } = this.props;
 
@@ -45,13 +43,13 @@ class EditEvent extends Component {
 
           const { event } = queryData;
 
+          console.log('api', typeof event.startTime, event.startTime);
+
           const initialValues = {
             id: existingEventId,
             type: event.type,
-            startDate: format(new Date(event.startTime), dateFormatForm),
-            startTime: format(new Date(event.startTime), timeFormat24Hr),
-            endDate: format(new Date(event.endTime), dateFormatForm),
-            endTime: format(new Date(event.endTime), timeFormat24Hr),
+            startDateTime: new Date(event.startTime),
+            endDateTime: new Date(event.endTime),
             title: event.title,
             description: event.description,
             address: event.address,
@@ -130,19 +128,17 @@ class EditEvent extends Component {
   }
 
   handleSubmit = async (
-    { startDate, endDate, image, newImage, ...filteredValues },
+    { startDateTime, endDateTime, image, newImage, ...filteredValues },
     setSubmitting,
     updateEvent,
   ) => {
     let eventValues = {
       ...filteredValues,
-      startTime: new Date(`${startDate} ${filteredValues.startTime}`),
-      endTime: new Date(`${endDate} ${filteredValues.endTime}`),
+      startTime: startDateTime,
+      endTime: endDateTime,
       featuredImage: image,
       newFeaturedImage: null,
     };
-
-    console.log('eventValues', eventValues);
 
     setSubmitting(true);
 

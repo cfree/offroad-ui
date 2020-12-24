@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Query, Mutation } from '@apollo/react-components';
-import { format } from 'date-fns';
 import get from 'lodash/get';
 import { Link } from 'react-router-dom';
 
@@ -12,7 +11,6 @@ import {
 
 import EventForm from '../EventForm';
 import ErrorMessage from '../../utility/ErrorMessage';
-import { dateFormatForm } from '../../../lib/constants';
 import { uploadImage } from '../../../lib/utils';
 
 class CreateEvent extends Component {
@@ -33,10 +31,8 @@ class CreateEvent extends Component {
             type: 'RUN',
             title: '',
             description: '',
-            startDate: format(today, dateFormatForm),
-            startTime: '10:00',
-            endDate: format(today, dateFormatForm),
-            endTime: '15:00',
+            startDateTime: today.setHours(10, 0, 0, 0),
+            endDateTime: today.setHours(15, 0, 0, 0),
             address: '',
             trailDifficulty: 'UNKNOWN',
             trailNotes: '',
@@ -49,8 +45,6 @@ class CreateEvent extends Component {
             maxAttendees: -1,
             maxRigs: -1,
           };
-
-          console.log('initialValue', format(today, dateFormatForm));
 
           return (
             <>
@@ -103,14 +97,14 @@ class CreateEvent extends Component {
   }
 
   handleSubmit = async (
-    { startDate, endDate, image, newImage, ...filteredValues },
+    { startDateTime, endDateTime, image, newImage, ...filteredValues },
     setSubmitting,
     createEvent,
   ) => {
     let eventValues = {
       ...filteredValues,
-      startTime: new Date(`${startDate} ${filteredValues.startTime}`),
-      endTime: new Date(`${endDate} ${filteredValues.endTime}`),
+      startTime: startDateTime,
+      endTime: endDateTime,
       featuredImage: image,
       newFeaturedImage: null,
     };

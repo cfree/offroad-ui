@@ -73,6 +73,7 @@ const AdminProfileForm = ({ username }) => {
       initialValues={userAdminFormValues}
       validationSchema={userSchema}
       onSubmit={async (values, { setSubmitting }) => {
+        console.log('save', values.titles);
         setUserAdminForm({
           id: user.id,
           ...values,
@@ -84,48 +85,52 @@ const AdminProfileForm = ({ username }) => {
         await updateUserAdminProfile();
         setSubmitting(false);
       }}
-      render={(formikProps) => (
-        <div className={cn(Styles['form'], Styles['profile-form--user'])}>
-          <form onSubmit={formikProps.handleSubmit}>
-            <div className={Styles['form-field-wrapper']}>
-              <label className={Styles['profile-form-label']}>Titles</label>
-              <div className={Styles['profile-form-field']}>
-                {Object.keys(titles).map((title) => (
-                  <label>
-                    <Field
-                      type="checkbox"
-                      name="titles"
-                      id="titles"
-                      checked={formikProps.values.titles.includes(title)}
-                      onChange={(event) => {
-                        const value = event.target.value;
-                        const wasChecked = event.target.checked;
+      render={(formikProps) => {
+        console.log('current titles', formikProps.values.titles);
+        return (
+          <div className={cn(Styles['form'], Styles['profile-form--user'])}>
+            <form onSubmit={formikProps.handleSubmit}>
+              <div className={Styles['form-field-wrapper']}>
+                <label className={Styles['profile-form-label']}>Titles</label>
+                <div className={Styles['profile-form-field']}>
+                  {Object.keys(titles).map((title) => (
+                    <label>
+                      <Field
+                        type="checkbox"
+                        name="titles"
+                        id="titles"
+                        value={title}
+                        checked={formikProps.values.titles.includes(title)}
+                        onChange={(event) => {
+                          const value = event.target.value;
+                          console.log('checked', event.target, value);
+                          const wasChecked = event.target.checked;
 
-                        if (wasChecked) {
-                          formikProps.setFieldValue('titles', [
-                            ...formikProps.values.titles,
-                            value,
-                          ]);
-                        } else {
-                          formikProps.setFieldValue('titles', [
-                            ...formikProps.values.titles.filter(
-                              (title) => title !== value,
-                            ),
-                          ]);
-                        }
-                      }}
-                    />{' '}
-                    {titles[title]}
-                  </label>
-                ))}
-                <FormikErrorMessage
-                  name="titles"
-                  component={FormErrorMessage}
-                />
+                          if (wasChecked) {
+                            formikProps.setFieldValue('titles', [
+                              ...formikProps.values.titles,
+                              value,
+                            ]);
+                          } else {
+                            formikProps.setFieldValue('titles', [
+                              ...formikProps.values.titles.filter(
+                                (title) => title !== value,
+                              ),
+                            ]);
+                          }
+                        }}
+                      />{' '}
+                      {titles[title]}
+                    </label>
+                  ))}
+                  <FormikErrorMessage
+                    name="titles"
+                    component={FormErrorMessage}
+                  />
+                </div>
               </div>
-            </div>
 
-            {/* <div className={Styles['form-field-wrapper']}>
+              {/* <div className={Styles['form-field-wrapper']}>
               <label className={Styles['profile-form-label']} htmlFor="titles">
                 Titles
               </label>
@@ -150,7 +155,7 @@ const AdminProfileForm = ({ username }) => {
               </div>
             </div> */}
 
-            {/* <div className={Styles['form-field-wrapper']}>
+              {/* <div className={Styles['form-field-wrapper']}>
                 <div className={Styles['profile-form-label']}>
                   Is On Sponsor List? (4wd.com, etc.)
                 </div>
@@ -186,130 +191,141 @@ const AdminProfileForm = ({ username }) => {
                 </div>
               </div> */}
 
-            <div className={Styles['form-field-wrapper']}>
-              <label className={Styles['profile-form-label']} htmlFor="office">
-                Office
-              </label>
-              <div className={Styles['profile-form-field']}>
-                <Field
-                  component="select"
-                  name="office"
-                  id="office"
-                  defaultValue={user.office || null}
+              <div className={Styles['form-field-wrapper']}>
+                <label
+                  className={Styles['profile-form-label']}
+                  htmlFor="office"
                 >
-                  <option value={null}>None</option>
-                  {Object.entries(offices).map((office, idx) => (
-                    <option key={idx} value={office[0]}>
-                      {office[1]}
-                    </option>
-                  ))}
-                </Field>
-                <FormikErrorMessage
-                  name="office"
-                  component={FormErrorMessage}
-                />
+                  Office
+                </label>
+                <div className={Styles['profile-form-field']}>
+                  <Field
+                    component="select"
+                    name="office"
+                    id="office"
+                    defaultValue={user.office || null}
+                  >
+                    <option value={null}>None</option>
+                    {Object.entries(offices).map((office, idx) => (
+                      <option key={idx} value={office[0]}>
+                        {office[1]}
+                      </option>
+                    ))}
+                  </Field>
+                  <FormikErrorMessage
+                    name="office"
+                    component={FormErrorMessage}
+                  />
+                </div>
               </div>
-            </div>
 
-            <div className={Styles['form-field-wrapper']}>
-              <label className={Styles['profile-form-label']} htmlFor="role">
-                Role
-              </label>
-              <div className={Styles['profile-form-field']}>
-                <Field
-                  component="select"
-                  name="role"
-                  id="role"
-                  defaultValue={user.role}
+              <div className={Styles['form-field-wrapper']}>
+                <label className={Styles['profile-form-label']} htmlFor="role">
+                  Role
+                </label>
+                <div className={Styles['profile-form-field']}>
+                  <Field
+                    component="select"
+                    name="role"
+                    id="role"
+                    defaultValue={user.role}
+                  >
+                    {Object.entries(roles).map((role, idx) => (
+                      <option key={idx} value={role[0]}>
+                        {role[1]}
+                      </option>
+                    ))}
+                  </Field>
+                  <FormikErrorMessage
+                    name="role"
+                    component={FormErrorMessage}
+                  />
+                </div>
+              </div>
+
+              <div className={Styles['form-field-wrapper']}>
+                <label
+                  className={Styles['profile-form-label']}
+                  htmlFor="accountStatus"
                 >
-                  {Object.entries(roles).map((role, idx) => (
-                    <option key={idx} value={role[0]}>
-                      {role[1]}
-                    </option>
-                  ))}
-                </Field>
-                <FormikErrorMessage name="role" component={FormErrorMessage} />
+                  Account Status
+                </label>
+                <div className={Styles['profile-form-field']}>
+                  <Field
+                    component="select"
+                    name="accountStatus"
+                    id="accountStatus"
+                    defaultValue={user.accountStatus}
+                  >
+                    {Object.entries(accountStatuses).map(
+                      (accountStatus, idx) => (
+                        <option key={idx} value={accountStatus[0]}>
+                          {accountStatus[1]}
+                        </option>
+                      ),
+                    )}
+                  </Field>
+                  <FormikErrorMessage
+                    name="accountStatus"
+                    component={FormErrorMessage}
+                  />
+                </div>
               </div>
-            </div>
 
-            <div className={Styles['form-field-wrapper']}>
-              <label
-                className={Styles['profile-form-label']}
-                htmlFor="accountStatus"
-              >
-                Account Status
-              </label>
-              <div className={Styles['profile-form-field']}>
-                <Field
-                  component="select"
-                  name="accountStatus"
-                  id="accountStatus"
-                  defaultValue={user.accountStatus}
+              <div className={Styles['form-field-wrapper']}>
+                <label
+                  className={Styles['profile-form-label']}
+                  htmlFor="accountType"
                 >
-                  {Object.entries(accountStatuses).map((accountStatus, idx) => (
-                    <option key={idx} value={accountStatus[0]}>
-                      {accountStatus[1]}
-                    </option>
-                  ))}
-                </Field>
-                <FormikErrorMessage
-                  name="accountStatus"
-                  component={FormErrorMessage}
-                />
+                  Account Type
+                </label>
+                <div className={Styles['profile-form-field']}>
+                  <Field
+                    component="select"
+                    name="accountType"
+                    id="accountType"
+                    defaultValue={user.accountType}
+                  >
+                    {Object.entries(accountTypes).map((accountType, idx) => (
+                      <option key={idx} value={accountType[0]}>
+                        {accountType[1]}
+                      </option>
+                    ))}
+                  </Field>
+                  <FormikErrorMessage
+                    name="accountType"
+                    component={FormErrorMessage}
+                  />
+                </div>
               </div>
-            </div>
 
-            <div className={Styles['form-field-wrapper']}>
-              <label
-                className={Styles['profile-form-label']}
-                htmlFor="accountType"
-              >
-                Account Type
-              </label>
-              <div className={Styles['profile-form-field']}>
-                <Field
-                  component="select"
-                  name="accountType"
-                  id="accountType"
-                  defaultValue={user.accountType}
+              <div className={Styles['form-footer']}>
+                <Button
+                  type="submit"
+                  disabled={
+                    formikProps.errors.length === 0 ||
+                    !formikProps.dirty ||
+                    !formikProps.isValid ||
+                    formikProps.isSubmitting ||
+                    mutationLoading
+                  }
                 >
-                  {Object.entries(accountTypes).map((accountType, idx) => (
-                    <option key={idx} value={accountType[0]}>
-                      {accountType[1]}
-                    </option>
-                  ))}
-                </Field>
-                <FormikErrorMessage
-                  name="accountType"
-                  component={FormErrorMessage}
-                />
+                  Update
+                </Button>
+                <Loading loading={mutationLoading} />
+                <ErrorMessage error={mutationError} />
+                {mutationData && (
+                  <SuccessMessage
+                    message={
+                      mutationData.updateUserAdminProfileSettings.message
+                    }
+                  />
+                )}
               </div>
-            </div>
-
-            <div className={Styles['form-footer']}>
-              <Button
-                type="submit"
-                disabled={
-                  formikProps.errors.length === 0 ||
-                  !formikProps.dirty ||
-                  !formikProps.isValid ||
-                  formikProps.isSubmitting ||
-                  mutationLoading
-                }
-              >
-                Update
-              </Button>
-              <Loading loading={mutationLoading} />
-              <ErrorMessage error={mutationError} />
-              {mutationData && (
-                <SuccessMessage
-                  message={mutationData.updateUserAdminProfileSettings.message}
-                />
-              )}
-            </div>
-          </form>
-        </div>
-      )}
+            </form>
+          </div>
+        );
+      }}
     />
   );
 };
