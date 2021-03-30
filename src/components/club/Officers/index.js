@@ -827,6 +827,85 @@ const Officers = () => {
               </tr>
             </tbody>
           </table>
+
+          <h4 id="c-1990">1990</h4>
+
+          <table className={Styles['officers-list']}>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Title</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Kurtis Keele</td>
+                <td>President</td>
+              </tr>
+              <tr>
+                <td>Greg Boyd</td>
+                <td>Vice President</td>
+              </tr>
+              <tr>
+                <td>Jerry Engel</td>
+                <td>Secretary</td>
+              </tr>
+              <tr>
+                <td>Art Clark</td>
+                <td>Treasurer</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h4 id="c-1989">1989</h4>
+
+          <table className={Styles['officers-list']}>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Title</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Jim Powell</td>
+                <td>President</td>
+              </tr>
+              <tr>
+                <td>Norman Bywater</td>
+                <td>Vice President</td>
+              </tr>
+              <tr>
+                <td>Terry Goutierez</td>
+                <td>Secretary</td>
+              </tr>
+              <tr>
+                <td>Walt Gehrke</td>
+                <td>Treasurer</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h4 id="c-1986">1986</h4>
+
+          <table className={Styles['officers-list']}>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Title</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Jim Powell</td>
+                <td>President</td>
+              </tr>
+              <tr>
+                <td>Keith Lee</td>
+                <td>Secretary/Treasurer</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
         <aside className={Styles['aside']}>
           <div className={Styles['aside-content']}>
@@ -921,11 +1000,17 @@ const Officers = () => {
               <li>1993</li>
               <li>1992</li>
               <li>1991</li>
-              <li>1990</li>
-              <li>1989</li>
+              <li>
+                <a href="#c-1990">1990</a>
+              </li>
+              <li>
+                <a href="#c-1989">1989</a>
+              </li>
               <li>1988</li>
               <li>1987</li>
-              <li>1986</li>
+              <li>
+                <a href="#c-1986">1986</a>
+              </li>
             </ul>
           </div>
         </aside>
