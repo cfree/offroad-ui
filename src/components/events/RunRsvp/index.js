@@ -46,7 +46,9 @@ const RunRsvp = ({
     get(userRsvp, 'guestCount', 0),
   );
   const [modalIsOpen, setIsOpen] = useState(false);
-  const [isRider, setIsRider] = useState(!user.vehicle || userRsvp.isRider);
+  const [isRider, setIsRider] = useState(
+    !user.vehicle || (userRsvp && userRsvp.isRider),
+  );
 
   const { loading: queryLoading, error: queryError, data } = useQuery(
     MEMBERSHIP_QUERY,
@@ -95,6 +97,7 @@ const RunRsvp = ({
           },
           {
             query: UPCOMING_EVENTS_QUERY,
+            variables: { page: 1 },
           },
           {
             query: NEXT_EVENT_QUERY,
@@ -151,6 +154,7 @@ const RunRsvp = ({
           },
           {
             query: UPCOMING_EVENTS_QUERY,
+            variables: { page: 1 },
           },
         ],
       });
@@ -232,9 +236,7 @@ const RunRsvp = ({
   const diff = (maxAttendees || -1) - attendeeCount;
   const remainingAttendeeSpots = diff >= 0 ? diff : 100;
 
-  const { vehicle, equipment } = user;
-
-  console.log('remaining', remainingAttendeeSpots);
+  const { vehicle } = user;
 
   return pastEvent ? (
     <div className={Styles['rsvp__status--past']}>
@@ -294,10 +296,10 @@ const RunRsvp = ({
               I am a rider
             </label>
           )}
-          {equipment && !isRider && (
+          {userRsvp && userRsvp.equipment && !isRider && (
             <>
               <h4>Equipment</h4>
-              {equipment.map((item) => item.concat(', '))}
+              {userRsvp.equipment.map((item) => item.concat(', '))}
             </>
           )}
           {!isRider && (

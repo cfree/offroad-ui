@@ -32,9 +32,9 @@ const RunAttendeeCard = ({ rsvp, startOpen = false, isLeader = false }) => {
       : `${accountTypes[member.accountType]} Member`;
   const vehicle =
     member.vehicle &&
-    `${member.vehicle.year} ${member.vehicle.make} ${
-      member.vehicle.model
-    } ${get(member, 'vehicle.trim', '')}`.trim();
+    `${member.vehicle.year} ${member.vehicle.make} ${member.vehicle.model} ${
+      member.vehicle.trim || ''
+    }`.trim();
   const vehicleDetails =
     !vehicle || member.isRider ? 'Rider' : vehicle || 'Driver';
 
@@ -99,7 +99,13 @@ const RunAttendeeCard = ({ rsvp, startOpen = false, isLeader = false }) => {
             >
               Location
             </Icon>{' '}
-            {member.contactInfo.city}, {member.contactInfo.state}
+            {member.contactInfo &&
+              member.contactInfo.city &&
+              member.contactInfo.state && (
+                <>
+                  {member.contactInfo.city}, {member.contactInfo.state}
+                </>
+              )}
           </li>
           <li>
             <Icon className={Styles['event__details-list__icon']} icon="mail">

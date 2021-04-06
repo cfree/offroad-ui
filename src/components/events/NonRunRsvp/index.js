@@ -90,6 +90,7 @@ const NonRunRsvp = ({
           },
           {
             query: UPCOMING_EVENTS_QUERY,
+            variables: { page: 1 },
           },
           {
             query: NEXT_EVENT_QUERY,
@@ -138,6 +139,7 @@ const NonRunRsvp = ({
           },
           {
             query: UPCOMING_EVENTS_QUERY,
+            variables: { page: 1 },
           },
         ],
       });

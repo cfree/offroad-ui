@@ -150,6 +150,7 @@ class EditEvent extends Component {
       refetchQueries: [
         {
           query: UPCOMING_EVENTS_QUERY,
+          variables: { page: 1 },
         },
       ],
     });

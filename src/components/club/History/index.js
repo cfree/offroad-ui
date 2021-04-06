@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 import Styles from './history.module.scss';
 
@@ -24,7 +23,7 @@ const History = () => {
       <blockquote>
         <p>
           Jim Powell, a friend of mine came up with the idea of a gay four wheel
-          drive club. I was at the first meeting in a bar on south Broadway. In
+          drive club. I was at the first meeting in a bar on South Broadway. In
           advance of the first meeting, Jim went around to the gay bars &amp;
           parks and put fliers on every 4-wheel drive vehicle he saw...{' '}
         </p>
@@ -57,26 +56,38 @@ const History = () => {
 
       <h3>Charter Members</h3>
       <p>
-        Though the club was officially incorporated in November of 1986, members
-        who adopted and signed the Bylaws on or before June 1, 1986 are known as
-        Charter members of the 4-Players of Colorado.
+        Though the club was officially incorporated in November of 1986, the 26
+        members who adopted and signed the Bylaws on or before June 1, 1986 are
+        known as Charter members of the 4-Players of Colorado.
         <ul>
           <li>Jim Powell (Founder)</li>
-          <li>
-            <Link to="/profile/">Wilfred Clarkson</Link>
-          </li>
-          <li>David Faull</li>
-          <li>Ashley Johnson</li>
+          <li>Ashley Johnson, Jr.</li>
+          <li>Bill Salas</li>
+          <li>Bill Widdison</li>
+          <li>Bill Willis</li>
+          <li>Carl Schneider</li>
+          <li>David "Daddy Dawg" Faull</li>
+          <li>Darrell Yamada</li>
+          <li>Hugh Morris</li>
+          <li>Keith Lee</li>
+          <li>Kenny Tenbensel</li>
           <li>Kurtis Keele</li>
+          <li>Jeff McNamar</li>
+          <li>Jim Vela</li>
           <li>John Krasovich</li>
-          <li>James Murphy</li>
+          <li>John Smith</li>
+          <li>John Raferty</li>
+          <li>Lee Griffin</li>
+          <li>Mark Reddemann</li>
+          <li>Mike Ketterman</li>
+          <li>Mike Knorr</li>
+          <li>Randy Hamilton</li>
+          <li>Randy MacMillan</li>
           <li>Sam Nelson</li>
-          <li>Rich Reynolds</li>
+          <li>Steve McClung</li>
+          <li>Walter "Bear" Pedigo</li>
+          <li>Wayne Jakino</li>
         </ul>
-      </p>
-      <p>
-        If we are missing names, please inform the{' '}
-        <a href="mailto:webmaster@4-playersofcolorado.org">webmaster</a>.
       </p>
     </div>
   );

@@ -110,4 +110,11 @@
 
 .disabled {
   cursor: not-allowed;
+  color: $silver;
+  background: $grey;
+  border-color: $grey;
+
+  &:hover {
+    color: $silver;
+  }
 }

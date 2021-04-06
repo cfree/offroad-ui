@@ -7,7 +7,7 @@ import {
   SETUP_NEW_EVENT_QUERY,
   CREATE_EVENT_MUTATION,
 } from './createEvent.graphql';
-// import { UPCOMING_EVENTS_QUERY } from '../EventList/eventList.graphql.js';
+import { UPCOMING_EVENTS_QUERY } from '../EventList/eventList.graphql.js';
 
 import EventForm from '../EventForm';
 import ErrorMessage from '../../utility/ErrorMessage';
@@ -54,7 +54,12 @@ class CreateEvent extends Component {
               <h3>Create New Event</h3>
               <Mutation
                 mutation={CREATE_EVENT_MUTATION}
-                refetchQueries={['UPCOMING_EVENTS_QUERY']}
+                refetchQueries={[
+                  {
+                    query: UPCOMING_EVENTS_QUERY,
+                    variables: { page: 1 },
+                  },
+                ]}
               >
                 {(
                   createEvent,

@@ -17,6 +17,7 @@ const Button = ({
 }) => {
   const handleClick = useCallback(
     (e) => {
+      console.log('bitton', disabled);
       if (!disabled && onClick) {
         onClick(e);
       }
@@ -39,8 +40,12 @@ const Button = ({
       </a>
     );
   } else if (to) {
-    btnComponent = (
-      <Link disabled={disabled} to={to} className={classes} {...rest}>
+    btnComponent = disabled ? (
+      <button disabled={disabled} className={classes} {...rest}>
+        {children}
+      </button>
+    ) : (
+      <Link to={to} className={classes} {...rest}>
         {children}
       </Link>
     );

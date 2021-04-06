@@ -5,6 +5,12 @@ export const RUN_EVENT_QUERY = gql`
     myself {
       id
       accountType
+      vehicle {
+        id
+        year
+        make
+        model
+      }
     }
     event: getEvent(eventId: $eventId) {
       id

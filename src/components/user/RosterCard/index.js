@@ -17,6 +17,8 @@ const RosterCard = ({ user, className }) => {
       ? `/admin/profile/${user.username}`
       : `/profile/${user.username}`;
 
+  console.log('phone', phone);
+
   return (
     <tr className={classes}>
       <td>
@@ -34,7 +36,7 @@ const RosterCard = ({ user, className }) => {
         </Link>
       </td>
       <td>{getMemberType(user.accountType)}</td>
-      <td>{phone && getPhoneNumber(phone)}</td>
+      <td>{phone && phone !== '0000000000' && getPhoneNumber(phone)}</td>
     </tr>
   );
 };

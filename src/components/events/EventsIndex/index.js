@@ -8,6 +8,7 @@ import {
 
 import Switch from '../../common/Switch';
 import EventList from '../EventList';
+import { useQueryParams } from '../../../hooks/useQueryParams';
 
 import Styles from './eventsIndex.module.scss';
 
@@ -15,6 +16,8 @@ const EventsIndex = () => {
   const { push } = useHistory();
   const { pathname } = useLocation();
   const { path, url } = useRouteMatch();
+  const { page } = useQueryParams();
+
   const handleClick = useCallback(
     (isPastEvents) => {
       if (isPastEvents) {
@@ -38,10 +41,10 @@ const EventsIndex = () => {
       </nav>
 
       <Route exact path={path}>
-        <EventList upcoming />
+        <EventList page={parseInt(page, 10)} upcoming />
       </Route>
       <Route path={`${path}/past`}>
-        <EventList />
+        <EventList page={parseInt(page, 10)} />
       </Route>
     </div>
   );
