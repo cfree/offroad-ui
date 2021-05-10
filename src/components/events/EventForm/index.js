@@ -258,11 +258,34 @@ const EventForm = ({
                       disabled={runLeaders.length === 1}
                       defaultValue={formikProps.initialValues.host}
                     >
-                      {runLeaders.map((leader, idx) => (
-                        <option value={leader.username} key={leader.username}>
-                          {leader.firstName} {leader.lastName}
-                        </option>
-                      ))}
+                      {runLeaders
+                        .sort((a, b) => {
+                          if (a.lastName < b.lastName) {
+                            return -1;
+                          }
+                          if (a.lastName > b.lastName) {
+                            return 1;
+                          }
+
+                          // names must be equal
+                          return 0;
+                        })
+                        .sort((a, b) => {
+                          if (a.firstName < b.firstName) {
+                            return -1;
+                          }
+                          if (a.firstName > b.firstName) {
+                            return 1;
+                          }
+
+                          // names must be equal
+                          return 0;
+                        })
+                        .map((leader, idx) => (
+                          <option value={leader.username} key={leader.username}>
+                            {leader.firstName} {leader.lastName}
+                          </option>
+                        ))}
                     </Field>
                     <FormikErrorMessage
                       name="host"
@@ -287,11 +310,24 @@ const EventForm = ({
                           id="trail"
                           defaultValue={formikProps.initialValues.trail}
                         >
-                          {trails.map((trail) => (
-                            <option value={trail.id} key={trail.id}>
-                              {trail.name}
-                            </option>
-                          ))}
+                          {trails
+                            .sort((a, b) => {
+                              console.log(a);
+                              if (a.name < b.name) {
+                                return -1;
+                              }
+                              if (a.name > b.name) {
+                                return 1;
+                              }
+
+                              // names must be equal
+                              return 0;
+                            })
+                            .map((trail) => (
+                              <option value={trail.id} key={trail.id}>
+                                {trail.name}
+                              </option>
+                            ))}
                         </Field>
                         <FormikErrorMessage
                           name="trail"

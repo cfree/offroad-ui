@@ -114,7 +114,10 @@ export const RIGBOOK_QUERY = gql`
         trim
       }
     }
-    membership: getMembers(accountTypes: [FULL, ASSOCIATE, EMERITUS]) {
+    membership: getMembers(
+      accountTypes: [FULL, ASSOCIATE, EMERITUS]
+      accountStatuses: [ACTIVE]
+    ) {
       username
       id
       email

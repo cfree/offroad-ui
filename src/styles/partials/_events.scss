@@ -44,6 +44,11 @@
       @extend %event-icon;
       color: $grey-light;
     }
+
+    &--camping {
+      @extend %event-icon;
+      color: $grey-light;
+    }
   }
 
   &__date {

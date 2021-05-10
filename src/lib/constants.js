@@ -73,8 +73,8 @@ export const titles = {
   // can be multiple users with same title
   WEBMASTER: 'Webmaster',
   HISTORIAN: 'Historian',
-  RUN_LEADER: 'Run Leader',
-  RUN_MASTER: 'Run Master',
+  // RUN_LEADER: 'Run Leader',
+  // RUN_MASTER: 'Run Master',
   CHARTER_MEMBER: 'Charter Member',
 };
 
@@ -107,6 +107,7 @@ export const eventTypes = {
   MEETING: 'Meeting',
   CLINIC: 'Clinic',
   SOCIAL: 'Social',
+  CAMPING: 'Camping',
 };
 
 export const rsvpStatuses = {

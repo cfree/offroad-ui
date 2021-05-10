@@ -32,26 +32,52 @@ export class Roster extends Component {
               return <div>Error: {error.message}</div>;
             }
 
+            const { users } = data;
+
             return (
-              <table className={Styles['roster']}>
-                <thead className={Styles['roster-header']}>
-                  <tr>
-                    <th />
-                    <th>Name</th>
-                    <th>Account Type</th>
-                    <th>Phone</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {data.users.map((user) => (
-                    <RosterCard
-                      key={user.id}
-                      user={user}
-                      className={Styles['roster-card']}
-                    />
-                  ))}
-                </tbody>
-              </table>
+              <>
+                <table className={Styles['roster']}>
+                  <thead className={Styles['roster-header']}>
+                    <tr>
+                      <th />
+                      <th>Name</th>
+                      <th>Account Type</th>
+                      <th>Phone</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {users.map((user) => (
+                      <RosterCard
+                        key={user.id}
+                        user={user}
+                        className={Styles['roster-card']}
+                      />
+                    ))}
+                  </tbody>
+                </table>
+                <small>
+                  Full:{' '}
+                  {users.filter((user) => user.accountType === 'FULL').length}
+                </small>
+                &nbsp;&#8226;&nbsp;
+                <small>
+                  Associate:{' '}
+                  {
+                    users.filter((user) => user.accountType === 'ASSOCIATE')
+                      .length
+                  }
+                </small>
+                &nbsp;&#8226;&nbsp;
+                <small>
+                  Emeritus:{' '}
+                  {
+                    users.filter((user) => user.accountType === 'EMERITUS')
+                      .length
+                  }
+                </small>
+                &nbsp;&#8226;&nbsp;
+                <small>Total: {users.length}</small>
+              </>
             );
           }}
         </Query>

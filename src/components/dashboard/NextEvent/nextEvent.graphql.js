@@ -19,6 +19,7 @@ export const NEXT_EVENT_QUERY = gql`
       endTime
       membersOnly
       rsvps {
+        id
         member {
           id
         }
@@ -38,6 +39,7 @@ export const NEXT_EVENT_QUERY = gql`
         id
         name
         featuredImage {
+          id
           url
         }
       }

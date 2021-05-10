@@ -117,14 +117,12 @@ const RunEventDetails = ({ eventId }) => {
           {isPastEvent
             ? 'Past Event'
             : format(new Date(event.startTime), dateFormatFull)}
-          {!isPastEvent && (
-            <Filter roleCheck={isAtLeastRunMaster} typeCheck={isFullMember}>
-              {' '}
-              <small>
-                <Link to={`/event/${eventId}/edit`}>Edit</Link>
-              </small>
-            </Filter>
-          )}
+          <Filter roleCheck={isAtLeastRunMaster} typeCheck={isFullMember}>
+            {' '}
+            <small>
+              <Link to={`/event/${eventId}/edit`}>Edit</Link>
+            </small>
+          </Filter>
         </div>
         <div className={Styles['event__title']}>
           <h2 className={Styles['event__title--heading']}>{event.title}</h2>
@@ -318,7 +316,7 @@ const RunEventDetails = ({ eventId }) => {
         )}
         {event.trail && (
           <section>
-            {event.trail.description && (
+            {event.trail.description && !!event.trail.description && (
               <>
                 <h3>{event.trail.name} Trail Information</h3>
                 {parse(event.trail.description)}
@@ -393,6 +391,11 @@ const RunEventDetails = ({ eventId }) => {
                 'attendees',
               )}
             </div>
+            <Filter roleCheck={isAtLeastRunMaster} typeCheck={isFullMember}>
+              <div className={Styles['event__stat']}>
+                <Link>+</Link>
+              </div>
+            </Filter>
           </div>
 
           <div className={Styles['event__attendees']}>

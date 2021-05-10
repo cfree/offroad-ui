@@ -40,14 +40,26 @@ const TrailsList = () => {
             </div>
             {trails.length > 0 ? (
               <ul>
-                {trails.map((trail) => {
-                  return (
-                    <li key={trail.slug}>
-                      {trail.name} -{' '}
-                      <Link to={`/trail/${trail.slug}/edit`}>Edit</Link>
-                    </li>
-                  );
-                })}
+                {trails
+                  .sort((a, b) => {
+                    if (a.name < b.name) {
+                      return -1;
+                    }
+                    if (a.name > b.name) {
+                      return 1;
+                    }
+
+                    // names must be equal
+                    return 0;
+                  })
+                  .map((trail) => {
+                    return (
+                      <li key={trail.slug}>
+                        {trail.name} -{' '}
+                        <Link to={`/trail/${trail.slug}/edit`}>Edit</Link>
+                      </li>
+                    );
+                  })}
               </ul>
             ) : (
               <h3>No trails yet</h3>
