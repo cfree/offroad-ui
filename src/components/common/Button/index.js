@@ -17,7 +17,6 @@ const Button = ({
 }) => {
   const handleClick = useCallback(
     (e) => {
-      console.log('bitton', disabled);
       if (!disabled && onClick) {
         onClick(e);
       }

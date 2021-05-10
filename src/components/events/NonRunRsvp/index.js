@@ -202,7 +202,6 @@ const NonRunRsvp = ({
 
   const handleGuestCountChange = useCallback(
     (value) => {
-      console.log('guests', value);
       setGuestsCountInVehicle(+value);
     },
     [setGuestsCountInVehicle],

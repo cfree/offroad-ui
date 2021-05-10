@@ -135,6 +135,11 @@ export const genders = {
   OTHER: 'Other',
 };
 
+export const notificationsSettings = {
+  emailPublicNotifications: 'Public Newsletter',
+  emailMemberNotifications: 'Members Newsletter',
+};
+
 export const DEFAULT_AVATAR_SRC = '/img/default-user.jpg';
 export const DEFAULT_AVATAR_SMALL_SRC = '/img/default-user.jpg';
 export const DEFAULT_RIG_SRC = '/img/default-vehicle.jpg';

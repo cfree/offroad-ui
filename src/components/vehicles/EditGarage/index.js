@@ -53,7 +53,7 @@ const EditGarage = () => {
           model: get(vehicle, 'model', ''),
           trim: get(vehicle, 'trim', ''),
           name: get(vehicle, 'name', ''),
-          outfitLevel: get(vehicle, 'outfitLevel', ''),
+          outfitLevel: get(vehicle, 'outfitLevel', 0),
           mods: get(vehicle, 'mods', []).join(', '),
         };
 

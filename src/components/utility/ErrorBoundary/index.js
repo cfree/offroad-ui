@@ -1,5 +1,6 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
+import * as Sentry from '@sentry/react';
 
 import Button from '../../../components/common/Button';
 
@@ -17,8 +18,12 @@ class ErrorBoundary extends React.Component {
   }
 
   componentDidCatch(error, errorInfo) {
+    // Toaster
+
     // You can also log the error to an error reporting service
     // logErrorToMyService(error, errorInfo);
+    Sentry.captureException(error);
+    console.error(error);
   }
 
   render() {

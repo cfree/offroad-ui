@@ -1,10 +1,11 @@
 import React from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
+import toast from 'react-hot-toast';
 
 import RunEventDetails from '../RunEventDetails';
 import NonRunEventDetails from '../NonRunEventDetails';
-import ErrorMessage from '../../utility/ErrorMessage';
+// import ErrorMessage from '../../utility/ErrorMessage';
 
 const EVENT_QUERY = gql`
   query EVENT_QUERY($eventId: ID!) {
@@ -24,7 +25,10 @@ const EventIndex = ({ id }) => {
     return <div>Loading...</div>;
   }
   if (error) {
-    return <ErrorMessage error={error} />;
+    toast.error(error.message.replace('GraphQL error: ', ''));
+    console.error(error);
+    // return <ErrorMessage error={error} />;
+    return null;
   }
 
   const { event } = data;

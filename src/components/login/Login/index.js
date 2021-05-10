@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useMutation, useApolloClient } from '@apollo/react-hooks';
-import { useHistory, useLocation, Link } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 
 import { LOGIN_MUTATION } from './login.graphql';
 // Refetch
@@ -12,20 +12,18 @@ import Button from '../../common/Button';
 
 import Styles from './login.module.scss';
 
-const Login = () => {
+const Login = ({ redirect = '' }) => {
   const client = useApolloClient();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const location = useLocation();
   const history = useHistory();
   const [login, { error, loading, data }] = useMutation(LOGIN_MUTATION);
-  const { from } = location.state || { from: '/' };
 
   useEffect(() => {
     if (data && data.login.message) {
-      history.push(from);
+      history.push(decodeURIComponent(redirect));
     }
-  }, [data, history, from]);
+  }, [data, history, redirect]);
 
   return (
     <form

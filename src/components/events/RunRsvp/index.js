@@ -3,6 +3,7 @@ import { useQuery, useMutation } from '@apollo/react-hooks';
 import cn from 'classnames';
 import { Link } from 'react-router-dom';
 import get from 'lodash/get';
+import toast from 'react-hot-toast';
 
 import { RSVP_MUTATION } from './rsvp.graphql';
 // Refetch
@@ -79,38 +80,42 @@ const RunRsvp = ({
 
   const handleYesClick = useCallback(() => {
     const set = async () => {
-      await setRsvp({
-        variables: {
-          rsvp: {
-            userId,
-            eventId,
-            status: 'GOING',
-            guestCount: isRider ? 0 : guestsCountInVehicle,
-            vehicle: !isRider && user.vehicle ? user.vehicle.id : null,
-            isRider: isRider,
+      try {
+        await setRsvp({
+          variables: {
+            rsvp: {
+              userId,
+              eventId,
+              status: 'GOING',
+              guestCount: isRider ? 0 : guestsCountInVehicle,
+              vehicle: !isRider && user.vehicle ? user.vehicle.id : null,
+              isRider: isRider,
+            },
           },
-        },
-        refetchQueries: [
-          {
-            query: RUN_EVENT_QUERY,
-            variables: { eventId },
-          },
-          {
-            query: UPCOMING_EVENTS_QUERY,
-            variables: { page: 1 },
-          },
-          {
-            query: NEXT_EVENT_QUERY,
-          },
-        ],
-      });
+          refetchQueries: [
+            {
+              query: RUN_EVENT_QUERY,
+              variables: { eventId },
+            },
+            {
+              query: UPCOMING_EVENTS_QUERY,
+              variables: { page: 1 },
+            },
+            {
+              query: NEXT_EVENT_QUERY,
+            },
+          ],
+        });
 
-      if (localUserStatus !== 'GOING') {
-        setLocalUserStatus('GOING');
-      }
+        if (localUserStatus !== 'GOING') {
+          setLocalUserStatus('GOING');
+        }
 
-      if (isRider && guestsCountInVehicle > 0) {
-        setGuestsCountInVehicle(0);
+        if (isRider && guestsCountInVehicle > 0) {
+          setGuestsCountInVehicle(0);
+        }
+      } catch (e) {
+        toast.error(e.message.replace('GraphQL error: ', ''));
       }
     };
 

@@ -19,7 +19,7 @@ import AdminRoutes from './AdminRoutes';
 import DashboardPage from '../pages/private/DashboardPage';
 import DocumentsPage from '../pages/private/DocumentsPage';
 import HistoryPage from '../pages/private/HistoryPage';
-import MessagePage from '../pages/private/MessagePage';
+// import MessagePage from '../pages/private/MessagePage';
 import RosterPage from '../pages/private/RosterPage';
 // import VotePage from '../pages/private/VotePage';
 // import ElectionsPage from '../pages/private/ElectionsPage';
@@ -100,7 +100,7 @@ const Routes = () => {
       <GuardedRoute
         path="/events"
         component={EventsPage}
-        statusCheck={isActive}
+        statusCheck={isActiveOrPastDue}
       />
       <GuardedRoute
         path="/event/:id/edit"

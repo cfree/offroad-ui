@@ -73,7 +73,6 @@ const AdminProfileForm = ({ username }) => {
       initialValues={userAdminFormValues}
       validationSchema={userSchema}
       onSubmit={async (values, { setSubmitting }) => {
-        console.log('save', values.titles);
         setUserAdminForm({
           id: user.id,
           ...values,
@@ -86,7 +85,6 @@ const AdminProfileForm = ({ username }) => {
         setSubmitting(false);
       }}
       render={(formikProps) => {
-        console.log('current titles', formikProps.values.titles);
         return (
           <div className={cn(Styles['form'], Styles['profile-form--user'])}>
             <form onSubmit={formikProps.handleSubmit}>
@@ -103,7 +101,6 @@ const AdminProfileForm = ({ username }) => {
                         checked={formikProps.values.titles.includes(title)}
                         onChange={(event) => {
                           const value = event.target.value;
-                          console.log('checked', event.target, value);
                           const wasChecked = event.target.checked;
 
                           if (wasChecked) {

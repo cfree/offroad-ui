@@ -9,8 +9,6 @@ const ResetPage = () => {
   const query = useQueryParams();
   const { token } = query;
 
-  console.log('token', token);
-
   return (
     <PageLayout>
       {token ? <ResetPassword token={token} /> : <ForgotPassword />}

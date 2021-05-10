@@ -14,11 +14,11 @@ const Footer = () => {
       <a
         rel="noopener noreferrer"
         target="_blank"
-        href="https://docs.google.com/forms/d/e/1FAIpQLSdnyq--8m4mnyQfbrJdQYLxb3sO3OIi4glRIBwdEqP-S2Dxww/viewform?usp=sf_link"
+        href="https://forms.gle/otS87vqD8eFADqzU8"
         title="Report bugs"
       >
         <span role="img" aria-label="Bug">
-          🐛
+          Submit Feedback
         </span>
       </a>
     </footer>

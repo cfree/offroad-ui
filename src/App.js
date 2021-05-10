@@ -1,5 +1,7 @@
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
+import * as Sentry from '@sentry/react';
+import { Toaster } from 'react-hot-toast';
 
 import { ApolloProvider } from '@apollo/react-components';
 import { ApolloProvider as ApolloHooksProvider } from '@apollo/react-hooks';
@@ -56,12 +58,22 @@ const client = new ApolloClient({
 // }
 
 const App = () => {
+  if (process.env.NODE_ENV === 'production') {
+    Sentry.init({
+      dsn:
+        'https://c97b7370c6de41f09e5a1d9c079682f5@o461685.ingest.sentry.io/5463792',
+    });
+  }
+
   return (
     <ApolloProvider client={client}>
       <ApolloHooksProvider client={client}>
         <BrowserRouter>
           <ViewportProvider>
-            <Routes />
+            <>
+              <Routes />
+              <Toaster position="top-right" />
+            </>
           </ViewportProvider>
         </BrowserRouter>
       </ApolloHooksProvider>

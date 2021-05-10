@@ -67,7 +67,7 @@ const AccountForm = ({ token = null }) => {
   let runsAttended = 0;
   let meetingsAttended = 0;
 
-  if (eventsRSVPd.length && eventsRSVPd.length > 0) {
+  if (eventsRSVPd && eventsRSVPd.length && eventsRSVPd.length > 0) {
     runsAttended = eventsRSVPd
       .filter((rsvp) => rsvp.status === 'GOING')
       .filter((rsvp) => rsvp.event.type === 'RUN')
@@ -308,8 +308,8 @@ const AccountForm = ({ token = null }) => {
                       </p>
 
                       <p>
-                        As a guest, you are allowed to attend 3 runs before we
-                        ask that you become a member.
+                        As a guest, you are allowed to attend 3 runs per
+                        calendar year before we ask that you become a member.
                       </p>
 
                       {runsAttended >= 1 && meetingsAttended >= 1 && (

@@ -30,6 +30,9 @@ class CreateEvent extends Component {
           const todayEnd = new Date();
           todayEnd.setHours(15, 0, 0, 0);
 
+          const hasRunLeaders =
+            queryData.runLeaders && queryData.runLeaders.length > 0;
+
           const initialValues = {
             type: 'RUN',
             title: '',
@@ -41,7 +44,9 @@ class CreateEvent extends Component {
             trailNotes: '',
             rallyAddress: '',
             membersOnly: false,
-            host: queryData.runLeaders[0].username,
+            host: hasRunLeaders
+              ? queryData.runLeaders[0].username
+              : queryData.myself.username,
             trail: '0',
             image: null,
             newImage: null,
@@ -81,7 +86,11 @@ class CreateEvent extends Component {
                         onSubmit={(values, setSubmitting) =>
                           this.handleSubmit(values, setSubmitting, createEvent)
                         }
-                        runLeaders={queryData.runLeaders}
+                        runLeaders={
+                          hasRunLeaders
+                            ? queryData.runLeaders
+                            : [queryData.myself]
+                        }
                         trails={queryData.trails}
                         loading={mutationLoading}
                         error={mutationError}

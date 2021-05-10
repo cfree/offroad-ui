@@ -11,6 +11,7 @@ import Tabs from '../../common/Tabs';
 import EditProfile from '../EditProfile';
 import EditGarage from '../../vehicles/EditGarage';
 import EditAccount from '../EditAccount';
+import EditNotifications from '../EditNotifications';
 
 import Styles from './settingsIndex.module.scss';
 
@@ -40,6 +41,11 @@ const SettingsIndex = () => {
               title: 'Account',
               activeStyles: pathname.includes('/account'),
             },
+            {
+              link: `/settings/notifications`,
+              title: 'Notifications',
+              activeStyles: pathname.includes('/notifications'),
+            },
           ]}
         />
       </div>
@@ -53,6 +59,9 @@ const SettingsIndex = () => {
         </Route>
         <Route path={`${path}/account`}>
           <EditAccount />
+        </Route>
+        <Route path={`${path}/notifications`}>
+          <EditNotifications />
         </Route>
         <Redirect exact from={path} to={`${path}/account`} />
         <Redirect from="*" to="/404" />

@@ -5,6 +5,7 @@ import parse from 'html-react-parser';
 import get from 'lodash/get';
 import cn from 'classnames';
 import { useQuery } from '@apollo/react-hooks';
+import toast from 'react-hot-toast';
 
 import { RUN_EVENT_QUERY } from './runEventDetails.graphql';
 

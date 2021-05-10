@@ -20,7 +20,6 @@ export class MembershipList extends Component {
 
   handleFilterUpdate = (updatedVals, filter) => {
     this.setState((state) => {
-      console.log('old State', state);
       return {
         activeFilters: {
           ...state.activeFilters,

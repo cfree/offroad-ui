@@ -58,20 +58,23 @@ const Dashboard = () => (
                             Roster
                           </Link>
                         </div>
+                        <div className={Styles['third']}>
+                          <Link
+                            to="/history"
+                            className={Styles['history-link']}
+                          >
+                            Club History
+                          </Link>
+                        </div>
+                        <div className={Styles['third']}>
+                          <Link
+                            to="/documents"
+                            className={Styles['document-link']}
+                          >
+                            Documents
+                          </Link>
+                        </div>
                       </Filter>
-                      <div className={Styles['third']}>
-                        <Link to="/history" className={Styles['history-link']}>
-                          Club History
-                        </Link>
-                      </div>
-                      <div className={Styles['third']}>
-                        <Link
-                          to="/documents"
-                          className={Styles['document-link']}
-                        >
-                          Documents
-                        </Link>
-                      </div>
 
                       {/* <div className={Styles['two-thirds']}>
                             <RecentPhotos />

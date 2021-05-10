@@ -31,8 +31,6 @@ const EventsSchedule = () => {
               const lockedOut =
                 event.membersOnly && myself.accountType === 'GUEST';
 
-              console.log('locked', lockedOut);
-
               return (
                 <li key={event.id}>
                   <Calendar

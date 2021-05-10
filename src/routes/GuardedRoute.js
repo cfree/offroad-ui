@@ -30,7 +30,23 @@ const GuardedRoute = ({
       render={(props) => {
         // Authenticate
         if (!data.myself) {
-          return <Redirect to="/login" />;
+          const { location } = props;
+
+          return (
+            <Redirect
+              push
+              // to="/login"
+              to={{
+                pathname: '/login',
+                search:
+                  location.pathname === '/login' || location.pathname === '/'
+                    ? ''
+                    : `?redirect=${encodeURIComponent(
+                        `${location.pathname}${location.search}`,
+                      )}`,
+              }}
+            />
+          );
         }
 
         // Authorize

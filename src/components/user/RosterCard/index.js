@@ -17,8 +17,6 @@ const RosterCard = ({ user, className }) => {
       ? `/admin/profile/${user.username}`
       : `/profile/${user.username}`;
 
-  console.log('phone', phone);
-
   return (
     <tr className={classes}>
       <td>

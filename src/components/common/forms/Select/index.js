@@ -12,7 +12,6 @@ const Select = ({ defaultValues = [], options = [], onChange = () => {} }) => {
 
   const handleChange = useCallback(
     (updatedValue, { action, removedValue }) => {
-      console.log('action', action);
       /* eslint-disable */
       switch (action) {
         case 'remove-value':
@@ -26,9 +25,7 @@ const Select = ({ defaultValues = [], options = [], onChange = () => {} }) => {
           break;
       }
       /* eslint-enable */
-      console.log('pre sorted', updatedValue);
       updatedValue = orderOptions(updatedValue);
-      console.log('post sorted', updatedValue);
       setValues(updatedValue);
       onChange(updatedValue);
     },

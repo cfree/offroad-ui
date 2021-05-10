@@ -30,7 +30,6 @@ export class Message extends Component {
     const newRecipients = Array.isArray(recipients)
       ? recipients.map((recipient) => recipient.value)
       : [recipients.value];
-    console.log('recipients', recipients);
     this.setState({ recipients: newRecipients });
   };
 

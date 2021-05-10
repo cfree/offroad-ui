@@ -6,7 +6,13 @@ import get from 'lodash/get';
 import useUser from '../../../hooks/useUser';
 import Logout from '../../login/Logout';
 import { DEFAULT_AVATAR_SMALL_SRC } from '../../../lib/constants';
-import { isActive, isMember, isAtLeastBoardMember } from '../../../lib/utils';
+import {
+  isActive,
+  isPastDue,
+  isMember,
+  isAtLeastBoardMember,
+  isActiveOrPastDue,
+} from '../../../lib/utils';
 
 import Styles from './nav.module.scss';
 
@@ -50,7 +56,7 @@ const Nav = ({ openMobileNav, router, ...props }) => {
                   <Link to="/roster">Roster</Link>
                 </li>
               )}
-              {isActive(myself.accountStatus) && (
+              {isActiveOrPastDue(myself.accountStatus) && (
                 <li
                   className={
                     pathname === '/events' ||
@@ -63,7 +69,7 @@ const Nav = ({ openMobileNav, router, ...props }) => {
                   <Link to="/events">Events</Link>
                 </li>
               )}
-              {isActive(myself.accountStatus) &&
+              {isActiveOrPastDue(myself.accountStatus) &&
                 isAtLeastBoardMember(myself.role) && (
                   <li className={pathname.includes('/admin') ? 'active' : ''}>
                     <Link to="/admin">Admin</Link>

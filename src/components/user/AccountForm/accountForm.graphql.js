@@ -8,7 +8,6 @@ export const ACCOUNT_FORM_QUERY = gql`
       accountType
       accountStatus
       eventsRSVPd {
-        id
         status
         event {
           id

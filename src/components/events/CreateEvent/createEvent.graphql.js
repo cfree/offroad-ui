@@ -2,6 +2,12 @@ import { gql } from 'apollo-boost';
 
 export const SETUP_NEW_EVENT_QUERY = gql`
   query SETUP_NEW_EVENT_QUERY {
+    myself {
+      id
+      username
+      firstName
+      lastName
+    }
     runLeaders: getRunLeaders {
       id
       username
