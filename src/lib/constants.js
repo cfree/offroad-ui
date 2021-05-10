@@ -51,13 +51,13 @@ export const accountStatuses = {
   LIMITED: 'Limited',
   // For new profiles
   LOCKED: 'Locked',
+  DECEASED: 'Deceased',
 };
 
 export const accountTypes = {
   FULL: 'Full',
   ASSOCIATE: 'Associate',
   EMERITUS: 'Emeritus',
-  DECEASED: 'Deceased',
   GUEST: 'Guest',
 };
 

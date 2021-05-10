@@ -118,9 +118,6 @@ export const isAtLeastGuestMember = (type) => {
   return ['GUEST', 'EMERITUS', 'ASSOCIATE', 'FULL'].includes(type);
 };
 
-export const isDeceasedMember = (type) => type === 'DECEASED';
-export const isNotDeceasedMember = (type) => !isDeceasedMember(type);
-
 export const formatPhone = (phoneNum) => {
   const phone = phoneNum.toString();
   const areaCode = phone.substring(0, 3);
@@ -160,6 +157,9 @@ export const isNotLocked = (status) => !isLocked(status);
 
 export const isRejected = (status) => status === 'REJECTED';
 export const isNotRejected = (status) => !isRejected(status);
+
+export const isDeceasedMember = (status) => status === 'DECEASED';
+export const isNotDeceasedMember = (status) => !isDeceasedMember(status);
 
 // Cloudinary upload presets
 export const getUploadLocation = (appendage) => {

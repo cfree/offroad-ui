@@ -23,6 +23,10 @@ const RunAttendeeCard = ({ rsvp, startOpen = false, isLeader = false }) => {
     [Styles['event__card--leader']]: isLeader,
   });
 
+  if (!rsvp) {
+    return null;
+  }
+
   const { member } = rsvp;
   const passengerCount = rsvp.guestCount || 0;
   const AVATAR_SRC = get(member, 'avatar.url', DEFAULT_AVATAR_SRC);

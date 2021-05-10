@@ -23,6 +23,10 @@ const NonRunAttendeeCard = ({ rsvp, startOpen = false, isHost = false }) => {
     [Styles['event__card--host']]: isHost,
   });
 
+  if (!rsvp) {
+    return null;
+  }
+
   const { member } = rsvp;
   const guestCount = rsvp.guestCount || 0;
   const AVATAR_SRC = get(member, 'avatar.url', DEFAULT_AVATAR_SRC);

@@ -364,7 +364,7 @@ const AccountForm = ({ token = null }) => {
                     </>
                   </Filter>
 
-                  <Filter typeCheck={isDeceasedMember}>
+                  <Filter statusCheck={isDeceasedMember}>
                     <>
                       <h4>
                         {accountTypes[accountType]} Member{' '}

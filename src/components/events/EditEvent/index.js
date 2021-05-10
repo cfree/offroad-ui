@@ -60,8 +60,8 @@ class EditEvent extends Component {
             image: get(event, 'featuredImage.url', null),
             imagePublicId: get(event, 'featuredImage.publicId', null),
             newImage: null,
-            maxAttendees: event.maxAttendees,
-            maxRigs: event.maxRigs,
+            maxAttendees: event.maxAttendees || -1,
+            maxRigs: event.maxRigs || -1,
           };
 
           return (
