@@ -19,6 +19,8 @@ import ProfileForm from '../../user/ProfileForm';
 import MembershipLog from '../../user/MembershipLog';
 import useUser from '../../../hooks/useUser';
 
+import { isAtLeastBoardMember } from '../../../lib/utils';
+
 import Styles from '../../user/ProfileIndex/profileIndex.module.scss';
 
 const ProfileIndex = () => {
@@ -36,7 +38,6 @@ const ProfileIndex = () => {
   }
 
   const { myself } = data;
-  const isSelf = myself.username === username;
 
   return (
     <div className={Styles['profile']}>
@@ -49,7 +50,10 @@ const ProfileIndex = () => {
         <Route path={`${path}/edit`}>
           <>
             <AdminProfileForm username={username} />
-            <ProfileForm member={username} isAdmin={true} />
+            <ProfileForm
+              member={username}
+              isAdmin={isAtLeastBoardMember(myself.role)}
+            />
           </>
         </Route>
         <Route exact path={path}>

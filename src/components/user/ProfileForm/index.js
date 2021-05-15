@@ -68,8 +68,7 @@ class ProfileForm extends Component {
                 new Date(queryData.user.birthdate)) ||
               null, // admin
             joined:
-              (queryData.user.joined &&
-                format(new Date(queryData.user.joined), dateFormatForm)) ||
+              (queryData.user.joined && new Date(queryData.user.joined)) ||
               null, // admin
             phone:
               (queryData.user.contactInfo &&
@@ -293,14 +292,13 @@ class ProfileForm extends Component {
                                   name="joined"
                                   value={formikProps.values.joined}
                                   maxDate={new Date()}
-                                  disabled={!isAdmin || queryData.user.joined}
-                                  disableCalendar={
-                                    !isAdmin || queryData.user.joined
-                                  }
+                                  disabled={!isAdmin}
+                                  disableCalendar={!isAdmin}
                                   onChange={formikProps.setFieldValue}
                                   className={cn(Styles['profile-date-field'], {
-                                    [Styles['profile-date-field--disabled']]:
-                                      !isAdmin || queryData.user.joined,
+                                    [Styles[
+                                      'profile-date-field--disabled'
+                                    ]]: !isAdmin,
                                   })}
                                 />
                                 <FormikErrorMessage
