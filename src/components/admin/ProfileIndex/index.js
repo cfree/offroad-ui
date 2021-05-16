@@ -27,7 +27,7 @@ const ProfileIndex = () => {
   const query = useParams();
   const { username } = query;
   const { path } = useRouteMatch();
-  const { error, loading, data } = useUser();
+  const { error, data } = useUser();
 
   if (error) {
     console.error(error);
