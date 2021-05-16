@@ -14,7 +14,7 @@ import Styles from './login.module.scss';
 
 const Login = ({ redirect = '' }) => {
   const client = useApolloClient();
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const history = useHistory();
   const [login, { error, loading, data }] = useMutation(LOGIN_MUTATION);
@@ -32,7 +32,7 @@ const Login = ({ redirect = '' }) => {
         e.preventDefault();
         await client.clearStore();
         await login({
-          variables: { username, password },
+          variables: { email, password },
           refetchQueries: [{ query: CURRENT_USER_QUERY }],
           awaitRefetchQueries: true,
         });
@@ -45,15 +45,15 @@ const Login = ({ redirect = '' }) => {
         aria-busy={loading}
         className={Styles['fieldset']}
       >
-        <label htmlFor="username">
+        <label htmlFor="email">
           <input
             className={Styles['field']}
-            type="username"
-            id="username"
-            name="username"
-            placeholder="User"
-            onChange={(e) => setUsername(e.target.value)}
-            value={username}
+            type="email"
+            id="email"
+            name="email"
+            placeholder="Email"
+            onChange={(e) => setEmail(e.target.value)}
+            value={email}
           />
         </label>
         <label htmlFor="password">
