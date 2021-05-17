@@ -17,7 +17,7 @@ const RegisterPage = () => {
 
       <p>
         For more information on the process of becoming a member,{' '}
-        <a href="https://4playersofcolorado.org/membership">
+        <a href="https://4-playersofcolorado.org/membership">
           visit our public site
         </a>
         .
