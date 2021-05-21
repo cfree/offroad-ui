@@ -82,7 +82,13 @@ const NonRunAttendeeCard = ({ rsvp, startOpen = false, isHost = false }) => {
             >
               Location
             </Icon>{' '}
-            {member.contactInfo.city}, {member.contactInfo.state}
+            {member.contactInfo &&
+              member.contactInfo.city &&
+              member.contactInfo.state && (
+                <>
+                  {member.contactInfo.city}, {member.contactInfo.state}
+                </>
+              )}
           </li>
           <li>
             <Icon className={Styles['event__details-list__icon']} icon="mail">
