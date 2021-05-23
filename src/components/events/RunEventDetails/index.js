@@ -113,8 +113,6 @@ const RunEventDetails = ({ eventId }) => {
       event.maxAttendees <= attendeeCount) ||
     (event.maxRigs && event.maxRigs !== -1 && event.maxRigs <= rigCount);
 
-  console.log('fullUp', event.maxAttendees, event.maxRigs);
-
   return (
     <>
       <div className={Styles['event__header']}>

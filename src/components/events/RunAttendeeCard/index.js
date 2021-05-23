@@ -40,7 +40,7 @@ const RunAttendeeCard = ({ rsvp, startOpen = false, isLeader = false }) => {
       member.vehicle.trim || ''
     }`.trim();
   const vehicleDetails =
-    !vehicle || member.isRider ? 'Rider' : vehicle || 'Driver';
+    !vehicle || rsvp.isRider ? 'Rider' : vehicle || 'Driver';
 
   return (
     <div className={cardClassNames}>
