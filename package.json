@@ -51,6 +51,7 @@
     "react-scripts": "3.4.1",
     "react-select": "^3.1.0",
     "react-stripe-checkout": "^2.6.3",
+    "react-tooltip": "^4.2.19",
     "react-transition-group": "^4.3.0",
     "rebass": "^2.3.4",
     "serve": "^11.3.0",

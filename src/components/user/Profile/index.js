@@ -3,6 +3,7 @@ import { useQuery } from '@apollo/react-hooks';
 import differenceInYears from 'date-fns/differenceInYears';
 import { Link } from 'react-router-dom';
 import get from 'lodash/get';
+import ReactTooltip from 'react-tooltip';
 
 import { PROFILE_QUERY } from './profile.graphql';
 import ErrorMessage from '../../utility/ErrorMessage';
@@ -13,6 +14,7 @@ import {
   isAtLeastRunLeader,
 } from '../../../lib/utils';
 import { trailDifficulties } from '../../../lib/constants';
+import Icon from '../../common/Icon';
 
 import Styles from './profile.module.scss';
 
@@ -57,9 +59,15 @@ const Profile = ({ username, isSelf }) => {
 
                 {user.birthdate && (
                   <Filter role={isAtLeastBoardMember}>
-                    <dt>Age</dt>
+                    <dt>
+                      Age{' '}
+                      <Icon
+                        data-tip="Only visible to yourself and admin"
+                        icon="lock"
+                      />
+                    </dt>
                     <dd>
-                      {differenceInYears(new Date(), new Date(user.birthdate))}
+                      {differenceInYears(new Date(), new Date(user.birthdate))}{' '}
                     </dd>
                   </Filter>
                 )}
@@ -90,7 +98,13 @@ const Profile = ({ username, isSelf }) => {
                       roleCheck={isAtLeastRunLeader}
                     >
                       <>
-                        <dt>Address</dt>
+                        <dt>
+                          Address{' '}
+                          <Icon
+                            data-tip="Only visible to yourself and admin"
+                            icon="lock"
+                          />
+                        </dt>
                         <dd>
                           <address>
                             {user.contactInfo.street}
@@ -110,7 +124,13 @@ const Profile = ({ username, isSelf }) => {
                       roleCheck={isAtLeastRunLeader}
                     >
                       <>
-                        <dt>Emergency Contact</dt>
+                        <dt>
+                          Emergency Contact{' '}
+                          <Icon
+                            data-tip="Only visible to yourself, run leaders, and admin"
+                            icon="lock"
+                          />
+                        </dt>
                         <dd>
                           {user.preferences.emergencyContactName}{' '}
                           <small>
@@ -153,6 +173,7 @@ const Profile = ({ username, isSelf }) => {
           )}
         </main>
       )}
+      <ReactTooltip place="right" type="dark" effect="solid" />
     </div>
   );
 };
