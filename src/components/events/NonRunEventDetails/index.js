@@ -89,7 +89,10 @@ const NonRunEventDetails = ({ eventId }) => {
   );
 
   const eventType = eventTypes[event.type];
-  const fullUp = event.maxAttendees === attendeeCount;
+  const fullUp =
+    event.maxAttendees &&
+    event.maxAttendees !== -1 &&
+    event.maxAttendees <= attendeeCount;
 
   return (
     <>
@@ -114,7 +117,11 @@ const NonRunEventDetails = ({ eventId }) => {
               Members Only
             </Badge>
           )}
-          {fullUp && <Badge type="fail">Full</Badge>}
+          {fullUp && (
+            <Badge type="fail" className={Styles['event__badge']}>
+              Full
+            </Badge>
+          )}
         </div>
       </div>
       <div className={Styles['event__rsvp']}>

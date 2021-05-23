@@ -207,14 +207,17 @@ const NonRunRsvp = ({
     [setGuestsCountInVehicle],
   );
 
-  const yesDisabled = mutationLoading;
+  const yesDisabled =
+    mutationLoading || (fullUp && localUserStatus !== 'GOING');
   const noDisabled = mutationLoading || localUserStatus === 'CANT_GO';
 
   const yesIconClasses = cn({
-    [Styles['icon-yes']]: localUserStatus === 'NONE',
+    [Styles['icon-yes']]: localUserStatus === 'NONE' && !fullUp,
     [Styles['icon-yes--selected']]: localUserStatus === 'GOING',
-    [Styles['icon-yes--not-selected']]: localUserStatus === 'CANT_GO',
-    [Styles['icon--disabled']]: mutationLoading,
+    [Styles['icon-yes--not-selected']]:
+      localUserStatus === 'CANT_GO' && !fullUp,
+    [Styles['icon--disabled']]:
+      mutationLoading || (fullUp && localUserStatus !== 'GOING'),
   });
 
   const noIconClasses = cn({

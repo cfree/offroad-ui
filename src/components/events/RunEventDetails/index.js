@@ -108,7 +108,12 @@ const RunEventDetails = ({ eventId }) => {
 
   const eventType = eventTypes[event.type];
   const fullUp =
-    event.maxAttendees === attendeeCount || event.maxRigs === rigCount;
+    (event.maxAttendees &&
+      event.maxAttendees !== -1 &&
+      event.maxAttendees <= attendeeCount) ||
+    (event.maxRigs && event.maxRigs !== -1 && event.maxRigs <= rigCount);
+
+  console.log('fullUp', event.maxAttendees, event.maxRigs);
 
   return (
     <>
@@ -139,7 +144,11 @@ const RunEventDetails = ({ eventId }) => {
               Members Only
             </Badge>
           )}
-          {fullUp && <Badge type="fail">Full</Badge>}
+          {fullUp && (
+            <Badge type="fail" className={Styles['event__badge']}>
+              Full
+            </Badge>
+          )}
         </div>
       </div>
       <div className={Styles['event__rsvp']}>
