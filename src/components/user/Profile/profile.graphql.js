@@ -5,6 +5,7 @@ export const PROFILE_QUERY = gql`
     user(username: $username) {
       id
       username
+      joined
       firstName
       lastName
       email

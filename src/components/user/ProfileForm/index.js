@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Query, Mutation } from '@apollo/react-components';
 import { Formik, Field, ErrorMessage as FormikErrorMessage } from 'formik';
-import { format } from 'date-fns';
+// import { format } from 'date-fns';
 import get from 'lodash/get';
 import cn from 'classnames';
 
@@ -17,13 +17,14 @@ import ErrorMessage from '../../utility/ErrorMessage';
 import SuccessMessage from '../../utility/SuccessMessage';
 import FormErrorMessage from '../../utility/FormErrorMessage';
 import Loading from '../../utility/Loading';
+import Filter from '../../login/Filter';
 import {
   dateFormatForm,
   states,
   DEFAULT_AVATAR_SRC,
   trailDifficulties,
 } from '../../../lib/constants';
-import { formatPhone } from '../../../lib/utils';
+import { formatPhone, isAtLeastBoardMember } from '../../../lib/utils';
 import { dateEighteenYearsAgo } from '../../../utilities/dates';
 import Button from '../../common/Button';
 import { DatePickerField } from '../../utility/DateFields';
@@ -67,6 +68,7 @@ class ProfileForm extends Component {
               (queryData.user.birthdate &&
                 new Date(queryData.user.birthdate)) ||
               null, // admin
+            email: queryData.user.email, // admin
             joined:
               (queryData.user.joined && new Date(queryData.user.joined)) ||
               null, // admin
@@ -278,13 +280,37 @@ class ProfileForm extends Component {
                             </div>
                           </div>
 
-                          {queryData.user.joined && (
+                          <Filter roleCheck={isAtLeastBoardMember}>
+                            <div className={Styles['form-field-wrapper']}>
+                              <label
+                                className={Styles['profile-form-label']}
+                                htmlFor="email"
+                              >
+                                Email
+                              </label>
+                              <div className={Styles['profile-form-field']}>
+                                <Field
+                                  type="email"
+                                  id="email"
+                                  name="email"
+                                  value={formikProps.values.email}
+                                  disabled
+                                />
+                                <FormikErrorMessage
+                                  name="email"
+                                  component={FormErrorMessage}
+                                />
+                              </div>
+                            </div>
+                          </Filter>
+
+                          {isAdmin && (
                             <div className={Styles['form-field-wrapper']}>
                               <label
                                 className={Styles['profile-form-label']}
                                 htmlFor="joined"
                               >
-                                Date Joined
+                                Joined
                               </label>
                               <div>
                                 <DatePickerField

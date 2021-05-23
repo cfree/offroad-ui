@@ -4,6 +4,7 @@ import differenceInYears from 'date-fns/differenceInYears';
 import { Link } from 'react-router-dom';
 import get from 'lodash/get';
 import ReactTooltip from 'react-tooltip';
+import format from 'date-fns/format';
 
 import { PROFILE_QUERY } from './profile.graphql';
 import ErrorMessage from '../../utility/ErrorMessage';
@@ -13,7 +14,7 @@ import {
   isAtLeastBoardMember,
   isAtLeastRunLeader,
 } from '../../../lib/utils';
-import { trailDifficulties } from '../../../lib/constants';
+import { trailDifficulties, dateFormat } from '../../../lib/constants';
 import Icon from '../../common/Icon';
 
 import Styles from './profile.module.scss';
@@ -81,6 +82,13 @@ const Profile = ({ username, isSelf }) => {
                   </>
                 )}
 
+                {user.joined && (
+                  <>
+                    <dt>Joined</dt>
+                    <dd>{format(new Date(user.joined), dateFormat)}</dd>
+                  </>
+                )}
+
                 {get(user, 'contactInfo.phone') &&
                   get(user, 'contactInfo.showPhoneNumber', true) && (
                     <>
@@ -125,9 +133,9 @@ const Profile = ({ username, isSelf }) => {
                     >
                       <>
                         <dt>
-                          Emergency Contact{' '}
+                          ICE{' '}
                           <Icon
-                            data-tip="Only visible to yourself, run leaders, and admin"
+                            data-tip="Your emergency contact. Only visible to yourself, run leaders, and admin"
                             icon="lock"
                           />
                         </dt>

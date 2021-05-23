@@ -9,6 +9,7 @@ export const MEMBER_PROFILE_QUERY = gql`
       username
       gender
       birthdate
+      email
       joined
       avatar {
         id
@@ -46,6 +47,7 @@ export const SELF_PROFILE_QUERY = gql`
       username
       gender
       birthdate
+      email
       joined
       avatar {
         id
