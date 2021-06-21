@@ -58,20 +58,25 @@ const Profile = ({ username, isSelf }) => {
                   </>
                 )}
 
-                {user.birthdate && (
-                  <Filter role={isAtLeastBoardMember}>
-                    <dt>
-                      Age{' '}
-                      <Icon
-                        data-tip="Only visible to yourself and admin"
-                        icon="lock"
-                      />
-                    </dt>
-                    <dd>
-                      {differenceInYears(new Date(), new Date(user.birthdate))}{' '}
-                    </dd>
-                  </Filter>
-                )}
+                <Filter role={isAtLeastBoardMember}>
+                  {user.birthdate && (
+                    <>
+                      <dt>
+                        Age{' '}
+                        <Icon
+                          data-tip="Only visible to yourself and admin"
+                          icon="lock"
+                        />
+                      </dt>
+                      <dd>
+                        {differenceInYears(
+                          new Date(),
+                          new Date(user.birthdate),
+                        )}{' '}
+                      </dd>
+                    </>
+                  )}
+                </Filter>
 
                 {user.email && (
                   <>

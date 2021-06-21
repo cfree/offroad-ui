@@ -1,35 +1,31 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { format } from 'date-fns';
-import get from 'lodash/get';
 import cn from 'classnames';
+import get from 'lodash/get';
 
 import { getMemberType, isAtLeastRunLeader } from '../../../lib/utils';
-import {
-  offices,
-  DEFAULT_AVATAR_SRC,
-  DEFAULT_RIG_SRC,
-} from '../../../lib/constants';
+import { offices } from '../../../lib/constants';
 import Filter from '../../login/Filter';
+import Avatar from '../../common/Avatar';
+import Rig from '../../common/Rig';
 
 import Styles from './rigbookCard.module.scss';
 
 const RigbookCard = ({ user, className }) => {
   const classes = cn(Styles['rigbook-card'], className);
-  const RIG_SRC = get(user, 'rig.image.url', DEFAULT_RIG_SRC);
-  const AVATAR_SRC = get(user, 'avatar.url', DEFAULT_AVATAR_SRC);
 
   return (
     <div className={classes}>
       <div className={Styles['user-photos']}>
-        <img
+        <Rig
           className={Styles['vehicle-img']}
-          src={RIG_SRC}
+          src={get(user, 'rig.image.url')}
           alt={`${user.firstName}'s Vehicle`}
         />
-        <img
+        <Avatar
           className={Styles['user-img']}
-          src={AVATAR_SRC}
+          src={get(user, 'avatar.url')}
           alt={user.firstName}
         />
       </div>

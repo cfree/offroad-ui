@@ -16,6 +16,7 @@ import Icon from '../Icon';
 import Styles from './avatarUploader.module.scss';
 
 const uploadImage = async (file) => {
+  console.log('heic', file);
   const data = new FormData();
   data.append('file', file);
   data.append('upload_preset', getUploadLocation('avatars'));

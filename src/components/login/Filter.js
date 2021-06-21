@@ -5,9 +5,9 @@ import { CURRENT_USER_QUERY } from '../../hooks/useUser/useUser.graphql';
 
 const Filter = ({
   children,
-  roleCheck = (role) => true,
-  statusCheck = (status) => true,
-  typeCheck = (type) => true,
+  roleCheck = (role) => false,
+  statusCheck = (status) => false,
+  typeCheck = (type) => false,
   selfCheck = '',
   onlySelfCheck = '',
 }) => {
@@ -29,9 +29,9 @@ const Filter = ({
     (selfCheck === data.myself.username ||
       (data &&
         data.myself &&
-        roleCheck(data.myself.role) &&
-        statusCheck(data.myself.accountStatus) &&
-        typeCheck(data.myself.accountType)))
+        ((roleCheck && roleCheck(data.myself.role)) ||
+          (statusCheck && statusCheck(data.myself.accountStatus)) ||
+          (typeCheck && typeCheck(data.myself.accountType)))))
   ) {
     return children;
   }
@@ -40,9 +40,9 @@ const Filter = ({
   if (
     data &&
     data.myself &&
-    roleCheck(data.myself.role) &&
-    statusCheck(data.myself.accountStatus) &&
-    typeCheck(data.myself.accountType)
+    ((roleCheck && roleCheck(data.myself.role)) ||
+      (statusCheck && statusCheck(data.myself.accountStatus)) ||
+      (typeCheck && typeCheck(data.myself.accountType)))
   ) {
     return children;
   }

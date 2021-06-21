@@ -111,12 +111,17 @@ const RunAttendeeCard = ({ rsvp, startOpen = false, isLeader = false }) => {
                 </>
               )}
           </li>
-          <li>
-            <Icon className={Styles['event__details-list__icon']} icon="mail">
-              Send Message
-            </Icon>{' '}
-            <a href={`mailto:${member.email}`}>Send Message</a>
-          </li>
+          {member.contactInfo.phone && (
+            <li>
+              <Icon
+                className={Styles['event__details-list__icon']}
+                icon="phone"
+              >
+                Send Message
+              </Icon>{' '}
+              <a href={`tel:${member.contactInfo.phone}`}>Call</a>
+            </li>
+          )}
           <li>
             <Icon
               className={Styles['event__details-list__icon']}
