@@ -26,6 +26,7 @@ import RosterPage from '../pages/private/RosterPage';
 import TrailsPage from '../pages/admin/TrailsPage';
 import ProfilePage from '../pages/private/ProfilePage';
 import EventsPage from '../pages/private/EventsPage';
+import EventReportPage from '../pages/private/EventReportPage';
 import EventPage from '../pages/private/EventPage';
 // import TrailPage from '../pages/private/TrailPage';
 import SettingsPage from '../pages/private/SettingsPage';
@@ -108,6 +109,17 @@ const Routes = () => {
         statusCheck={isActiveOrPastDue}
         roleCheck={isAtLeastRunMaster}
       />
+      <GuardedRoute
+        path="/event/:id/report"
+        component={EventReportPage}
+        statusCheck={isActiveOrPastDue}
+        roleCheck={isAtLeastRunMaster}
+      />
+      {/* <GuardedRoute
+        path="/event/:id/feedback"
+        component={EventFeedbackPage}
+        statusCheck={isActiveOrPastDue}
+      /> */}
       <GuardedRoute
         path="/event/:id"
         component={EventPage}

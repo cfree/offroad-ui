@@ -4,6 +4,7 @@ import get from 'lodash/get';
 import cn from 'classnames';
 
 import { getMemberType, getPhoneNumber } from '../../../lib/utils';
+import Avatar from '../../common/Avatar';
 import { DEFAULT_AVATAR_SMALL_SRC } from '../../../lib/constants';
 
 import Styles from './rosterCard.module.scss';
@@ -20,11 +21,9 @@ const RosterCard = ({ user, className }) => {
   return (
     <tr className={classes}>
       <td>
-        <img
+        <Avatar
           className={Styles['member__img']}
-          src={
-            (user.avatar && user.avatar.smallUrl) || DEFAULT_AVATAR_SMALL_SRC
-          }
+          src={user.avatar && user.avatar.smallUrl}
           alt={user.firstName}
         />
       </td>

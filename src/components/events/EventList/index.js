@@ -15,11 +15,11 @@ import {
   dateFormatAbbrev,
   dateTimeFormatAbbrev,
   DEFAULT_EVENT_SMALL_SRC,
-  DEFAULT_AVATAR_SMALL_SRC,
   trailDifficulties,
 } from '../../../lib/constants';
 import { getUserRSVPStatus } from '../../../lib/utils';
 import Pagination from '../../common/Pagination';
+import Avatar from '../../common/Avatar';
 
 import Styles from './eventList.module.scss';
 
@@ -243,11 +243,10 @@ class EventList extends Component {
                                           >
                                             {this.getAttendees(event.id).map(
                                               (rsvp) => (
-                                                <img
+                                                <Avatar
                                                   src={get(
                                                     rsvp.member,
                                                     'avatar.smallUrl',
-                                                    DEFAULT_AVATAR_SMALL_SRC,
                                                   )}
                                                   key={`${event.id}-${rsvp.member.id}`}
                                                   width="30"
