@@ -86,6 +86,12 @@ const NewAccountsList = () => {
   return (
     <div>
       <h2>Locked New Accounts</h2>
+      <p>
+        <strong>
+          Please add new user to "4-Players of Colorado" general email list on
+          Mailchimp
+        </strong>
+      </p>
       {mutationError && <ErrorMessage error={mutationError} />}
       {rejectError && <ErrorMessage error={rejectError} />}
       {mutationData && (
