@@ -1,7 +1,8 @@
 import React, { useState, useCallback } from 'react';
-import { useQuery, useMutation } from '@apollo/client';
+import { useQuery, useMutation } from '@apollo/react-hooks';
 import cn from 'classnames';
 import get from 'lodash/get';
+import toast from 'react-hot-toast';
 
 import { RSVP_MUTATION } from './rsvp.graphql';
 // Refetch
@@ -36,6 +37,7 @@ const NonRunRsvp = ({
   userRsvp,
   remainingSpots = 20,
   fullUp = false,
+  changeDisabled = false,
 }) => {
   const userId = user.id;
   const [localUserStatus, setLocalUserStatus] = useState(userStatus);
@@ -60,6 +62,10 @@ const NonRunRsvp = ({
     setRsvp,
     { loading: mutationLoading, error: mutationError },
   ] = useMutation(RSVP_MUTATION);
+
+  if (mutationError) {
+    toast.error(mutationError.message.replace('GraphQL error: ', ''));
+  }
 
   const handleCloseModal = useCallback(() => {
     setIsOpen(false);
@@ -114,6 +120,7 @@ const NonRunRsvp = ({
     userId,
     eventId,
     guestsCountInVehicle,
+    changeDisabled,
   ]);
 
   const handleNoClick = useCallback(() => {
@@ -148,7 +155,14 @@ const NonRunRsvp = ({
     };
 
     set();
-  }, [localUserStatus, setLocalUserStatus, setRsvp, userId, eventId]);
+  }, [
+    localUserStatus,
+    setLocalUserStatus,
+    setRsvp,
+    userId,
+    eventId,
+    changeDisabled,
+  ]);
 
   const getPastRsvpText = useCallback(() => {
     switch (localUserStatus) {
@@ -321,7 +335,12 @@ const NonRunRsvp = ({
             I have read and understand the standard operating rules and agree to
             adhere to them.
           </p>
-
+          {changeDisabled && (
+            <p className={Styles['change-disabled']}>
+              This event has been set to allow one RSVP. I understand that I
+              cannot change my RSVP once I submit it.
+            </p>
+          )}
           {cost ? (
             <>Pay Now</>
           ) : (

@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from 'react';
 // import { Formik, Field, ErrorMessage, Form } from 'formik';
-import { useQuery } from '@apollo/client';
+import { useQuery } from '@apollo/react-hooks';
 import { format } from 'date-fns';
 
 import { ACCOUNT_FORM_QUERY } from './accountForm.graphql.js';
@@ -418,6 +418,10 @@ const AccountForm = ({ token = null }) => {
                   ) : (
                     <div className={Styles['account-details']}>
                       <h4>No record of dues received</h4>
+                      <p>
+                        If you have paid recently, the website is likely out of
+                        date.
+                      </p>
                     </div>
                   )}
                 </>

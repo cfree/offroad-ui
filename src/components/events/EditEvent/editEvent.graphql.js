@@ -55,6 +55,7 @@ export const SETUP_EXISTING_EVENT_QUERY = gql`
       rallyAddress
       maxAttendees
       maxRigs
+      changeDisabled
     }
     runLeaders: getRunLeaders {
       id
@@ -88,6 +89,7 @@ export const EDIT_EVENT_MUTATION = gql`
     $newFeaturedImage: CloudinaryImageInput
     $maxAttendees: Int
     $maxRigs: Int
+    $changeDisabled: Boolean
   ) {
     updateEvent(
       id: $id
@@ -108,6 +110,7 @@ export const EDIT_EVENT_MUTATION = gql`
         newFeaturedImage: $newFeaturedImage
         maxAttendees: $maxAttendees
         maxRigs: $maxRigs
+        changeDisabled: $changeDisabled
       }
     ) {
       message

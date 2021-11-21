@@ -52,6 +52,7 @@ export const NON_RUN_EVENT_QUERY = gql`
       }
       address
       maxAttendees
+      changeDisabled
     }
   }
 `;

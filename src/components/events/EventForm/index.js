@@ -247,6 +247,27 @@ const EventForm = ({
                 </div>
 
                 <div className={Styles['form-field-wrapper']}>
+                  <label
+                    className={Styles['event-form-label']}
+                    htmlFor="changeDisabled"
+                  >
+                    Disable ability to update RSVP? (One and Done™)
+                  </label>
+                  <div className={Styles['event-form-field']}>
+                    <Field
+                      type="checkbox"
+                      id="changeDisabled"
+                      name="changeDisabled"
+                      checked={formikProps.values.changeDisabled}
+                    />
+                    <FormikErrorMessage
+                      name="changeDisabled"
+                      component={FormErrorMessage}
+                    />
+                  </div>
+                </div>
+
+                <div className={Styles['form-field-wrapper']}>
                   <label className={Styles['event-form-label']} htmlFor="host">
                     {initialValues.type === 'RUN' ? 'Run Leader' : 'Host'}
                   </label>

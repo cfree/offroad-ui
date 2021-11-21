@@ -35,6 +35,7 @@ export const CREATE_EVENT_MUTATION = gql`
     $membersOnly: Boolean
     $maxAttendees: Int
     $maxRigs: Int
+    $changeDisabled: Boolean
     $host: String!
     $trail: String
     $featuredImage: String #publicId
@@ -54,6 +55,7 @@ export const CREATE_EVENT_MUTATION = gql`
         membersOnly: $membersOnly
         maxAttendees: $maxAttendees
         maxRigs: $maxRigs
+        changeDisabled: $changeDisabled
         host: $host
         trail: $trail
         featuredImage: $featuredImage #publicId

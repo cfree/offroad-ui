@@ -52,6 +52,7 @@ class CreateEvent extends Component {
             newImage: null,
             maxAttendees: -1,
             maxRigs: -1,
+            changeDisabled: false, // can change rsvp
           };
 
           return (

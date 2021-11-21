@@ -135,6 +135,7 @@ const NonRunEventDetails = ({ eventId }) => {
           userRsvp={userRsvp()}
           maxAttendees={event.maxAttendees}
           fullUp={fullUp}
+          changeDisabled={event.changeDisabled}
         />
       </div>
       <aside className={Styles['event__aside']}>

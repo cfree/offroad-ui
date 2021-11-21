@@ -62,6 +62,7 @@ class EditEvent extends Component {
             newImage: null,
             maxAttendees: event.maxAttendees || -1,
             maxRigs: event.maxRigs || -1,
+            changeDisabled: event.changeDisabled || false, // can change rsvp
           };
 
           return (

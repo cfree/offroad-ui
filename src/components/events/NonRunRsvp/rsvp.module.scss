@@ -162,3 +162,8 @@
 .rsvp-modal__container {
   @include container;
 }
+
+.change-disabled {
+  padding: 8px 10px;
+  background: $warning;
+}
