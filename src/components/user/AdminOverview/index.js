@@ -1,6 +1,6 @@
 import React from 'react';
 import { format } from 'date-fns';
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery } from '@apollo/client';
 
 import { ADMIN_OVERVIEW_QUERY } from './adminOverview.graphql';
 

@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import { Link } from 'react-router-dom';
-import { useQuery, useMutation } from '@apollo/react-hooks';
+import { useQuery, useMutation } from '@apollo/client';
 import differenceInYears from 'date-fns/differenceInYears';
 
 import {

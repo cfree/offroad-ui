@@ -8,6 +8,7 @@ import {
   isAtLeastGuestMember,
   isActive,
   isActiveOrPastDue,
+  isAtLeastRunLeader,
   isAtLeastRunMaster,
   isAtLeastBoardMember,
   // isFullMember,
@@ -113,7 +114,7 @@ const Routes = () => {
         path="/event/:id/report"
         component={EventReportPage}
         statusCheck={isActiveOrPastDue}
-        roleCheck={isAtLeastRunMaster}
+        roleCheck={isAtLeastRunLeader}
       />
       {/* <GuardedRoute
         path="/event/:id/feedback"

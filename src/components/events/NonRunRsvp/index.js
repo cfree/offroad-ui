@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import { useQuery, useMutation } from '@apollo/react-hooks';
+import { useQuery, useMutation } from '@apollo/client';
 import cn from 'classnames';
 import get from 'lodash/get';
 

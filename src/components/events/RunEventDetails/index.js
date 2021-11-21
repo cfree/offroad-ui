@@ -4,7 +4,7 @@ import { format, getTime } from 'date-fns';
 import parse from 'html-react-parser';
 import get from 'lodash/get';
 import cn from 'classnames';
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery } from '@apollo/client';
 import toast from 'react-hot-toast';
 
 import { RUN_EVENT_QUERY } from './runEventDetails.graphql';

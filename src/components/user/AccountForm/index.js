@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from 'react';
 // import { Formik, Field, ErrorMessage, Form } from 'formik';
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery } from '@apollo/client';
 import { format } from 'date-fns';
 
 import { ACCOUNT_FORM_QUERY } from './accountForm.graphql.js';

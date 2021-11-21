@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { useMutation } from '@apollo/react-hooks';
+import { useMutation } from '@apollo/client';
 import { gql } from 'apollo-boost';
 
 import { membershipLogMessages } from '../lib/constants';

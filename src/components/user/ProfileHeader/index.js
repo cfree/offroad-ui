@@ -2,7 +2,7 @@ import React from 'react';
 import get from 'lodash/get';
 import format from 'date-fns/format';
 import { useLocation } from 'react-router-dom';
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery } from '@apollo/client';
 
 import { PROFILE_HEADER_QUERY } from './profileHeader.graphql';
 import {

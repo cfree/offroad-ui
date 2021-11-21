@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useMutation, useApolloClient } from '@apollo/react-hooks';
+import { useMutation, useApolloClient } from '@apollo/client';
 import { Link, useHistory } from 'react-router-dom';
 
 import { LOGOUT_MUTATION } from './logout.graphql';

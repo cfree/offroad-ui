@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import { useMutation } from '@apollo/react-hooks';
+import { useMutation } from '@apollo/client';
 
 import { LOG_MEMBERSHIP_ITEM_MUTATION } from './manualLogEntry.graphql';
 import { MEMBERSHIP_LOG_QUERY } from '../MembershipLog/membershipLog.graphql';

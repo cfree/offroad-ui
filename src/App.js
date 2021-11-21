@@ -4,7 +4,7 @@ import * as Sentry from '@sentry/react';
 import { Toaster } from 'react-hot-toast';
 
 import { ApolloProvider } from '@apollo/react-components';
-import { ApolloProvider as ApolloHooksProvider } from '@apollo/react-hooks';
+import { ApolloProvider as ApolloHooksProvider } from '@apollo/client';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { ApolloClient } from 'apollo-client';
 import { HttpLink } from 'apollo-link-http';

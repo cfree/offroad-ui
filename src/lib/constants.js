@@ -214,3 +214,18 @@ export const months = [
   'November',
   'December',
 ];
+
+export const weather = {
+  CLEAR: 'Clear',
+  PARTLY_CLOUDY: 'Partly Cloudy',
+  CLOUDY: 'Cloudy',
+  OVERCAST: 'Overcast',
+  FOG: 'Fog',
+  DRIZZLE: 'Drizzle',
+  RAIN: 'Rain',
+  STORMY: 'Thunderstorms',
+  HAIL: 'Hail',
+  TORNADO: 'Tornado',
+  SLEET: 'Wintry Mix',
+  SNOW: 'Snow',
+};

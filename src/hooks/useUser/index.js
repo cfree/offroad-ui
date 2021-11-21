@@ -1,4 +1,4 @@
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery } from '@apollo/client';
 
 import { CURRENT_USER_QUERY } from './useUser.graphql';
 

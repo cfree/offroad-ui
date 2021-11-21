@@ -40,3 +40,4 @@ export const userSchema = yup.object().shape({
     .required('Emergency contact phone number is required'),
   comfortLevel: yup.string(),
 });
+//^(?=[0-9]{11})([0-9]{5})([0-9]{8})([0-9])$

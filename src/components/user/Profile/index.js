@@ -1,5 +1,5 @@
 import React from 'react';
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery } from '@apollo/client';
 import differenceInYears from 'date-fns/differenceInYears';
 import { Link } from 'react-router-dom';
 import get from 'lodash/get';

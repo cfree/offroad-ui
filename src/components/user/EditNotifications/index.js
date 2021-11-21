@@ -1,5 +1,5 @@
 import React from 'react';
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery } from '@apollo/client';
 import { v4 as uuid } from 'uuid';
 
 import { NOTIFICATIONS_FORM_QUERY } from './editNotifications.graphql.js';

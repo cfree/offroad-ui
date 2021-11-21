@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useRef } from 'react';
-import { useMutation } from '@apollo/react-hooks';
+import { useMutation } from '@apollo/client';
 
 import { UPDATE_RIG, DELETE_RIG } from './rigUploader.graphql.js';
 // Refetch

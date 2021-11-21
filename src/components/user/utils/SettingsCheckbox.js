@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { useMutation } from '@apollo/react-hooks';
+import { useMutation } from '@apollo/client';
 import toast from 'react-hot-toast';
 
 import { NOTIFICATIONS_FORM_MUTATION } from '../EditNotifications/editNotifications.graphql.js';

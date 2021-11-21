@@ -2,12 +2,12 @@ import React from 'react';
 // import format from 'date-fns/format';
 import { Link } from 'react-router-dom';
 import get from 'lodash/get';
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery } from '@apollo/client';
 import ErrorMessage from '../../../utility/ErrorMessage';
 
 import { ACTIVITY_QUERY } from './activity.graphql';
 import Calendar from '../../../events/Calendar';
-import Filter from '../../../login/Filter';
+// import Filter from '../../../login/Filter';
 import { sortByDateDesc, isAtLeastRunLeader } from '../../../../lib/utils';
 
 import Styles from './activity.module.scss';

@@ -1,5 +1,5 @@
 import React from 'react';
-import { useQuery, useMutation } from '@apollo/react-hooks';
+import { useQuery, useMutation } from '@apollo/client';
 import { Formik, Field, ErrorMessage as FormikErrorMessage } from 'formik';
 import { Link } from 'react-router-dom';
 

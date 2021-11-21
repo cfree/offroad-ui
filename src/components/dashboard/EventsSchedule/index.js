@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery } from '@apollo/client';
 
 import { DASHBOARD_UPCOMING_EVENTS_QUERY } from './eventsSchedule.graphql';
 import Calendar from '../../events/Calendar';
