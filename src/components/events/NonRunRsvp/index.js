@@ -60,11 +60,15 @@ const NonRunRsvp = ({
   );
   const [
     setRsvp,
-    { loading: mutationLoading, error: mutationError },
+    { loading: mutationLoading, error: mutationError, data: mutationData },
   ] = useMutation(RSVP_MUTATION);
 
   if (mutationError) {
     toast.error(mutationError.message.replace('GraphQL error: ', ''));
+  }
+
+  if (!mutationLoading && !mutationError && mutationData) {
+    toast.success(mutationData.setRSVP.message);
   }
 
   const handleCloseModal = useCallback(() => {

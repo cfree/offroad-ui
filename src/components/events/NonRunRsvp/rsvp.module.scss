@@ -165,5 +165,5 @@
 
 .change-disabled {
   padding: 8px 10px;
-  background: $warning;
+  background: lighten($warning, 15%);
 }
