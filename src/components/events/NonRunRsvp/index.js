@@ -63,13 +63,14 @@ const NonRunRsvp = ({
     { loading: mutationLoading, error: mutationError, data: mutationData },
   ] = useMutation(RSVP_MUTATION);
 
-  if (mutationError) {
+  if (!mutationLoading && mutationError) {
     toast.error(mutationError.message.replace('GraphQL error: ', ''));
   }
 
-  if (!mutationLoading && !mutationError && mutationData) {
-    toast.success(mutationData.setRSVP.message);
-  }
+  // if (!mutationLoading && !mutationError && mutationData) {
+  // re-renders cause many toasts
+  //   toast.success(mutationData.setRSVP.message);
+  // }
 
   const handleCloseModal = useCallback(() => {
     setIsOpen(false);
@@ -124,7 +125,6 @@ const NonRunRsvp = ({
     userId,
     eventId,
     guestsCountInVehicle,
-    changeDisabled,
   ]);
 
   const handleNoClick = useCallback(() => {
@@ -159,14 +159,7 @@ const NonRunRsvp = ({
     };
 
     set();
-  }, [
-    localUserStatus,
-    setLocalUserStatus,
-    setRsvp,
-    userId,
-    eventId,
-    changeDisabled,
-  ]);
+  }, [localUserStatus, setLocalUserStatus, setRsvp, userId, eventId]);
 
   const getPastRsvpText = useCallback(() => {
     switch (localUserStatus) {
