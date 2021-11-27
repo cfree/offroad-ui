@@ -27,6 +27,10 @@ const InMemoriam = () => {
             </td>
           </tr>
           <tr>
+            <td>Mark Reddemann</td>
+            <td>Ashes at Kenny's Cabin</td>
+          </tr>
+          <tr>
             <td>Sam Nelson</td>
             <td>d: 6 Mar 2017. Emeritus Member, Charter Member</td>
           </tr>
@@ -36,11 +40,11 @@ const InMemoriam = () => {
           </tr>
           <tr>
             <td>Rich Reynolds</td>
-            <td>d: 25 Sept 2019. Charter Member</td>
+            <td>d: 25 Sept 2019</td>
           </tr>
           <tr>
-            <td>Mark Reddemann</td>
-            <td>Ashes at Kenny's Cabin</td>
+            <td>James "Beemer" Murphy</td>
+            <td>d: 28 May 2021</td>
           </tr>
         </tbody>
       </table>
