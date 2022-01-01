@@ -9,7 +9,7 @@ import Styles from './roster.module.scss';
 export class Roster extends Component {
   static defaultProps = {
     filters: {
-      accountStatus: ['ACTIVE'],
+      accountStatus: ['ACTIVE', 'PAST_DUE'],
       accountType: ['FULL', 'ASSOCIATE', 'EMERITUS'],
       role: [],
       office: [],

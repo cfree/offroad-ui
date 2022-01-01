@@ -116,7 +116,7 @@ export const RIGBOOK_QUERY = gql`
     }
     membership: getMembers(
       accountTypes: [FULL, ASSOCIATE, EMERITUS]
-      accountStatuses: [ACTIVE]
+      accountStatuses: [ACTIVE, PAST_DUE]
     ) {
       username
       id

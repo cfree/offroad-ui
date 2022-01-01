@@ -45,17 +45,18 @@ const Nav = ({ openMobileNav, router, ...props }) => {
               <li className={pathname === '/' ? 'active' : ''}>
                 <Link to="/">Dashboard</Link>
               </li>
-              {isActive(myself.accountStatus) && isMember(myself.accountType) && (
-                <li
-                  className={
-                    pathname === '/roster' || pathname === '/roster/list'
-                      ? 'active'
-                      : ''
-                  }
-                >
-                  <Link to="/roster">Roster</Link>
-                </li>
-              )}
+              {isActiveOrPastDue(myself.accountStatus) &&
+                isMember(myself.accountType) && (
+                  <li
+                    className={
+                      pathname === '/roster' || pathname === '/roster/list'
+                        ? 'active'
+                        : ''
+                    }
+                  >
+                    <Link to="/roster">Roster</Link>
+                  </li>
+                )}
               {isActiveOrPastDue(myself.accountStatus) && (
                 <li
                   className={
