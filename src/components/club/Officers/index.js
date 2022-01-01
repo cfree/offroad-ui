@@ -940,6 +940,9 @@ const Officers = () => {
           <div className={Styles['aside-content']}>
             <ul className={Styles['aside-list']}>
               <li>
+                <a href="#c-2021">2021</a>
+              </li>
+              <li>
                 <a href="#c-2020">2020</a>
               </li>
               <li>
