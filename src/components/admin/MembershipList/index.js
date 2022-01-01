@@ -9,7 +9,7 @@ import Styles from './membershipList.module.scss';
 export class MembershipList extends Component {
   state = {
     activeFilters: {
-      accountStatus: ['ACTIVE'],
+      accountStatus: ['ACTIVE', 'PAST_DUE'],
       accountType: ['FULL', 'ASSOCIATE', 'EMERITUS'],
       role: [],
       office: [],
