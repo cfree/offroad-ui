@@ -230,9 +230,18 @@ export const getUserRSVPStatus = (attendees, eventId, userId) => {
   return 'NONE';
 };
 
-export const getDuesAmountIncludingFees = (
+export const getFullMemberDuesAmount = () => {
+  return parseInt(process.env.REACT_APP_FULL_MEMBERSHIP_DUES, 10);
+};
+
+export const getAssociateMemberDuesAmount = () => {
+  return parseInt(process.env.REACT_APP_ASSOCIATE_MEMBERSHIP_DUES, 10);
+};
+
+export const getDuesAmount = (
   fullMemberCount = 1,
   associateMemberCount = 0,
+  includeFees = false,
 ) => {
   // Current: Stripe
   // 2.9% + $0.30 per transaction
@@ -245,7 +254,7 @@ export const getDuesAmountIncludingFees = (
 
   const dues = fullMemberDues + associateMemberDues;
 
-  return ((dues + 0.3) / (1 - 0.029)).toFixed(2);
+  return includeFees ? ((dues + 0.3) / (1 - 0.029)).toFixed(2) : dues;
 };
 
 export const convertToCents = (dollarAmt) => {

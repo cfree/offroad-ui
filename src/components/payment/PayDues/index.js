@@ -12,7 +12,7 @@ import ErrorMessage from '../../utility/ErrorMessage';
 import Loading from '../../utility/Loading';
 
 import {
-  getDuesAmountIncludingFees,
+  getDuesAmount,
   convertToCents,
   whatYearIsIt,
 } from '../../../lib/utils';
@@ -68,7 +68,7 @@ const PayDues = ({ onLoading, children }) => {
   }
 
   const { myself } = data;
-  const dues = getDuesAmountIncludingFees();
+  const dues = getDuesAmount();
 
   return (
     <>
