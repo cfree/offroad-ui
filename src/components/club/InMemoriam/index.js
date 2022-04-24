@@ -46,6 +46,10 @@ const InMemoriam = () => {
             <td>James "Beemer" Murphy</td>
             <td>d: 28 May 2021</td>
           </tr>
+          <tr>
+            <td>Jerry Holter</td>
+            <td>d: 9 Feb 2022</td>
+          </tr>
         </tbody>
       </table>
     </div>
