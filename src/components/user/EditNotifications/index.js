@@ -1,43 +1,75 @@
-import React from 'react';
-import { useQuery } from '@apollo/client';
-import { v4 as uuid } from 'uuid';
+import React, { useEffect, useState } from 'react';
+import { useQuery, useMutation } from '@apollo/react-hooks';
+import toast from 'react-hot-toast';
 
-import { NOTIFICATIONS_FORM_QUERY } from './editNotifications.graphql.js';
+import {
+  NEWSLETTER_PREFS_QUERY,
+  EDIT_NEWSLETTER_PREFS_MUTATION,
+} from './editNotifications.graphql.js';
 
-import ErrorMessage from '../../utility/ErrorMessage';
 import Loading from '../../utility/Loading';
-import { notificationsSettings } from '../../../lib/constants';
+import Switch from '../../common/Switch';
 import Filter from '../../login/Filter';
 import { isActiveOrPastDue, isMember } from '../../../lib/utils';
 
 import Styles from './editNotifications.module.scss';
-import SettingsCheckbox from '../utils/SettingsCheckbox.js';
 
 const EditNotifications = () => {
-  const {
-    data: queryData,
-    error: queryError,
-    loading: queryLoading,
-  } = useQuery(NOTIFICATIONS_FORM_QUERY);
+  const { data: queryData, loading: queryLoading } = useQuery(
+    NEWSLETTER_PREFS_QUERY,
+  );
+  const [
+    editNewsletterPreferences,
+    { data: mutationData, error: mutationError, loading: mutationLoading },
+  ] = useMutation(EDIT_NEWSLETTER_PREFS_MUTATION);
 
-  if (queryError) {
-    return <ErrorMessage error={queryError} />;
-  }
+  const [isSubscribedToMembers, setIsSubscribedToMembers] = useState();
+  const [isSubscribedToGeneral, setIsSubscribedToGeneral] = useState();
 
-  const { notificationSettings } = queryData || {
-    notificationSettings: {},
+  useEffect(() => {
+    if (queryData) {
+      setIsSubscribedToGeneral(queryData.generalPref.status === 'SUBSCRIBE');
+      setIsSubscribedToMembers(queryData.membersPref.status === 'SUBSCRIBE');
+    }
+  }, [queryData]);
+
+  useEffect(() => {
+    if (mutationData) {
+      toast.success(mutationData.editNewsletterPreferences.message);
+    }
+  }, [mutationData]);
+
+  useEffect(() => {
+    if (mutationError) {
+      toast.error(mutationError.message);
+    }
+  }, [mutationError]);
+
+  const handleMembersListClick = async (checked) => {
+    setIsSubscribedToMembers(checked);
+    await editNewsletterPreferences({
+      variables: {
+        action: checked ? 'SUBSCRIBE' : 'UNSUBSCRIBE',
+        list: 'MEMBERS',
+      },
+    });
   };
-
-  // const actualSettings = Object.entries(notificationSettings).filter(
-  //   ([key]) => !!notificationsSettings[key],
-  // );
+  const handleGeneralListClick = (checked) => {
+    setIsSubscribedToGeneral(checked);
+    editNewsletterPreferences({
+      variables: {
+        action: checked ? 'SUBSCRIBE' : 'UNSUBSCRIBE',
+        list: 'GENERAL',
+      },
+    });
+  };
 
   return (
     <div className={Styles['notifications-form']}>
       <div className={Styles['notifications-section-wrapper']}>
         <section className={Styles['notifications-section']}>
           <h3 className={Styles['notifications-heading']}>
-            Notifications Settings
+            Notification Settings
           </h3>
           <div>
             <p>
@@ -46,22 +78,34 @@ const EditNotifications = () => {
               to the marketing categories to which you’ve opted-in.
             </p>
 
-            <p>Please allow 24-48 hours for changes to take place.</p>
-
-            <ul>
-              <Filter statusCheck={isActiveOrPastDue} typeCheck={isMember}>
-                <li>
-                  <a href="https://4-playersofcolorado.us7.list-manage.com/unsubscribe?u=d2e88ec9413b12a7090dcb7a2&id=d70003e0c1">
-                    Click here to unsubscribe from the members mailing list
-                  </a>
-                </li>
-              </Filter>
-              <li>
-                <a href="https://4-playersofcolorado.us7.list-manage.com/unsubscribe?u=d2e88ec9413b12a7090dcb7a2&id=e6d31628f9">
-                  Click here to unsubscribe from the public mailing list
-                </a>
-              </li>
-            </ul>
+            <Filter statusCheck={isActiveOrPastDue} typeCheck={isMember}>
+              <p>
+                <strong>Members' Mailing List</strong>
+                {queryLoading ? (
+                  <Loading loading={mutationLoading} />
+                ) : (
+                  <Switch
+                    offLabel="Unsubscribed"
+                    onLabel="Subscribed"
+                    onClick={handleMembersListClick}
+                    onToStart={isSubscribedToMembers}
+                  />
+                )}
+              </p>
+            </Filter>
+            <p>
+              <strong>General Mailing List</strong>
+              {queryLoading ? (
+                <Loading loading={mutationLoading} />
+              ) : (
+                <Switch
+                  offLabel="Unsubscribed"
+                  onLabel="Subscribed"
+                  onClick={handleGeneralListClick}
+                  onToStart={isSubscribedToGeneral}
+                />
+              )}
+            </p>
 
             {/* <div className={Styles['change-notifications']}>
               <div className={Styles['notifications-details']}>

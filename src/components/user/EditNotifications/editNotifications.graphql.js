@@ -1,21 +1,22 @@
 import { gql } from 'apollo-boost';
 
-export const NOTIFICATIONS_FORM_QUERY = gql`
-  query NOTIFICATIONS_FORM_QUERY {
-    notificationSettings: notifications {
-      id
-      # accountSetupComplete
-      # oldSiteMigrationComplete
-      emailPublicNotifications
-      emailMemberNotifications
-      # emailEventAnnouncements
+export const NEWSLETTER_PREFS_QUERY = gql`
+  query NEWSLETTER_PREFS_QUERY {
+    membersPref: newsletterPreferences(list: MEMBERS) {
+      status
+    }
+    generalPref: newsletterPreferences(list: GENERAL) {
+      status
     }
   }
 `;
 
-export const NOTIFICATIONS_FORM_MUTATION = gql`
-  mutation NOTIFICATIONS_FORM_QUERY($settings: NotificationsSettingsInput!) {
-    notifications(settings: $settings) {
+export const EDIT_NEWSLETTER_PREFS_MUTATION = gql`
+  mutation EDIT_NEWSLETTER_PREFS_MUTATION(
+    $action: NewsletterAction!
+    $list: NewsletterList!
+  ) {
+    editNewsletterPreferences(action: $action, list: $list) {
       message
     }
   }

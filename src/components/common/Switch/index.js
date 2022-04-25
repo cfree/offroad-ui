@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { Switch as RebassSwitch } from '@rebass/forms';
 
 import Icon from '../../common/Icon';
@@ -14,6 +14,11 @@ const Switch = ({
   onToStart = false,
 }) => {
   const [isChecked, setIsChecked] = useState(onToStart);
+
+  useEffect(() => {
+    setIsChecked(onToStart);
+  }, [onToStart]);
+
   const handleClick = useCallback(() => {
     setIsChecked(!isChecked);
     onClick(!isChecked);
