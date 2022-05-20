@@ -14,7 +14,10 @@ import { UPCOMING_EVENTS_QUERY } from '../EventList/eventList.graphql';
 import EventForm from '../EventForm';
 import ErrorMessage from '../../utility/ErrorMessage';
 import { uploadImage } from '../../../lib/utils';
+import DeleteEvent from '../DeleteEvent';
 // import UploadImagePreview from '../../common/UploadImagePreview';
+
+import Styles from './editEvent.module.scss';
 
 /**
  * Date round-trip
@@ -67,7 +70,11 @@ class EditEvent extends Component {
 
           return (
             <>
-              <h3>Edit Event</h3>
+              <div className={Styles.title}>
+                <h3>Edit Event</h3>
+                <DeleteEvent id={existingEventId} />
+              </div>
+
               <Mutation
                 mutation={EDIT_EVENT_MUTATION}
                 refetchQueries={[
