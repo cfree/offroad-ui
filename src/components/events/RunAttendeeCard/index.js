@@ -111,7 +111,7 @@ const RunAttendeeCard = ({ rsvp, startOpen = false, isLeader = false }) => {
                 </>
               )}
           </li>
-          {member.contactInfo.phone && (
+          {member.contactInfo && member.contactInfo.phone && (
             <li>
               <Icon
                 className={Styles['event__details-list__icon']}
