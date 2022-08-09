@@ -26,6 +26,7 @@ import {
   isNotDelinquent,
   isRejected,
   isNotRejected,
+  isActiveOrPastDue,
 } from '../../../lib/utils';
 
 import Styles from './dashboard.module.scss';
@@ -51,32 +52,38 @@ const Dashboard = () => (
                       </div>
                     </Filter>
 
-                    <Filter typeCheck={isMember}>
-                      <Filter statusCheck={isNotDelinquent}>
-                        <div className={Styles['third']}>
-                          <Link to="/roster" className={Styles['roster-link']}>
-                            Roster
-                          </Link>
-                        </div>
-                        <div className={Styles['third']}>
-                          <Link
-                            to="/history"
-                            className={Styles['history-link']}
-                          >
-                            Club History
-                          </Link>
-                        </div>
-                        <div className={Styles['third']}>
-                          <Link
-                            to="/documents"
-                            className={Styles['document-link']}
-                          >
-                            Documents
-                          </Link>
-                        </div>
+                    <div className={Styles['third']}>
+                      <Filter
+                        typeCheck={isMember}
+                        statusCheck={isNotDelinquent}
+                      >
+                        <Link to="/roster" className={Styles['roster-link']}>
+                          Roster
+                        </Link>
                       </Filter>
+                    </div>
+                    <div className={Styles['third']}>
+                      <Filter
+                        typeCheck={isMember}
+                        statusCheck={isNotDelinquent}
+                      >
+                        <Link to="/history" className={Styles['history-link']}>
+                          Club History
+                        </Link>
+                      </Filter>
+                    </div>
+                    <div className={Styles['third']}>
+                      <Filter statusCheck={isActiveOrPastDue}>
+                        <Link
+                          to="/documents"
+                          className={Styles['document-link']}
+                        >
+                          Documents
+                        </Link>
+                      </Filter>
+                    </div>
 
-                      {/* <div className={Styles['two-thirds']}>
+                    {/* <div className={Styles['two-thirds']}>
                             <RecentPhotos />
                           </div>
 
@@ -84,8 +91,7 @@ const Dashboard = () => (
                             <RecentCheckIns />
                           </div>
                         </div> */}
-                      {/* <PollingPlace /> */}
-                    </Filter>
+                    {/* <PollingPlace /> */}
                   </div>
                 </Filter>
               </Filter>

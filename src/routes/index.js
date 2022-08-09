@@ -53,7 +53,6 @@ const Routes = () => {
       <GuardedRoute
         path="/documents"
         component={DocumentsPage}
-        typeCheck={isMember}
         statusCheck={isActiveOrPastDue}
       />
       <GuardedRoute

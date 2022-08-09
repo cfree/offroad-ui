@@ -4,8 +4,10 @@ import { useQuery } from '@apollo/client';
 
 import Hr from '../../common/Hr';
 import { months } from '../../../lib/constants';
+import { isAtLeastEmeritusMember } from '../../../lib/utils';
 
 import Styles from './documents.module.scss';
+import Filter from '../../login/Filter';
 
 const DOCS_QUERY = gql`
   query DOCS_QUERY {
@@ -87,72 +89,76 @@ const Documents = () => {
         </li>
       </ul>
 
-      <Hr />
+      <Filter roleCheck={isAtLeastEmeritusMember}>
+        <>
+          <Hr />
 
-      <h3>Monthly Archives</h3>
+          <h3>Monthly Archives</h3>
 
-      <p>
-        Our records are incomplete, so if you can provide some missing details,
-        please contact the{' '}
-        <a href="mailto:webmaster@4-playersofcolorado.org">webmaster</a>.
-      </p>
+          <p>
+            Our records are incomplete, so if you can provide some missing
+            details, please contact the{' '}
+            <a href="mailto:webmaster@4-playersofcolorado.org">webmaster</a>.
+          </p>
 
-      <div className={Styles['archive-content']}>
-        <div className={Styles['archive-lists']}>
-          <section>
-            {archives.map(({ year, monthlyArchives }) => (
-              <>
-                <h4 id={`c-${year}`}>{year}</h4>
-                <dl className={Styles['archive-list']}>
-                  {monthlyArchives.map(
-                    ({ month, meetingMinutes, newsletter }) => (
-                      <>
-                        <dt>{months[month]}</dt>
-                        <dd>
-                          {meetingMinutes && (
-                            <a
-                              href={meetingMinutes.link}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              download
-                            >
-                              {meetingMinutes.name}
-                            </a>
-                          )}
-                          {newsletter && (
-                            <>
-                              <br />
-                              <a
-                                href={newsletter.link}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                download
-                              >
-                                {newsletter.name}
-                              </a>
-                            </>
-                          )}
-                        </dd>
-                      </>
-                    ),
-                  )}
-                </dl>
-              </>
-            ))}
-          </section>
-        </div>
-        <aside className={Styles['aside']}>
-          <div className={Styles['aside-content']}>
-            <ul className={Styles['aside-list']}>
-              {yearsAvailable.map((year) => (
-                <li>
-                  <a href={`#c-${year}`}>{year}</a>
-                </li>
-              ))}
-            </ul>
+          <div className={Styles['archive-content']}>
+            <div className={Styles['archive-lists']}>
+              <section>
+                {archives.map(({ year, monthlyArchives }) => (
+                  <>
+                    <h4 id={`c-${year}`}>{year}</h4>
+                    <dl className={Styles['archive-list']}>
+                      {monthlyArchives.map(
+                        ({ month, meetingMinutes, newsletter }) => (
+                          <>
+                            <dt>{months[month]}</dt>
+                            <dd>
+                              {meetingMinutes && (
+                                <a
+                                  href={meetingMinutes.link}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  download
+                                >
+                                  {meetingMinutes.name}
+                                </a>
+                              )}
+                              {newsletter && (
+                                <>
+                                  <br />
+                                  <a
+                                    href={newsletter.link}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    download
+                                  >
+                                    {newsletter.name}
+                                  </a>
+                                </>
+                              )}
+                            </dd>
+                          </>
+                        ),
+                      )}
+                    </dl>
+                  </>
+                ))}
+              </section>
+            </div>
+            <aside className={Styles['aside']}>
+              <div className={Styles['aside-content']}>
+                <ul className={Styles['aside-list']}>
+                  {yearsAvailable.map((year) => (
+                    <li>
+                      <a href={`#c-${year}`}>{year}</a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </aside>
           </div>
-        </aside>
-      </div>
+        </>
+      </Filter>
     </div>
   );
 };
