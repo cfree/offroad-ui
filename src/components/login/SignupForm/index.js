@@ -182,6 +182,25 @@ const SignupForm = () => {
                   </div>
                 </div>
 
+                {/* <div className={Styles['form-field-wrapper']}>
+                  <label className={Styles['form-label']} htmlFor="pronouns">
+                    Pronouns
+                  </label>
+                  <div className={Styles['form-field']}>
+                    <Field
+                      type="text"
+                      onChange={formikProps.handleChange}
+                      id="pronouns"
+                      name="pronouns"
+                      placeholder="ex: he/him"
+                    />
+                    <FormikErrorMessage
+                      name="pronouns"
+                      component={FormErrorMessage}
+                    />
+                  </div>
+                </div> */}
+
                 <div className={Styles['form-field-wrapper']}>
                   <label className={Styles['form-label']} htmlFor="birthdate">
                     Birthdate

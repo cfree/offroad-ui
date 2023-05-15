@@ -25,11 +25,11 @@ export const RUN_REPORT_QUERY = gql`
         name
       }
     }
-    users: runReportUsers {
-      id
-      firstName
-      lastName
-    }
+    # users: runReportUsers {
+    #   id
+    #   firstName
+    #   lastName
+    # }
   }
 `;
 

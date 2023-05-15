@@ -21,7 +21,9 @@ import Styles from './runReportForm.module.scss';
 
 const RunReportForm = () => {
   const { error: userError, loading: userLoading, data: userData } = useUser();
-  const { eventId } = useParams();
+  const params = useParams();
+  const eventId = params.id;
+
   const {
     error: queryError,
     loading: queryLoading,
@@ -44,8 +46,8 @@ const RunReportForm = () => {
   const { event } = queryData;
   const { myself } = userData;
 
-  if (myself.id !== event.host.id || event.type !== 'RUN') {
-    throw new Error();
+  if (myself.id !== event.host.id) {
+    return <ErrorMessage message="Only the run leader can submit a report" />;
   }
 
   const initialValues = {

@@ -31,6 +31,19 @@ import {
 
 import Styles from './dashboard.module.scss';
 
+const mainStatusFilters = [
+  isNotRejected,
+  isNotInactive,
+  isNotLimited,
+  wasNotRemoved,
+  hasNotResigned,
+  isNotLocked,
+];
+
+const mainStatusChecks = (status) => {
+  return !mainStatusFilters.some((fn) => fn(status));
+};
+
 const Dashboard = () => (
   <div>
     <Filter statusCheck={isNotRejected}>
