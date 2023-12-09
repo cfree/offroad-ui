@@ -50,6 +50,10 @@ const InMemoriam = () => {
             <td>Jerry Holter</td>
             <td>d: 9 Feb 2022</td>
           </tr>
+          <tr>
+            <td>Tom Eskridge</td>
+            <td>d: 21 May 2023</td>
+          </tr>
         </tbody>
       </table>
     </div>
