@@ -4,7 +4,7 @@ import { useQuery } from '@apollo/client';
 
 import Hr from '../../common/Hr';
 import { months } from '../../../lib/constants';
-import { isAtLeastEmeritusMember } from '../../../lib/utils';
+import { isMember } from '../../../lib/utils';
 
 import Styles from './documents.module.scss';
 import Filter from '../../login/Filter';
@@ -89,7 +89,7 @@ const Documents = () => {
         </li>
       </ul>
 
-      <Filter roleCheck={isAtLeastEmeritusMember}>
+      <Filter roleCheck={isMember}>
         <>
           <Hr />
 

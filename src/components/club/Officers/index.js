@@ -20,6 +20,35 @@ const Officers = () => {
 
       <div className={Styles['officers-content']}>
         <div className={Styles['officers-lists']}>
+          <h4 id="c-2024">2024</h4>
+
+          <table className={Styles['officers-list']}>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Title</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Jacob Adkisson</td>
+                <td>President</td>
+              </tr>
+              <tr>
+                <td>Nathan Cordova</td>
+                <td>Vice President</td>
+              </tr>
+              <tr>
+                <td>Michael Stuemke</td>
+                <td>Secretary</td>
+              </tr>
+              <tr>
+                <td>Jason Dean</td>
+                <td>Treasurer</td>
+              </tr>
+            </tbody>
+          </table>
+
           <h4 id="c-2023">2023</h4>
 
           <table className={Styles['officers-list']}>
@@ -997,6 +1026,12 @@ const Officers = () => {
         <aside className={Styles['aside']}>
           <div className={Styles['aside-content']}>
             <ul className={Styles['aside-list']}>
+              <li>
+                <a href="#c-2024">2024</a>
+              </li>
+              <li>
+                <a href="#c-2023">2023</a>
+              </li>
               <li>
                 <a href="#c-2022">2022</a>
               </li>
