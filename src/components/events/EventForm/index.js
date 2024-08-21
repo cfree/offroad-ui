@@ -452,30 +452,23 @@ const EventForm = ({
                   </div>
                 </div>
 
-                {formikProps.values.type === 'RUN' && (
-                  <div className={Styles['form-field-wrapper']}>
-                    <label
-                      className={Styles['event-form-label']}
-                      htmlFor="maxRigs"
-                    >
-                      Max number of rigs
-                    </label>
-                    <div className={Styles['event-form-field']}>
-                      <Field
-                        type="number"
-                        min="-1"
-                        id="maxRigs"
-                        name="maxRigs"
-                      />
-                      <br />
-                      <small>-1 is unlimited</small>
-                      <FormikErrorMessage
-                        name="maxRigs"
-                        component={FormErrorMessage}
-                      />
-                    </div>
+                <div className={Styles['form-field-wrapper']}>
+                  <label
+                    className={Styles['event-form-label']}
+                    htmlFor="maxRigs"
+                  >
+                    Max number of rigs
+                  </label>
+                  <div className={Styles['event-form-field']}>
+                    <Field type="number" min="-1" id="maxRigs" name="maxRigs" />
+                    <br />
+                    <small>-1 is unlimited</small>
+                    <FormikErrorMessage
+                      name="maxRigs"
+                      component={FormErrorMessage}
+                    />
                   </div>
-                )}
+                </div>
 
                 <div className={Styles['form-footer']}>
                   <button
