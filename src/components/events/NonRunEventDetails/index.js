@@ -23,6 +23,7 @@ import {
   isFullMember,
   onMapImgError,
   getMaxAttendees,
+  getMaxRigs,
 } from '../../../lib/utils';
 import { eventTypes } from '../../../lib/constants';
 import Icon from '../../common/Icon';
@@ -66,6 +67,9 @@ const NonRunEventDetails = ({ eventId }) => {
   );
   const memberCount = allAttendees.length;
   const attendeeCount = guestCount + memberCount;
+  const rigCount = allAttendees.filter((attendee) => {
+    return !attendee.isRider;
+  }).length;
 
   const userStatus = () => {
     const rsvp = event.rsvps.find((rsvp) => rsvp.member.id === myself.id);
@@ -90,9 +94,10 @@ const NonRunEventDetails = ({ eventId }) => {
 
   const eventType = eventTypes[event.type];
   const fullUp =
-    event.maxAttendees &&
-    event.maxAttendees !== -1 &&
-    event.maxAttendees <= attendeeCount;
+    (event.maxAttendees &&
+      event.maxAttendees !== -1 &&
+      event.maxAttendees <= attendeeCount) ||
+    (event.maxRigs && event.maxRigs !== -1 && event.maxRigs <= rigCount);
 
   return (
     <>
@@ -134,6 +139,7 @@ const NonRunEventDetails = ({ eventId }) => {
           pastEvent={isPastEvent}
           userRsvp={userRsvp()}
           maxAttendees={event.maxAttendees}
+          maxRigs={event.maxRigs}
           fullUp={fullUp}
           changeDisabled={event.changeDisabled}
         />
@@ -165,6 +171,17 @@ const NonRunEventDetails = ({ eventId }) => {
               </Icon>
             </dt>
             <dd>{eventType}</dd>
+
+            {event.maxRigs && event.maxRigs > -1 && (
+              <>
+                <dt>
+                  <Icon className={Styles[`event__type-icon`]} icon="count">
+                    Max Rigs
+                  </Icon>
+                </dt>
+                <dd>{getMaxRigs(event.maxRigs)}</dd>
+              </>
+            )}
 
             {event.maxAttendees && event.maxAttendees > -1 && (
               <>
@@ -251,6 +268,9 @@ const NonRunEventDetails = ({ eventId }) => {
           <h3>Attendees</h3>
 
           <div className={Styles['event__stats']}>
+            <div className={Styles['event__stat']}>
+              {getStat(rigCount, event.maxRigs, 'rig', 'rigs')}
+            </div>
             <div className={Styles['event__stat']}>
               {getStat(
                 attendeeCount,

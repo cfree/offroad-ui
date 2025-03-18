@@ -34,5 +34,6 @@ export const nonRunEventSchema = yup.object().shape({
   membersOnly: yup.boolean(),
   host: yup.string(), // ID
   maxAttendees: yup.number().integer().min(-1),
+  maxRigs: yup.number().integer().min(-1),
   changeDisabled: yup.boolean(),
 });
