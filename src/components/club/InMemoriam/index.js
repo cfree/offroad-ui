@@ -58,6 +58,10 @@ const InMemoriam = () => {
             <td>Dash Dewar</td>
             <td>d: 12 Mar 2025</td>
           </tr>
+          <tr>
+            <td>David "Daddy Dawg" Faull</td>
+            <td>d: 11 Mar 2026. Emeritus Member, Charter Member</td>
+          </tr>
         </tbody>
       </table>
     </div>
