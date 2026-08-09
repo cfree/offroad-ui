@@ -39,7 +39,11 @@ const Officers = () => {
                 <td>Vice President</td>
               </tr>
               <tr>
-                <td>Wes Stroh</td>
+                <td>
+                  <div>
+                    Wes Stroh <small>(July-present)</small>
+                  </div>
+                </td>
                 <td>Secretary</td>
               </tr>
               <tr>
